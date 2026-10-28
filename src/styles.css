@@ -1138,30 +1138,29 @@ html.is-searching, html.is-searching body { overflow: hidden; }
 .assess__back:hover { border-color: var(--purple); }
 @media (max-width: 1279px) { .assess__grid input, .assess__grid select { font-size: 16px; height: 5rem; } .assess__grid label { font-size: 14px; } .assess__steps { font-size: 13px; } }
 
-/* ===== Hero lead capture: email/phone + CTA (v90) ===== */
-.hcap { width: 100%; max-width: 60rem; }
-.hcap__row { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.6rem 0.6rem 2.2rem; border-radius: 10rem; background: #fff; border: 1px solid var(--lav-border, #e4e0f2); box-shadow: 0 1.2rem 3.2rem rgba(106, 65, 249, 0.08); transition: border-color 0.3s, box-shadow 0.3s; }
-.hcap__row:focus-within { border-color: var(--purple); box-shadow: 0 0 0 0.4rem rgba(106, 65, 249, 0.12), 0 1.2rem 3.2rem rgba(106, 65, 249, 0.1); }
-.hcap__row.is-err { border-color: #e5484d; }
+/* ===== Hero lead capture: separate email/phone field + CTA button (v92) ===== */
+.hcap { width: 100%; max-width: 56rem; }
+.hcap__row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 1.2rem; }
+.hcap__field { flex: 1 1 100%; min-width: 0; display: flex; align-items: center; gap: 1rem; height: 5.6rem; padding: 0 2rem; border-radius: 10rem; background: #fff; border: 1px solid var(--lav-border, #e4e0f2); box-shadow: 0 1rem 2.8rem rgba(106, 65, 249, 0.07); transition: border-color 0.3s, box-shadow 0.3s; }
+.hcap__field:focus-within { border-color: var(--purple); box-shadow: 0 0 0 0.4rem rgba(106, 65, 249, 0.12); }
+.hcap__row.is-err .hcap__field { border-color: #e5484d; }
 .hcap__ic { flex: none; color: var(--purple); }
-.hcap input { flex: 1; min-width: 0; height: 5.2rem; border: 0; outline: none; background: transparent; font: inherit; font-size: 1.8rem; color: var(--ink-2); }
+.hcap input { flex: 1; min-width: 0; height: 100%; border: 0; outline: none; background: transparent; font: inherit; font-size: 1.8rem; color: var(--ink-2); text-overflow: ellipsis; }
 .hcap input::placeholder { color: #9a98ab; }
-.hcap__btn { flex: none; display: inline-flex; align-items: center; gap: 0.8rem; height: 5.6rem; padding-inline: 2.8rem 2.2rem; border-radius: 10rem; background: var(--purple); color: #fff; font-weight: 500; font-size: 1.8rem; white-space: nowrap; transition: background 0.3s; }
+.hcap__btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 0.8rem; height: 5.6rem; padding-inline: 2.8rem 2.4rem; border-radius: 10rem; background: var(--purple); color: #fff; font-weight: 500; font-size: 1.8rem; white-space: nowrap; transition: background 0.3s; }
 .hcap__btn:hover { background: #5a33e6; }
 .hcap__btn svg { transition: transform 0.4s cubic-bezier(.16,1,.3,1); }
 .hcap__btn:hover svg { transform: translateX(0.4rem); }
-.hcap__fine { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; margin-top: 1.2rem; padding-left: 2.2rem; font-size: 1.4rem; color: #6b6f7c; }
+.hcap__fine { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; margin-top: 1.2rem; padding-left: 0.4rem; font-size: 1.4rem; color: #6b6f7c; }
 .hcap__fine span { display: inline-flex; align-items: center; gap: 0.5rem; }
 .hcap__fine svg { color: var(--purple); }
 .hcap__fine .hcap__err { color: #e5484d; }
 @media (max-width: 640px) {
-  .hcap__row { flex-direction: column; align-items: stretch; padding: 0.6rem; border-radius: 2rem; gap: 0.6rem; }
-  .hcap__field { display: flex; align-items: center; gap: 1rem; padding-left: 1.4rem; }
+  .hcap__field { flex-basis: 100%; height: 5.4rem; }
+  .hcap__btn { flex-basis: 100%; height: 5.4rem; font-size: 16px; }
   .hcap input { font-size: 16px; }
-  .hcap__btn { justify-content: center; font-size: 16px; }
-  .hcap__fine { padding-left: 0.4rem; font-size: 13px; }
+  .hcap__fine { font-size: 13px; }
 }
-@media (min-width: 641px) { .hcap__field { display: contents; } }
 
 /* EHR logos on tablet/phone: the floating pills are desktop-only, so show a tidy grid instead (v90) */
 .plat__mob { display: none; }
