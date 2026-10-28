@@ -1174,8 +1174,9 @@ html.is-searching, html.is-searching body { overflow: hidden; }
 @media (max-width: 640px) { .plat__mob { grid-template-columns: repeat(2, minmax(0, 1fr)); } .plat__mob li { height: 7.2rem; } }
 
 /* ===== US flag cues (v91): flag rides the States menu + hero eyebrow, no pills ===== */
-.us-flag { display: block; height: auto; border-radius: 0.2rem; box-shadow: 0 0 0 1px rgba(25, 37, 51, 0.1); flex: none; }
-.nav__flag { width: 2rem; margin-right: 0.8rem; }
+.us-flag { display: block; height: auto; flex: none; }
+.nav__flag { width: 1.9rem; margin-right: -0.3rem; }
+.mm__lab .nav__flag { margin-right: 0.6rem; }
 .mm__lab { display: inline-flex; align-items: center; }
 .hero__eyebrow { display: flex; align-items: center; gap: 1rem; }
 .hero__flag { width: 2.2rem; }
