@@ -1,8 +1,10 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Button, CountUp, SplitWords, UsFlag } from '../components/ui';
+import { CountUp, SplitWords, UsFlag } from '../components/ui';
 import { HeroCarousel } from './HeroCarousel';
 import { ease } from '../motion';
+import { Users, BadgeCheck } from 'lucide-react';
+import { HeroCapture } from '../components/HeroCapture';
 import hipaa from '../assets/hipaa-badge.png';
 
 export function Hero({ show }: { show: boolean }) {
@@ -40,11 +42,13 @@ export function Hero({ show }: { show: boolean }) {
             </motion.div>
           </div>
         </div>
-        <motion.div {...up(1)}><Button>Get a free revenue assessment</Button></motion.div>
+        <motion.div {...up(1)}><HeroCapture source="home" /></motion.div>
         <motion.div className="hero__trusted" {...up(1.2)}>
           <p className="eyebrow">Certified by</p>
           <div className="hero__certs">
-            <span className="hero__badge"><img src={hipaa} alt="" className="hero__hipaa" /></span><span className="hero__cert"><b>HIPAA compliant</b><small>BAA signed with every client</small></span>
+            <div className="hero__certi"><span className="hero__badge"><img src={hipaa} alt="" className="hero__hipaa" /></span><span className="hero__cert"><b>HIPAA compliant</b><small>BAA signed with every client</small></span></div>
+            <div className="hero__certi"><span className="hero__badge hero__badge--ic"><Users /></span><span className="hero__cert"><b>30+ US-based</b><small>billers and coders</small></span></div>
+            <div className="hero__certi"><span className="hero__badge hero__badge--ic"><BadgeCheck /></span><span className="hero__cert"><b>Certified coders</b><small>CPC, CCS and specialty credentials</small></span></div>
           </div>
         </motion.div>
       </motion.div>
