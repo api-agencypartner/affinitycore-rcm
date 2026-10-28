@@ -164,14 +164,14 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.25 } }} transition={{ duration: 0.3 }}>
       <motion.div className="mm__panel" initial={{ y: -24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} transition={{ duration: 0.45, ease: ease.out }}>
         <div className="mm__head">
-          <a href="#/" className="nav__logo" onClick={onClose} aria-label="Affinity Core RCM, home"><Logo /><span className="nav__sub" aria-hidden><i />RCM<UsFlag className="nav__sub-flag" /></span></a>
+          <a href="#/" className="nav__logo" onClick={onClose} aria-label="Affinity Core RCM, home"><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></a>
           <button type="button" className="mm__close" onClick={onClose} aria-label="Close menu"><X /></button>
         </div>
         <nav className="mm__body">
           {groups.map((g, gi) => (
             <motion.div key={g.id} className={`mm__group ${sec === g.id ? 'is-open' : ''}`} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: ease.out, delay: 0.08 + gi * 0.05 }}>
               <button type="button" className="mm__tog" aria-expanded={sec === g.id} onClick={() => setSec(sec === g.id ? null : g.id)}>
-                {g.label}<span className="mm__plus"><Plus /></span>
+                <span className="mm__lab">{g.id === 'states' && <UsFlag className="nav__flag" />}{g.label}</span><span className="mm__plus"><Plus /></span>
               </button>
               <AnimatePresence initial={false}>
                 {sec === g.id && (
@@ -231,20 +231,19 @@ export function Nav({ show }: { show: boolean }) {
         transition={{ duration: 1, ease: ease.curtain }}
         initial="hidden" animate={show ? 'show' : 'hidden'}
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.55 } } }}>
-        <motion.a href="#/" variants={item} className="nav__logo" aria-label="Affinity Core RCM, home" onMouseEnter={() => scheduleClose()}><Logo /><span className="nav__sub" aria-hidden><i />RCM<UsFlag className="nav__sub-flag" /></span></motion.a>
+        <motion.a href="#/" variants={item} className="nav__logo" aria-label="Affinity Core RCM, home" onMouseEnter={() => scheduleClose()}><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></motion.a>
         <ul className="nav__links">
           {(SHOW_STATES ? (['services', 'specialties', 'states', 'insights'] as const) : (['services', 'specialties', 'insights'] as const)).map((m) => (
             <motion.li key={m} variants={item}>
               <button className={`nav__trigger ${open === m ? 'is-open' : ''}`} aria-expanded={open === m} aria-haspopup="true"
                 onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (m === 'services' || m === 'specialties') { window.location.hash = `/${m}`; setOpen(null); } else setOpen(open === m ? null : m); }}>
-                {m === 'services' ? 'Services' : m === 'specialties' ? 'Specialties' : m === 'states' ? 'States' : 'Insights'}
+                {m === 'services' ? 'Services' : m === 'specialties' ? 'Specialties' : m === 'states' ? <><UsFlag className="nav__flag" />States</> : 'Insights'}
                 <motion.span animate={{ rotate: open === m ? 180 : 0 }} transition={{ duration: 0.4, ease: ease.out }} style={{ display: 'grid' }}><Chevron /></motion.span>
               </button>
             </motion.li>
           ))}
         </ul>
         <div className="nav__actions" onMouseEnter={() => scheduleClose()}>
-          <motion.span variants={item} className="nav__us" title="Medical billing for US practices, by a US-based team"><UsFlag /><span className="nav__us-t">US-based</span></motion.span>
           <motion.div variants={item}><SearchButton /></motion.div>
           <motion.a variants={{ hidden: { scale: 0, opacity: 0 }, show: { scale: 1, opacity: 1, transition: { type: 'spring', stiffness: 300, damping: 22 } } }}
             className="nav__phone" href="tel:+12148512698" aria-label="Call us at 214-851-2698" whileHover="ring">

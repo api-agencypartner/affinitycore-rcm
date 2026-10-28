@@ -23,7 +23,7 @@ export function Hero({ show }: { show: boolean }) {
     <section className="hero" id="top" ref={ref}>
       <motion.div className="hero__content" style={{ y: contentY, opacity: contentO }}>
         <div className="hero__copy">
-          <motion.p className="eyebrow hero__eyebrow" {...up(0.1)}>/ End-to-end revenue cycle management <span className="hero__us"><UsFlag /> For US practices</span></motion.p>
+          <motion.p className="eyebrow hero__eyebrow" {...up(0.1)}><UsFlag className="hero__flag" />/ Revenue cycle management for U.S. practices</motion.p>
           <SplitWords as="h1" className="hero__title" animateNow={show} delay={d + 0.2} stagger={0.06}
             lines={['You care for patients.', 'We make sure you get paid.']} bold={['paid.']} />
           <motion.p className="hero__sub" {...up(0.55)}>
