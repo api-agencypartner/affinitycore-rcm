@@ -3,7 +3,7 @@
  * plus the primary "Get a free revenue assessment" button. On submit the contact is carried into
  * step 1 of the assessment form and the page scrolls there, so nothing is typed twice.
  */
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { ArrowRight, Mail, ShieldCheck, Clock } from 'lucide-react';
 import { prefillLead, isEmail, isPhone } from '../data/lead';
 import { goAnchor } from '../router';
@@ -11,6 +11,16 @@ import { goAnchor } from '../router';
 export function HeroCapture({ source }: { source?: string }) {
   const [v, setV] = useState('');
   const [err, setErr] = useState(false);
+  const inp = useRef<HTMLInputElement>(null);
+  // Edge case: shrink the type for very long emails so the whole address stays visible (desktop/tablet only)
+  useLayoutEffect(() => {
+    const el = inp.current; if (!el) return;
+    el.style.removeProperty('--fs');
+    if (window.innerWidth <= 640) return;
+    const base = parseFloat(getComputedStyle(el).fontSize);
+    let fs = base;
+    while (el.scrollWidth > el.clientWidth + 1 && fs > Math.max(11.5, base * 0.8)) { fs -= 0.5; el.style.setProperty('--fs', `${fs}px`); }
+  }, [v]);
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (v.trim() && !isEmail(v) && !isPhone(v)) { setErr(true); return; }
@@ -23,7 +33,7 @@ export function HeroCapture({ source }: { source?: string }) {
       <div className={`hcap__row ${err ? 'is-err' : ''}`}>
         <span className="hcap__field">
           <Mail size={20} className="hcap__ic" aria-hidden />
-          <input type="text" inputMode="email" autoComplete="email" aria-label="Work email or phone number" placeholder="Work email or phone"
+          <input ref={inp} type="text" inputMode="email" autoComplete="email" aria-label="Work email or phone number" placeholder="Work email or phone"
             value={v} onChange={(e) => { setV(e.target.value); setErr(false); }} />
         </span>
         <button type="submit" className="hcap__btn">Get a free revenue assessment <ArrowRight size={18} /></button>
