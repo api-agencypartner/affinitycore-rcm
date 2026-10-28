@@ -825,3 +825,26 @@
 .tr svg { padding: 1rem; }
 .tr b { font-size: 1.875rem; }
 .tr small { font-size: 1.56rem; }
+
+/* ===== Leak list: red = where it leaks, green = how we stop it (v92) ===== */
+.ll__cols { gap: 1.2rem; }
+.ll__cols span:nth-child(1) { color: #d93a43; }
+.ll__cols span:nth-child(2) { color: #128a5b; }
+.ll__cols span:nth-child(1), .ll__cols span:nth-child(2) { padding-left: 2rem; }
+.ll__rows li { gap: 1.2rem; padding: 1rem 0; border-top: 0; }
+.ll__leak, .ll__fix { height: 100%; padding: 1.6rem 2rem; border-radius: 1.6rem; }
+.ll__leak { background: linear-gradient(90deg, #fff1f1, #fff8f8); box-shadow: inset 3px 0 0 #f2777d; }
+.ll__fix { background: linear-gradient(90deg, #ecfaf3, #f5fcf8); box-shadow: inset 3px 0 0 #2fb67c; color: #2c4a3d; }
+.ll__x { background: #fde2e3; color: #d93a43; }
+.ll__ok { background: #1fa86f; color: #fff; }
+.ll__amt { justify-content: center; height: 100%; padding: 1.6rem 0 1.6rem 1.2rem; }
+.ll__amt b { color: #d93a43; }
+.ll__meter { background: #fdeaea; }
+.ll__meter i { background: linear-gradient(90deg, #f2777d, #d93a43); }
+.ll__rows li:hover .ll__leak { background: #ffeaea; }
+.ll__rows li:hover .ll__fix { background: #e3f7ed; }
+@media (max-width: 1279px) {
+  .ll__rows li { gap: 0.8rem; padding: 1.6rem 0; border-top: 1px solid #f0edf8; }
+  .ll__leak, .ll__fix { padding: 1.4rem 1.6rem; }
+  .ll__amt { padding: 0; }
+}

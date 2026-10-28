@@ -5,8 +5,9 @@
  * (no hover or tab needed), which also keeps it in the server-rendered markup in the Next.js build.
  * Content is assembled from each page's own data, so every page reads differently.
  */
-import { useEffect, useState, type ReactNode } from 'react';
-import { ArrowRight, BookOpen, CheckCircle2, Sparkles } from 'lucide-react';
+import { useRef, useState, type ReactNode } from 'react';
+import { motion } from 'motion/react';
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Sparkles } from 'lucide-react';
 import { Eyebrow } from './ui';
 import { Link } from '../router';
 import type { ServiceFull } from '../data/services';
@@ -23,32 +24,63 @@ const strip = (t: string) => t.replace(/\s*\[Confirm with Affinity Core\]/g, '')
 const words = (g: Guide) => g.answer.split(' ').length + g.secs.length * 140;
 
 export function PageGuide({ g }: { g: Guide }) {
-  const [on, setOn] = useState(g.secs[0].id);
-  useEffect(() => {
-    const els = g.secs.map((s) => document.getElementById(`pg-${g.key}-${s.id}`)).filter(Boolean) as HTMLElement[];
-    const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) setOn(e.target.id.split('-').pop()!); }), { rootMargin: '-35% 0px -55% 0px' });
-    els.forEach((e) => o.observe(e)); return () => o.disconnect();
-  }, [g]);
-  const jump = (id: string) => document.getElementById(`pg-${g.key}-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const [i, setI] = useState(0);
+  const [dir, setDir] = useState(1);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const n = g.secs.length;
+  const go = (k: number) => { const nk = (k + n) % n; setDir(nk > i ? 1 : -1); setI(nk); bodyRef.current?.scrollTo({ top: 0 }); };
+  const mins = Math.max(3, Math.round(words(g) / 220));
   return (
-    <section className="sg pg container" aria-labelledby={`pg-${g.key}-t`} id="guide">
-      <aside className="sg__toc">
-        <Eyebrow>/ The guide</Eyebrow>
-        <p className="sg__toc-t">{g.tocTitle}</p>
-        <ol>{g.secs.map((s, i) => <li key={s.id}><button type="button" className={on === s.id ? 'is-on' : ''} onClick={() => jump(s.id)}><small>{String(i + 1).padStart(2, '0')}</small>{s.title}</button></li>)}</ol>
-        <p className="sg__read"><BookOpen size={16} /> {Math.max(3, Math.round(words(g) / 220))} min read</p>
-      </aside>
-      <article className="sg__body">
-        <h2 id={`pg-${g.key}-t`} className="h-56">{g.title}</h2>
-        <div className="pg__answer"><span><Sparkles size={16} /> The short answer</span><p>{g.answer}</p></div>
-        {g.secs.map((s) => (
-          <div key={s.id} className="pg__sec">
-            <h3 id={`pg-${g.key}-${s.id}`}>{s.title}</h3>
-            {s.body}
+    <section className="pg container" aria-labelledby={`pg-${g.key}-t`} id="guide">
+      <div className="pg__panel">
+        {/* Left rail: title, the AEO answer, chapter list */}
+        <aside className="pg__rail">
+          <div className="pg__rail-top">
+            <Eyebrow>/ The guide</Eyebrow>
+            <span className="pg__read"><BookOpen size={14} /> {mins} min read · {n} chapters</span>
           </div>
-        ))}
-        <p className="sg__end">{g.cta[0]} <Link to="#assessment" className="text-link">{g.cta[1]} <ArrowRight size={16} /></Link></p>
-      </article>
+          <h2 id={`pg-${g.key}-t`} className="pg__title">{g.title}</h2>
+          <ol className="pg__toc" role="tablist" aria-label={g.tocTitle}>
+            {g.secs.map((s, k) => (
+              <li key={s.id}>
+                <button type="button" role="tab" aria-selected={k === i} aria-controls={`pg-${g.key}-${s.id}`} className={k === i ? 'is-on' : ''} onClick={() => go(k)}>
+                  <small>{String(k + 1).padStart(2, '0')}</small><span>{s.title}</span>
+                  {k === i && <motion.i layoutId={`pg-hl-${g.key}`} className="pg__toc-hl" transition={{ type: 'spring', stiffness: 380, damping: 34 }} />}
+                </button>
+              </li>
+            ))}
+          </ol>
+        </aside>
+
+        {/* Right: one chapter at a time. All chapters stay in the DOM for search engines. */}
+        <div className="pg__stage">
+          <div className="pg__prog" aria-hidden><motion.i animate={{ scaleX: (i + 1) / n }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} /></div>
+          <div className="pg__body" ref={bodyRef} data-lenis-prevent>
+            {g.secs.map((s, k) => (
+              <article key={s.id} id={`pg-${g.key}-${s.id}`} role="tabpanel" className={`pg__sec ${k === i ? 'is-on' : ''}`} aria-hidden={k !== i}>
+                {k === i ? (
+                  <motion.div key={s.id} initial={{ opacity: 0, x: 24 * dir }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}>
+                    <span className="pg__num" aria-hidden>{String(k + 1).padStart(2, '0')}</span>
+                    <p className="pg__kick">Chapter {k + 1} of {n}</p>
+                    {k === 0 && <div className="pg__answer"><span><Sparkles size={14} /> The short answer</span><p>{g.answer}</p></div>}
+                    <h3>{s.title}</h3>
+                    {s.body}
+                  </motion.div>
+                ) : (<>{k === 0 && <div className="pg__answer"><p>{g.answer}</p></div>}<h3>{s.title}</h3>{s.body}</>)}
+              </article>
+            ))}
+          </div>
+          <div className="pg__nav">
+            <button type="button" className="pg__arrow" onClick={() => go(i - 1)} aria-label="Previous chapter"><ArrowLeft size={18} /></button>
+            <span className="pg__dots" aria-hidden>{g.secs.map((s, k) => <i key={s.id} className={k === i ? 'is-on' : ''} />)}</span>
+            {i < n - 1 ? (
+              <button type="button" className="pg__next" onClick={() => go(i + 1)}>Next: {g.secs[i + 1].title} <ArrowRight size={16} /></button>
+            ) : (
+              <Link to="#assessment" className="pg__next is-cta">{g.cta[1]} <ArrowRight size={16} /></Link>
+            )}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
