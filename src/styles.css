@@ -1217,3 +1217,11 @@ input:autofill { background: #fff !important; }
 @media (prefers-reduced-motion: reduce) { .pstep, .pstep * { transition: none !important; } }
 .cta__row-in { display: flex; gap: 0.7rem; will-change: transform, opacity; }
 .cta__row { gap: 0; }
+
+/* ===== Home hero: centred in the first screen (v97) =====
+   Fills the viewport under the fixed nav and centres copy + media vertically, so there's no dead band below. */
+@media (min-width: 1280px) {
+  .hero { min-height: 100svh; padding-top: 10.8rem; padding-bottom: 2.4rem; align-content: center; align-items: center; box-sizing: border-box; }
+  .hero__content { justify-content: center; }
+  .hero__trusted { margin-top: 5.6rem; }
+}
