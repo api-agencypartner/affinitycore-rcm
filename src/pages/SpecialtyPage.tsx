@@ -1,3 +1,4 @@
+import { IntroBlock, specialtyIntro } from '../components/IntroBlock';
 import { PageGuide, specialtyGuide } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -320,6 +321,7 @@ export function SpecialtyPage({ slug }: { slug: string }) {
   return (
     <main className="page">
       <Hero s={s} />
+      <IntroBlock d={specialtyIntro(s)} />
       <Handle s={s} />
       <EhrStrip what={plain} />
       {s.leak ? <LeakList s={s} /> : <Problem s={s} />}

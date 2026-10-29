@@ -1,3 +1,4 @@
+import { IntroBlock, serviceIntro } from '../components/IntroBlock';
 import { PageGuide, serviceGuide } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -401,6 +402,7 @@ export function ServicePage({ slug }: { slug: string }) {
   return (
     <main className="page">
       <Hero s={s} />
+      <IntroBlock d={serviceIntro(s)} />
       <ProblemWork s={s} />
       <HowWeWork s={s} />
       <EhrStrip what={s.name.toLowerCase()} />

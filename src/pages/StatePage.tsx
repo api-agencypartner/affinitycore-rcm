@@ -3,6 +3,7 @@
  * hero with the ask and the phone, the state's own billing rules, specialties, services, local coverage,
  * proof, testimonials, what switching takes, then form, FAQ, CTA. Every section is readable without interaction.
  */
+import { IntroBlock, stateIntro } from '../components/IntroBlock';
 import { PageGuide, stateGuide } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useState } from 'react';
@@ -189,6 +190,7 @@ export function StatePage({ slug }: { slug: string }) {
   return (
     <main className="page">
       <Hero s={s} />
+      <IntroBlock d={stateIntro(s)} />
       <Rules s={s} />
       <Specialties s={s} />
       <Services s={s} />
