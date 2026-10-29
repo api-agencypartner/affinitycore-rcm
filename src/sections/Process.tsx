@@ -30,6 +30,8 @@ export function Process() {
     return () => window.clearInterval(t);
   }, [seen, hot]);
   const active = hot ?? auto;
+  // Leaving the row hands control back to the timer from the card the visitor was on (no jump back)
+  const leave = () => { if (hot !== null) setAuto(hot); setHot(null); };
   const onMove = (e: React.MouseEvent) => {
     const el = panel.current; if (!el) return; const r = el.getBoundingClientRect();
     el.style.setProperty('--mx', `${e.clientX - r.left}px`); el.style.setProperty('--my', `${e.clientY - r.top}px`);
@@ -53,12 +55,14 @@ export function Process() {
             </span>
           ))}
         </div>
-        <motion.ol className="process__steps" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }}>
+        <motion.ol className="process__steps" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.35 }} onMouseLeave={leave}>
           {STEPS.map((s, i) => (
             <Fragment key={s.n}>
             <motion.li className={`pstep ${active === i ? 'is-hot' : ''}`} tabIndex={0}
-              onMouseEnter={() => setHot(i)} onMouseLeave={() => setHot(null)} onFocus={() => setHot(i)} onBlur={() => setHot(null)}
+              onMouseEnter={() => setHot(i)} onFocus={() => setHot(i)} onBlur={leave}
               variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: ease.out, delay: 0.1 + i * 0.12 } } }}>
+              {/* Purple layer cross-fades with the text colour on one curve, so text never sits white-on-white */}
+              <span className="pstep__hl" aria-hidden />
               <div className="pstep__top">
                 <motion.span className="pstep__num"
                   variants={{ hidden: { backgroundColor: 'rgba(255,255,255,0.1)', color: '#ffffff' }, show: { backgroundColor: '#ffffff', color: '#6a41f9', transition: { duration: 0.4, delay: 0.2 + i * STEP_DELAY } } }}>

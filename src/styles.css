@@ -1195,3 +1195,23 @@ input:autofill { background: #fff !important; }
 .hero__eyebrow { display: flex; align-items: center; gap: 1rem; }
 .hero__flag { width: 2.2rem; }
 .hero__content > div:has(> .hcap) { align-self: stretch; max-width: 640px; }
+
+/* ===== How it works: polished states (v94) =====
+   The card itself never changes background (gradients can't animate, which caused the white-on-white flash).
+   A single purple layer glides between cards; text, ticks and borders cross-fade on the same curve. */
+.pstep { --e: cubic-bezier(.22, 1, .36, 1); background: #fff !important; isolation: isolate; overflow: hidden;
+  transition: transform 0.6s var(--e), box-shadow 0.6s var(--e), border-color 0.5s var(--e), color 0.5s var(--e); will-change: transform; }
+.pstep > :not(.pstep__hl) { position: relative; z-index: 1; }
+.pstep__hl { position: absolute; inset: -1px; z-index: 0; border-radius: inherit; opacity: 0; transform: scale(0.985); transition: opacity 0.5s var(--e), transform 0.6s var(--e); background: linear-gradient(150deg, #7a55ff, var(--purple) 55%, #5430e6); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25); }
+.pstep.is-hot .pstep__hl { opacity: 1; transform: none; }
+.pstep.is-hot { transform: translateY(-0.8rem); box-shadow: 0 2.4rem 6rem rgba(106, 65, 249, 0.22); border-color: transparent; color: #fff; }
+.pstep:not(.is-hot):hover { border-color: #d9d1fb; }
+.pstep__title, .pstep__head, .pstep__list, .pstep__list li, .pstep__tick, .pstep__num { transition: color 0.5s var(--e), background-color 0.5s var(--e), border-color 0.5s var(--e) !important; }
+.pstep__tick svg { transition: transform 0.45s var(--e); }
+.pstep.is-hot .pstep__tick svg { transform: scale(1.08); }
+/* rail on the same curve and tempo as the highlight */
+.prail__fill { transition: transform 0.7s cubic-bezier(.22, 1, .36, 1); }
+.prail__node b { transition: background-color 0.45s cubic-bezier(.22, 1, .36, 1), color 0.45s cubic-bezier(.22, 1, .36, 1), border-color 0.45s cubic-bezier(.22, 1, .36, 1), transform 0.45s cubic-bezier(.22, 1, .36, 1); }
+.prail__node.is-now b { transform: scale(1.08); }
+.prail__stem { transition: background 0.45s cubic-bezier(.22, 1, .36, 1); }
+@media (prefers-reduced-motion: reduce) { .pstep, .pstep * { transition: none !important; } }
