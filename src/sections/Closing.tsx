@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'motion/react';
 import { Plus, Phone, Mail, MapPin } from 'lucide-react';
 import { Arrow, Button, Eyebrow, Logo, Reveal, SplitWords } from '../components/ui';
 import { ease, vp } from '../motion';
@@ -74,12 +74,16 @@ function Pattern({ side, p }: { side: 1 | -1; p: ReturnType<typeof useScroll>['s
   );
 }
 function Row({ r, i, side, p }: { r: (typeof ROWS)[number]; i: number; side: 1 | -1; p: ReturnType<typeof useScroll>['scrollYProgress'] }) {
-  const drift = useTransform(p, [0, 1], [`${(i % 2 ? 6 : -6) * side}rem`, `${(i % 2 ? -6 : 6) * side}rem`]);
+  // Two layers so the scroll drift and the entrance never fight over the same `x` (that caused the jerk):
+  // outer = gentle scroll parallax (sprung), inner = one-time slide-in.
+  const raw = useTransform(p, [0, 1], [(i % 2 ? 60 : -60) * side, (i % 2 ? -60 : 60) * side]);
+  const drift = useSpring(raw, { stiffness: 70, damping: 22, mass: 0.6 });
   return (
-    <motion.div className="cta__row" style={{ left: `${r.x}rem`, x: drift }}
-      initial={{ opacity: 0, x: `${side * 30}rem` }} whileInView={{ opacity: 1, x: 0 }} viewport={vp}
-      transition={{ duration: 1.1, ease: ease.out, delay: i * 0.08 }}>
-      {r.parts.map((t, k) => <span key={k} className={t === 'p' ? 'cta__p' : 'cta__c'} />)}
+    <motion.div className="cta__row" style={{ left: `${r.x}rem`, x: drift }}>
+      <motion.div className="cta__row-in" initial={{ opacity: 0, x: side * 220 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }}
+        transition={{ type: 'spring', stiffness: 60, damping: 18, mass: 1, delay: i * 0.07, opacity: { duration: 0.8, ease: ease.out, delay: i * 0.07 } }}>
+        {r.parts.map((t, k) => <span key={k} className={t === 'p' ? 'cta__p' : 'cta__c'} />)}
+      </motion.div>
     </motion.div>
   );
 }

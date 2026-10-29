@@ -1215,3 +1215,5 @@ input:autofill { background: #fff !important; }
 .prail__node.is-now b { transform: scale(1.08); }
 .prail__stem { transition: background 0.45s cubic-bezier(.22, 1, .36, 1); }
 @media (prefers-reduced-motion: reduce) { .pstep, .pstep * { transition: none !important; } }
+.cta__row-in { display: flex; gap: 0.7rem; will-change: transform, opacity; }
+.cta__row { gap: 0; }
