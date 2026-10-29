@@ -22,9 +22,6 @@ export function IntroBlock({ d }: { d: Intro }) {
         </div>
         <div className="ib__copy">
           <p>{d.body}</p>
-          <dl className="ib__facts">
-            {d.facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
-          </dl>
         </div>
       </motion.div>
     </section>
