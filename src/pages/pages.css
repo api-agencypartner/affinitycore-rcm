@@ -1001,9 +1001,9 @@
 .pg { padding-top: 12rem; }
 .pg__panel { position: relative; display: grid; grid-template-columns: 46rem minmax(0, 1fr); height: min(78rem, calc(100svh - 14rem)); min-height: 60rem; border-radius: 3.2rem; overflow: hidden; background: #fff; border: 1px solid #ece8fa; box-shadow: 0 3rem 8rem rgba(106, 65, 249, 0.08); }
 
-/* rail: lavender, faint dot grid + soft purple glow */
+/* rail: lavender, concentric rings rising from the bottom corner + soft purple glow */
 .pg__rail { position: relative; display: flex; flex-direction: column; gap: 2rem; padding: 4rem 3.6rem; overflow-y: auto; scrollbar-width: none;
-  background: radial-gradient(60rem 40rem at 0% 0%, rgba(122, 85, 255, 0.16), transparent 60%), radial-gradient(#d9d1fb 1px, transparent 1.2px) 0 0 / 1.8rem 1.8rem, #f7f5ff; border-right: 1px solid #ece8fa; }
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' fill='none' stroke='%237a55ff'%3E%3Cg stroke-width='1'%3E%3Ccircle cx='600' cy='600' r='90' stroke-opacity='.22'/%3E%3Ccircle cx='600' cy='600' r='160' stroke-opacity='.18'/%3E%3Ccircle cx='600' cy='600' r='230' stroke-opacity='.15'/%3E%3Ccircle cx='600' cy='600' r='300' stroke-opacity='.12'/%3E%3Ccircle cx='600' cy='600' r='370' stroke-opacity='.09'/%3E%3Ccircle cx='600' cy='600' r='440' stroke-opacity='.07'/%3E%3Ccircle cx='600' cy='600' r='510' stroke-opacity='.05'/%3E%3C/g%3E%3C/svg%3E") right bottom / 46rem 46rem no-repeat, radial-gradient(40rem 32rem at 100% 100%, rgba(122, 85, 255, 0.18), transparent 70%), radial-gradient(48rem 36rem at 0% 0%, rgba(122, 85, 255, 0.12), transparent 65%), linear-gradient(180deg, #f8f6ff, #f3efff); border-right: 1px solid #ece8fa; }
 .pg__rail::-webkit-scrollbar { display: none; }
 .pg__rail-top { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; flex-wrap: wrap; }
 .pg__read { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--f-mono); font-size: 1.2rem; color: #8a8ea0; }
