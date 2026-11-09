@@ -5,11 +5,44 @@
  */
 import { motion } from 'motion/react';
 import { ease, vp } from '../motion';
-import { STATIONS, type ServiceFull } from '../data/services';
-import type { SpecialtyFull } from '../data/specialties';
+import { STATIONS, SERVICES, type ServiceFull } from '../data/services';
+import { SPECIALTIES, type SpecialtyFull } from '../data/specialties';
+import { STATES } from '../data/states';
+import { Link } from '../router';
+import type { ReactNode } from 'react';
 import type { StatePage } from '../data/states';
 
-type Intro = { kicker: string; lead: string; body: string; more: string };
+type Intro = { kicker: string; lead: string; body: string; more: string; self: string };
+/* ---- In-copy links: each target is linked once per block, never to the current page ---- */
+type Target = { re: RegExp; to: string };
+const esc = (t: string) => t.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
+let _t: Target[] | null = null;
+const targets = (): Target[] => (_t ??= [
+  ...SERVICES.map((x) => ({ to: `/services/${x.slug}`, re: new RegExp(`\\b(${[x.name, ...(SERVICE_ALIASES[x.slug] ?? [])].map(esc).join('|')})\\b`, 'i') })),
+  ...SPECIALTIES.map((x) => ({ to: `/specialties/${x.slug}`, re: new RegExp(`\\b(${[x.name].map(esc).join('|')})(?= billing| practices| claims|\\b)`, 'i') })),
+  ...STATES.map((x) => ({ to: `/states/${x.slug}`, re: new RegExp(`\\b(${esc(x.name)})(?= practices)`, 'i') })),
+  { to: '#assessment', re: /\b(free review of one month of your claims|free revenue assessment)\b/i },
+]);
+function linkify(paras: string[], self: string): ReactNode[] {
+  const used = new Set<string>([self]);
+  return paras.map((text) => {
+    const out: ReactNode[] = []; let rest = text; let k = 0;
+    for (;;) {
+      let best: { i: number; len: number; t: Target } | null = null;
+      for (const t of targets()) {
+        if (used.has(t.to)) continue;
+        const m = t.re.exec(rest);
+        if (m && (best === null || m.index < best.i)) best = { i: m.index, len: m[0].length, t };
+      }
+      if (!best) { out.push(rest); break; }
+      out.push(rest.slice(0, best.i));
+      out.push(<Link key={k++} to={best.t.to} className="ib__a">{rest.slice(best.i, best.i + best.len)}</Link>);
+      used.add(best.t.to); rest = rest.slice(best.i + best.len);
+    }
+    return out;
+  });
+}
+
 const clean = (t: string) => t.replace(/\s*\[Confirm with Affinity Core\]/g, '').trim();
 
 export function IntroBlock({ d }: { d: Intro }) {
@@ -19,14 +52,19 @@ export function IntroBlock({ d }: { d: Intro }) {
         <p className="eyebrow ib__kick">{d.kicker}</p>
         <h2 className="ib__h">{d.lead}</h2>
         <div className="ib__copy">
-          <p>{d.body}</p>
-          <p>{d.more}</p>
+          {linkify([d.body, d.more], d.self).map((p, k) => <p key={k}>{p}</p>)}
         </div>
       </motion.div>
     </section>
   );
 }
 
+const SERVICE_ALIASES: Record<string, string[]> = {
+  'medical-coding': ['certified coders'], 'denial-management': ['denials appealed', 'denial rate', 'denied claim'],
+  'credentialing': ['credentialing'], 'ar-recovery': ['days in A/R', 'A/R'], 'payment-posting': ['payment posting', 'underpayments'],
+  'peer-to-peer-review': ['prior authorizations', 'prior auths', 'prior authorization'], 'medical-billing-audits': ['audit'],
+  'revenue-cycle-management': ['whole cycle', 'revenue cycle management'], 'medical-billing': ['medical billing'], 'charge-entry': ['charge entry'],
+};
 const WHEN: Record<number, string> = { 1: 'before the visit', 2: 'right after the visit', 3: 'at claim submission', 4: 'when the payer responds', 5: 'during follow-up' };
 const list = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
 const lc = (t: string) => (/^[A-Z][a-z]/.test(t) ? t.charAt(0).toLowerCase() + t.slice(1) : t);
@@ -35,6 +73,7 @@ export const serviceIntro = (s: ServiceFull): Intro => {
   const st = STATIONS.find((x) => x.n === s.station);
   const scope = s.ticket.scope.map((x) => lc(clean(x)).replace(/\.$/, '')).slice(0, 4);
   return {
+    self: `/services/${s.slug}`,
     kicker: `/ About ${s.name.toLowerCase()}`,
     lead: `${s.name} for US medical practices, run by one accountable team.`,
     body: `${clean(s.seoDescription)} ${clean(s.ticket.intro)}`,
@@ -47,6 +86,7 @@ export const specialtyIntro = (s: SpecialtyFull): Intro => {
   const rows = s.ledger.rows.slice(0, 3);
   const leaks = (s.leak?.leaks ?? []).slice(0, 3).map((l) => lc(l.label.replace(/\.$/, '')));
   return {
+    self: `/specialties/${s.slug}`,
     kicker: `/ About ${s.name.toLowerCase()} billing`,
     lead: `${s.name} billing and coding, by coders who work ${low} claims every day.`,
     body: `${clean(s.seoDescription)} ${clean(s.ledger.intro)}`,
@@ -58,9 +98,10 @@ export const stateIntro = (s: StatePage): Intro => {
   const f = (k: string) => s.facts.find((x) => x.k === k);
   const med = f('Medicare'), mcd = f('Medicaid'), pp = f('Prompt pay');
   return {
+    self: `/states/${s.slug}`,
     kicker: `/ Billing in ${s.name}`,
     lead: `Medical billing for ${s.name} practices, built around ${s.name} payers and rules.`,
     body: `${clean(s.seoDescription)}`,
-    more: `In ${s.name}, Medicare Part B claims go to ${med ? med.title : 'the state’s Medicare contractor'}${mcd ? `, Medicaid runs through ${mcd.title}` : ''}${pp ? `, and state-regulated plans must pay clean claims within ${pp.title.toLowerCase().replace(/^(\d)/, '$1')}` : ''}. We work those rules on every claim and hold payers to the deadline when they are late. We bill for practices across ${list(s.cities)}, on ${s.tzName}.`,
+    more: `In ${s.name}, Medicare Part B claims go to ${med ? med.title : 'the state’s Medicare contractor'}${mcd ? `, Medicaid runs through ${mcd.title}` : ''}${pp ? `, and state-regulated plans must pay clean claims within ${pp.title.toLowerCase().replace(/^(\d)/, '$1')}` : ''}. We work those rules on every claim and hold payers to the deadline when they are late. We bill for practices across ${list(s.cities)}, on ${s.tzName}, in specialties such as ${list(s.specialties.slice(0, 3).map((x) => SPECIALTIES.find((y) => y.slug === x)?.name).filter(Boolean) as string[])}.`,
   };
 };
