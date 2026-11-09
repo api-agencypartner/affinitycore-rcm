@@ -1165,3 +1165,18 @@
 @media (max-width: 640px) {
   .stfd__grid, .stmac__grid { grid-template-columns: minmax(0, 1fr); }
 }
+.stfd__more { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; margin-top: 2.4rem; }
+.stfd__more p { font-size: 14px; color: #8a8ea0; }
+.stfd__more div { display: flex; gap: 0.8rem; }
+.stfd__more-btn, .stfd__all-btn { height: 4.8rem; padding: 0 2.4rem; border-radius: 10rem; font-size: 15px; font-weight: 500; transition: background 0.3s, color 0.3s, border-color 0.3s; }
+.stfd__more-btn { background: var(--purple); color: #fff; }
+.stfd__more-btn:hover { background: #5430e6; }
+.stfd__all-btn { border: 1px solid #e4e0f2; color: var(--ink-2); background: #fff; }
+.stfd__all-btn:hover { border-color: var(--purple); color: var(--purple); }
+/* Phones: tools come before the map so search/regions are the first thing to reach for */
+@media (max-width: 767px) {
+  .stfd__head { gap: 2rem; }
+  .stfd__map { margin-top: 2.4rem; padding: 1.2rem; }
+  .stfd__grid { margin-top: 2rem; gap: 0.8rem; }
+  .stfd__card { padding: 1.2rem 1.4rem; }
+}

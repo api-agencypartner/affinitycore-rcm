@@ -237,7 +237,7 @@ export function Nav({ show }: { show: boolean }) {
           {(SHOW_STATES ? (['services', 'specialties', 'states', 'insights'] as const) : (['services', 'specialties', 'insights'] as const)).map((m) => (
             <motion.li key={m} variants={item}>
               <button className={`nav__trigger ${open === m ? 'is-open' : ''}`} aria-expanded={open === m} aria-haspopup="true"
-                onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (m === 'services' || m === 'specialties') { window.location.hash = `/${m}`; setOpen(null); } else setOpen(open === m ? null : m); }}>
+                onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (m === 'services' || m === 'specialties' || m === 'states') { window.location.hash = `/${m}`; setOpen(null); } else setOpen(open === m ? null : m); }}>
                 {m === 'services' ? 'Services' : m === 'specialties' ? 'Specialties' : m === 'states' ? <><UsFlag className="nav__flag" />States</> : 'Insights'}
                 <motion.span animate={{ rotate: open === m ? 180 : 0 }} transition={{ duration: 0.4, ease: ease.out }} style={{ display: 'grid' }}><Chevron /></motion.span>
               </button>

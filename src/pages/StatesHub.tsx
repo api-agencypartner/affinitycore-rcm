@@ -16,6 +16,14 @@ import { STATES } from '../data/states';
 import { MACS, MAC_OF, REGION_OF } from '../data/states-all';
 import { ease, vp } from '../motion';
 
+/** Cards shown per step on small screens (0 = no limit on desktop). */
+function useStep() {
+  const get = () => (typeof window === 'undefined' ? 0 : window.innerWidth <= 767 ? 8 : window.innerWidth <= 1279 ? 12 : 0);
+  const [n, setN] = useState(get);
+  useEffect(() => { const f = () => setN(get()); window.addEventListener('resize', f); return () => window.removeEventListener('resize', f); }, []);
+  return n;
+}
+
 const REGIONS = ['All', 'Northeast', 'Southeast', 'Midwest', 'Southwest', 'West'] as const;
 type Region = (typeof REGIONS)[number];
 
@@ -45,6 +53,10 @@ function Finder() {
   const [q, setQ] = useState('');
   const [region, setRegion] = useState<Region>('All');
   const [hot, setHot] = useState<string | null>(null);
+  // Phones/tablets: show a short list first; search and region tabs narrow it, "Show more" reveals the rest
+  const step = useStep();
+  const [limit, setLimit] = useState<number | null>(null);
+  useEffect(() => { setLimit(null); }, [q, region]);
   const shown = useMemo(() => {
     const t = q.trim().toLowerCase();
     return STATES.filter((s) => (region === 'All' || REGION_OF[s.abbr] === region) &&
@@ -80,7 +92,7 @@ function Finder() {
 
       <motion.ul className="stfd__grid" layout>
         <AnimatePresence initial={false}>
-          {shown.map((s) => (
+          {shown.slice(0, step ? (limit ?? step) : undefined).map((s) => (
             <motion.li key={s.slug} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.35, ease: ease.out }}>
               <Link to={`/states/${s.slug}`} className={`stfd__card ${hot === s.id ? 'is-on' : ''}`}
                 onMouseEnter={() => setHot(s.id)} onMouseLeave={() => setHot(null)} onFocus={() => setHot(s.id)} onBlur={() => setHot(null)}>
@@ -92,6 +104,15 @@ function Finder() {
           ))}
         </AnimatePresence>
       </motion.ul>
+      {step > 0 && shown.length > (limit ?? step) && (
+        <div className="stfd__more">
+          <p>Showing {limit ?? step} of {shown.length} states</p>
+          <div>
+            <button type="button" className="stfd__more-btn" onClick={() => setLimit((limit ?? step) + step)}>Show {Math.min(step, shown.length - (limit ?? step))} more</button>
+            <button type="button" className="stfd__all-btn" onClick={() => setLimit(shown.length)}>Show all</button>
+          </div>
+        </div>
+      )}
       {shown.length === 0 && <p className="stfd__empty"><MapPin size={16} /> No state matches “{q}”. We bill in all 50, so <Link to="#assessment" className="text-link">tell us where you are <ArrowRight size={14} /></Link></p>}
     </section>
   );
