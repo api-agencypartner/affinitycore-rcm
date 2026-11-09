@@ -44,7 +44,7 @@ function buildIndex(): Entry[] {
   add('Page', 'Free revenue assessment', 'See where your revenue is leaking, free', '#assessment', 'audit review estimate quote pricing cost');
 
   if (SHOW_STATES) STATES.forEach((s) => add('State', `${s.name} medical billing`, s.chips.map(([k, v]) => `${k}: ${v}`).join(' · '), `/states/${s.slug}`, `${s.abbr} ${s.cities.join(' ')} ${s.facts.map((f) => f.title + ' ' + f.body).join(' ')}`));
-  if (SHOW_STATES) add('Page', 'States we serve', 'Billing in all 50 states', '#states', 'states nationwide map locations where');
+  if (SHOW_STATES) add('Page', 'States we serve', 'Billing in all 50 states', '/states', 'states nationwide map locations where');
   SERVICES.forEach((s) => {
     const p = SERVICE_PAGES[s.slug];
     add('Service', s.name, s.line, `/services/${s.slug}`, p ? `${p.heroSub} ${p.ticket.scope.join(' ')} ${p.steps.map((x) => x.title).join(' ')}` : '');

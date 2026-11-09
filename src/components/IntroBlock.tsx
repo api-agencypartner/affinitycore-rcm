@@ -96,12 +96,12 @@ export const specialtyIntro = (s: SpecialtyFull): Intro => {
 
 export const stateIntro = (s: StatePage): Intro => {
   const f = (k: string) => s.facts.find((x) => x.k === k);
-  const med = f('Medicare'), mcd = f('Medicaid'), pp = f('Prompt pay');
+  const med = f('Medicare'), mcd = f('Medicaid'), pp0 = f('Prompt pay'), pp = pp0 && /\d/.test(pp0.title) ? pp0 : undefined;
   return {
     self: `/states/${s.slug}`,
     kicker: `/ Billing in ${s.name}`,
     lead: `Medical billing for ${s.name} practices, built around ${s.name} payers and rules.`,
     body: `${clean(s.seoDescription)}`,
-    more: `In ${s.name}, Medicare Part B claims go to ${med ? med.title : 'the state’s Medicare contractor'}${mcd ? `, Medicaid runs through ${mcd.title}` : ''}${pp ? `, and state-regulated plans must pay clean claims within ${pp.title.toLowerCase().replace(/^(\d)/, '$1')}` : ''}. We work those rules on every claim and hold payers to the deadline when they are late. We bill for practices across ${list(s.cities)}, on ${s.tzName}, in specialties such as ${list(s.specialties.slice(0, 3).map((x) => SPECIALTIES.find((y) => y.slug === x)?.name).filter(Boolean) as string[])}.`,
+    more: `In ${s.name}, Medicare Part B claims go to ${med ? med.title : 'the state’s Medicare contractor'}${mcd ? `, Medicaid runs through ${mcd.title}` : ''}${pp ? `, and state-regulated plans must pay clean claims within ${pp.title.toLowerCase()}` : `, and state-regulated commercial plans must pay clean claims within the deadline set by ${s.name} law`}. We work those rules on every claim and hold payers to the deadline when they are late. We bill for practices across ${list(s.cities)}, on ${s.tzName}, in specialties such as ${list(s.specialties.slice(0, 3).map((x) => SPECIALTIES.find((y) => y.slug === x)?.name).filter(Boolean) as string[])}.`,
   };
 };

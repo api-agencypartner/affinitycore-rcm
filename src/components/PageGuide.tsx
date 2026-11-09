@@ -184,7 +184,7 @@ export function specialtyGuide(s: SpecialtyFull): Guide {
 export function stateGuide(s: StatePage): Guide {
   const n = s.name;
   const sp = s.specialties.map(getSpecialtyLite).filter(Boolean);
-  const med = s.facts.find((f) => f.k === 'Medicare'), mcd = s.facts.find((f) => f.k === 'Medicaid'), pp = s.facts.find((f) => f.k === 'Prompt pay');
+  const med = s.facts.find((f) => f.k === 'Medicare'), mcd = s.facts.find((f) => f.k === 'Medicaid'), pp0 = s.facts.find((f) => f.k === 'Prompt pay'), pp = pp0 && /\d/.test(pp0.title) ? pp0 : undefined;
   return {
     key: s.slug,
     tocTitle: `Billing in ${n}, explained`,

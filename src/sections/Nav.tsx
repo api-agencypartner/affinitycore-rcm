@@ -9,7 +9,8 @@ import { Button, Logo, UsFlag } from '../components/ui';
 import { SERVICES as SVC_DATA } from '../data/services';
 import { getSpecialtyLite, SPECIALTIES as SP_ALL } from '../data/specialties';
 import { SearchButton } from '../components/Search';
-import { STATES as STATE_DATA, SHOW_STATES } from '../data/states';
+import { STATES as STATE_DATA, FEATURED as STATE_FEATURED, SHOW_STATES } from '../data/states';
+const STATE_TOP = STATE_FEATURED.map((slug) => STATE_DATA.find((x) => x.slug === slug)!);
 import { slugify } from '../router';
 
 // lets menu links close the panel after navigating
@@ -103,7 +104,7 @@ function StatesMenu() {
   return (
     <div className="dd__states">
       <motion.ul className="dd__state-list" variants={list} initial="hidden" animate="show">
-        {STATE_DATA.map((s) => (
+        {STATE_TOP.map((s) => (
           <motion.li key={s.slug} variants={itemV}>
             <a href={`#/states/${s.slug}`} className="dd__state" onClick={() => closeAll()}>
               <span className="dd__abbr">{s.abbr}</span>
@@ -113,7 +114,7 @@ function StatesMenu() {
           </motion.li>
         ))}
       </motion.ul>
-      <a href="#states" className="dd__foot" onClick={() => closeAll()}>We bill in all 50 states. <span>See the map <ArrowRight /></span></a>
+      <a href="#/states" className="dd__foot" onClick={() => closeAll()}>Every state has its own page. <span>All 50 states <ArrowRight /></span></a>
     </div>
   );
 }
@@ -150,7 +151,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   const groups: { id: string; label: string; all?: [string, string]; links: [string, string][] }[] = [
     { id: 'services', label: 'Services', all: ['#/services', 'All services'], links: SVC_DATA.map((x) => [`#/services/${x.slug}`, x.name]) },
     { id: 'specialties', label: 'Specialties', all: ['#/specialties', 'All 23 specialties'], links: SP_ALL.filter((x) => x.page).map((x) => [`#/specialties/${x.slug}`, x.name]) },
-    ...(SHOW_STATES ? [{ id: 'states', label: 'States', all: ['#states', 'All 50 states'] as [string, string], links: STATE_DATA.map((x) => [`#/states/${x.slug}`, x.name] as [string, string]) }] : []),
+    ...(SHOW_STATES ? [{ id: 'states', label: 'States', all: ['#/states', 'All 50 states'] as [string, string], links: STATE_TOP.map((x) => [`#/states/${x.slug}`, x.name] as [string, string]) }] : []),
     { id: 'company', label: 'Insights & company', links: [['#/case-studies', 'Case Studies'], ['#/blog', 'Blog'], ['#/about', 'About us'], ['#/careers', 'Careers'], ['#/contact', 'Contact']] },
   ];
   useEffect(() => {

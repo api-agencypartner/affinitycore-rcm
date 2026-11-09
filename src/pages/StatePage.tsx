@@ -19,6 +19,7 @@ import { Proof } from './ServicesHub';
 import { Link } from '../router';
 import { ease, vp } from '../motion';
 import { getState, STATES, type StatePage as State } from '../data/states';
+import { MAC_OF, REGION_OF } from '../data/states-all';
 import { getSpecialtyLite } from '../data/specialties';
 import { SERVICES } from '../data/services';
 import { setJsonLd, pageJsonLd } from '../data/seo';
@@ -30,7 +31,7 @@ function Hero({ s }: { s: State }) {
     <section className="sp-hero stp-hero">
       <div className="sp-hero__copy">
         <motion.nav className="crumbs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} aria-label="Breadcrumb">
-          <Link to="#states"><ChevronLeft size={16} /> States</Link><span>/</span><span>{s.name}</span>
+          <Link to="/states"><ChevronLeft size={16} /> States</Link><span>/</span><span>{s.name}</span>
         </motion.nav>
         <SplitWords as="h1" className="page-title" animateNow delay={0.3} stagger={0.05} lines={s.heroTitle} bold={[s.heroAccent]} />
         <motion.p className="page-sub" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.7 }}>{s.heroSub}</motion.p>
@@ -166,12 +167,16 @@ function Coverage({ s }: { s: State }) {
 }
 
 function OtherStates({ s }: { s: State }) {
-  const others = STATES.filter((x) => x.slug !== s.slug);
+  // Same Medicare jurisdiction first (genuinely related pages), then fill to 8 from the same region
+  const mac = MAC_OF[s.slug], reg = REGION_OF[s.abbr];
+  const same = STATES.filter((x) => x.slug !== s.slug && MAC_OF[x.slug] === mac);
+  const near = STATES.filter((x) => x.slug !== s.slug && REGION_OF[x.abbr] === reg && !same.includes(x));
+  const others = [...same, ...near].slice(0, 8);
   return (
-    <nav className="ab container" aria-label="Other states">
-      <span>Other states:</span>
+    <nav className="ab container" aria-label="Nearby states">
+      <span>{same.length ? `Same Medicare contractor (${mac}):` : 'Nearby states:'}</span>
       {others.map((x) => <Link key={x.slug} to={`/states/${x.slug}`}>{x.name}</Link>)}
-      <Link to="#states" className="ab__all">All 50 states <ArrowRight size={16} /></Link>
+      <Link to="/states" className="ab__all">All 50 states <ArrowRight size={16} /></Link>
     </nav>
   );
 }
@@ -184,7 +189,7 @@ export function StatePage({ slug }: { slug: string }) {
     let m = document.querySelector('meta[name="description"]');
     if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); }
     m.setAttribute('content', s.seoDescription);
-    setJsonLd(pageJsonLd({ name: `Medical Billing Services in ${s.name}`, description: s.seoDescription, path: `/states/${s.slug}`, crumb: ['States', '/#states'], faqs }));
+    setJsonLd(pageJsonLd({ name: `Medical Billing Services in ${s.name}`, description: s.seoDescription, path: `/states/${s.slug}`, crumb: ['States', '/states'], faqs }));
     return () => setJsonLd(null);
   }, [s, faqs]);
   return (

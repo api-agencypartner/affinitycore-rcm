@@ -1225,3 +1225,12 @@ input:autofill { background: #fff !important; }
   .hero__content { justify-content: center; }
   .hero__trusted { margin-top: 5.6rem; }
 }
+
+/* ===== US map: all 50 states are links (v98) ===== */
+.usm__st.is-page { fill: #d9cfff; cursor: pointer; transition: fill 0.35s cubic-bezier(.22,1,.36,1); }
+.usm__st.is-page:hover, .usm__st.is-page.is-hot { fill: var(--purple); }
+.usm__st.is-page:focus-visible { fill: var(--purple); stroke: #140b30; stroke-width: 2; }
+.usm__dot { stroke: var(--purple); }
+.stf__hint { margin-top: 1.6rem; text-align: center; font-size: 1.4rem; color: #6b6f7c; }
+.dd__states { width: 64rem; }
+.dd__state-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }

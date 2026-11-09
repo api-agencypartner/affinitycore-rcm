@@ -21,6 +21,7 @@ import { SiteSearch } from './components/Search';
 import { StatesFold } from './sections/StatesFold';
 import { StatePage } from './pages/StatePage';
 import { getState, SHOW_STATES } from './data/states';
+import { StatesHub } from './pages/StatesHub';
 import { Nav } from './sections/Nav';
 import { Hero } from './sections/Hero';
 import { About } from './sections/About';
@@ -58,6 +59,7 @@ function pageFor(path: string, ready: boolean) {
   if (path === '/blog') return <BlogHub />;
   const bl = path.match(/^\/blog\/([\w-]+)/);
   if (bl) { const a = getArticle(bl[1]); return a?.body ? <ArticlePage key={bl[1]} slug={bl[1]} /> : <BlogHub />; }
+  if (path === '/states' && SHOW_STATES) return <StatesHub />;
   const st = path.match(/^\/states\/([\w-]+)/);
   if (st && SHOW_STATES) return getState(st[1]) ? <StatePage key={st[1]} slug={st[1]} /> : <Home ready={ready} />;
   if (path === '/contact') return <ContactPage />;
@@ -87,6 +89,7 @@ export default function App() {
     '/careers': ['Build', 'Your', 'Revenue', 'Cycle', 'Career', 'Here'],
     '/blog': ['Plain-English', 'Guides', 'to', 'Getting', 'Paid'],
     '/about': ['The', 'People', 'Who', 'Get', 'Care', 'Paid'],
+    '/states': ['Billing', 'in', 'All', '50', 'States'],
   };
   const hasLoader = entry in LOADER_WORDS;
   // Which page the loader is introducing. Parent pages reached by navigation get it too, once per visit.

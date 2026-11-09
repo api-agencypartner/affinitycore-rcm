@@ -1,11 +1,11 @@
 /**
- * US map (Albers USA, 975 × 610). Every state is lavender (we bill nationwide); states with their own page
- * are purple and clickable. Hover or focus shows a label. Paths come from us-atlas, see data/usMap.ts.
+ * US map (Albers USA, 975 × 610). Every state has its own page: hover shows its name, click opens it.
+ * Pulsing pins mark the states with hand-verified detail. Hover or focus shows a label. Paths come from us-atlas, see data/usMap.ts.
  */
 import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { US_STATES, US_BORDERS, US_VIEWBOX } from '../data/usMap';
-import { STATES } from '../data/states';
+import { STATES, FEATURED_IDS } from '../data/states';
 import { go } from '../router';
 
 export function USMap({ active, onActive }: { active?: string | null; onActive?: (id: string | null) => void }) {
@@ -16,7 +16,7 @@ export function USMap({ active, onActive }: { active?: string | null; onActive?:
   const lab = hot ? US_STATES.find((s) => s.id === hot) : null;
   return (
     <div className="usm">
-      <svg viewBox={US_VIEWBOX} role="img" aria-label="Map of the United States. Texas, Florida and California have their own pages; we bill in every state.">
+      <svg viewBox={US_VIEWBOX} role="img" aria-label="Map of the United States. Every state links to its billing page.">
         <g className="usm__states">
           {US_STATES.map((s) => {
             const p = page[s.id];
@@ -30,7 +30,7 @@ export function USMap({ active, onActive }: { active?: string | null; onActive?:
           })}
         </g>
         <path className="usm__borders" d={US_BORDERS} />
-        {STATES.map((p, i) => {
+        {STATES.filter((p) => FEATURED_IDS.has(p.id)).map((p, i) => {
           const s = US_STATES.find((x) => x.id === p.id)!;
           return (
             <g key={p.id} className="usm__pin" transform={`translate(${s.cx} ${s.cy})`} pointerEvents="none">

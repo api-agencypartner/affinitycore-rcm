@@ -113,7 +113,7 @@ const COLS = [
   ['Company', ['About Us', 'Careers', 'Case Studies', 'Contact']],
   ['Services', ['All services', 'Revenue Cycle Management', 'Medical Billing', 'Medical Coding', 'Denial Management', 'Peer-to-Peer Review', 'A/R Recovery', 'Credentialing']],
   ['Specialties', ['All specialties', 'Internal Medicine', 'Cardiology', 'Mental Health', 'Urgent Care', 'Orthopedics', 'Radiology']],
-  ...(SHOW_STATES ? [['States', ['Texas', 'Florida', 'California', 'All 50 states']] as const] : []),
+  ...(SHOW_STATES ? [['States', ['Texas', 'Florida', 'California', 'New York', 'All 50 states']] as const] : []),
   ['Resources', ['Blog', 'Case Studies', 'Free assessment', 'FAQs']],
 ] as const;
 
@@ -126,7 +126,7 @@ const FOOT_LINKS: Record<string, string> = {
   'Urgent Care': '#/specialties/urgent-care', 'Orthopedics': '#/specialties/orthopedics', 'Radiology': '#/specialties/radiology',
   'FAQs': '#faq', 'Case Studies': '#/case-studies', 'Blog': '#/blog', 'Contact': '#/contact', 'Free assessment': '#/contact',
   'About Us': '#/about', 'Careers': '#/careers',
-  'Texas': '#/states/texas', 'Florida': '#/states/florida', 'California': '#/states/california', 'All 50 states': '#states',
+  'Texas': '#/states/texas', 'Florida': '#/states/florida', 'California': '#/states/california', 'New York': '#/states/new-york', 'All 50 states': '#/states',
 };
 const footHref = (l: string) => FOOT_LINKS[l] ?? '#';
 

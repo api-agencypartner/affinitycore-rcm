@@ -18,11 +18,13 @@ export type StatePage = {
   local: string;                       // one line on how we cover the state
 };
 
+import { MORE_STATES } from './states-all';
+
 const CONFIRM = '[Confirm with Affinity Core]';
 /** States work is on hold until Ali reviews it: false hides the fold, menu, footer column, search entries and routes. */
 export const SHOW_STATES = true;
 
-export const STATES: StatePage[] = [
+const HAND: StatePage[] = [
   {
     slug: 'texas', id: '48', name: 'Texas', abbr: 'TX',
     seoTitle: 'Medical Billing Services in Texas | Texas RCM Company',
@@ -103,5 +105,9 @@ export const STATES: StatePage[] = [
   },
 ];
 
+/** All 50 states, A–Z. Texas, Florida and California carry hand-verified prompt-pay detail; the rest come from states-all.ts. */
+export const STATES: StatePage[] = [...HAND, ...MORE_STATES].sort((a, b) => a.name.localeCompare(b.name));
+/** States with fully verified detail, highlighted first in menus and lists. */
+export const FEATURED = ['texas', 'florida', 'california', 'new-york', 'pennsylvania', 'illinois', 'georgia', 'north-carolina'];
 export const getState = (slug: string) => STATES.find((s) => s.slug === slug);
-export const FEATURED_IDS = new Set(STATES.map((s) => s.id));
+export const FEATURED_IDS = new Set(HAND.map((s) => s.id));
