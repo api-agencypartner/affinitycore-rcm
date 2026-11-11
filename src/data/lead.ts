@@ -19,7 +19,7 @@ export const prefillLead = (contact: string) => {
   lead = { ...lead, ...(isEmail(v) ? { email: v } : { phone: v }) };
   emit();
 };
-export const useLead = () => useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => lead);
+export const useLead = () => useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => lead, () => lead);
 
 /** Partial-lead hook point: wire to GoHighLevel / CRM in production. */
 export const saveStep1 = (data: Lead & { source?: string }) => {

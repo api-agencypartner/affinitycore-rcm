@@ -7,7 +7,7 @@ import { Link } from '../router';
 import { ease, vp } from '../motion';
 import type { SpecialtyFull } from '../data/specialties';
 import { ARTICLES, type Article } from '../data/insights';
-import { Card } from '../pages/Blog';
+import { Card } from '../views/Blog';
 import { Platforms } from '../sections/Platforms';
 
 /* ================================================================== */

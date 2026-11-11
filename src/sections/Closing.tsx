@@ -1,3 +1,4 @@
+import { u } from '../router';
 import { useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'motion/react';
 import { Plus, Phone, Mail, MapPin } from 'lucide-react';
@@ -118,15 +119,15 @@ const COLS = [
 ] as const;
 
 const FOOT_LINKS: Record<string, string> = {
-  'Revenue Cycle Management': '#/services/revenue-cycle-management', 'Medical Billing': '#/services/medical-billing',
-  'Medical Coding': '#/services/medical-coding', 'Denial Management': '#/services/denial-management',
-  'A/R Recovery': '#/services/ar-recovery', 'Peer-to-Peer Review': '#/services/peer-to-peer-review', 'Credentialing': '#/services/credentialing',
-  'All services': '#/services', 'All specialties': '#/specialties',
-  'Internal Medicine': '#/specialties/internal-medicine', 'Cardiology': '#/specialties/cardiology', 'Mental Health': '#/specialties/mental-health',
-  'Urgent Care': '#/specialties/urgent-care', 'Orthopedics': '#/specialties/orthopedics', 'Radiology': '#/specialties/radiology',
-  'FAQs': '#faq', 'Case Studies': '#/case-studies', 'Blog': '#/blog', 'Contact': '#/contact', 'Free assessment': '#/contact',
-  'About Us': '#/about', 'Careers': '#/careers',
-  'Texas': '#/states/texas', 'Florida': '#/states/florida', 'California': '#/states/california', 'New York': '#/states/new-york', 'All 50 states': '#/states',
+  'Revenue Cycle Management': u('/services/revenue-cycle-management'), 'Medical Billing': u('/services/medical-billing'),
+  'Medical Coding': u('/services/medical-coding'), 'Denial Management': u('/services/denial-management'),
+  'A/R Recovery': u('/services/ar-recovery'), 'Peer-to-Peer Review': u('/services/peer-to-peer-review'), 'Credentialing': u('/services/credentialing'),
+  'All services': u('/services'), 'All specialties': u('/specialties'),
+  'Internal Medicine': u('/specialties/internal-medicine'), 'Cardiology': u('/specialties/cardiology'), 'Mental Health': u('/specialties/mental-health'),
+  'Urgent Care': u('/specialties/urgent-care'), 'Orthopedics': u('/specialties/orthopedics'), 'Radiology': u('/specialties/radiology'),
+  'FAQs': '#faq', 'Case Studies': u('/case-studies'), 'Blog': u('/blog'), 'Contact': u('/contact'), 'Free assessment': u('/contact'),
+  'About Us': u('/about'), 'Careers': u('/careers'),
+  'Texas': u('/states/texas'), 'Florida': u('/states/florida'), 'California': u('/states/california'), 'New York': u('/states/new-york'), 'All 50 states': u('/states'),
 };
 const footHref = (l: string) => FOOT_LINKS[l] ?? '#';
 

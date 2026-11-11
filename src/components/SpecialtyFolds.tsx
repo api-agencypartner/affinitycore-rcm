@@ -117,7 +117,7 @@ function Cell({ c }: { c: ClaimSide }) {
   );
 }
 
-function Side({ s, side, rowsRef }: { s: SpecialtyFull; side: 'bad' | 'good'; rowsRef?: React.RefObject<HTMLDivElement> }) {
+function Side({ s, side, rowsRef }: { s: SpecialtyFull; side: 'bad' | 'good'; rowsRef?: React.RefObject<HTMLDivElement | null> }) {
   const C = s.claim!;
   const total = C.rows.reduce((t, r) => t + (r[side].amt ?? 0), 0);
   return (

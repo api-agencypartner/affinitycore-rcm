@@ -1,0 +1,13 @@
+/* Tailwind v4 (theme + utilities; preflight comes in once the legacy reset is retired) */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+/* Tailwind only scans files already converted (added one by one below) so legacy class names like
+   `container` or `h-56` never pick up Tailwind utilities by accident. */
+@source "../tw";
+
+/* Legacy styles, being converted to Tailwind component by component */
+@import "../styles.css";
+@import "../views/pages.css";
+@import "../views/specialties.css";
+@import "../views/insights.css";
+@import "../views/about.css";

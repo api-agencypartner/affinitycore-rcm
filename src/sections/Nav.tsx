@@ -11,7 +11,7 @@ import { getSpecialtyLite, SPECIALTIES as SP_ALL } from '../data/specialties';
 import { SearchButton } from '../components/Search';
 import { STATES as STATE_DATA, FEATURED as STATE_FEATURED, SHOW_STATES } from '../data/states';
 const STATE_TOP = STATE_FEATURED.map((slug) => STATE_DATA.find((x) => x.slug === slug)!);
-import { slugify } from '../router';
+import { slugify, u, go } from '../router';
 
 // lets menu links close the panel after navigating
 let closeAll = () => {};
@@ -62,7 +62,7 @@ function ServicesMenu() {
       <motion.ul className="dd__svc-list" variants={list} initial="hidden" animate="show">
         {SERVICES.map(([icon, t, d]) => (
           <motion.li key={t} variants={itemV}>
-            <a href={`#/services/${SVC_DATA.find((x) => x.name === t)?.slug ?? ''}`} className="dd__svc" onClick={() => closeAll()}>
+            <a href={u(`/services/${SVC_DATA.find((x) => x.name === t)?.slug ?? ''}`)} className="dd__svc" onClick={() => closeAll()}>
               <span className="dd__icon">{icon}</span>
               <span><b>{t}</b><small>{d}</small></span>
             </a>
@@ -82,7 +82,7 @@ function ServicesMenu() {
 /** Built specialty pages open directly; the rest open the overview focused on that specialty. */
 const specHref = (name: string) => {
   const slug = slugify(name);
-  return getSpecialtyLite(slug)?.page ? `#/specialties/${slug}` : `#/specialties?focus=${slug}`;
+  return getSpecialtyLite(slug)?.page ? u(`/specialties/${slug}`) : u(`/specialties?focus=${slug}`);
 };
 
 function SpecialtiesMenu() {
@@ -95,7 +95,7 @@ function SpecialtiesMenu() {
           </motion.li>
         ))}
       </motion.ul>
-      <a href="#/specialties" className="dd__foot" onClick={() => closeAll()}>Don’t see your specialty? We likely bill for it. <span>Talk to us <ArrowRight /></span></a>
+      <a href={u("/specialties")} className="dd__foot" onClick={() => closeAll()}>Don’t see your specialty? We likely bill for it. <span>Talk to us <ArrowRight /></span></a>
     </div>
   );
 }
@@ -106,7 +106,7 @@ function StatesMenu() {
       <motion.ul className="dd__state-list" variants={list} initial="hidden" animate="show">
         {STATE_TOP.map((s) => (
           <motion.li key={s.slug} variants={itemV}>
-            <a href={`#/states/${s.slug}`} className="dd__state" onClick={() => closeAll()}>
+            <a href={u(`/states/${s.slug}`)} className="dd__state" onClick={() => closeAll()}>
               <span className="dd__abbr">{s.abbr}</span>
               <span><b>{s.name}</b><small>{s.chips[0][1]} · {s.chips[1][1]}</small></span>
               <ArrowRight className="dd__state-go" />
@@ -114,16 +114,16 @@ function StatesMenu() {
           </motion.li>
         ))}
       </motion.ul>
-      <a href="#/states" className="dd__foot" onClick={() => closeAll()}>Every state has its own page. <span>All 50 states <ArrowRight /></span></a>
+      <a href={u("/states")} className="dd__foot" onClick={() => closeAll()}>Every state has its own page. <span>All 50 states <ArrowRight /></span></a>
     </div>
   );
 }
 
 function InsightsMenu() {
   const cards = [
-    { href: '#/case-studies', icon: <BarChart3 />, kicker: 'Proof', title: 'Case Studies', body: 'Before-and-after numbers from practices that switched to Affinity Core.' },
-    { href: '#/blog', icon: <BookOpen />, kicker: 'Learn', title: 'Blog', body: 'Plain-English guides on denials, coding updates and getting paid faster.' },
-    { href: '#/about', icon: <Users />, kicker: 'Company', title: 'About us', body: 'Who we are, how we work, and the team that will run your billing.' },
+    { href: u('/case-studies'), icon: <BarChart3 />, kicker: 'Proof', title: 'Case Studies', body: 'Before-and-after numbers from practices that switched to Affinity Core.' },
+    { href: u('/blog'), icon: <BookOpen />, kicker: 'Learn', title: 'Blog', body: 'Plain-English guides on denials, coding updates and getting paid faster.' },
+    { href: u('/about'), icon: <Users />, kicker: 'Company', title: 'About us', body: 'Who we are, how we work, and the team that will run your billing.' },
   ];
   return (
     <motion.div className="dd__insights" variants={list} initial="hidden" animate="show">
@@ -149,10 +149,10 @@ const item = {
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const [sec, setSec] = useState<string | null>('services');
   const groups: { id: string; label: string; all?: [string, string]; links: [string, string][] }[] = [
-    { id: 'services', label: 'Services', all: ['#/services', 'All services'], links: SVC_DATA.map((x) => [`#/services/${x.slug}`, x.name]) },
-    { id: 'specialties', label: 'Specialties', all: ['#/specialties', 'All 23 specialties'], links: SP_ALL.filter((x) => x.page).map((x) => [`#/specialties/${x.slug}`, x.name]) },
-    ...(SHOW_STATES ? [{ id: 'states', label: 'States', all: ['#/states', 'All 50 states'] as [string, string], links: STATE_TOP.map((x) => [`#/states/${x.slug}`, x.name] as [string, string]) }] : []),
-    { id: 'company', label: 'Insights & company', links: [['#/case-studies', 'Case Studies'], ['#/blog', 'Blog'], ['#/about', 'About us'], ['#/careers', 'Careers'], ['#/contact', 'Contact']] },
+    { id: 'services', label: 'Services', all: [u('/services'), 'All services'], links: SVC_DATA.map((x) => [u(`/services/${x.slug}`), x.name]) },
+    { id: 'specialties', label: 'Specialties', all: [u('/specialties'), 'All 23 specialties'], links: SP_ALL.filter((x) => x.page).map((x) => [u(`/specialties/${x.slug}`), x.name]) },
+    ...(SHOW_STATES ? [{ id: 'states', label: 'States', all: [u('/states'), 'All 50 states'] as [string, string], links: STATE_TOP.map((x) => [u(`/states/${x.slug}`), x.name] as [string, string]) }] : []),
+    { id: 'company', label: 'Insights & company', links: [[u('/case-studies'), 'Case Studies'], [u('/blog'), 'Blog'], [u('/about'), 'About us'], [u('/careers'), 'Careers'], [u('/contact'), 'Contact']] },
   ];
   useEffect(() => {
     const prev = document.body.style.overflow; document.body.style.overflow = 'hidden';
@@ -165,7 +165,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.25 } }} transition={{ duration: 0.3 }}>
       <motion.div className="mm__panel" initial={{ y: -24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} transition={{ duration: 0.45, ease: ease.out }}>
         <div className="mm__head">
-          <a href="#/" className="nav__logo" onClick={onClose} aria-label="Affinity Core RCM, home"><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></a>
+          <a href={u("/")} className="nav__logo" onClick={onClose} aria-label="Affinity Core RCM, home"><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></a>
           <button type="button" className="mm__close" onClick={onClose} aria-label="Close menu"><X /></button>
         </div>
         <nav className="mm__body">
@@ -188,7 +188,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
           ))}
         </nav>
         <div className="mm__foot">
-          <a href="#/contact" className="mm__cta" onClick={onClose}>Get a free revenue assessment <ArrowRight /></a>
+          <a href={u("/contact")} className="mm__cta" onClick={onClose}>Get a free revenue assessment <ArrowRight /></a>
           <a href="tel:+12148512698" className="mm__call">Call 214-851-2698</a>
         </div>
       </motion.div>
@@ -208,7 +208,7 @@ export function Nav({ show }: { show: boolean }) {
   // drop it so the nav isn't re-projected on every scroll frame.
   const [shell, setShell] = useState(true);
   useEffect(() => { const t = window.setTimeout(() => setShell(false), 1800); return () => window.clearTimeout(t); }, []);
-  const closeT = useRef<number>();
+  const closeT = useRef<number | undefined>(undefined);
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -232,12 +232,12 @@ export function Nav({ show }: { show: boolean }) {
         transition={{ duration: 1, ease: ease.curtain }}
         initial="hidden" animate={show ? 'show' : 'hidden'}
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.55 } } }}>
-        <motion.a href="#/" variants={item} className="nav__logo" aria-label="Affinity Core RCM, home" onMouseEnter={() => scheduleClose()}><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></motion.a>
+        <motion.a href={u("/")} variants={item} className="nav__logo" aria-label="Affinity Core RCM, home" onMouseEnter={() => scheduleClose()}><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></motion.a>
         <ul className="nav__links">
           {(SHOW_STATES ? (['services', 'specialties', 'states', 'insights'] as const) : (['services', 'specialties', 'insights'] as const)).map((m) => (
             <motion.li key={m} variants={item}>
               <button className={`nav__trigger ${open === m ? 'is-open' : ''}`} aria-expanded={open === m} aria-haspopup="true"
-                onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (m === 'services' || m === 'specialties' || m === 'states') { window.location.hash = `/${m}`; setOpen(null); } else setOpen(open === m ? null : m); }}>
+                onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (m === 'services' || m === 'specialties' || m === 'states') { go(`/${m}`); setOpen(null); } else setOpen(open === m ? null : m); }}>
                 {m === 'services' ? 'Services' : m === 'specialties' ? 'Specialties' : m === 'states' ? <><UsFlag className="nav__flag" />States</> : 'Insights'}
                 <motion.span animate={{ rotate: open === m ? 180 : 0 }} transition={{ duration: 0.4, ease: ease.out }} style={{ display: 'grid' }}><Chevron /></motion.span>
               </button>

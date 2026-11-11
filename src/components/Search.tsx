@@ -16,8 +16,8 @@ import { CASES, ARTICLES } from '../data/insights';
 import { STATES, SHOW_STATES } from '../data/states';
 import { ROLES, CAREER_FAQS } from '../data/careers';
 import { FAQS } from '../sections/Closing';
-import { HUB_FAQS } from '../pages/ServicesHub';
-import { CONTACT_FAQS } from '../pages/Contact';
+import { HUB_FAQS } from '../views/ServicesHub';
+import { CONTACT_FAQS } from '../views/Contact';
 
 type Kind = 'State' | 'Page' | 'Service' | 'Specialty' | 'Case study' | 'Article' | 'Job' | 'FAQ';
 type Entry = { kind: Kind; title: string; sub: string; to: string; hay: string; t: string };
@@ -107,6 +107,8 @@ export function SearchButton({ className = '' }: { className?: string }) {
 }
 
 export function SiteSearch() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const [hi, setHi] = useState(0);
@@ -142,6 +144,7 @@ export function SiteSearch() {
   const groups = ORDER.map((k) => ({ k, items: results.filter((r) => r.kind === k) })).filter((g) => g.items.length);
   const flat = groups.flatMap((g) => g.items);
 
+  if (!mounted) return null;
   return createPortal(
     <AnimatePresence>
       {open && (

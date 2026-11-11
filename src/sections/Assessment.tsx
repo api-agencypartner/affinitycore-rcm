@@ -201,7 +201,7 @@ export function Assessment({ monthly, specialty, formFirst, source, calc }: { mo
   const [email, setEmail] = useState(lead.email ?? '');
   // A contact typed in the page hero lands here
   useEffect(() => { if (lead.phone && !phone) setPhone(lead.phone); if (lead.email && !email) setEmail(lead.email); }, [lead.phone, lead.email]); // eslint-disable-line react-hooks/exhaustive-deps
-  const src = source ?? (typeof window !== 'undefined' ? window.location.hash : '');
+  const src = source ?? (typeof window !== 'undefined' ? window.location.pathname : '');
   const first = name.trim().replace(/^dr\.?\s+/i, '').split(/\s+/)[0] ?? '';
   const submit = (e: React.FormEvent) => {
     e.preventDefault();

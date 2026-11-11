@@ -21,7 +21,7 @@ function useTick(n: number, ms: number) {
 }
 
 function Shell({ wref, label, value, unit, children, lines }: {
-  wref: React.RefObject<HTMLDivElement>; label: string; value: ReactNode; unit?: string; children: ReactNode;
+  wref: React.RefObject<HTMLDivElement | null>; label: string; value: ReactNode; unit?: string; children: ReactNode;
   lines: [string, string, boolean][];
 }) {
   return (
