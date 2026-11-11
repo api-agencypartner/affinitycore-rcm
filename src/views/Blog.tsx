@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import person1 from '../assets/person-1.webp';
 import person2 from '../assets/person-2.webp';
 import person3 from '../assets/person-3.webp';
@@ -25,8 +25,8 @@ const setMeta = (title: string, desc: string) => {
 };
 const live = (a: Article) => !!a.body;
 
-/* ---- Cover style: "headline" (text on image, best for Google Images / social) or "scene" (illustration). ---- */
-type CoverStyle = 'headline' | 'people' | 'scene';
+/* ---- Cover style: "headline" (text on image, best for Google Images / social), "split" (title + illustration) or "scene" (illustration). ---- */
+type CoverStyle = 'headline' | 'people' | 'split' | 'scene';
 let coverStyle: CoverStyle = (() => { try { return (localStorage.getItem('ac-blog-cover') as CoverStyle) || 'headline'; } catch { return 'headline'; } })();
 const coverSubs = new Set<(s: CoverStyle) => void>();
 const setCoverStyle = (v: CoverStyle) => { coverStyle = v; try { localStorage.setItem('ac-blog-cover', v); } catch { /* ignore */ } coverSubs.forEach((f) => f(v)); };
@@ -54,12 +54,48 @@ function HeadlineCover({ a, big, person }: { a: Article; big?: boolean; person?:
   );
 }
 
+/** Title + illustration: the hook on the left, the article's scene on the right, on the light brand background. */
+const ART_W = 33, ART_H = 26; // scene's natural box, rem
+function ArtFit({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [k, setK] = useState(0.5);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const fit = () => {
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 10;
+      const { width, height } = el.getBoundingClientRect();
+      setK(Math.min(1, width / (ART_W * rem), height / (ART_H * rem)));
+    };
+    fit();
+    const ro = new ResizeObserver(fit); ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className="bsp__art [position:relative] [width:100%] [height:100%] [min-height:0]">
+      <div className="bsp__art-in [position:absolute] [left:50%] [top:50%] [width:38rem] [height:30rem] [&_.scene]:[padding:2rem]!" style={{ transform: `translate(-50%, -50%) scale(${k})` }}>{children}</div>
+    </div>
+  );
+}
+function SplitCover({ a, big }: { a: Article; big?: boolean }) {
+  const [lead, accent] = a.hook ?? [a.title, ''];
+  return (
+    <div className={String.raw`bsp [position:absolute] [inset:0] [display:grid] [grid-template-columns:minmax(0,_1.05fr)_minmax(0,_1fr)] [gap:0.8rem] [padding:2.4rem_1.6rem_2.2rem_2.8rem] [container-type:size] [@media(max-width:_640px)]:[padding:2rem_1.2rem_1.8rem_2.2rem] ${big ? String.raw`bsp--big [padding:4rem_3.2rem_3.6rem_4.4rem]!` : ''}`}>
+      <div className="bsp__text [position:relative] [z-index:1] [display:flex] [flex-direction:column] [justify-content:space-between] [min-width:0]">
+        <span className="bsp__topic [align-self:flex-start] [padding:0.5rem_1.1rem] [border-radius:2rem] [background:#fff] [border:1px_solid_#e6defc] [font-family:var(--f-mono)] [font-size:1.15rem] [letter-spacing:0.06em] [text-transform:uppercase] [color:var(--purple)] [.bsp--big_&]:[font-size:1.3rem]">{a.topic}</span>
+        <p className="bsp__hook [font-weight:600] [font-size:clamp(1.9rem,_6.6cqi,_3.4rem)] [line-height:1.08] [letter-spacing:-0.04em] [color:var(--ink-2)] [text-wrap:balance] [&_em]:[font-style:normal] [&_em]:[background:linear-gradient(90deg,_#6a41f9,_#9b5cff_60%,_#c54bff)] [&_em]:[-webkit-background-clip:text] [&_em]:[background-clip:text]! [&_em]:[color:transparent] [.bsp--big_&]:[font-size:clamp(2.6rem,_5.6cqi,_6rem)]">{lead}{accent && <> <em>{accent}</em></>}</p>
+        <span className="bsp__foot [display:flex] [align-items:center] [gap:1.2rem] [font-family:var(--f-mono)] [font-size:1.15rem] [color:#7b7f92] [.bsp--big_&]:[font-size:1.3rem]"><Logo className="bsp__logo [width:9.6rem]! [.bsp--big_&]:[width:13rem]!" /><span>{a.read}</span></span>
+      </div>
+      <ArtFit>{a.cover && <SceneCover c={a.cover} />}</ArtFit>
+    </div>
+  );
+}
+
 /** Scene cover: a small, recognizable moment from the practice's day (see components/BlogCover). */
 function Cover({ a, big }: { a: Article; big?: boolean }) {
   const style = useCoverStyle();
   return (
-    <motion.div className={String.raw`bc [position:relative] [isolation:isolate] [overflow:hidden] [aspect-ratio:16_/_9] [border-radius:2.4rem_2.4rem_0_0] [display:flex] [padding:2.4rem] [background:radial-gradient(120%_90%_at_85%_10%,_#ede6ff_0%,_#f6f3ff_45%,_#fbfaff_100%)] [justify-content:center] [align-items:center] [&::before]:[content:''] [&::before]:[position:absolute] [&::before]:[inset:0] [&::before]:[z-index:-1] [&::before]:[background-image:radial-gradient(rgba(106,_65,_249,_0.12)_1px,_transparent_1.2px)]! [&::before]:[background-size:1.8rem_1.8rem]! [&::before]:[-webkit-mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&::before]:[mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&.bc--big.pa-art]:[flex-direction:column] [&.bc--big.pa-art]:[justify-content:center] [&.bc--big.pa-art]:[gap:1.8rem] [&.bc--big.pa-art]:[cursor:default] [&.bc--big.pa-art]:[min-height:56rem] [&.bc--big.pa-art]:[padding:8.4rem_2rem_6.4rem]! [@media(min-width:1024px)]:[&.bc--big.pa-art]:[min-height:60rem] [@media(min-width:1024px)]:[&.bc--big.pa-art]:[padding:9rem_3.2rem_6.8rem]! [&.bc--big.ba]:[position:relative] [&.bc--big.ba]:[overflow:hidden] [&.bc--big.ba]:[min-height:56rem] [&.bc--big.ba]:[background:var(--soft-grain),_var(--soft-bg)]! [&.bc--big.ba]:[cursor:pointer] [&.bc--big.ba]:[isolation:isolate] [@media(max-width:_1279px)]:[&.bc--big.ba]:[min-height:48rem] [@media(max-width:_640px)]:[&.bc--big.ba]:[min-height:40rem] ${big ? String.raw`bc--big [aspect-ratio:auto]! [height:100%] [min-height:34rem] [border-radius:3.2rem_0_0_3.2rem]! [padding:4rem]! [@media(max-width:_1279px)]:[min-height:22rem] [@media(max-width:_1279px)]:[border-radius:3.2rem_3.2rem_0_0]!` : ''} ${style !== 'scene' ? String.raw`bc--headline [padding:0]! [background:#2a1580]! [&::before]:[display:none]` : ''}`} initial="rest" animate="rest" whileHover="hover">
-      {style !== 'scene' ? <HeadlineCover a={a} big={big} person={style === 'people'} /> : <>
+    <motion.div className={String.raw`bc [position:relative] [isolation:isolate] [overflow:hidden] [aspect-ratio:16_/_9] [border-radius:2.4rem_2.4rem_0_0] [display:flex] [padding:2.4rem] [background:radial-gradient(120%_90%_at_85%_10%,_#ede6ff_0%,_#f6f3ff_45%,_#fbfaff_100%)] [justify-content:center] [align-items:center] [&::before]:[content:''] [&::before]:[position:absolute] [&::before]:[inset:0] [&::before]:[z-index:-1] [&::before]:[background-image:radial-gradient(rgba(106,_65,_249,_0.12)_1px,_transparent_1.2px)]! [&::before]:[background-size:1.8rem_1.8rem]! [&::before]:[-webkit-mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&::before]:[mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&.bc--big.pa-art]:[flex-direction:column] [&.bc--big.pa-art]:[justify-content:center] [&.bc--big.pa-art]:[gap:1.8rem] [&.bc--big.pa-art]:[cursor:default] [&.bc--big.pa-art]:[min-height:56rem] [&.bc--big.pa-art]:[padding:8.4rem_2rem_6.4rem]! [@media(min-width:1024px)]:[&.bc--big.pa-art]:[min-height:60rem] [@media(min-width:1024px)]:[&.bc--big.pa-art]:[padding:9rem_3.2rem_6.8rem]! [&.bc--big.ba]:[position:relative] [&.bc--big.ba]:[overflow:hidden] [&.bc--big.ba]:[min-height:56rem] [&.bc--big.ba]:[background:var(--soft-grain),_var(--soft-bg)]! [&.bc--big.ba]:[cursor:pointer] [&.bc--big.ba]:[isolation:isolate] [@media(max-width:_1279px)]:[&.bc--big.ba]:[min-height:48rem] [@media(max-width:_640px)]:[&.bc--big.ba]:[min-height:40rem] ${big ? String.raw`bc--big [aspect-ratio:auto]! [height:100%] [min-height:34rem] [border-radius:3.2rem_0_0_3.2rem]! [padding:4rem]! [@media(max-width:_1279px)]:[min-height:22rem] [@media(max-width:_1279px)]:[border-radius:3.2rem_3.2rem_0_0]!` : ''} ${style === 'headline' || style === 'people' ? String.raw`bc--headline [padding:0]! [background:#2a1580]! [&::before]:[display:none]` : ''} ${style === 'split' ? String.raw`bc--split [padding:0]!` : ''}`} initial="rest" animate="rest" whileHover="hover">
+      {style === 'split' ? <SplitCover a={a} big={big} /> : style !== 'scene' ? <HeadlineCover a={a} big={big} person={style === 'people'} /> : <>
         <span className="bc__topic [position:absolute] [left:2.4rem] [top:2.4rem] [padding:0.6rem_1.2rem] [border-radius:3rem] [background:#fff] [font-family:var(--f-mono)] [font-size:1.2rem] [text-transform:uppercase] [letter-spacing:0.06em] [color:var(--purple)]">{a.topic}</span>
         {a.cover && <SceneCover c={a.cover} />}
       </>}
@@ -74,7 +110,7 @@ function CoverPicker() {
   return (
     <div className="ccp [display:flex] [align-items:center] [gap:0.4rem] [width:max-content] [max-width:100%] [margin:3.2rem_auto_0] [padding:0.5rem] [border-radius:3rem] [border:1px_dashed_#cfc6f3] [background:#fff] [font-size:1.4rem] [&>span]:[padding:0_1.2rem_0_1rem] [&>span]:[font-family:var(--f-mono)] [&>span]:[font-size:1.15rem] [&>span]:[letter-spacing:0.05em] [&>span]:[text-transform:uppercase] [&>span]:[color:#8a8ea0] [&_button]:[padding:0.8rem_1.6rem] [&_button]:[border-radius:2.4rem] [&_button]:[color:var(--ink-2)] [&_button]:[transition:background_0.3s,_color_0.3s] [@media(max-width:_640px)]:[flex-wrap:wrap] [@media(max-width:_640px)]:[justify-content:center] [@media(max-width:_640px)]:[border-radius:2rem]" role="radiogroup" aria-label="Blog cover style (review)">
       <span>Cover style</span>
-      {([['headline', 'Headline'], ['people', 'Headline + person'], ['scene', 'Illustration']] as const).map(([id, l]) => (
+      {([['headline', 'Headline'], ['people', 'Headline + person'], ['split', 'Title + illustration'], ['scene', 'Illustration']] as const).map(([id, l]) => (
         <button key={id} type="button" role="radio" aria-checked={v === id} className={v === id ? String.raw`is-on [.assess\_\_steps_span&]:[color:var(--navy)] [.assess\_\_steps_span&_b]:[background:var(--purple)] [.assess\_\_steps_span&_b]:[border-color:var(--purple)] [.assess\_\_steps_span&_b]:[color:#fff] [.assess\_\_steps_i&::after]:[transform:scaleX(1)] [.cx-read\_\_n_i&]:[width:2.4rem] [.cx-read\_\_n_i&]:[background:var(--purple)] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[background:#fff] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[background:#fff] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [.sg\_\_toc_button&]:[color:var(--purple)] [.sg\_\_toc_button&]:[border-left-color:var(--purple)] [.pg\_\_toc_button&]:[color:#fff] [.pg\_\_toc_button&_small]:[color:rgba(255,_255,_255,_0.7)] [.pg\_\_dots_i&]:[width:2.4rem] [.pg\_\_dots_i&]:[background:var(--purple)] [.stfd\_\_tabs_button&]:[color:#fff] [.se\_\_dots_i&]:[width:6.4rem] [.sw-anes\_\_bar_i&]:[background:var(--grad)] [.sw-body_circle&]:[fill:var(--purple)] [.sw-vial\_\_body_i&]:[background:var(--grad)] [.sw-vial\_\_body_i&_small]:[color:#fff] [.sw-wound\_\_grid_i&]:[background:#c9b8ff] [.sw-wound\_\_grid_i&]:[border-color:transparent] [.sw-cal_i&]:[background:var(--purple)] [.sw-cal_i&]:[color:#fff] [.sw-wells_i&]:[background:#e2d9ff] [.sw-wells_i&]:[border-color:#c9b8ff] [.sw-shot_i&]:[background:var(--purple)] [.sw-shot_i&]:[border-color:var(--purple)] [.lf\_\_seg_button&]:[color:#fff] [.tc\_\_why_li&]:[opacity:1] [.sl\_\_tabs_button&]:[color:#fff] [.ar\_\_toc_a&]:[color:var(--ink-2)] [.ct-needs_button&]:[color:#fff] [.wa\_\_zones_li&]:[background:var(--grad)] [.wa\_\_zones_li&]:[border-color:transparent] [.wa\_\_zones_li&_small]:[color:#fff] [.wa\_\_zones_li&_b]:[color:#fff] [.wa\_\_zones_li&_em]:[color:#fff] [.se\_\_dots_i&]:[background:var(--purple)] [.ct-needs_button&]:[background:var(--grad)] [.ct-needs_button&]:[border-color:transparent] [.sc-cal_i&]:[background:var(--purple)] [.sc-cal_i&]:[color:#fff] [.ccp_button&]:[background:var(--purple)] [.ccp_button&]:[color:#fff] [.pa-art\_\_seg_button&]:[background:var(--grad)] [.pa-art\_\_seg_button&]:[color:#fff] [.pa-art\_\_steps_li&]:[background:var(--purple)] [.pa-art\_\_steps_li&]:[border-color:var(--purple)] [.pa-art\_\_steps_li&]:[color:#fff] [.ab-orbit\_\_rings_line&]:[stroke:var(--purple)] [.ab-orbit\_\_rings_line&]:[stroke-width:2]` : ''} onClick={() => setCoverStyle(id)}>{l}</button>
       ))}
     </div>
