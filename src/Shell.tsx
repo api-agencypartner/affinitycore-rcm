@@ -19,21 +19,13 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const reduce = useReducedMotion();
   const path = useRoute();
   const child = /^\/(services|specialties|case-studies|blog|states)\/[^/?]+/.test(path);
-  // The intro loader plays only when the site is entered on a parent page, with words that say what the page is.
-  // Child pages (a single service, specialty, case study or article) open straight to content.
+  // The intro loader plays only when the site is entered on the home page; every other page opens straight to content.
   const entry = useRef(path).current;
   const LOADER_WORDS: Record<string, string[] | undefined> = {
     '/': undefined, // default: "Medical Billing Service That Gets You Paid Faster"
-    '/services': ['Ten', 'Services,', 'One', 'Accountable', 'Team'],
-    '/specialties': ['23', 'Specialties,', 'Each', 'Billed', 'Its', 'Own', 'Way'],
-    '/case-studies': ['Results', 'Measured', 'in', 'Your', 'Own', 'Numbers'],
-    '/careers': ['Build', 'Your', 'Revenue', 'Cycle', 'Career', 'Here'],
-    '/blog': ['Plain-English', 'Guides', 'to', 'Getting', 'Paid'],
-    '/about': ['The', 'People', 'Who', 'Get', 'Care', 'Paid'],
-    '/states': ['Billing', 'in', 'All', '50', 'States'],
   };
   const hasLoader = entry in LOADER_WORDS;
-  // Which page the loader is introducing. Parent pages reached by navigation get it too, once per visit.
+  // Which page the loader is introducing (only ever the home page now).
   const [loaderFor, setLoaderFor] = useState(entry);
   const played = useRef(new Set<string>([entry]));
   const loaderWords = LOADER_WORDS[loaderFor];

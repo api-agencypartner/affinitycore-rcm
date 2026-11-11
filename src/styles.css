@@ -105,8 +105,6 @@ a.nav__trigger::after { right: 0; }
 .nav__phone { height: 4.8rem; padding: 0 2.2rem 0 1.8rem; border-radius: 6rem; background: var(--purple); color: #fff; display: inline-flex; align-items: center; gap: 1rem; font-weight: 500; font-size: 1.8rem; white-space: nowrap; }
 .nav__phone svg { width: 2.2rem; height: 2.2rem; flex: none; }
 .nav__logo { display: inline-flex; align-items: center; gap: 1.4rem; }
-.nav__sub { display: inline-flex; align-items: center; gap: 1.4rem; font-weight: 500; font-size: 2.2rem; letter-spacing: 0.04em; color: #000; }
-.nav__sub i { width: 1.5px; height: 2.8rem; background: #cfc8e8; }
 @media (max-width: 1440px) { .nav__phone { padding: 0; width: 5.6rem; justify-content: center; } .nav__phone-n { display: none; } .nav__links { margin-left: 4rem; gap: 2.4rem; } }
 
 /* ---------- Nav dropdowns ---------- */
@@ -844,11 +842,8 @@ html.is-searching, html.is-searching body { overflow: hidden; }
   .nav { padding-inline: 1.4rem; }
   .nav__actions { gap: 0.6rem; }
   .nav__search, .nav__phone, .nav .btn__icon, .nav .btn__goo-dot { width: 4.2rem !important; height: 4.2rem !important; }
-  .nav__sub { gap: 0.8rem; font-size: 1.8rem; }
-  .nav__sub i { height: 2.2rem; }
   .logo { width: 12rem; }
 }
-@media (max-width: 380px) { .nav__sub { display: none; } }
 @media (max-width: 640px) {
   /* testimonials: author line sits under the quote, never on top of it */
   .testi-card { min-height: 0; height: auto; padding: 2.8rem 2.4rem; }

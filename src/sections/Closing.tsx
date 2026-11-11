@@ -112,7 +112,7 @@ export function CTA({ eyebrow = '/ Ready when you are', lines = ['Your focus: be
 const BARS: [number, number, number][] = [[55, 296, 259], [313, 240, 259], [572, 149, 258], [830, 1, 258], [1088, 149, 258], [1346, 240, 259], [1605, 296, 259]];
 const COLS = [
   ['Company', ['About Us', 'Careers', 'Case Studies', 'Contact']],
-  ['Services', ['All services', 'Revenue Cycle Management', 'Medical Billing', 'Medical Coding', 'Denial Management', 'Peer-to-Peer Review', 'A/R Recovery', 'Credentialing']],
+  ['Services', ['All services', 'Revenue Cycle Management', 'Credentialing', 'Charge Entry', 'Medical Coding', 'Medical Billing', 'Payment Posting', 'Denial Management', 'A/R Recovery', 'Peer-to-Peer Review', 'Medical Billing Audits']],
   ['Specialties', ['All specialties', 'Internal Medicine', 'Cardiology', 'Mental Health', 'Urgent Care', 'Orthopedics', 'Radiology']],
   ...(SHOW_STATES ? [['States', ['Texas', 'Florida', 'California', 'New York', 'All 50 states']] as const] : []),
   ['Resources', ['Blog', 'Case Studies', 'Free assessment', 'FAQs']],
@@ -122,6 +122,7 @@ const FOOT_LINKS: Record<string, string> = {
   'Revenue Cycle Management': u('/services/revenue-cycle-management'), 'Medical Billing': u('/services/medical-billing'),
   'Medical Coding': u('/services/medical-coding'), 'Denial Management': u('/services/denial-management'),
   'A/R Recovery': u('/services/ar-recovery'), 'Peer-to-Peer Review': u('/services/peer-to-peer-review'), 'Credentialing': u('/services/credentialing'),
+  'Charge Entry': u('/services/charge-entry'), 'Payment Posting': u('/services/payment-posting'), 'Medical Billing Audits': u('/services/medical-billing-audits'),
   'All services': u('/services'), 'All specialties': u('/specialties'),
   'Internal Medicine': u('/specialties/internal-medicine'), 'Cardiology': u('/specialties/cardiology'), 'Mental Health': u('/specialties/mental-health'),
   'Urgent Care': u('/specialties/urgent-care'), 'Orthopedics': u('/specialties/orthopedics'), 'Radiology': u('/specialties/radiology'),

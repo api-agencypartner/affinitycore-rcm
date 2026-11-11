@@ -165,7 +165,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.25 } }} transition={{ duration: 0.3 }}>
       <motion.div className="mm__panel" initial={{ y: -24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} transition={{ duration: 0.45, ease: ease.out }}>
         <div className="mm__head">
-          <a href={u("/")} className="nav__logo" onClick={onClose} aria-label="Affinity Core RCM, home"><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></a>
+          <a href={u("/")} className="nav__logo" onClick={onClose} aria-label="Affinity Core Billers, home"><Logo /></a>
           <button type="button" className="mm__close" onClick={onClose} aria-label="Close menu"><X /></button>
         </div>
         <nav className="mm__body">
@@ -232,7 +232,7 @@ export function Nav({ show }: { show: boolean }) {
         transition={{ duration: 1, ease: ease.curtain }}
         initial="hidden" animate={show ? 'show' : 'hidden'}
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.55 } } }}>
-        <motion.a href={u("/")} variants={item} className="nav__logo" aria-label="Affinity Core RCM, home" onMouseEnter={() => scheduleClose()}><Logo /><span className="nav__sub" aria-hidden><i />RCM</span></motion.a>
+        <motion.a href={u("/")} variants={item} className="nav__logo" aria-label="Affinity Core Billers, home" onMouseEnter={() => scheduleClose()}><Logo /></motion.a>
         <ul className="nav__links">
           {(SHOW_STATES ? (['services', 'specialties', 'states', 'insights'] as const) : (['services', 'specialties', 'insights'] as const)).map((m) => (
             <motion.li key={m} variants={item}>
