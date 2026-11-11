@@ -123,7 +123,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         <ReadyContext.Provider value={ready}>{children}</ReadyContext.Provider>
         {/* Page-change curtain: sweeps up off the page (home page only) */}
         <AnimatePresence initial={false}>
-          {path.split('?')[0] === '/' && <motion.div key={path} className="curtain" aria-hidden initial={{ scaleY: 1 }} animate={{ scaleY: 0 }} exit={{ opacity: 0 }}
+          {path.split('?')[0] === '/' && <motion.div key={path} className="curtain [position:fixed] [inset:0] [z-index:90] [background:var(--purple)] [pointer-events:none]" aria-hidden initial={{ scaleY: 1 }} animate={{ scaleY: 0 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: ease.curtain, delay: 0.38 }} style={{ originY: 0 }} />}
         </AnimatePresence>
         <Footer />

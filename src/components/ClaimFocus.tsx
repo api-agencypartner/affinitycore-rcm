@@ -112,24 +112,24 @@ export function ClaimFocus({ slug }: { slug: string }) {
   }, [hover, lx, ly, lr]);
 
   return (
-    <div className="cf" ref={stageRef}
+    <div className="cf [position:absolute] [inset:0] [cursor:crosshair]" ref={stageRef}
       onPointerEnter={(e) => { if (e.pointerType !== 'touch') setHover(true); }}
       onPointerLeave={() => { setHover(false); ptr.current = null; }}
       onPointerMove={(e) => { if (e.pointerType !== 'touch') { ptr.current = { x: e.clientX, y: e.clientY }; dirty.current = true; } }}>
-      <motion.div className="cf-cam" style={{ x: camX, y: camY, scale: camZ, transformOrigin: '0 0' }}
+      <motion.div className="cf-cam [position:absolute] [left:0] [top:0] [will-change:transform]" style={{ x: camX, y: camY, scale: camZ, transformOrigin: '0 0' }}
         onClick={(e) => {
           const hit = (e.target as Element).closest('[data-box]')?.getAttribute('data-box');
           if (!hit) return;
           if (hover) { const target = BOX[hit].slug; if (target !== slug) go(`/services/${target}`); }
           else { const k = boxes.indexOf(hit); if (k >= 0) setI(k); }
         }}>
-        <div className="cx-paper" ref={formRef}>
+        <div className="cx-paper [position:relative] [width:92rem] [border-radius:1.6rem] [overflow:hidden] [box-shadow:0_5rem_12rem_-2rem_rgba(57,_28,_160,_0.28),_0_0.6rem_1.6rem_rgba(57,_28,_160,_0.08)] [.cf_&]:[box-shadow:0_4rem_10rem_-2rem_rgba(57,_28,_160,_0.3)]" ref={formRef}>
           <Form active={active} typed={typed} />
-          <motion.div className="cx-xwrap" style={{ clipPath: clip, WebkitClipPath: clip }} aria-hidden><Form xray active={active} typed /></motion.div>
-          <motion.span className="cx-ring" style={{ x: lx, y: ly, width: ringS, height: ringS }} aria-hidden />
+          <motion.div className="cx-xwrap [position:absolute] [inset:0] [pointer-events:none] [will-change:clip-path]" style={{ clipPath: clip, WebkitClipPath: clip }} aria-hidden><Form xray active={active} typed /></motion.div>
+          <motion.span className="cx-ring [position:absolute] [left:0] [top:0] [translate:-50%_-50%] [border-radius:50%] [border:2px_solid_rgba(255,_255,_255,_0.9)] [pointer-events:none] [@media(prefers-reduced-motion:_reduce)]:[display:none] [border-color:var(--purple)]! [box-shadow:0_0_0_4px_rgba(255,_255,_255,_0.85),_0_1.2rem_4rem_rgba(106,_65,_249,_0.3),_inset_0_0_2rem_rgba(106,_65,_249,_0.12)]" style={{ x: lx, y: ly, width: ringS, height: ringS }} aria-hidden />
         </div>
       </motion.div>
-      <XrayReadout className="cf-read" active={active} stop={i} hover={hover} steps={boxes} label="X-ray · the boxes we own"
+      <XrayReadout className="cf-read [position:absolute]! [left:2.4rem]! [bottom:2.4rem]! [width:42rem]! [max-width:calc(100%_-_4.8rem)]! [margin:0] [margin-top:0]! [z-index:3]! [@media(max-width:_1279px)]:[left:1.2rem]! [@media(max-width:_1279px)]:[bottom:1.2rem]! [@media(max-width:_1279px)]:[max-width:calc(100%_-_2.4rem)]! [@media(max-width:_1279px)]:[padding:1.6rem_1.8rem] [@media(max-width:_1279px)]:[&_p]:[min-height:0]" active={active} stop={i} hover={hover} steps={boxes} label="X-ray · the boxes we own"
         override={!hover && boxes.includes(active) ? { title: BOX[active].title, slug, line: L[slug]?.[active] ?? BOX[active].line } : undefined} />
     </div>
   );

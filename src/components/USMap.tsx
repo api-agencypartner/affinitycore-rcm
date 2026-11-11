@@ -15,23 +15,23 @@ export function USMap({ active, onActive }: { active?: string | null; onActive?:
   const set = (id: string | null) => { setHover(id); onActive?.(id); };
   const lab = hot ? US_STATES.find((s) => s.id === hot) : null;
   return (
-    <div className="usm">
+    <div className="usm [&_svg]:[display:block] [&_svg]:[width:100%] [&_svg]:[height:auto] [&_svg]:[overflow:visible]">
       <svg viewBox={US_VIEWBOX} role="img" aria-label="Map of the United States. Every state links to its billing page.">
         <g className="usm__states">
           {US_STATES.map((s) => {
             const p = page[s.id];
             return (
               <path key={s.id} d={s.d}
-                className={`usm__st ${p ? 'is-page' : ''} ${hot === s.id ? 'is-hot' : ''}`}
+                className={String.raw`usm__st [fill:#ddd3ff] [transition:fill_0.3s] [outline:none] [&:hover]:[fill:#c4b5ff] [&.is-hot]:[fill:#c4b5ff] [&.is-page]:[fill:#d9cfff] [&.is-page]:[cursor:pointer] [&.is-page]:[transition:fill_0.35s_cubic-bezier(.22,1,.36,1)] [&.is-page:hover]:[fill:var(--purple)] [&.is-page.is-hot]:[fill:var(--purple)] [&.is-page:focus-visible]:[fill:var(--purple)] [&.is-page:focus-visible]:[stroke:#140b30] [&.is-page:focus-visible]:[stroke-width:2] ${p ? String.raw`is-page [.stf\_\_legend_i&]:[background:var(--purple)]` : ''} ${hot === s.id ? 'is-hot' : ''}`}
                 tabIndex={p ? 0 : -1} role={p ? 'link' : undefined} aria-label={p ? `${s.name} billing` : undefined}
                 onMouseEnter={() => set(s.id)} onMouseLeave={() => set(null)} onFocus={() => set(s.id)} onBlur={() => set(null)}
                 onClick={() => p && go(`/states/${p.slug}`)} onKeyDown={(e) => { if (p && e.key === 'Enter') go(`/states/${p.slug}`); }} />
             );
           })}
         </g>
-        <path className="usm__borders" d={US_BORDERS} />
+        <path className="usm__borders [fill:none] [stroke:#fff] [stroke-width:1] [stroke-linejoin:round] [pointer-events:none]" d={US_BORDERS} />
         {lab && (
-          <g transform={`translate(${lab.cx} ${lab.cy - 22})`} pointerEvents="none" className="usm__tip">
+          <g transform={`translate(${lab.cx} ${lab.cy - 22})`} pointerEvents="none" className="usm__tip [&_rect]:[fill:#140b30] [&_text]:[fill:#fff] [&_text]:[font-family:var(--f-sans)] [&_text]:[font-size:13px] [&_text]:[font-weight:500]">
             <rect x={-((lab.name.length * 7.6 + (page[lab.id] ? 44 : 0)) / 2) - 12} y="-30" width={lab.name.length * 7.6 + (page[lab.id] ? 44 : 0) + 24} height="30" rx="15" />
             <text y="-10" textAnchor="middle">{lab.name}{page[lab.id] ? '  →' : ''}</text>
           </g>

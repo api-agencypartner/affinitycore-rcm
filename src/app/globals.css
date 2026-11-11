@@ -1,13 +1,14 @@
-/* Tailwind v4 (theme + utilities; preflight comes in once the legacy reset is retired) */
+/* Tailwind CSS v4 */
+@layer theme, base, utilities, overrides;
 @import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities) source(none);
-/* Tailwind only scans files already converted (added one by one below) so legacy class names like
-   `container` or `h-56` never pick up Tailwind utilities by accident. */
-@source "../tw";
+@import "tailwindcss/utilities.css" layer(utilities) source("../");
+/* Semantic hook classes kept for JS and variants; their names match Tailwind utilities, so they must not generate CSS */
+@source not inline("container h-40 h-56 h-64");
 
-/* Legacy styles, being converted to Tailwind component by component */
-@import "../styles.css";
-@import "../views/pages.css";
-@import "../views/specialties.css";
-@import "../views/insights.css";
-@import "../views/about.css";
+/* Base layer (element defaults, tokens, keyframes) + `overrides` for the few modifier classes that are built at runtime */
+@import "./base.css";
+
+/* Spacing scale matches the design's rem grid (1rem = 10px at 1920): p-24 = 2.4rem */
+@theme {
+  --spacing: 0.1rem;
+}

@@ -23,10 +23,10 @@ export function GhlForm({ title = 'Request a call back', minHeight = 640 }: { ti
     return () => clearTimeout(t);
   }, []);
   return (
-    <div className="ghl" style={{ minHeight }}>
+    <div className="ghl [position:relative] [border-radius:1.6rem] [background:#fff] [&_iframe]:[display:block] [.assess\_\_form_&]:[margin:0_-0.8rem]" style={{ minHeight }}>
       <AnimatePresence>
         {!loaded && (
-          <motion.div className="ghl__skel" aria-hidden exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+          <motion.div className="ghl__skel [position:absolute] [inset:0] [padding:2.4rem] [display:flex] [flex-direction:column] [gap:1.6rem] [border-radius:1.6rem] [background:#fff] [pointer-events:none] [&_i]:[display:block] [&_i]:[height:5.2rem] [&_i]:[border-radius:1.2rem] [&_i]:[background:linear-gradient(90deg,_#f1edff_0%,_#e6dfff_40%,_#f1edff_80%)] [&_i]:[background-size:200%_100%]! [&_i]:[animation:ghl-sh_1.4s_ease-in-out_infinite] [&_b]:[display:block] [&_b]:[height:5.6rem] [&_b]:[margin-top:auto] [&_b]:[border-radius:6rem] [&_b]:[background:var(--grad-x)]! [&_b]:[opacity:0.35]" aria-hidden exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
             {[0, 1, 2, 3, 4].map((i) => <i key={i} style={{ animationDelay: `${i * 0.12}s` }} />)}
             <b />
           </motion.div>
@@ -48,7 +48,7 @@ export function GhlForm({ title = 'Request a call back', minHeight = 640 }: { ti
         onLoad={() => setLoaded(true)}
       />
       {!loaded && slow && (
-        <p className="ghl__fallback">
+        <p className="ghl__fallback [position:absolute] [left:2.4rem] [right:2.4rem] [bottom:10rem] [z-index:2] [padding:1.4rem_1.8rem] [border-radius:1.2rem] [background:#f6f3ff] [font-size:1.5rem] [color:#4a4f63] [line-height:1.6] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500] [&_a]:[display:inline-flex] [&_a]:[align-items:center] [&_a]:[gap:0.4rem]">
           The form is taking a while to load.{' '}
           <a href={SRC} target="_blank" rel="noopener noreferrer">Open it in a new tab <ExternalLink size={14} /></a>{' '}
           or <a href="tel:+12148512698"><Phone size={14} /> call 214-851-2698</a>.

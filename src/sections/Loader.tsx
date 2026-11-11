@@ -40,37 +40,37 @@ export function Loader({ onHandoff, words = LOADER.words }: { onHandoff: () => v
   }, [onHandoff]);
 
   return (
-    <motion.div className="loader" aria-label="Loading" role="status"
+    <motion.div className="loader [position:fixed] [inset:0] [z-index:100] [background:#6a3ffb] [overflow:hidden] [display:grid] [place-items:center]" aria-label="Loading" role="status"
       initial={{ y: 0 }} exit={{ y: '-100%', transition: { duration: 1, ease: ease.curtain, delay: 0.15 } }}>
       {/* Ellipse 21 — soft glow drifting right */}
-      <motion.div className="loader__glow"
+      <motion.div className="loader__glow [position:absolute] [top:-40rem] [left:50%] [width:150rem] [height:70rem] [margin-left:-75rem] [border-radius:50%] [background:radial-gradient(closest-side,_rgba(214,_218,_255,_0.95),_rgba(170,_170,_255,_0.55)_45%,_rgba(106,_63,_251,_0)_100%)] [filter:blur(2rem)]"
         initial={{ x: '-22rem' }} animate={{ x: '22.3rem' }} transition={{ duration: t(0.5525), ease: 'linear' }} />
 
       {/* "Main" — the camera: starts zoomed 2.9× on the first words, pulls back to 1× */}
-      <motion.div className="loader__main"
+      <motion.div className="loader__main [position:relative] [width:192rem] [height:108rem] [display:grid] [place-items:center] [transform-origin:50%_50%]"
         initial={{ scale: 2.9, x: '170.78rem', y: 0 }}
         animate={{ scale: [2.9, 2.9, 1], x: ['170.78rem', '170.78rem', '0rem'] }}
         transition={{
           scale: { duration: t(0.6508), times: [0, 0.4575 / 0.6508, 1], ease: ['linear', ease.figmaZoom] },
           x: { duration: t(0.5525), times: [0, 0.0995 / 0.5525, 1], ease: ['linear', 'easeIn'] },
         }}>
-        <motion.div layoutId="shell" className="loader__bar" transition={{ duration: 1, ease: ease.curtain }}
+        <motion.div layoutId="shell" className="loader__bar [position:relative] [width:142.6rem] [height:15.8rem] [border:1px_solid_rgba(255,_255,_255,_0.28)] [background:linear-gradient(180deg,_rgba(255,_255,_255,_0.1),_rgba(255,_255,_255,_0.04))] [box-shadow:0_2rem_6rem_rgba(40,_10,_160,_0.25),_inset_0_0_4rem_rgba(255,_255,_255,_0.06)] [backdrop-filter:blur(1.2rem)]" transition={{ duration: 1, ease: ease.curtain }}
           style={{ borderRadius: 6 }}>
-          <motion.div className="loader__content" exit={{ opacity: 0, transition: { duration: 0.2 } }}>
+          <motion.div className="loader__content [position:absolute] [inset:0] [display:flex] [align-items:center] [gap:2.2rem] [padding-inline:5rem] [color:#fff]" exit={{ opacity: 0, transition: { duration: 0.2 } }}>
             {/* iconsax-add: spins in -180° → 0° */}
-            <motion.svg className="loader__plus" viewBox="0 0 24 24" fill="none" initial={{ rotate: -180 }} animate={{ rotate: 0 }}
+            <motion.svg className="loader__plus [width:5.2rem] [height:5.2rem]" viewBox="0 0 24 24" fill="none" initial={{ rotate: -180 }} animate={{ rotate: 0 }}
               transition={{ duration: t(0.105), ease: 'easeOut' }}>
               <path d="M6 12h12M12 18V6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
             </motion.svg>
 
-            <div className="loader__text" ref={textRef}>
+            <div className="loader__text [position:relative] [flex:1] [display:flex] [align-items:center] [gap:1.1rem] [height:7.6rem] [font-size:3.4rem] [letter-spacing:0.02em]" ref={textRef}>
               {/* Rectangle 24 — selection highlight sweeping behind the words */}
-              <motion.span className="loader__select"
+              <motion.span className="loader__select [position:absolute] [left:-1.4rem] [top:0] [height:100%] [width:85.6rem] [background:rgba(255,_255,_255,_0.2)]"
                 initial={{ clipPath: 'inset(0 100% 0 0)' }}
                 animate={{ clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)', 'inset(0 0% 0 100%)'] }}
                 transition={{ delay: t(0.105), duration: t(0.5096 - 0.105), times: [0, (0.4575 - 0.105) / (0.5096 - 0.105), 1], ease: [ease.figmaSelect, 'linear'] }} />
               {words.map((w, i) => (
-                <motion.span key={w + i} ref={(el) => { wordRefs.current[i] = el; }} className="loader__word"
+                <motion.span key={w + i} ref={(el) => { wordRefs.current[i] = el; }} className="loader__word [position:relative] [white-space:nowrap]"
                   initial={{ opacity: 0, x: '4.46rem' }} animate={{ opacity: 1, x: 0 }}
                   transition={{
                     opacity: { delay: t(starts[i]), duration: t(0.025), ease: ease.figmaWord },
@@ -80,13 +80,13 @@ export function Loader({ onHandoff, words = LOADER.words }: { onHandoff: () => v
                 </motion.span>
               ))}
               {/* "|" caret — follows words, then blinks */}
-              <motion.span className="loader__caret" style={{ x: caretX }}
+              <motion.span className="loader__caret [position:absolute] [left:0] [top:50%] [translate:0_-54%] [font-size:4.4rem] [font-weight:300]" style={{ x: caretX }}
                 animate={{ opacity: [1, 1, 0, 1, 0, 1, 0, 1] }}
                 transition={{ duration: t(0.84), times: [0, 0.6, 0.66, 0.72, 0.78, 0.84, 0.9, 1], ease: ease.figmaSelect }}>|</motion.span>
             </div>
 
-            <svg className="loader__icon" viewBox="0 0 24 24" fill="none" aria-hidden><path d="m6 9 6 6 6-6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            <svg className="loader__icon" viewBox="0 0 24 24" fill="none" aria-hidden><rect x="9" y="3" width="6" height="11" rx="3" stroke="#fff" strokeWidth="1.5" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" /></svg>
+            <svg className="loader__icon [width:3.6rem] [height:3.6rem] [opacity:0.9] [margin-left:2rem]" viewBox="0 0 24 24" fill="none" aria-hidden><path d="m6 9 6 6 6-6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <svg className="loader__icon [width:3.6rem] [height:3.6rem] [opacity:0.9] [margin-left:2rem]" viewBox="0 0 24 24" fill="none" aria-hidden><rect x="9" y="3" width="6" height="11" rx="3" stroke="#fff" strokeWidth="1.5" /><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </motion.div>
         </motion.div>
       </motion.div>

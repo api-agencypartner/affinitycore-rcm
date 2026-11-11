@@ -15,7 +15,16 @@ Next.js 15 (App Router) + React 19 + TypeScript, statically exported to GitHub P
 - `src/router.tsx` – `Link`, `u()` (base-path aware hrefs), `goAnchor()` for cross-page `#anchors`. Old `#/path` links redirect.
 
 ## Styling
-Tailwind CSS v4 (`src/app/globals.css`). Migration from the legacy CSS files is in progress: converted components
-live in Tailwind classes; legacy CSS (`src/styles.css`, `src/views/*.css`) is removed as each block is converted.
+Tailwind CSS v4, utilities only — there are no component stylesheets.
+- `src/app/globals.css` – layer order `theme, base, utilities, overrides`, Tailwind imports, `--spacing: 0.1rem`
+  (so `p-16` = 1.6rem; the site's root font size scales with the viewport, so rem values are the design's px/10).
+- `src/app/base.css` – `@layer base`: resets, element defaults, CSS variables, keyframes, url() images.
+  `@layer overrides`: the few classes that are added at runtime or built from template strings
+  (CTA pattern sides, X-ray swap states, footer column modifiers, `lenis`), so they still beat utilities.
+- Components keep their BEM class names (`foot__brand`, `pg__body`…) as hooks; the styling itself is arbitrary-value
+  utilities next to them, e.g. `[padding:4rem_2.4rem] [@media(max-width:_767px)]:[padding:2.8rem_1.6rem]`.
+  Class lists built in JS are wrapped in ``String.raw`…` `` so `\_` escapes survive.
+- Tailwind scans the whole project; `@source not inline(...)` blocks utility names that clash with old class names
+  (`container`, `h-40`, `h-56`, `h-64`).
 
 Design rules, fold order and history: `HANDOFF.md`.

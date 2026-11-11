@@ -25,25 +25,25 @@ export function Button({ children, className = '', wide, onClick, type = 'button
   const [goo, setGoo] = useState(false);
   const gooT = useRef(0);
   return (
-    <motion.button type={type} onClick={act} className={`btn ${wide ? 'btn--wide' : ''} ${outline ? 'btn--outline' : ''} ${goo ? 'is-goo' : ''} ${className}`}
+    <motion.button type={type} onClick={act} className={String.raw`btn [position:relative] [display:inline-flex] [align-items:center] [isolation:isolate] [@media(max-width:_640px)]:[max-width:100%] [.eng\_\_cta_&]:[max-width:100%] [@media(max-width:_1279px)]:[.eng\_\_cta_&]:[width:100%] [@media(max-width:_1279px)]:[.eng\_\_cta_&]:[justify-content:center] [.stp-sv\_\_head_&]:[margin-top:0.8rem] [@media(max-width:_640px)]:[.mc\_\_act_&]:[width:100%] ${wide ? 'btn--wide' : ''} ${outline ? 'btn--outline' : ''} ${goo ? 'is-goo' : ''} ${className}`}
       initial="rest" whileHover="hover" whileTap="tap" animate="rest"
       onHoverStart={() => { window.clearTimeout(gooT.current); setGoo(true); }}
       onHoverEnd={() => { window.clearTimeout(gooT.current); gooT.current = window.setTimeout(() => setGoo(false), 900); }}>
-      <span className="btn__goo" aria-hidden>
-        <motion.span className="btn__goo-in" variants={{ rest: { opacity: 0, transition: { delay: 0.35, duration: 0.2 } }, hover: { opacity: 1, transition: { duration: 0.12 } } }}>
-          <i className="btn__goo-pill" />
-          <motion.i className="btn__goo-dot" variants={{ rest: { x: 0 }, hover: { x: GAP } }} transition={liquid} />
-          <motion.i className="btn__goo-neck" variants={{ rest: { scaleX: 0.2, scaleY: 0.2 }, hover: { scaleX: 1, scaleY: 1 } }}
+      <span className="btn__goo [position:absolute] [inset:0] [z-index:0] [pointer-events:none] [.btn.is-goo_&]:[filter:var(--u1)] [&_i]:[position:absolute] [&_i]:[display:block] [&_i]:[background:var(--purple)] [@media(max-width:_1279px)]:[.nav_&]:[display:none] [.stp-sv\_\_head_&_i]:[background:#fff]" aria-hidden>
+        <motion.span className="btn__goo-in [position:absolute] [inset:0]" variants={{ rest: { opacity: 0, transition: { delay: 0.35, duration: 0.2 } }, hover: { opacity: 1, transition: { duration: 0.12 } } }}>
+          <i className="btn__goo-pill [left:0] [top:0] [bottom:0] [right:5.6rem] [border-radius:11.7rem] [.btn--outline_&]:[right:4.8rem] [.nav_&]:[right:4.8rem] [@media(max-width:_640px)]:[right:5.2rem]" />
+          <motion.i className="btn__goo-dot [right:0] [top:0] [width:5.6rem] [height:5.6rem] [border-radius:50%] [.btn--outline_&]:[width:4.8rem] [.btn--outline_&]:[height:4.8rem] [.nav_&]:[width:4.8rem] [.nav_&]:[height:4.8rem] [@media(max-width:_640px)]:[width:5.2rem] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_480px)]:[.nav_&]:[width:4.2rem]! [@media(max-width:_480px)]:[.nav_&]:[height:4.2rem]!" variants={{ rest: { x: 0 }, hover: { x: GAP } }} transition={liquid} />
+          <motion.i className="btn__goo-neck [right:3.6rem] [top:50%] [width:4rem] [height:2.4rem] [margin-top:-1.2rem] [border-radius:50%] [.btn--outline_&]:[right:2.9rem] [.nav_&]:[right:2.9rem]" variants={{ rest: { scaleX: 0.2, scaleY: 0.2 }, hover: { scaleX: 1, scaleY: 1 } }}
             transition={{ type: 'spring', stiffness: 260, damping: 14, mass: 0.7 }} />
-          <motion.i className="btn__goo-drop" variants={{
+          <motion.i className="btn__goo-drop [right:4.8rem] [top:50%] [width:1.6rem] [height:1.6rem] [margin-top:-0.8rem] [border-radius:50%] [.btn--outline_&]:[right:4rem] [.nav_&]:[right:4rem]" variants={{
             rest: { x: '-1.6rem', scale: 0.4, transition: { duration: 0.2 } },
             hover: { x: ['-1.6rem', '1.2rem', '2.4rem'], scale: [0.4, 1, 0.5], transition: { duration: 0.7, ease: [0.45, 0, 0.2, 1], times: [0, 0.55, 1] } },
           }} />
         </motion.span>
       </span>
-      <motion.span className="btn__label" variants={{ rest: { x: 0 }, hover: { x: 0 }, tap: { scale: 0.98 } }}
+      <motion.span className="btn__label [position:relative] [z-index:1] [display:inline-flex] [align-items:center] [justify-content:center] [height:5.6rem] [padding-inline:3.2rem] [border-radius:11.7rem] [background:var(--purple)] [color:#fff] [font-weight:500] [font-size:2rem] [line-height:1.4] [white-space:nowrap] [.btn--outline_&]:[background:transparent] [.btn--outline_&]:[color:var(--purple)] [.btn--outline_&]:[box-shadow:inset_0_0_0_1.5px_var(--purple)] [.btn--outline_&]:[transition:background_0.35s,_color_0.35s] [.btn--outline:hover_&]:[background:var(--purple)] [.btn--outline:hover_&]:[color:#fff] [.btn--outline_&]:[height:4.8rem] [.btn--outline_&]:[padding-inline:2.4rem] [.btn--outline_&]:[font-size:1.7rem] [.btn--block_&]:[flex:1] [.btn--block_&]:[overflow:hidden] [@media(max-width:_1279px)]:[.nav_&]:[display:none] [.nav_&]:[height:4.8rem] [.nav_&]:[padding-inline:2.6rem] [.nav_&]:[font-size:1.8rem] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_640px)]:[padding-inline:2.4rem] [@media(max-width:_640px)]:[font-size:1.7rem] [@media(max-width:_640px)]:[min-width:0] [.stp-sv\_\_head_&]:[background:#fff] [.stp-sv\_\_head_&]:[color:var(--purple)] [.mc\_\_act_&]:[background:#fff] [.mc\_\_act_&]:[color:var(--purple)] [@media(max-width:_640px)]:[.mc\_\_act_&]:[flex:1] [@media(max-width:_640px)]:[.mc\_\_act_&]:[min-width:0] [@media(max-width:_640px)]:[.mc\_\_act_&]:[padding-inline:1.8rem] [@media(max-width:_640px)]:[.mc\_\_act_&]:[font-size:1.6rem] [.ar\_\_toc-cta_&]:[height:4.8rem] [.ar\_\_toc-cta_&]:[padding-inline:2rem] [.ar\_\_toc-cta_&]:[font-size:1.6rem]" variants={{ rest: { x: 0 }, hover: { x: 0 }, tap: { scale: 0.98 } }}
         transition={spring}>{children}</motion.span>
-      <motion.span className="btn__icon" variants={{ rest: { x: 0, rotate: 0 }, hover: { x: GAP, rotate: -45 }, tap: { scale: 0.92 } }}
+      <motion.span className="btn__icon [position:relative] [z-index:1] [display:inline-grid] [place-items:center] [width:5.6rem] [height:5.6rem] [border-radius:50%] [background:var(--purple)] [color:#fff] [&_svg]:[width:2rem] [&_svg]:[height:2rem] [.btn--outline_&]:[background:transparent] [.btn--outline_&]:[color:var(--purple)] [.btn--outline_&]:[box-shadow:inset_0_0_0_1.5px_var(--purple)] [.btn--outline_&]:[transition:background_0.35s,_color_0.35s] [.btn--outline:hover_&]:[background:var(--purple)] [.btn--outline:hover_&]:[color:#fff] [.btn--outline_&]:[width:4.8rem] [.btn--outline_&]:[height:4.8rem] [.nav_&]:[width:4.8rem] [.nav_&]:[height:4.8rem] [@media(max-width:_640px)]:[width:5.2rem] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_480px)]:[.nav_&]:[width:4.2rem]! [@media(max-width:_480px)]:[.nav_&]:[height:4.2rem]! [.stp-sv\_\_head_&]:[background:#fff] [.stp-sv\_\_head_&]:[color:var(--purple)] [.mc\_\_act_&]:[background:#fff] [.mc\_\_act_&]:[color:var(--purple)] [.ar\_\_toc-cta_&]:[width:4.8rem] [.ar\_\_toc-cta_&]:[height:4.8rem]" variants={{ rest: { x: 0, rotate: 0 }, hover: { x: GAP, rotate: -45 }, tap: { scale: 0.92 } }}
         transition={liquid}>
         <Arrow />
       </motion.span>
@@ -89,7 +89,7 @@ export function Eyebrow({ children, className = '', style }: { children: string;
     return () => ctrl.stop();
   }, [inView, children, reduce]);
   return (
-    <motion.p ref={ref} className={`eyebrow ${className}`} style={style}
+    <motion.p ref={ref} className={String.raw`eyebrow [font-family:var(--f-mono)] [font-size:1.6rem] [line-height:1.4] [text-transform:uppercase] [color:var(--ink)] [letter-spacing:0.02em] [.hero\_\_copy_&]:[margin-bottom:1.2rem] [.stmac\_\_intro_&]:[grid-column:1_/_-1] ${className}`} style={style}
       initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.3 }}>
       {text}
     </motion.p>
@@ -122,13 +122,13 @@ export function SplitWords({ lines, className = '', delay = 0, stagger = 0.05, a
     <M className={className} initial="hidden" {...trigger}
       variants={{ hidden: {}, show: { transition: { staggerChildren: stagger, delayChildren: delay } } }}>
       {norm.map((words, li) => (
-        <span className="split-line" key={li}>
+        <span className="split-line [display:block] [.hero\_\_title_&]:[white-space:nowrap] [@media(max-width:_1279px)]:[.hero\_\_title_&]:[white-space:normal] [.page-title_&]:[white-space:nowrap] [@media(max-width:_1279px)]:[.page-title_&]:[white-space:normal] [.page-title.csd-title_&]:[white-space:normal] [.page-title.ar\_\_title_&]:[white-space:normal]" key={li}>
           {words.map((w) => {
             const k = i++;
             return (
               <Fragment key={k}>
-                <span className="split-mask">
-                  <motion.span className={`split-word ${bold?.includes(w) ? 'is-bold' : ''}`}
+                <span className="split-mask [display:inline-block] [overflow:hidden] [vertical-align:top] [padding-bottom:0.08em] [margin-bottom:-0.08em]">
+                  <motion.span className={String.raw`split-word [display:inline-block] [transform-origin:0_100%] [&.is-bold]:[font-weight:600] [.hero\_\_title_&.is-bold]:[font-weight:500] ${bold?.includes(w) ? String.raw`is-bold [.hero\_\_title_&]:[background:linear-gradient(90deg,_var(--ink-3),_var(--purple)_60%,_var(--ink-3))] [.hero\_\_title_&]:[background-size:200%_100%]! [.hero\_\_title_&]:[-webkit-background-clip:text] [.hero\_\_title_&]:[background-clip:text]! [.hero\_\_title_&]:[color:transparent] [.hero\_\_title_&]:[animation:shimmer_5s_3s_ease-in-out_infinite]` : ''}`}
                     variants={{ hidden: { y: '110%', rotate: 4 }, show: { y: '0%', rotate: 0, transition: { duration: 0.9, ease: ease.out } } }}>
                     {w}
                   </motion.span>
@@ -171,7 +171,7 @@ export function Logo({ light, className = '' }: { light?: boolean; className?: s
   // unique gradient ids per instance (nav + footer both inline the SVG)
   const id = useId().replace(/[^a-zA-Z0-9]/g, '');
   return (
-    <span className={`logo ${light ? 'logo--light' : ''} ${className}`} role="img" aria-label="Affinity Core"
+    <span className={String.raw`logo [display:inline-block] [width:17rem] [aspect-ratio:233_/_57] [color:#000] [line-height:0] [&_svg]:[display:block] [&_svg]:[width:100%] [&_svg]:[height:100%] [&.logo--xl]:[width:25.6rem] [@media(max-width:_1279px)]:[width:14rem] [@media(max-width:_1279px)]:[&.logo--xl]:[width:14rem] [@media(max-width:_480px)]:[width:12rem] [@media(max-width:_480px)]:[&.logo--xl]:[width:12rem] [.cc\_\_mark_&]:[display:block] [.cc\_\_mark_&]:[width:11rem] ${light ? String.raw`logo--light [color:#fff]!` : ''} ${className}`} role="img" aria-label="Affinity Core"
       dangerouslySetInnerHTML={{ __html: logoSvg.replace(/_LOGOID/g, '_' + id) }} />
   );
 }
@@ -181,7 +181,7 @@ export { fadeUp };
 /** US flag (public-domain design), drawn inline so it stays sharp at any size. */
 export function UsFlag({ className = '', title }: { className?: string; title?: string }) {
   return (
-    <svg className={`us-flag ${className}`} viewBox="0 0 7410 3900" role={title ? 'img' : undefined} aria-hidden={title ? undefined : true} aria-label={title}>
+    <svg className={String.raw`us-flag [display:block] [height:auto] [flex:none] ${className}`} viewBox="0 0 7410 3900" role={title ? 'img' : undefined} aria-hidden={title ? undefined : true} aria-label={title}>
       <rect width="7410" height="3900" fill="#b22234" />
       <path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#fff" strokeWidth="300" />
       <rect width="2964" height="2100" fill="#3c3b6e" />

@@ -133,22 +133,22 @@ export function LedgerArt({ slug, i, code }: { slug: string; i: number; code: st
   const a = ART[slug]; if (!a) return null;
   const [x, y] = a.pts[i % a.pts.length];
   return (
-    <svg className="ld__art" viewBox="0 0 480 200" aria-hidden>
+    <svg className="ld__art [display:block] [width:100%] [height:26rem] [margin-top:auto] [padding-top:3.2rem] [overflow:visible] [&_text]:[font-family:var(--f-mono)] [&_text]:[font-size:12px] [&_text]:[fill:#fff]" viewBox="0 0 480 200" aria-hidden>
       {/* soft underlay gives the line drawing body; the crisp line draws itself on top */}
-      <g className="ld__art-under">
+      <g className="ld__art-under [&_path]:[fill:none] [&_path]:[stroke:#ebe4ff] [&_path]:[stroke-width:12] [&_path]:[stroke-linecap:round] [&_path]:[stroke-linejoin:round] [&_circle]:[fill:none] [&_circle]:[stroke:#ebe4ff] [&_circle]:[stroke-width:12] [&_circle]:[stroke-linecap:round] [&_circle]:[stroke-linejoin:round]">
         {a.d.map((d, k) => <path key={k} d={d} />)}
         {a.c?.map(([cx, cy, r], k) => <circle key={k} cx={cx} cy={cy} r={r} />)}
       </g>
-      <g className="ld__art-line">
+      <g className="ld__art-line [&_path]:[fill:none] [&_path]:[stroke:#8f72ff] [&_path]:[stroke-width:2.2] [&_path]:[stroke-linecap:round] [&_path]:[stroke-linejoin:round] [&_circle]:[fill:none] [&_circle]:[stroke:#8f72ff] [&_circle]:[stroke-width:2.2] [&_circle]:[stroke-linecap:round] [&_circle]:[stroke-linejoin:round]">
         {a.d.map((d, k) => (
           <motion.path key={`${slug}-${k}`} d={d} initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: k * 0.15 }} />
         ))}
         {a.c?.map(([cx, cy, r], k) => <motion.circle key={k} cx={cx} cy={cy} r={r} initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, delay: 0.3 + k * 0.08 }} />)}
       </g>
       <motion.g animate={{ x, y }} initial={false} transition={{ type: 'spring', stiffness: 160, damping: 20 }}>
-        <circle r="16" className="ld__art-halo" />
-        <circle r="6" className="ld__art-dot" />
-        <g transform="translate(14 -26)"><rect width={code.length * 9 + 14} height="22" rx="6" className="ld__art-tag" /><text x="7" y="15">{code}</text></g>
+        <circle r="16" className="ld__art-halo [fill:rgba(106,_65,_249,_0.14)]" />
+        <circle r="6" className="ld__art-dot [fill:var(--purple)] [stroke:#fff] [stroke-width:2.5]" />
+        <g transform="translate(14 -26)"><rect width={code.length * 9 + 14} height="22" rx="6" className="ld__art-tag [fill:var(--purple)]" /><text x="7" y="15">{code}</text></g>
       </motion.g>
     </svg>
   );
