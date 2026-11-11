@@ -1,5 +1,5 @@
 /**
- * Short content block right after a child-page hero (services, specialties, states).
+ * Short content block right after a child-page hero (services, specialties, states, case studies).
  * A one-line lead + one paragraph + three quick facts. Plain HTML, so it is indexable and quotable.
  * Copy is built from each page's own data; swap in hand-written `intro` copy per page later (Strapi: page.intro).
  */
@@ -11,6 +11,7 @@ import { STATES } from '../data/states';
 import { Link } from '../router';
 import type { ReactNode } from 'react';
 import type { StatePage } from '../data/states';
+import { METRICS, type Case } from '../data/insights';
 
 type Intro = { kicker: string; lead: string; body: string; more: string; self: string };
 /* ---- In-copy links: each target is linked once per block, never to the current page ---- */
@@ -36,7 +37,9 @@ function linkify(paras: string[], self: string): ReactNode[] {
       }
       if (!best) { out.push(rest); break; }
       out.push(rest.slice(0, best.i));
-      out.push(<Link key={k++} to={best.t.to} className="ib__a">{rest.slice(best.i, best.i + best.len)}</Link>);
+      // case-study pages have no assessment form on the page, so that link goes to Contact
+      const to = best.t.to === '#assessment' && self.startsWith('/case-studies') ? '/contact' : best.t.to;
+      out.push(<Link key={k++} to={to} className="ib__a">{rest.slice(best.i, best.i + best.len)}</Link>);
       used.add(best.t.to); rest = rest.slice(best.i + best.len);
     }
     return out;
@@ -103,5 +106,25 @@ export const stateIntro = (s: StatePage): Intro => {
     lead: `Medical billing for ${s.name} practices, built around ${s.name} payers and rules.`,
     body: `${clean(s.seoDescription)}`,
     more: `In ${s.name}, Medicare Part B claims go to ${med ? med.title : 'the state’s Medicare contractor'}${mcd ? `, Medicaid runs through ${mcd.title}` : ''}${pp ? `, and state-regulated plans must pay clean claims within ${pp.title.toLowerCase()}` : `, and state-regulated commercial plans must pay clean claims within the deadline set by ${s.name} law`}. We work those rules on every claim and hold payers to the deadline when they are late. We bill for practices across ${list(s.cities)}, on ${s.tzName}, in specialties such as ${list(s.specialties.slice(0, 3).map((x) => SPECIALTIES.find((y) => y.slug === x)?.name).filter(Boolean) as string[])}.`,
+  };
+};
+
+export const caseIntro = (c: Case): Intro => {
+  const prof = (k: string) => c.profile.find(([x]) => x === k)?.[1];
+  const where = (prof('Location') ?? 'Texas').split(',')[0];
+  const fmt = (k: string, v: number) => (METRICS.find((m) => m.key === k)?.unit === '%' ? `${v}%` : `${v}`);
+  const low1 = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+  const moved = METRICS.map((m, k) => `${k === 0 ? 'the ' : ''}${low1(m.label)}${k === 0 ? ' went' : ''} from ${fmt(m.key, c.before[m.key])} to ${fmt(m.key, c.after[m.key])}`);
+  const sp = c.specialty.toLowerCase();
+  const h = METRICS.find((m) => m.key === c.headline)!;
+  const days = c.timeline[c.timeline.length - 1]?.day ?? 90;
+  const svcs = c.services.map((x) => SERVICES.find((y) => y.slug === x)?.name).filter(Boolean) as string[];
+  const sys = prof('Systems');
+  return {
+    self: `/case-studies/${c.slug}`,
+    kicker: `/ About this case study`,
+    lead: `How ${/^[aeiou]/.test(sp) ? 'an' : 'a'} ${sp} practice in ${where} moved its ${low1(h.label)} from ${fmt(h.key, c.before[h.key])} to ${fmt(h.key, c.after[h.key])}.`,
+    body: `${c.tag}. When the practice came to us, three things were costing it money. ${c.challenge.join(' ')}`,
+    more: `We took on ${list(svcs)}. The work came down to three moves: ${list(c.did.map((d) => lc(d.title)))}. Within ${days} days, ${list(moved)}. ${sys && /^existing/i.test(sys) ? `The practice kept its ${sys.replace(/,\s*unchanged$/i, '').replace(/^Existing/, 'existing')}, so nothing changed for the team.` : ''} Every engagement starts the same way, with a free review of one month of your claims.`.replace(/\s+/g, ' ').trim(),
   };
 };

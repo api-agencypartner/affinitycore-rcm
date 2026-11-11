@@ -4,6 +4,7 @@ import { motion, AnimatePresence, LayoutGroup, useInView, animate, useMotionValu
 import { ArrowRight, ChevronLeft, Check } from 'lucide-react';
 import { Button, CountUp, Eyebrow, Logo, Reveal, SplitWords } from '../components/ui';
 import { CTA } from '../sections/Closing';
+import { IntroBlock, caseIntro } from '../components/IntroBlock';
 import { Link, go } from '../router';
 import { CASES, METRICS, getCase, type Case, type MetricKey } from '../data/insights';
 import { SERVICES } from '../data/services';
@@ -325,6 +326,8 @@ export function CaseStudyPage({ slug }: { slug: string }) {
           <Board c={c} />
         </motion.div>
       </section>
+
+      <IntroBlock d={caseIntro(c)} />
 
       <section className="csp container">
         <Reveal className="csp__photo csp__photo--cx"><CaseCover c={c} big /></Reveal>
