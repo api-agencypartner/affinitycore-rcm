@@ -1,6 +1,6 @@
 import { go, goAnchor } from '../router';
 import logoSvg from '../assets/logo.svg?raw';
-import { Fragment, useEffect, useRef, useState, type ReactNode, type CSSProperties } from 'react';
+import { Fragment, useEffect, useRef, useState, useId, type ReactNode, type CSSProperties } from 'react';
 import { motion, useInView, animate, useMotionValue, useTransform, useReducedMotion } from 'motion/react';
 import { ease, dur, fadeUp, vp } from '../motion';
 
@@ -168,9 +168,11 @@ export function CountUp({ value, decimals = 0, prefix = '', suffix = '', duratio
 
 /* ---------- Logo (official Affinity Core wordmark SVG; letters use currentColor so it works on dark) ---------- */
 export function Logo({ light, className = '' }: { light?: boolean; className?: string }) {
+  // unique gradient ids per instance (nav + footer both inline the SVG)
+  const id = useId().replace(/[^a-zA-Z0-9]/g, '');
   return (
     <span className={`logo ${light ? 'logo--light' : ''} ${className}`} role="img" aria-label="Affinity Core"
-      dangerouslySetInnerHTML={{ __html: logoSvg }} />
+      dangerouslySetInnerHTML={{ __html: logoSvg.replace(/_LOGOID/g, '_' + id) }} />
   );
 }
 
