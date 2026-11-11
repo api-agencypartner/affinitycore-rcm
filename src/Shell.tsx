@@ -18,7 +18,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const reduce = useReducedMotion();
   const path = useRoute();
-  const child = /^\/(services|specialties|case-studies|blog|states)\/[^/?]+/.test(path);
   // The intro loader plays only when the site is entered on the home page; every other page opens straight to content.
   const entry = useRef(path).current;
   const LOADER_WORDS: Record<string, string[] | undefined> = {
@@ -122,9 +121,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         {ready && <Nav show={ready} />}
       </LayoutGroup>
         <ReadyContext.Provider value={ready}>{children}</ReadyContext.Provider>
-        {/* Page-change curtain: sweeps up off the new page (parent pages only) */}
+        {/* Page-change curtain: sweeps up off the page (home page only) */}
         <AnimatePresence initial={false}>
-          {!child && <motion.div key={path} className="curtain" aria-hidden initial={{ scaleY: 1 }} animate={{ scaleY: 0 }} exit={{ opacity: 0 }}
+          {path.split('?')[0] === '/' && <motion.div key={path} className="curtain" aria-hidden initial={{ scaleY: 1 }} animate={{ scaleY: 0 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: ease.curtain, delay: 0.38 }} style={{ originY: 0 }} />}
         </AnimatePresence>
         <Footer />

@@ -1,11 +1,11 @@
 /**
  * US map (Albers USA, 975 × 610). Every state has its own page: hover shows its name, click opens it.
- * Pulsing pins mark the states with hand-verified detail. Hover or focus shows a label. Paths come from us-atlas, see data/usMap.ts.
+ * Hover or focus shows a label. Paths come from us-atlas, see data/usMap.ts.
  */
 import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { US_STATES, US_BORDERS, US_VIEWBOX } from '../data/usMap';
-import { STATES, FEATURED_IDS } from '../data/states';
+import { STATES } from '../data/states';
 import { go } from '../router';
 
 export function USMap({ active, onActive }: { active?: string | null; onActive?: (id: string | null) => void }) {
@@ -30,15 +30,6 @@ export function USMap({ active, onActive }: { active?: string | null; onActive?:
           })}
         </g>
         <path className="usm__borders" d={US_BORDERS} />
-        {STATES.filter((p) => FEATURED_IDS.has(p.id)).map((p, i) => {
-          const s = US_STATES.find((x) => x.id === p.id)!;
-          return (
-            <g key={p.id} className="usm__pin" transform={`translate(${s.cx} ${s.cy})`} pointerEvents="none">
-              <motion.circle r="18" className="usm__ring" initial={{ scale: 0.4, opacity: 0.7 }} animate={{ scale: 1.6, opacity: 0 }} transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.6, ease: 'easeOut' }} />
-              <circle r="6" className="usm__dot" />
-            </g>
-          );
-        })}
         {lab && (
           <g transform={`translate(${lab.cx} ${lab.cy - 22})`} pointerEvents="none" className="usm__tip">
             <rect x={-((lab.name.length * 7.6 + (page[lab.id] ? 44 : 0)) / 2) - 12} y="-30" width={lab.name.length * 7.6 + (page[lab.id] ? 44 : 0) + 24} height="30" rx="15" />

@@ -1237,3 +1237,27 @@ select:not(.select select) {
   background-repeat: no-repeat; background-position: right 2rem center; background-size: 2rem 2rem;
 }
 .select svg { right: 2rem; }
+
+/* footer, tablet + phone: brand → newsletter / socials / HIPAA → link columns, balanced */
+@media (max-width: 1279px) {
+  .foot { display: flex; flex-direction: column; }
+  .foot__top { display: contents; }
+  .foot__brand { order: 1; border-bottom: 1px solid #372f4f; }
+  .foot__mid { order: 2; grid-template-columns: 1fr 1fr; }
+  .foot__news { grid-column: 1 / -1; border-bottom: 1px solid #372f4f; }
+  .foot__cols { order: 3; display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 3.2rem 2.4rem; border-bottom: 1px solid #372f4f; }
+  .foot__copy { order: 4; }
+  .foot__bars { order: 5; }
+}
+@media (max-width: 767px) {
+  .foot__mid { grid-template-columns: 1fr; }
+  .foot__contact { border-bottom: 1px solid #372f4f; }
+  .foot__cols { grid-template-columns: 1fr 1fr; justify-content: stretch; gap: 4rem 2rem; }
+  .foot__col--services, .foot__col--company { grid-column: 1 / -1; display: block !important; columns: 2; column-gap: 2rem; }
+  .foot__col--services .foot__h, .foot__col--company .foot__h { column-span: all; }
+  .foot__col--services a, .foot__col--company a { display: block; break-inside: avoid; margin-bottom: 0.8rem; }
+  .foot__col--services { order: 1; }
+  .foot__col--specialties { order: 2; }
+  .foot__col--states { order: 3; }
+  .foot__col--company { order: 4; }
+}

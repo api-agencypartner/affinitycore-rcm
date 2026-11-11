@@ -111,11 +111,10 @@ export function CTA({ eyebrow = '/ Ready when you are', lines = ['Your focus: be
 // [left, top, width] — tops from Figma; bars run past the bottom edge and are clipped
 const BARS: [number, number, number][] = [[55, 296, 259], [313, 240, 259], [572, 149, 258], [830, 1, 258], [1088, 149, 258], [1346, 240, 259], [1605, 296, 259]];
 const COLS = [
-  ['Company', ['About Us', 'Careers', 'Case Studies', 'Contact']],
+  ['Company', ['About Us', 'Careers', 'Case Studies', 'Blog', 'Contact']],
   ['Services', ['All services', 'Revenue Cycle Management', 'Credentialing', 'Charge Entry', 'Medical Coding', 'Medical Billing', 'Payment Posting', 'Denial Management', 'A/R Recovery', 'Peer-to-Peer Review', 'Medical Billing Audits']],
   ['Specialties', ['All specialties', 'Internal Medicine', 'Cardiology', 'Mental Health', 'Urgent Care', 'Orthopedics', 'Radiology']],
-  ...(SHOW_STATES ? [['States', ['Texas', 'Florida', 'California', 'New York', 'All 50 states']] as const] : []),
-  ['Resources', ['Blog', 'Case Studies', 'Free assessment', 'FAQs']],
+  ...(SHOW_STATES ? [['States', ['All 50 states', 'Texas', 'Florida', 'California', 'New York', 'Pennsylvania', 'Illinois']] as const] : []),
 ] as const;
 
 const FOOT_LINKS: Record<string, string> = {
@@ -128,7 +127,7 @@ const FOOT_LINKS: Record<string, string> = {
   'Urgent Care': u('/specialties/urgent-care'), 'Orthopedics': u('/specialties/orthopedics'), 'Radiology': u('/specialties/radiology'),
   'FAQs': '#faq', 'Case Studies': u('/case-studies'), 'Blog': u('/blog'), 'Contact': u('/contact'), 'Free assessment': u('/contact'),
   'About Us': u('/about'), 'Careers': u('/careers'),
-  'Texas': u('/states/texas'), 'Florida': u('/states/florida'), 'California': u('/states/california'), 'New York': u('/states/new-york'), 'All 50 states': u('/states'),
+  'Texas': u('/states/texas'), 'Florida': u('/states/florida'), 'California': u('/states/california'), 'New York': u('/states/new-york'), 'Pennsylvania': u('/states/pennsylvania'), 'Illinois': u('/states/illinois'), 'All 50 states': u('/states'),
 };
 const footHref = (l: string) => FOOT_LINKS[l] ?? '#';
 
@@ -157,7 +156,7 @@ export function Footer() {
         <motion.div className="foot__cols" initial="hidden" whileInView="show" viewport={vp}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}>
           {COLS.map(([h, links]) => (
-            <motion.div key={h} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05 } } }}>
+            <motion.div key={h} className={`foot__col foot__col--${h.toLowerCase()}`} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05 } } }}>
               <motion.p className="foot__h" variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }}>{h}</motion.p>
               {links.map((l) => (
                 <motion.a key={l} href={footHref(l)} variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.out } } }}

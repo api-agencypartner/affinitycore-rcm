@@ -5,7 +5,7 @@
  * (no hover or tab needed), which also keeps it in the server-rendered markup in the Next.js build.
  * Content is assembled from each page's own data, so every page reads differently.
  */
-import { useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Sparkles } from 'lucide-react';
 import { Eyebrow } from './ui';
@@ -30,6 +30,17 @@ export function PageGuide({ g }: { g: Guide }) {
   const n = g.secs.length;
   const go = (k: number) => { const nk = (k + n) % n; setDir(nk > i ? 1 : -1); setI(nk); bodyRef.current?.scrollTo({ top: 0 }); };
   const mins = Math.max(3, Math.round(words(g) / 220));
+  // The chapter pane keeps the wheel only while it can still scroll that way; otherwise the page scrolls.
+  // (Lenis skips events whose path carries data-lenis-prevent, so it is toggled per wheel event.)
+  useEffect(() => {
+    const el = bodyRef.current; if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      const room = e.deltaY > 0 ? el.scrollHeight - el.clientHeight - el.scrollTop > 1 : e.deltaY < 0 ? el.scrollTop > 0 : false;
+      if (room) el.setAttribute('data-lenis-prevent', ''); else el.removeAttribute('data-lenis-prevent');
+    };
+    el.addEventListener('wheel', onWheel, { passive: true });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, []);
   return (
     <section className="pg container" aria-labelledby={`pg-${g.key}-t`} id="guide">
       <div className="pg__panel">
@@ -55,7 +66,7 @@ export function PageGuide({ g }: { g: Guide }) {
         {/* Right: one chapter at a time. All chapters stay in the DOM for search engines. */}
         <div className="pg__stage">
           <div className="pg__prog" aria-hidden><motion.i animate={{ scaleX: (i + 1) / n }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} /></div>
-          <div className="pg__body" ref={bodyRef} data-lenis-prevent>
+          <div className="pg__body" ref={bodyRef}>
             {g.secs.map((s, k) => (
               <article key={s.id} id={`pg-${g.key}-${s.id}`} role="tabpanel" className={`pg__sec ${k === i ? 'is-on' : ''}`} aria-hidden={k !== i}>
                 {k === i ? (
