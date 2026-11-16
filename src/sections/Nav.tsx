@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
 import {
   RefreshCw, Receipt, FileCheck2, ShieldAlert, Hourglass, BadgeCheck, UserCheck, ClipboardCheck, MessageSquareText, PhoneCall,
@@ -209,6 +209,16 @@ export function Nav({ show }: { show: boolean }) {
   const [shell, setShell] = useState(true);
   useEffect(() => { const t = window.setTimeout(() => setShell(false), 1800); return () => window.clearTimeout(t); }, []);
   const closeT = useRef<number | undefined>(undefined);
+  // Dropdown sits under the hovered trigger, left edges aligned, clamped so it never runs past the bar.
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const ddRef = useRef<HTMLDivElement>(null);
+  const trigRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [ddX, setDdX] = useState(0);
+  const [ddLeft, setDdLeft] = useState(0);
+  useLayoutEffect(() => {
+    const W = wrapRef.current?.clientWidth ?? 0, w = ddRef.current?.offsetWidth ?? 0;
+    setDdLeft(Math.max(0, Math.min(ddX, W - w)));
+  }, [open, ddX]);
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -219,6 +229,8 @@ export function Nav({ show }: { show: boolean }) {
   const openMenu = (m: Menu) => {
     window.clearTimeout(closeT.current);
     if (m && open && m !== open) setDir(ORDER[m] > ORDER[open] ? 1 : -1);
+    const t = m ? trigRefs.current[m] : null, wr = wrapRef.current;
+    if (t && wr) setDdX(Math.round(t.getBoundingClientRect().left - wr.getBoundingClientRect().left - 24));
     setOpen(m);
   };
   closeAll = () => setOpen(null);
@@ -236,7 +248,7 @@ export function Nav({ show }: { show: boolean }) {
         <ul className="nav__links [margin-left:6.4rem] [margin-right:auto] [display:flex] [gap:3.2rem] [font-size:2rem] [letter-spacing:-0.01rem] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [@media(max-width:_1440px)]:[margin-left:4rem] [@media(max-width:_1440px)]:[gap:2.4rem] [@media(max-width:_1279px)]:[display:none]">
           {(SHOW_STATES ? (['services', 'specialties', 'states', 'insights'] as const) : (['services', 'specialties', 'insights'] as const)).map((m) => (
             <motion.li key={m} variants={item}>
-              <button className={String.raw`nav__trigger [display:flex] [align-items:center] [gap:0.8rem] [line-height:6rem] [color:#000] [position:relative] [font-size:2rem] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[left:0] [&::after]:[right:3.2rem] [&::after]:[bottom:1.2rem] [&::after]:[height:1px] [&::after]:[background:currentColor] [&::after]:[transform:scaleX(0)] [&::after]:[transform-origin:right] [&::after]:[transition:transform_0.5s_cubic-bezier(.16,_1,_.3,_1)] [a&::after]:[right:0] [&:hover::after]:[transform:scaleX(1)] [&:hover::after]:[transform-origin:left] [&.is-open::after]:[transform:scaleX(1)] [&.is-open::after]:[transform-origin:left] [&.is-open]:[color:var(--purple)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:4px]! [&:focus-visible]:[border-radius:0.6rem] ${open === m ? 'is-open' : ''}`} aria-expanded={open === m} aria-haspopup="true"
+              <button ref={(el) => { trigRefs.current[m] = el; }} className={String.raw`nav__trigger [display:flex] [align-items:center] [gap:0.8rem] [line-height:6rem] [color:#000] [position:relative] [font-size:2rem] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[left:0] [&::after]:[right:3.2rem] [&::after]:[bottom:1.2rem] [&::after]:[height:1px] [&::after]:[background:currentColor] [&::after]:[transform:scaleX(0)] [&::after]:[transform-origin:right] [&::after]:[transition:transform_0.5s_cubic-bezier(.16,_1,_.3,_1)] [a&::after]:[right:0] [&:hover::after]:[transform:scaleX(1)] [&:hover::after]:[transform-origin:left] [&.is-open::after]:[transform:scaleX(1)] [&.is-open::after]:[transform-origin:left] [&.is-open]:[color:var(--purple)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:4px]! [&:focus-visible]:[border-radius:0.6rem] ${open === m ? 'is-open' : ''}`} aria-expanded={open === m} aria-haspopup="true"
                 onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (m === 'services' || m === 'specialties' || m === 'states') { go(`/${m}`); setOpen(null); } else setOpen(open === m ? null : m); }}>
                 {m === 'services' ? 'Services' : m === 'specialties' ? 'Specialties' : m === 'states' ? <><UsFlag className="nav__flag [width:1.9rem] [margin-right:-0.3rem] [.mm\_\_lab_&]:[margin-right:0.6rem]" />States</> : 'Insights'}
                 <motion.span animate={{ rotate: open === m ? 180 : 0 }} transition={{ duration: 0.4, ease: ease.out }} style={{ display: 'grid' }}><Chevron /></motion.span>
@@ -259,13 +271,13 @@ export function Nav({ show }: { show: boolean }) {
       <AnimatePresence>{mob && <MobileMenu onClose={closeMob} />}</AnimatePresence>
 
       {/* One panel that morphs its size between menus; content slides in the direction you moved */}
-      <div className="dd-wrap [position:absolute] [left:0] [right:0] [top:100%] [display:flex] [justify-content:center] [padding-top:1.2rem] [pointer-events:none] [@media(max-width:_1279px)]:[display:none]">
+      <div ref={wrapRef} className="dd-wrap [position:absolute] [left:0] [right:0] [top:100%] [display:flex] [justify-content:flex-start] [padding-top:1.2rem] [pointer-events:none] [@media(max-width:_1279px)]:[display:none]">
         <AnimatePresence>
           {open && (
-            <motion.div className="dd [pointer-events:auto] [background:rgba(255,_255,_255,_0.96)] [backdrop-filter:blur(2rem)] [border:1px_solid_#ece8fb] [box-shadow:0_3rem_8rem_rgba(40,_20,_120,_0.14)] [overflow:hidden]" layout key="dd"
+            <motion.div ref={ddRef} className="dd [pointer-events:auto] [background:rgba(255,_255,_255,_0.96)] [backdrop-filter:blur(2rem)] [border:1px_solid_#ece8fb] [box-shadow:0_3rem_8rem_rgba(40,_20,_120,_0.14)] [overflow:hidden]" layout key="dd"
               initial={{ opacity: 0, y: -10, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, scale: 0.98, transition: { duration: 0.25, ease: [0.4, 0, 1, 1] } }}
               transition={{ duration: 0.5, ease: ease.out, layout: { duration: 0.55, ease: ease.out } }}
-              style={{ borderRadius: 24 }}>
+              style={{ borderRadius: 24, marginLeft: ddLeft }}>
               <AnimatePresence mode="popLayout" initial={false} custom={dir}>
                 <motion.div key={open} layout="position" custom={dir}
                   initial={{ opacity: 0, x: dir * 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir * -40 }}
