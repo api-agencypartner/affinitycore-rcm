@@ -4,6 +4,8 @@ import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import { Phone, Mail, MapPin, ArrowRight, Check, Navigation } from 'lucide-react';
 import { Eyebrow, Reveal, SplitWords } from '../components/ui';
 import { FAQ } from '../sections/Closing';
+import { go } from '../router';
+import { rememberName } from './ThankYou';
 import { SPECIALTIES } from '../data/specialties';
 import { ease, vp } from '../motion';
 // Perf: pre-blurred copy of fluted-purple.jpg replaces a live backdrop-filter blur on these panels
@@ -38,7 +40,7 @@ function Form() {
       <AnimatePresence mode="wait" initial={false}>
         {!sent ? (
           <motion.form key="f" exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }}
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+            onSubmit={(e) => { e.preventDefault(); rememberName(name); setSent(true); go('/thank-you'); }}>
             <p className="ct-form__k [font-weight:500] [font-size:2.6rem] [color:var(--ink-2)] [margin-bottom:2.4rem]">Request a call back</p>
             <div className="ct-grid [display:grid] [grid-template-columns:repeat(2,_minmax(0,_1fr))] [gap:1.6rem_2rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)]">
               <label>Full name<input required placeholder="Dr. Jane Smith" value={name} onChange={(e) => setName(e.target.value)} /></label>

@@ -6,6 +6,8 @@ import { ease } from '../motion';
 import { SPECIALTIES } from '../data/specialties';
 import { useCarriedEstimate, setEstimate } from '../data/estimate';
 import { useLead, saveStep1 } from '../data/lead';
+import { rememberName } from '../views/ThankYou';
+import { go } from '../router';
 import type { Calc, Fmt } from '../data/services';
 
 /* ------------------------------------------------------------------
@@ -206,7 +208,9 @@ export function Assessment({ monthly, specialty, formFirst, source, calc }: { mo
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (step === 1) { saveStep1({ name, phone, email, source: src }); setStep(2); return; }
+    rememberName(name);
     setSent(true);
+    setTimeout(() => go('/thank-you'), 650);
   };
 
   const useEstimate = (s: string) => {
