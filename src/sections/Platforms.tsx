@@ -2,23 +2,23 @@ import { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform, type MotionValue } from 'motion/react';
 import { Button, Eyebrow, Reveal, SplitWords } from '../components/ui';
 import { ease, vp } from '../motion';
-import oracle from '../assets/logo-oracle.png';
-import meditech from '../assets/logo-meditech.png';
-import athena from '../assets/logo-athena.png';
-import epic from '../assets/logo-epic.png';
-import ecw from '../assets/logo-ecw.png';
-import nextgen from '../assets/logo-nextgen.png';
-import greenway from '../assets/logo-greenway.png';
-import modmed from '../assets/logo-modmed.png';
+import oracle from '../assets/ehr-oracle.png';
+import meditech from '../assets/ehr-meditech.svg';
+import athena from '../assets/ehr-athena.svg';
+import epic from '../assets/ehr-epic.svg';
+import ecw from '../assets/ehr-ecw.png';
+import nextgen from '../assets/ehr-nextgen.png';
+import greenway from '../assets/ehr-greenway.png';
+import modmed from '../assets/ehr-modmed.svg';
 
 /* x, y, w, h from Figma frame 511:1974 (1920 × 760); img = inner logo size */
 const LOGOS = [
   { src: oracle, alt: 'Oracle Health', x: 120, y: 126, w: 170, h: 101, iw: 110, depth: 1.2 },
-  { src: epic, alt: 'Epic', x: 325, y: 248, w: 170, h: 109, iw: 110, depth: 0.6 },
-  { src: athena, alt: 'athenahealth', x: 116, y: 371, w: 141, h: 146, iw: 78, depth: 1 },
+  { src: epic, alt: 'Epic', x: 325, y: 248, w: 170, h: 109, iw: 96, depth: 0.6 },
+  { src: athena, alt: 'athenahealth', x: 100, y: 390, w: 180, h: 99, iw: 124, depth: 1 },
   { src: meditech, alt: 'MEDITECH', x: 311, y: 485, w: 170, h: 84, iw: 110, depth: 1.4 },
-  { src: modmed, alt: 'Modernizing Medicine', x: 1614, y: 103, w: 212, h: 120, iw: 156, depth: 1.1 },
-  { src: nextgen, alt: 'NextGen Healthcare', x: 1442, y: 189, w: 170, h: 112, iw: 110, depth: 0.7 },
+  { src: modmed, alt: 'ModMed', x: 1634, y: 113, w: 180, h: 99, iw: 116, depth: 1.1 },
+  { src: nextgen, alt: 'NextGen Healthcare', x: 1442, y: 189, w: 170, h: 112, iw: 100, depth: 0.7 },
   { src: greenway, alt: 'Greenway Health', x: 1653, y: 347, w: 170, h: 99, iw: 110, depth: 1.3 },
   { src: ecw, alt: 'eClinicalWorks', x: 1423, y: 454, w: 232, h: 92, iw: 179, depth: 0.8 },
 ];
@@ -72,7 +72,7 @@ export function Platforms({ lines = ['Works inside the', 'systems you already us
       <div className="plat__center [position:absolute] [left:50%] [top:17rem] [translate:-50%_0] [width:86rem] [display:flex] [flex-direction:column] [align-items:center] [text-align:center] [gap:1.2rem] [@media(max-width:_1279px)]:[position:relative] [@media(max-width:_1279px)]:[left:auto] [@media(max-width:_1279px)]:[top:auto] [@media(max-width:_1279px)]:[translate:none] [@media(max-width:_1279px)]:[width:100%]">
         <Eyebrow>/ Platforms we work with</Eyebrow>
         <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1279px)]:[font-size:3.8rem] [@media(max-width:_1279px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={lines} stagger={0.06} />
-        <Reveal as="p" className="body-18 plat__copy [font-size:1.8rem] [line-height:1.6] [color:var(--navy)] [margin-top:0.8rem] [margin-bottom:2.8rem] [.testi\_\_intro_&]:[margin-top:0.8rem] [.faq\_\_intro_&]:[margin-top:0.8rem] [@media(max-width:_1279px)]:[font-size:16px]! [@media(max-width:_1279px)]:[line-height:1.6] [@media(max-width:_1279px)]:[margin-bottom:0] [.tk\_\_head_&]:[margin-top:0.8rem] [.tk\_\_head_&]:[max-width:52rem] [.pw\_\_head_&]:[max-width:60rem] [.pw\_\_head_&]:[color:#4a4f63] [.ac\_\_copy_&]:[margin-top:0.8rem] [.mdef\_\_head_&]:[margin-top:0.8rem] [.mdef\_\_head_&]:[max-width:48rem] [.nl\_\_copy_&]:[margin-top:0.8rem]" delay={0.3}>{copy ?? 'No new software for your staff to learn. We work directly in your EHR and practice management system, and map access and workflow with you before anything changes.'}</Reveal>
+        <Reveal as="p" className="body-18 plat__copy [font-size:max(1.8rem,16px)] [line-height:1.6] [color:var(--navy)] [margin-top:0.8rem] [margin-bottom:2.8rem] [.testi\_\_intro_&]:[margin-top:0.8rem] [.faq\_\_intro_&]:[margin-top:0.8rem] [@media(max-width:_1279px)]:[font-size:16px]! [@media(max-width:_1279px)]:[line-height:1.6] [@media(max-width:_1279px)]:[margin-bottom:0] [.tk\_\_head_&]:[margin-top:0.8rem] [.tk\_\_head_&]:[max-width:52rem] [.pw\_\_head_&]:[max-width:60rem] [.pw\_\_head_&]:[color:#4a4f63] [.ac\_\_copy_&]:[margin-top:0.8rem] [.mdef\_\_head_&]:[margin-top:0.8rem] [.mdef\_\_head_&]:[max-width:48rem] [.nl\_\_copy_&]:[margin-top:0.8rem]" delay={0.3}>{copy ?? 'No new software for your staff to learn. We work directly in your EHR and practice management system, and map access and workflow with you before anything changes.'}</Reveal>
         <ul className="plat__mob [display:none] [@media(max-width:_1279px)]:[display:grid] [@media(max-width:_1279px)]:[grid-template-columns:repeat(4,_minmax(0,_1fr))] [@media(max-width:_1279px)]:[gap:1.2rem] [@media(max-width:_1279px)]:[width:100%] [@media(max-width:_1279px)]:[margin:1.2rem_0_3.2rem] [@media(max-width:_1279px)]:[&_li]:[display:grid] [@media(max-width:_1279px)]:[&_li]:[place-items:center] [@media(max-width:_1279px)]:[&_li]:[height:8.4rem] [@media(max-width:_1279px)]:[&_li]:[padding:1.4rem] [@media(max-width:_1279px)]:[&_li]:[border-radius:10rem] [@media(max-width:_1279px)]:[&_li]:[background:#fff] [@media(max-width:_1279px)]:[&_li]:[border:1px_solid_#f1eefb] [@media(max-width:_1279px)]:[&_li]:[box-shadow:0_1rem_3rem_rgba(25,_37,_51,_0.06)] [@media(max-width:_1279px)]:[&_img]:[max-width:100%] [@media(max-width:_1279px)]:[&_img]:[max-height:4.4rem] [@media(max-width:_1279px)]:[&_img]:[object-fit:contain] [@media(max-width:_640px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[&_li]:[height:7.2rem]" aria-label="EHR and practice management systems">
           {LOGOS.map((l) => <li key={l.alt}><img src={l.src} alt={l.alt} loading="lazy" /></li>)}
         </ul>

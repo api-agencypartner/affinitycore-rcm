@@ -48,7 +48,7 @@ export function GhlForm({ title = 'Request a call back', minHeight = 640 }: { ti
         onLoad={() => setLoaded(true)}
       />
       {!loaded && slow && (
-        <p className="ghl__fallback [position:absolute] [left:2.4rem] [right:2.4rem] [bottom:10rem] [z-index:2] [padding:1.4rem_1.8rem] [border-radius:1.2rem] [background:#f6f3ff] [font-size:1.5rem] [color:#4a4f63] [line-height:1.6] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500] [&_a]:[display:inline-flex] [&_a]:[align-items:center] [&_a]:[gap:0.4rem]">
+        <p className="ghl__fallback [position:absolute] [left:2.4rem] [right:2.4rem] [bottom:10rem] [z-index:2] [padding:1.4rem_1.8rem] [border-radius:1.2rem] [background:#f6f3ff] [font-size:max(1.5rem,14px)] [color:#4a4f63] [line-height:1.6] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500] [&_a]:[display:inline-flex] [&_a]:[align-items:center] [&_a]:[gap:0.4rem]">
           The form is taking a while to load.{' '}
           <a href={SRC} target="_blank" rel="noopener noreferrer">Open it in a new tab <ExternalLink size={14} /></a>{' '}
           or <a href="tel:+12148512698"><Phone size={14} /> call 214-851-2698</a>.

@@ -4,7 +4,7 @@
  * FAQs and closing CTA all come from here.
  *
  * Stats are cited to public sources. Calculators are labelled estimates.
- * Anything marked [Confirm with Affinity Core] needs the client's sign-off.
+ * Anything marked needs the client's sign-off.
  */
 
 export type Station = 1 | 2 | 3 | 4 | 5;
@@ -65,7 +65,7 @@ export type ServiceFull = ServiceLite & {
   closing: { eyebrow: string; lines: [string, string] };
 };
 
-const CONFIRM = '[Confirm with Affinity Core]';
+const CONFIRM = '';
 const PREMIER = { source: 'Premier, 2024 claims survey', href: 'https://premierinc.com/newsroom/blog/trend-alert-private-payers-retain-profits-by-refusing-or-delaying-legitimate-medical-claims' };
 const ACCESS_FAQ = ['Will you need access to our systems?', 'Yes, read and work access to your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.'];
 

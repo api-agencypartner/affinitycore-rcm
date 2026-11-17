@@ -5,7 +5,7 @@
 import type { Calc } from './services';
 import type { AuthReq } from './specialties';
 
-export const CONFIRM = '[Confirm with Affinity Core]';
+export const CONFIRM = '';
 export const ACCESS_FAQ: [string, string] = ['Will you need access to our systems?', 'Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.'];
 
 /* ---------------- Verified sources ---------------- */

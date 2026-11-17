@@ -107,7 +107,7 @@ export function HeroCarousel({ play }: { play: boolean }) {
         {play && (
           <motion.div key={index} className="carousel__layer [position:absolute] [left:0] [top:0] [width:89.2rem] [height:89.2rem] [transform:scale(var(--s,_1))] [transform-origin:0_0] [z-index:4] [pointer-events:none]" initial="hidden" animate="show" exit="exit"
             variants={{ hidden: {}, show: { transition: { staggerChildren: 0.18, delayChildren: index === 0 ? 1.2 : 0.35 } }, exit: { transition: { staggerChildren: 0.06 } } }}>
-            <motion.div className="hero-chip [position:absolute] [display:flex] [align-items:center] [gap:1.2rem] [padding:2.4rem] [border-radius:1.4rem] [background:rgba(248,_246,_255,_0.8)] [backdrop-filter:blur(1.2rem)] [color:var(--navy)] [white-space:nowrap] [z-index:4] [&_strong]:[display:block] [&_strong]:[font-weight:500] [&_strong]:[font-size:2.4rem] [&_strong]:[line-height:2.2rem] [&_strong]:[margin-bottom:0.8rem] [&_small]:[display:block] [&_small]:[font-size:1.4rem] [&_small]:[line-height:1.8rem]" style={s.chip.pos} variants={chipV}>
+            <motion.div className="hero-chip [position:absolute] [display:flex] [align-items:center] [gap:1.2rem] [padding:2.4rem] [border-radius:1.4rem] [background:rgba(248,_246,_255,_0.8)] [backdrop-filter:blur(1.2rem)] [color:var(--navy)] [white-space:nowrap] [z-index:4] [&_strong]:[display:block] [&_strong]:[font-weight:500] [&_strong]:[font-size:2.4rem] [&_strong]:[line-height:2.2rem] [&_strong]:[margin-bottom:0.8rem] [&_small]:[display:block] [&_small]:[font-size:max(1.4rem,14px)] [&_small]:[line-height:1.8rem]" style={s.chip.pos} variants={chipV}>
               <span className="hero-chip__icon [color:var(--purple)] [display:grid] [&_svg]:[width:3.6rem] [&_svg]:[height:3.6rem] [&_svg]:[stroke-width:1.6]">{s.chip.icon}</span>
               <span><strong>{s.chip.title}</strong><small>{s.chip.sub}</small></span>
             </motion.div>
@@ -148,9 +148,9 @@ const CURVE = 'M2 92 C 26 74, 44 52, 70 54 S 110 74, 132 64 S 172 28, 200 24 S 2
 export function RevenueCard() {
   return (
     <div className="w-card w-revenue [border-radius:2.6rem] [background:rgba(248,_246,_255,_0.8)] [backdrop-filter:blur(1.6rem)] [color:var(--navy)] [padding:3.2rem]">
-      <p className="w-revenue__label [font-size:1.8rem] [line-height:2.8rem]">Revenue overview</p>
+      <p className="w-revenue__label [font-size:max(1.8rem,16px)] [line-height:2.8rem]">Revenue overview</p>
       <CountUp className="w-revenue__value [display:block] [margin-top:2.6rem] [font-weight:500] [font-size:4.8rem] [line-height:5.6rem] [letter-spacing:-0.235rem]" prefix="$" value={428560} duration={1.8} start delay={0.5} />
-      <p className="w-revenue__sub [color:#677b91] [font-size:1.6rem] [line-height:2.4rem] [margin-top:0.4rem] [margin-bottom:1.3rem]">Collections this month</p>
+      <p className="w-revenue__sub [color:#677b91] [font-size:max(1.6rem,15px)] [line-height:2.4rem] [margin-top:0.4rem] [margin-bottom:1.3rem]">Collections this month</p>
       <svg className="w-revenue__chart [width:100%] [height:11.7rem] [overflow:visible] [padding-inline:0.9rem]" viewBox="0 0 362 101" fill="none" preserveAspectRatio="none">
         <defs>
           <linearGradient id="rev-area" x1="0" y1="0" x2="0" y2="1">
@@ -163,10 +163,10 @@ export function RevenueCard() {
         <motion.path d={CURVE} stroke="#6a41f9" strokeWidth="3" strokeLinecap="round"
           initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.4, ease: ease.inOut, delay: 0.6 }} />
       </svg>
-      <div className="w-revenue__foot [display:flex] [align-items:center] [justify-content:space-between] [margin-top:1.3rem] [padding-top:2rem] [border-top:1.3px_solid_rgba(255,_255,_255,_0.5)] [&>div]:[display:flex] [&>div]:[flex-direction:column] [&>div]:[min-width:9.2rem] [&_span:not(.w-revenue\_\_kpi)]:[font-size:1.6rem] [&_span:not(.w-revenue\_\_kpi)]:[color:#242425]">
+      <div className="w-revenue__foot [display:flex] [align-items:center] [justify-content:space-between] [margin-top:1.3rem] [padding-top:2rem] [border-top:1.3px_solid_rgba(255,_255,_255,_0.5)] [&>div]:[display:flex] [&>div]:[flex-direction:column] [&>div]:[min-width:9.2rem] [&_span:not(.w-revenue\_\_kpi)]:[font-size:max(1.6rem,15px)] [&_span:not(.w-revenue\_\_kpi)]:[color:#242425]">
         <div><CountUp className="w-revenue__kpi [font-weight:500] [font-size:2.8rem] [line-height:4.25rem] [letter-spacing:-0.096rem]" value={98.4} decimals={1} suffix="%" start delay={0.8} /><span>Clean claims</span></div>
         <div><CountUp className="w-revenue__kpi [font-weight:500] [font-size:2.8rem] [line-height:4.25rem] [letter-spacing:-0.096rem]" value={27} suffix=" days" start delay={0.9} /><span>Days in A/R</span></div>
-        <motion.span className="w-revenue__check [width:3.66rem] [height:3.66rem] [border-radius:50%] [background:#daf5ee] [color:#12745f] [display:grid] [place-items:center] [font-size:1.57rem]" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 400, damping: 14, delay: 1.6 }}>✓</motion.span>
+        <motion.span className="w-revenue__check [width:3.66rem] [height:3.66rem] [border-radius:50%] [background:#daf5ee] [color:#12745f] [display:grid] [place-items:center] [font-size:max(1.57rem,14px)]" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 400, damping: 14, delay: 1.6 }}>✓</motion.span>
       </div>
     </div>
   );
@@ -177,15 +177,15 @@ function DenialCard() {
   const rows: [string, string, number][] = [['78452', 'CO-197 · No auth', 1240], ['93000', 'CO-97 · Bundled', 74], ['99214', 'CO-16 · Missing info', 186]];
   return (
     <div className="w-card w-glass w-den [border-radius:2.17rem] [border:1.5px_solid_rgba(255,_255,_255,_0.7)] [background:linear-gradient(168deg,_rgba(255,_255,_255,_0.85)_8%,_rgba(242,_240,_255,_0.74)_92%)] [box-shadow:0_1.55rem_4.66rem_rgba(128,_70,_251,_0.35),_inset_0_1.5px_0_rgba(255,_255,_255,_0.9)] [backdrop-filter:blur(2.5rem)] [font-family:var(--f-man)] [color:#0d0c15] [padding:2.48rem] [width:44.4rem]">
-      <div className="w-den__head [display:flex] [justify-content:space-between] [align-items:flex-start] [&_small]:[display:block] [&_small]:[font-weight:600] [&_small]:[font-size:1.4rem] [&_small]:[letter-spacing:0.12rem] [&_small]:[text-transform:uppercase] [&_small]:[color:#575568]">
+      <div className="w-den__head [display:flex] [justify-content:space-between] [align-items:flex-start] [&_small]:[display:block] [&_small]:[font-weight:600] [&_small]:[font-size:max(1.4rem,14px)] [&_small]:[letter-spacing:0.12rem] [&_small]:[text-transform:uppercase] [&_small]:[color:#575568]">
         <span><small>Denials recovered</small><CountUp className="w-den__total [display:block] [margin-top:0.4rem] [font-weight:600] [font-size:3.6rem] [line-height:1] [letter-spacing:-0.08rem] [color:var(--navy)] [font-variant-numeric:tabular-nums]" prefix="$" value={1500} start delay={0.9} duration={1.6} /></span>
-        <span className="w-den__pill [padding:0.6rem_1.2rem] [border-radius:2rem] [background:rgba(229,_223,_255,_0.8)] [font-weight:600] [font-size:1.3rem] [color:var(--purple)]">This week</span>
+        <span className="w-den__pill [padding:0.6rem_1.2rem] [border-radius:2rem] [background:rgba(229,_223,_255,_0.8)] [font-weight:600] [font-size:max(1.3rem,13px)] [color:var(--purple)]">This week</span>
       </div>
-      <motion.ul className="w-den__rows [display:flex] [flex-direction:column] [gap:0.9rem] [margin-top:2rem] [&_li]:[display:grid] [&_li]:[grid-template-columns:6.6rem_minmax(0,_1fr)_10rem] [&_li]:[align-items:center] [&_li]:[gap:1rem] [&_li]:[padding:1rem_1.2rem] [&_li]:[border-radius:1.1rem] [&_li]:[background:rgba(255,_255,_255,_0.75)] [&_li]:[font-size:1.35rem] [&_code]:[font-family:var(--f-mono)] [&_code]:[font-size:1.3rem] [&_code]:[color:var(--purple)]" initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.22, delayChildren: 0.5 } } }}>
+      <motion.ul className="w-den__rows [display:flex] [flex-direction:column] [gap:0.9rem] [margin-top:2rem] [&_li]:[display:grid] [&_li]:[grid-template-columns:6.6rem_minmax(0,_1fr)_10rem] [&_li]:[align-items:center] [&_li]:[gap:1rem] [&_li]:[padding:1rem_1.2rem] [&_li]:[border-radius:1.1rem] [&_li]:[background:rgba(255,_255,_255,_0.75)] [&_li]:[font-size:max(1.35rem,13px)] [&_code]:[font-family:var(--f-mono)] [&_code]:[font-size:max(1.3rem,13px)] [&_code]:[color:var(--purple)]" initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.22, delayChildren: 0.5 } } }}>
         {rows.map(([code, why, amt]) => (
           <motion.li key={code} variants={{ hidden: { opacity: 0, x: -14 }, show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: ease.out } } }}>
             <code>{code}</code><span className="w-den__why [color:#575568] [white-space:nowrap] [overflow:hidden] [text-overflow:ellipsis]">{why}</span>
-            <span className="w-den__st [position:relative] [height:2.6rem] [&_em]:[position:absolute] [&_em]:[inset:0] [&_em]:[display:inline-flex] [&_em]:[align-items:center] [&_em]:[justify-content:center] [&_em]:[gap:0.4rem] [&_em]:[border-radius:2rem] [&_em]:[font-style:normal] [&_em]:[font-weight:600] [&_em]:[font-size:1.25rem] [&_svg]:[width:1.3rem] [&_svg]:[height:1.3rem]">
+            <span className="w-den__st [position:relative] [height:2.6rem] [&_em]:[position:absolute] [&_em]:[inset:0] [&_em]:[display:inline-flex] [&_em]:[align-items:center] [&_em]:[justify-content:center] [&_em]:[gap:0.4rem] [&_em]:[border-radius:2rem] [&_em]:[font-style:normal] [&_em]:[font-weight:600] [&_em]:[font-size:max(1.25rem,12px)] [&_svg]:[width:1.3rem] [&_svg]:[height:1.3rem]">
               <motion.em className="no [.w-den\_\_st_&]:[background:#f1edff] [.w-den\_\_st_&]:[color:#8a8ea0]" variants={{ hidden: { opacity: 1 }, show: { opacity: 0, transition: { delay: 0.9, duration: 0.3 } } }}>Denied</motion.em>
               <motion.em className="ok [.w-den\_\_st_&]:[background:var(--purple)] [.w-den\_\_st_&]:[color:#fff] [color:#12a150] [.mw_em&]:[background:#dcf5ea] [.mw\_\_row_em&]:[background:#dcf5ea] [.dq_li_em&]:[background:#dcf5ea] [.lf\_\_dg_small&]:[color:#18a058]" variants={{ hidden: { opacity: 0, scale: 0.6 }, show: { opacity: 1, scale: 1, transition: { delay: 1.1, type: 'spring', stiffness: 420, damping: 18 } } }}><Check /> ${amt.toLocaleString('en-US')}</motion.em>
             </span>
@@ -201,7 +201,7 @@ function AuthCard() {
   const steps = ['Requested', 'Peer-to-peer', 'Approved'];
   return (
     <div className="w-card w-glass w-auth [border-radius:2.17rem] [border:1.5px_solid_rgba(255,_255,_255,_0.7)] [background:linear-gradient(168deg,_rgba(255,_255,_255,_0.85)_8%,_rgba(242,_240,_255,_0.74)_92%)] [box-shadow:0_1.55rem_4.66rem_rgba(128,_70,_251,_0.35),_inset_0_1.5px_0_rgba(255,_255,_255,_0.9)] [backdrop-filter:blur(2.5rem)] [font-family:var(--f-man)] [color:#0d0c15] [padding:2.48rem] [width:44.4rem]">
-      <div className="w-provider__head [display:flex] [align-items:center] [gap:1.86rem] [&_strong]:[display:block] [&_strong]:[font-weight:600] [&_strong]:[font-size:2.17rem] [&_strong]:[line-height:3.1rem] [&_small]:[display:block] [&_small]:[font-weight:600] [&_small]:[font-size:1.55rem] [&_small]:[letter-spacing:0.124rem] [&_small]:[text-transform:uppercase] [&_small]:[color:#575568]">
+      <div className="w-provider__head [display:flex] [align-items:center] [gap:1.86rem] [&_strong]:[display:block] [&_strong]:[font-weight:600] [&_strong]:[font-size:2.17rem] [&_strong]:[line-height:3.1rem] [&_small]:[display:block] [&_small]:[font-weight:600] [&_small]:[font-size:max(1.55rem,14px)] [&_small]:[letter-spacing:0.124rem] [&_small]:[text-transform:uppercase] [&_small]:[color:#575568]">
         <span className="w-provider__avatar [width:6.2rem] [height:6.2rem] [border-radius:50%] [background:#e5dfff] [display:grid] [place-items:center] [color:var(--purple)] [&_svg]:[width:3.1rem] [&_svg]:[height:3.1rem]"><Stethoscope /></span>
         <span><strong>MRI lumbar · 72148</strong><small>Prior authorization</small></span>
         <motion.span className="w-provider__verified [margin-left:auto] [color:#12a150] [display:grid] [&_svg]:[width:3.1rem] [&_svg]:[height:3.1rem]" initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }}
@@ -216,8 +216,8 @@ function AuthCard() {
           </motion.span>
         ))}
       </div>
-      <div className="w-auth__labels [display:flex] [justify-content:space-between] [margin-top:1rem] [font-weight:500] [font-size:1.3rem] [color:#575568]">{steps.map((t) => <span key={t}>{t}</span>)}</div>
-      <motion.p className="w-auth__note [margin-top:2rem] [padding:1.1rem_1.4rem] [border-radius:1.1rem] [background:rgba(229,_223,_255,_0.7)] [font-size:1.4rem] [color:var(--navy)] [&_b]:[font-weight:600] [&_b]:[color:var(--purple)]" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.2, duration: 0.5 }}>
+      <div className="w-auth__labels [display:flex] [justify-content:space-between] [margin-top:1rem] [font-weight:500] [font-size:max(1.3rem,13px)] [color:#575568]">{steps.map((t) => <span key={t}>{t}</span>)}</div>
+      <motion.p className="w-auth__note [margin-top:2rem] [padding:1.1rem_1.4rem] [border-radius:1.1rem] [background:rgba(229,_223,_255,_0.7)] [font-size:max(1.4rem,14px)] [color:var(--navy)] [&_b]:[font-weight:600] [&_b]:[color:var(--purple)]" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.2, duration: 0.5 }}>
         Approved in <b>26 hours</b> · inside the 72-hour window
       </motion.p>
     </div>
@@ -236,9 +236,9 @@ function AuditCard() {
       <div className="w-audit__ring [position:relative] [width:14.9rem] [height:14.9rem] [flex-shrink:0] [&_svg]:[width:100%] [&_svg]:[height:100%] [&_svg]:[rotate:-90deg]">
         <svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="68" className="w-audit__track [fill:none] [stroke:rgba(106,_65,_249,_0.12)] [stroke-width:6]" />
           <motion.circle cx="75" cy="75" r="68" className="w-audit__arc [fill:none] [stroke:var(--purple)] [stroke-width:6] [stroke-linecap:round]" style={{ pathLength: dash }} /></svg>
-        <div className="w-audit__core [position:absolute] [inset:1.86rem] [border-radius:50%] [background:rgba(247,_245,_255,_0.9)] [display:grid] [place-content:center] [text-align:center] [&_strong]:[font-weight:600] [&_strong]:[font-size:3.1rem] [&_strong]:[line-height:4.35rem] [&_small]:[font-size:1.24rem] [&_small]:[text-transform:uppercase] [&_small]:[color:#575568]"><motion.strong>{scoreTxt}</motion.strong><small>Audit score</small></div>
+        <div className="w-audit__core [position:absolute] [inset:1.86rem] [border-radius:50%] [background:rgba(247,_245,_255,_0.9)] [display:grid] [place-content:center] [text-align:center] [&_strong]:[font-weight:600] [&_strong]:[font-size:3.1rem] [&_strong]:[line-height:4.35rem] [&_small]:[font-size:max(1.24rem,12px)] [&_small]:[text-transform:uppercase] [&_small]:[color:#575568]"><motion.strong>{scoreTxt}</motion.strong><small>Audit score</small></div>
       </div>
-      <motion.ul className="w-audit__rows [flex:1] [display:flex] [flex-direction:column] [gap:1.86rem] [&_li]:[position:relative] [&_li]:[display:flex] [&_li]:[justify-content:space-between] [&_li]:[padding-bottom:1.24rem] [&_li]:[font-size:1.55rem] [&_li]:[line-height:2.33rem] [&_li]:[color:#575568] [&_li>span:last-of-type]:[font-weight:700] [&_li>span:last-of-type]:[color:#0d0c15] [&_li_i]:[position:absolute] [&_li_i]:[left:0] [&_li_i]:[right:0] [&_li_i]:[bottom:0] [&_li_i]:[height:1.5px] [&_li_i]:[background:rgba(212,_209,_230,_0.72)] [&_li_i]:[transform-origin:left]" initial="hidden" animate="show"
+      <motion.ul className="w-audit__rows [flex:1] [display:flex] [flex-direction:column] [gap:1.86rem] [&_li]:[position:relative] [&_li]:[display:flex] [&_li]:[justify-content:space-between] [&_li]:[padding-bottom:1.24rem] [&_li]:[font-size:max(1.55rem,14px)] [&_li]:[line-height:2.33rem] [&_li]:[color:#575568] [&_li>span:last-of-type]:[font-weight:700] [&_li>span:last-of-type]:[color:#0d0c15] [&_li_i]:[position:absolute] [&_li_i]:[left:0] [&_li_i]:[right:0] [&_li_i]:[bottom:0] [&_li_i]:[height:1.5px] [&_li_i]:[background:rgba(212,_209,_230,_0.72)] [&_li_i]:[transform-origin:left]" initial="hidden" animate="show"
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.15, delayChildren: 0.6 } } }}>
         {rows.map(([l, v, dec]) => (
           <motion.li key={l} variants={{ hidden: { opacity: 0, x: 16 }, show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: ease.out } } }}>

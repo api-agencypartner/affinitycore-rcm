@@ -87,19 +87,19 @@ export const LADDER: { track: string; steps: Rung[] }[] = [
 ];
 
 export const PERKS: [string, string][] = [
-  ['Certification support', 'Study time and exam support for CPC, CCS and specialty credentials. [Confirm with Affinity Core]'],
-  ['Real growth paths', 'Clear steps from specialist to lead to manager, reviewed with you twice a year. [Confirm with Affinity Core]'],
+  ['Certification support', 'Study time and exam support for CPC, CCS and specialty credentials.'],
+  ['Real growth paths', 'Clear steps from specialist to lead to manager, reviewed with you twice a year.'],
   ['Hybrid and remote roles', 'Plano office plus US-remote positions, depending on the role.'],
   ['Small team, real ownership', 'A 30+ person team where your work shows up in a practice’s monthly results.'],
   ['Training from day one', 'Payer rules, specialty playbooks and shadowing before you own your first practice.'],
-  ['Health and time off', 'Benefits and paid time off for full-time roles. [Confirm with Affinity Core]'],
+  ['Health and time off', 'Benefits and paid time off for full-time roles.'],
 ];
 
 export const HIRING: [string, string][] = [
   ['Apply', 'Send your resume and the role you want. A real person reads every application.'],
   ['20-minute call', 'A quick conversation about your experience and what you’re looking for.'],
   ['Skills check', 'A short, practical exercise: a few sample claims, a coding case or a denial to work.'],
-  ['Team interview and offer', 'Meet the lead you’d work with, then a decision within a week. [Confirm with Affinity Core]'],
+  ['Team interview and offer', 'Meet the lead you’d work with, then a decision within a week.'],
 ];
 
 export const CAREER_FAQS: string[][] = [

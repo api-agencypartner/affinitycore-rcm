@@ -32,7 +32,7 @@ export function About() {
               {c.icon}
             </motion.span>
             <CountUp className="about-card__num [display:block] [font-weight:600] [font-size:4.8rem] [line-height:1.1] [letter-spacing:-0.096rem] [margin-right:auto] [@media(max-width:_640px)]:[font-size:3.6rem]" value={c.value} prefix={c.prefix} suffix={c.suffix} duration={1.8} />
-            <div className="about-card__foot [margin-top:auto]"><p className="about-card__label [font-weight:600] [font-size:2.8rem] [line-height:1.3] [@media(max-width:_1279px)]:[font-size:2.4rem] [@media(min-width:_768px)_and_(max-width:_1279px)]:[font-size:2rem] [@media(max-width:_640px)]:[font-size:1.8rem]">{c.label}</p><p className="about-card__note [margin-top:0.6rem] [font-size:1.7rem] [color:#5b5f72] [@media(max-width:_640px)]:[font-size:1.5rem] [@media(max-width:_1279px)]:[font-size:16px]! [@media(max-width:_1279px)]:[line-height:1.6]">{c.note}</p></div>
+            <div className="about-card__foot [margin-top:auto]"><p className="about-card__label [font-weight:600] [font-size:2.8rem] [line-height:1.3] [@media(max-width:_1279px)]:[font-size:2.4rem] [@media(min-width:_768px)_and_(max-width:_1279px)]:[font-size:max(2rem,16px)] [@media(max-width:_640px)]:[font-size:max(1.8rem,16px)]">{c.label}</p><p className="about-card__note [margin-top:0.6rem] [font-size:max(1.7rem,15px)] [color:#5b5f72] [@media(max-width:_640px)]:[font-size:max(1.5rem,14px)] [@media(max-width:_1279px)]:[font-size:16px]! [@media(max-width:_1279px)]:[line-height:1.6]">{c.note}</p></div>
           </motion.article>
         ))}
       </motion.div>

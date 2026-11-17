@@ -1,3 +1,4 @@
+import { useNarrow } from '../components/useNarrow';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { ArrowRight, Search, X } from 'lucide-react';
@@ -48,14 +49,15 @@ function SpecialtyFinder() {
   }, []);
 
   const pick = (s: SpecialtyLite) => { setOpen(false); go(`/specialties/${s.slug}`); };
+  const narrow = useNarrow();
   const show = open && q.trim().length > 0;
 
   return (
     <div className="sfind [position:relative] [width:min(68rem,_100%)] [display:flex] [flex-direction:column] [align-items:center] [gap:1.6rem]" ref={wrap}>
       <div className={String.raw`sfind__bar [width:100%] [height:6.8rem] [display:flex] [align-items:center] [gap:1.2rem] [padding:0_0.8rem_0_2.4rem] [border-radius:4rem] [background:#fff] [border:1px_solid_var(--lav-border)] [box-shadow:0_1.2rem_3.2rem_rgba(106,_65,_249,_0.08)] [transition:border-color_0.3s,_box-shadow_0.3s] [&:focus-within]:[border-color:var(--purple)] [&:focus-within]:[box-shadow:0_0_0_0.4rem_rgba(106,_65,_249,_0.1),_0_1.2rem_3.2rem_rgba(106,_65,_249,_0.12)] [@media(max-width:_640px)]:[height:5.6rem] [@media(max-width:_640px)]:[padding-left:1.8rem] ${show ? 'is-open' : ''}`}>
         <Search className="sfind__icon [flex:none] [width:2.2rem] [height:2.2rem] [color:var(--purple)]" aria-hidden />
-        <input ref={input} className="sfind__input [flex:1] [min-width:0] [height:100%] [border:0] [outline:0] [background:none] [font-family:inherit] [font-weight:inherit] [font-style:inherit] [line-height:inherit] [font-size:1.8rem] [color:var(--ink-2)] [&::placeholder]:[color:#a29cbc] [&::-webkit-search-cancel-button]:[display:none] [@media(max-width:_640px)]:[font-size:1.6rem]" type="search" value={q} id="home-specialty-search"
-          placeholder={`Search ${SPECIALTIES.length} specialties or a CPT code`}
+        <input ref={input} className="sfind__input [flex:1] [min-width:0] [height:100%] [border:0] [outline:0] [background:none] [font-family:inherit] [font-weight:inherit] [font-style:inherit] [line-height:inherit] [font-size:max(1.8rem,16px)] [color:var(--ink-2)] [&::placeholder]:[color:#a29cbc] [&::-webkit-search-cancel-button]:[display:none] [@media(max-width:_640px)]:[font-size:max(1.6rem,15px)]" type="search" value={q} id="home-specialty-search"
+          placeholder={narrow ? `Search ${SPECIALTIES.length} specialties` : `Search ${SPECIALTIES.length} specialties or a CPT code`}
           role="combobox" aria-expanded={show} aria-controls={listId} aria-autocomplete="list"
           aria-label="Search specialties"
           onChange={(e) => { setQ(e.target.value); setOpen(true); }}
@@ -67,7 +69,7 @@ function SpecialtyFinder() {
             else if (e.key === 'Escape') { setOpen(false); }
           }} />
         {q && <button type="button" className="sfind__clear [flex:none] [width:3.2rem] [height:3.2rem] [border-radius:50%] [display:grid] [place-items:center] [color:#6b6f7c] [background:#f4f0ff] [&_svg]:[width:1.6rem] [&_svg]:[height:1.6rem]" aria-label="Clear search" onClick={() => { setQ(''); input.current?.focus(); }}><X /></button>}
-        <button type="button" className="sfind__all [flex:none] [height:5.2rem] [display:inline-flex] [align-items:center] [gap:0.8rem] [padding:0_2.2rem] [border-radius:3rem] [background:var(--grad-x)] [color:#fff] [font-family:var(--f-jak)] [font-weight:600] [font-size:1.6rem] [transition:box-shadow_0.3s] [&_svg]:[width:1.8rem] [&_svg]:[height:1.8rem] [&_svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1)] [&:hover]:[box-shadow:0_0.8rem_2.4rem_rgba(106,_65,_249,_0.3)] [&:hover_svg]:[transform:translateX(0.3rem)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:2px]! [@media(max-width:_640px)]:[height:4.4rem] [@media(max-width:_640px)]:[padding:0_1.4rem] [@media(max-width:_640px)]:[font-size:1.4rem]" onClick={() => go('/specialties')}>
+        <button type="button" className="sfind__all [flex:none] [height:5.2rem] [display:inline-flex] [align-items:center] [gap:0.8rem] [padding:0_2.2rem] [border-radius:3rem] [background:var(--grad-x)] [color:#fff] [font-family:var(--f-jak)] [font-weight:600] [font-size:max(1.6rem,15px)] [transition:box-shadow_0.3s] [&_svg]:[width:1.8rem] [&_svg]:[height:1.8rem] [&_svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1)] [&:hover]:[box-shadow:0_0.8rem_2.4rem_rgba(106,_65,_249,_0.3)] [&:hover_svg]:[transform:translateX(0.3rem)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:2px]! [@media(max-width:_640px)]:[height:4.4rem] [@media(max-width:_640px)]:[padding:0_1.4rem] [@media(max-width:_640px)]:[font-size:max(1.4rem,14px)]" onClick={() => go('/specialties')}>
           All {SPECIALTIES.length} <ArrowRight />
         </button>
       </div>
@@ -85,13 +87,13 @@ function SpecialtyFinder() {
                   className={String.raw`sfind__row [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:2px]! [display:grid] [grid-template-columns:4.4rem_minmax(0,_1fr)_auto_2rem] [align-items:center] [gap:1.4rem] [padding:1rem_1.4rem_1rem_1rem] [border-radius:1.6rem] [text-align:left] [transition:background_0.2s] [&.is-hi]:[background:#f7f5ff] [@media(max-width:_640px)]:[grid-template-columns:4rem_minmax(0,_1fr)_1.8rem] ${hi === i ? 'is-hi' : ''}`}
                   onMouseEnter={() => setHi(i)} onClick={() => pick(s)}>
                   <span className="sfind__ic [width:4.4rem] [height:4.4rem] [border-radius:1.2rem] [display:grid] [place-items:center] [background:#f1edff] [color:var(--purple)] [transition:background_0.2s,_color_0.2s] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [&_svg]:[stroke-width:1.6] [.sfind\_\_row.is-hi_&]:[background:var(--purple)] [.sfind\_\_row.is-hi_&]:[color:#fff]"><Icon /></span>
-                  <span className="sfind__name [display:flex] [flex-direction:column] [font-family:var(--f-jak)] [font-weight:600] [font-size:1.7rem] [color:var(--ink-2)] [min-width:0] [&_small]:[font-family:var(--f-sans)] [&_small]:[font-weight:400] [&_small]:[font-size:1.3rem] [&_small]:[color:#8a8ea0]">{s.name}<small>{s.group}</small></span>
-                  <span className="sfind__code [display:inline-flex] [align-items:center] [gap:0.8rem] [font-size:1.3rem] [color:#6b6f7c] [max-width:26rem] [white-space:nowrap] [overflow:hidden] [text-overflow:ellipsis] [&_b]:[flex:none] [&_b]:[padding:0.2rem_0.8rem] [&_b]:[border-radius:1rem] [&_b]:[background:#f4f0ff] [&_b]:[font-family:var(--f-mono)] [&_b]:[font-weight:500] [&_b]:[color:var(--purple)] [@media(max-width:_640px)]:[display:none]"><b>{code[0]}</b>{code[1]}</span>
+                  <span className="sfind__name [display:flex] [flex-direction:column] [font-family:var(--f-jak)] [font-weight:600] [font-size:max(1.7rem,15px)] [color:var(--ink-2)] [min-width:0] [&_small]:[font-family:var(--f-sans)] [&_small]:[font-weight:400] [&_small]:[font-size:max(1.3rem,13px)] [&_small]:[color:#8a8ea0]">{s.name}<small>{s.group}</small></span>
+                  <span className="sfind__code [display:inline-flex] [align-items:center] [gap:0.8rem] [font-size:max(1.3rem,13px)] [color:#6b6f7c] [max-width:26rem] [white-space:nowrap] [overflow:hidden] [text-overflow:ellipsis] [&_b]:[flex:none] [&_b]:[padding:0.2rem_0.8rem] [&_b]:[border-radius:1rem] [&_b]:[background:#f4f0ff] [&_b]:[font-family:var(--f-mono)] [&_b]:[font-weight:500] [&_b]:[color:var(--purple)] [@media(max-width:_640px)]:[display:none]"><b>{code[0]}</b>{code[1]}</span>
                   <ArrowRight className="sfind__go [width:1.8rem] [height:1.8rem] [color:var(--purple)] [opacity:0] [transform:translateX(-0.4rem)] [transition:opacity_0.2s,_transform_0.3s] [.sfind\_\_row.is-hi_&]:[opacity:1] [.sfind\_\_row.is-hi_&]:[transform:none]" aria-hidden />
                 </button>
               );
             }) : (
-              <div className="sfind__empty [display:flex] [flex-direction:column] [align-items:flex-start] [gap:0.6rem] [padding:1.6rem_1.8rem] [font-size:1.6rem] [line-height:2.4rem] [color:#5b5f6e] [&_b]:[font-family:var(--f-jak)] [&_b]:[font-weight:600] [&_b]:[color:var(--ink-2)] [&_button]:[margin-top:0.6rem] [&_button]:[display:inline-flex] [&_button]:[align-items:center] [&_button]:[gap:0.6rem] [&_button]:[font-weight:600] [&_button]:[color:var(--purple)] [&_button_svg]:[width:1.6rem] [&_button_svg]:[height:1.6rem]">
+              <div className="sfind__empty [display:flex] [flex-direction:column] [align-items:flex-start] [gap:0.6rem] [padding:1.6rem_1.8rem] [font-size:max(1.6rem,15px)] [line-height:2.4rem] [color:#5b5f6e] [&_b]:[font-family:var(--f-jak)] [&_b]:[font-weight:600] [&_b]:[color:var(--ink-2)] [&_button]:[margin-top:0.6rem] [&_button]:[display:inline-flex] [&_button]:[align-items:center] [&_button]:[gap:0.6rem] [&_button]:[font-weight:600] [&_button]:[color:var(--purple)] [&_button_svg]:[width:1.6rem] [&_button_svg]:[height:1.6rem]">
                 <b>No page for “{q.trim()}” yet.</b>
                 <span>We likely bill for it. Tell us your specialty and we’ll show you what we’d fix.</span>
                 <button type="button" onClick={() => { setOpen(false); goAnchor('assessment'); }}>Get a free assessment <ArrowRight /></button>
@@ -101,7 +103,7 @@ function SpecialtyFinder() {
         )}
       </AnimatePresence>
 
-      <div className="sfind__pop-list [&_button:focus-visible]:[outline:2px_solid_var(--purple)] [&_button:focus-visible]:[outline-offset:2px]! [display:flex] [flex-wrap:wrap] [justify-content:center] [align-items:center] [gap:0.8rem] [font-size:1.5rem] [color:#8a8ea0] [&_button]:[padding:0.6rem_1.4rem] [&_button]:[border-radius:2rem] [&_button]:[border:1px_solid_var(--lav-border)] [&_button]:[background:#fff] [&_button]:[color:var(--ink-2)] [&_button]:[font-size:1.5rem] [&_button]:[transition:border-color_0.3s,_color_0.3s] [&_button:hover]:[border-color:var(--purple)] [&_button:hover]:[color:var(--purple)]" aria-label="Popular specialties">
+      <div className="sfind__pop-list [&_button:focus-visible]:[outline:2px_solid_var(--purple)] [&_button:focus-visible]:[outline-offset:2px]! [display:flex] [flex-wrap:wrap] [justify-content:center] [align-items:center] [gap:0.8rem] [font-size:max(1.5rem,14px)] [color:#8a8ea0] [&_button]:[padding:0.6rem_1.4rem] [&_button]:[border-radius:2rem] [&_button]:[border:1px_solid_var(--lav-border)] [&_button]:[background:#fff] [&_button]:[color:var(--ink-2)] [&_button]:[font-size:max(1.5rem,14px)] [&_button]:[transition:border-color_0.3s,_color_0.3s] [&_button:hover]:[border-color:var(--purple)] [&_button:hover]:[color:var(--purple)]" aria-label="Popular specialties">
         <span>Popular:</span>
         {POPULAR.map((slug) => {
           const s = getSpecialtyLite(slug)!;
@@ -146,7 +148,7 @@ export function Specialities() {
             const Icon = s.icon;
             const to = `/specialties/${c.slug}`;
             return (
-              <motion.article key={c.slug} className={String.raw`spec-card [position:absolute] [width:43.4rem] [display:flex] [gap:1.9rem] [padding:3.2rem_3.2rem_3.2rem_2.4rem] [border-radius:3.2rem] [border:1px_solid_var(--lav-border)] [background:#fff] [isolation:isolate] [overflow:hidden] [outline:none] [transition:color_0.35s,_box-shadow_0.5s,_border-color_0.5s] [&.is-active]:[border-color:var(--purple)] [&.is-active]:[box-shadow:0_1.6rem_4rem_rgba(106,_65,_249,_0.22)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:3px]! [&_h3]:[font-family:var(--f-jak)] [&_h3]:[font-weight:600] [&_h3]:[font-size:2.2rem] [&_h3]:[line-height:2.31rem] [&_h3]:[letter-spacing:-0.0945rem] [&_h3]:[color:var(--ink-2)] [&_h3]:[transition:color_0.35s] [&_p]:[font-size:1.8rem] [&_p]:[line-height:3rem] [&_p]:[color:#000] [&_p]:[transition:color_0.35s] [&.is-active_h3]:[color:#fff] [&.is-active_p]:[color:#fff] [@media(max-width:_1279px)]:[position:relative] [@media(max-width:_1279px)]:[left:auto]! [@media(max-width:_1279px)]:[top:auto]! [@media(max-width:_1279px)]:[width:100%] [cursor:pointer] [&_p]:[margin-top:1.2rem] [&>div]:[min-width:0] ${active === i ? 'is-active' : ''}`}
+              <motion.article key={c.slug} className={String.raw`spec-card [position:absolute] [width:43.4rem] [display:flex] [gap:1.9rem] [padding:3.2rem_3.2rem_3.2rem_2.4rem] [border-radius:3.2rem] [border:1px_solid_var(--lav-border)] [background:#fff] [isolation:isolate] [overflow:hidden] [outline:none] [transition:color_0.35s,_box-shadow_0.5s,_border-color_0.5s] [&.is-active]:[border-color:var(--purple)] [&.is-active]:[box-shadow:0_1.6rem_4rem_rgba(106,_65,_249,_0.22)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:3px]! [&_h3]:[font-family:var(--f-jak)] [&_h3]:[font-weight:600] [&_h3]:[font-size:2.2rem] [&_h3]:[line-height:2.31rem] [&_h3]:[letter-spacing:-0.0945rem] [&_h3]:[color:var(--ink-2)] [&_h3]:[transition:color_0.35s] [&_p]:[font-size:max(1.8rem,16px)] [&_p]:[line-height:3rem] [&_p]:[color:#000] [&_p]:[transition:color_0.35s] [&.is-active_h3]:[color:#fff] [&.is-active_p]:[color:#fff] [@media(max-width:_1279px)]:[position:relative] [@media(max-width:_1279px)]:[left:auto]! [@media(max-width:_1279px)]:[top:auto]! [@media(max-width:_1279px)]:[width:100%] [cursor:pointer] [&_p]:[margin-top:1.2rem] [&>div]:[min-width:0] ${active === i ? 'is-active' : ''}`}
                 style={{ left: `${c.left}rem`, top: `${c.top}rem` }}
                 onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} tabIndex={0} role="link" aria-label={`${s.name} billing`}
                 onClick={() => go(to)} onKeyDown={(e) => { if (e.key === 'Enter') go(to); }}
@@ -169,7 +171,7 @@ export function Specialities() {
         </motion.div>
       </div>
       <motion.div className="spec__cta [margin-top:-1.6rem] [position:relative] [@media(max-width:_1279px)]:[margin-top:3rem] [&.spec\_\_cta]:[margin-top:3.2rem] [display:flex] [flex-direction:column] [align-items:center] [gap:1.6rem] [width:100%] [z-index:5]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.9, ease: ease.out, delay: 0.4 }}>
-        <p className="spec__ask [font-size:1.8rem] [line-height:2.8rem] [color:#5b5f6e] [text-align:center]">Don’t see yours? Search all {SPECIALTIES.length} specialties we bill for.</p>
+        <p className="spec__ask [font-size:max(1.8rem,16px)] [line-height:2.8rem] [color:#5b5f6e] [text-align:center]">Don’t see yours? Search all {SPECIALTIES.length} specialties we bill for.</p>
         <SpecialtyFinder />
       </motion.div>
     </section>

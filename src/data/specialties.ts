@@ -6,7 +6,7 @@
  * Specialties with a full page (`page`) also carry the template content.
  *
  * Codes and rules are public CPT / HCPCS / CMS conventions. Anything that describes
- * Affinity Core's own scope or team is marked [Confirm with Affinity Core].
+ * Affinity Core's own scope or team is marked.
  */
 import type { LucideIcon } from 'lucide-react';
 import {
@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import type { ServiceFull } from './services';
 
-const CONFIRM = '[Confirm with Affinity Core]';
+const CONFIRM = '';
 
 export type RuleId = 'auth' | 'time' | 'global' | 'mod25' | 'split' | 'drugs';
 

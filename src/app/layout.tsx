@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: { default: 'Medical Billing & Revenue Cycle Management · Affinity Core', template: '%s · Affinity Core' },
   description: 'US-based certified coders, billers and A/R specialists who work inside your EHR to cut denials, speed up payments and give your staff their time back.',
   openGraph: { siteName: 'Affinity Core RCM', type: 'website' },
+  icons: {
+    icon: [{ url: `${process.env.NEXT_PUBLIC_BASE ?? ''}/icon.svg`, type: 'image/svg+xml' }, { url: `${process.env.NEXT_PUBLIC_BASE ?? ''}/favicon.ico`, sizes: '48x48' }],
+    apple: `${process.env.NEXT_PUBLIC_BASE ?? ''}/apple-touch-icon.png`,
+  },
 };
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 

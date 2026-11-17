@@ -52,9 +52,9 @@ export function IntroBlock({ d }: { d: Intro }) {
   return (
     <section className="ib container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:10rem] [@media(max-width:_1279px)]:[padding-top:7.2rem]" aria-label={d.kicker.replace(/^\/\s*/, '')}>
       <motion.div className="ib__grid [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [column-gap:8rem] [row-gap:2rem] [align-items:start] [padding-top:5.6rem] [border-top:1px_solid_#ece8fa] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1279px)]:[row-gap:1.6rem] [@media(max-width:_1279px)]:[padding-top:4rem]" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.8, ease: ease.out }}>
-        <p className="eyebrow ib__kick [font-family:var(--f-mono)] [font-size:1.6rem] [line-height:1.4] [text-transform:uppercase] [color:var(--ink)] [letter-spacing:0.02em] [.hero\_\_copy_&]:[margin-bottom:1.2rem] [grid-column:1_/_-1] [.stmac\_\_intro_&]:[grid-column:1_/_-1]">{d.kicker}</p>
+        <p className="eyebrow ib__kick [font-family:var(--f-mono)] [font-size:max(1.6rem,15px)] [line-height:1.4] [text-transform:uppercase] [color:var(--ink)] [letter-spacing:0.02em] [.hero\_\_copy_&]:[margin-bottom:1.2rem] [grid-column:1_/_-1] [.stmac\_\_intro_&]:[grid-column:1_/_-1]">{d.kicker}</p>
         <h2 className="ib__h [margin:0] [font-family:var(--f-jak)] [font-weight:500] [font-size:3.6rem] [line-height:1.2] [letter-spacing:-0.08rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1279px)]:[font-size:2.8rem]">{d.lead}</h2>
-        <div className="ib__copy [display:flex] [flex-direction:column] [gap:1.6rem] [padding-top:0.6rem] [&>p]:[margin:0] [&>p]:[font-size:1.8rem] [&>p]:[line-height:1.7] [&>p]:[color:#4a4f63] [@media(max-width:_1279px)]:[padding-top:0.8rem] [@media(max-width:_1279px)]:[&>p]:[font-size:16px]">
+        <div className="ib__copy [display:flex] [flex-direction:column] [gap:1.6rem] [padding-top:0.6rem] [&>p]:[margin:0] [&>p]:[font-size:max(1.8rem,16px)] [&>p]:[line-height:1.7] [&>p]:[color:#4a4f63] [@media(max-width:_1279px)]:[padding-top:0.8rem] [@media(max-width:_1279px)]:[&>p]:[font-size:16px]">
           {linkify([d.body, d.more], d.self).map((p, k) => <p key={k}>{p}</p>)}
         </div>
       </motion.div>

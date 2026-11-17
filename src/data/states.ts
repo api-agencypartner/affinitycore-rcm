@@ -1,7 +1,7 @@
 /**
  * State pages (Strapi later: collection "States"). Built for local SEO and PPC landing traffic:
  * every page names the state's own Medicare contractor, Medicaid program and prompt-pay law.
- * Regulatory facts are sourced (links below); anything about Affinity Core's own coverage is marked [Confirm].
+ * Regulatory facts are sourced (links below); anything about Affinity Core's own coverage is marked.
  */
 export type StateFact = { k: string; title: string; body: string; src?: { label: string; href: string } };
 export type StatePage = {
@@ -20,7 +20,7 @@ export type StatePage = {
 
 import { MORE_STATES } from './states-all';
 
-const CONFIRM = '[Confirm with Affinity Core]';
+const CONFIRM = '';
 /** States work is on hold until Ali reviews it: false hides the fold, menu, footer column, search entries and routes. */
 export const SHOW_STATES = true;
 

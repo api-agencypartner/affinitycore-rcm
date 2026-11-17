@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
+import { BackToTop } from './components/BackToTop';
 import { SMOOTH } from './motion';
 import { AnimatePresence, LayoutGroup, MotionConfig, motion, useReducedMotion, frame, cancelFrame } from 'motion/react';
 import { useRoute, goAnchor, setScroller, scrollToPending, setPush, stripBase } from './router';
@@ -128,6 +129,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         </AnimatePresence>
         <Footer />
         <SiteSearch />
+        <BackToTop onTop={() => (lenis.current ? lenis.current.scrollTo(0, { duration: 1.2 }) : window.scrollTo({ top: 0, behavior: 'smooth' }))} />
     </MotionConfig>
   );
 }
