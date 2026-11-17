@@ -64,8 +64,6 @@
 
 /* ---------- Thank you ---------- */
 .ty { position: relative; overflow: hidden; min-height: 100vh; background: radial-gradient(70% 60% at 85% 10%, rgba(138, 107, 255, 0.16), transparent 70%), radial-gradient(60% 50% at 0% 100%, rgba(201, 188, 255, 0.25), transparent 70%); }
-.ty-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-.ty-chip { position: absolute; top: 0; white-space: nowrap; padding: 0.8rem 1.4rem; border-radius: 4rem; background: rgba(255, 255, 255, 0.75); border: 1px solid #ebe5ff; box-shadow: 0 0.8rem 2.4rem rgba(106, 65, 249, 0.08); font-family: var(--f-mono); font-size: 1.3rem; color: #6a41f9; backdrop-filter: blur(4px); }
 .ty-hero { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8rem; align-items: center; padding: 16rem var(--gutter) 12rem; }
 .ty-stage { position: relative; display: grid; place-items: center; min-height: 56rem; }
 .ty-confetti { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 3; }

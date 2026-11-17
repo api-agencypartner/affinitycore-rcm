@@ -13,8 +13,6 @@ export const rememberName = (full: string) => {
   try { sessionStorage.setItem(TY_KEY, first); } catch { /* private mode */ }
 };
 
-// Wins that drift up behind the card: what the visitor's claims start to look like.
-const CHIPS = ['+$1,240 · paid', 'CO-97 · reversed', 'Clean claim', '+$55.20 · underpayment caught', 'Prior auth · approved', '90+ A/R · −12%', 'ERA posted', 'Appeal won', '+$860 · paid', 'Denial fixed upstream'];
 const STEPS = [
   { ico: Phone, t: 'We reach out', d: 'A US-based billing specialist calls in your time zone to set up your call.' },
   { ico: FileSignature, t: 'BAA, then one month of claims', d: 'We sign a BAA before we touch a record, then review your claims.' },
@@ -47,13 +45,6 @@ export function ThankYouPage() {
 
   return (
     <main className="ty page">
-      <div className="ty-bg" aria-hidden>
-        {CHIPS.map((c, i) => (
-          <motion.span key={c} className="ty-chip" style={{ left: `${4 + ((i * 37) % 92)}%` }}
-            initial={{ y: '110vh', opacity: 0 }} animate={reduce ? { opacity: 0.5, y: `${10 + i * 8}vh` } : { y: '-20vh', opacity: [0, 0.9, 0.9, 0] }}
-            transition={{ duration: 16 + (i % 4) * 3, delay: i * 1.3, repeat: Infinity, ease: 'linear' }}>{c}</motion.span>
-        ))}
-      </div>
 
       <section className="ty-hero container">
         <div className="ty-stage">
