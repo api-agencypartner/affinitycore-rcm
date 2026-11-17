@@ -9,6 +9,7 @@ import { Button, Logo, UsFlag } from '../components/ui';
 import { SERVICES as SVC_DATA } from '../data/services';
 import { getSpecialtyLite, SPECIALTIES as SP_ALL } from '../data/specialties';
 import { SearchButton } from '../components/Search';
+import { StateFlag } from '../components/StateFlag';
 import { STATES as STATE_DATA, FEATURED as STATE_FEATURED, SHOW_STATES } from '../data/states';
 const STATE_TOP = STATE_FEATURED.map((slug) => STATE_DATA.find((x) => x.slug === slug)!);
 import { slugify, u, go } from '../router';
@@ -107,7 +108,7 @@ function StatesMenu() {
         {STATE_TOP.map((s) => (
           <motion.li key={s.slug} variants={itemV}>
             <a href={u(`/states/${s.slug}`)} className="dd__state [display:grid] [grid-template-columns:4.8rem_minmax(0,_1fr)_2rem] [gap:1.4rem] [align-items:center] [padding:1.2rem_1.4rem_1.2rem_1.2rem] [border-radius:1.6rem] [color:var(--ink-2)] [transition:background_0.3s] [&:hover]:[background:#f7f5ff] [&_b]:[display:block] [&_b]:[font-weight:500] [&_b]:[font-size:1.9rem] [&_small]:[display:block] [&_small]:[font-size:1.4rem] [&_small]:[color:#6b6f7c]" onClick={() => closeAll()}>
-              <span className="dd__abbr [width:4.8rem] [height:4.8rem] [border-radius:1.3rem] [display:grid] [place-items:center] [background:#efeaff] [color:var(--purple)] [font-family:var(--f-mono)] [font-weight:600] [font-size:1.6rem] [transition:background_0.3s,_color_0.3s] [.dd\_\_state:hover_&]:[background:var(--purple)] [.dd\_\_state:hover_&]:[color:#fff]">{s.abbr}</span>
+              <StateFlag abbr={s.abbr} className="dd__flag [width:5.4rem] [transition:box-shadow_0.3s] [.dd\_\_state:hover_&]:[box-shadow:0_0_0_2px_var(--purple)]" />
               <span><b>{s.name}</b><small>{s.chips[0][1]} · {s.chips[1][1]}</small></span>
               <ArrowRight className="dd__state-go [width:1.8rem] [height:1.8rem] [color:var(--purple)] [opacity:0] [transition:opacity_0.3s,_transform_0.3s] [.dd\_\_state:hover_&]:[opacity:1] [.dd\_\_state:hover_&]:[transform:translateX(0.3rem)]" />
             </a>

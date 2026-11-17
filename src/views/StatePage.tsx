@@ -9,7 +9,8 @@ import { PageGuide, stateGuide } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Building2, ChevronLeft, Clock, ExternalLink, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Building2, ChevronLeft, Clock, ExternalLink, Landmark, Mail, MapPin, Phone } from 'lucide-react';
+import { StateFlag } from '../components/StateFlag';
 import { Button, Eyebrow, Reveal, SplitWords } from '../components/ui';
 import { TrustRow, MidCta, Switching } from '../components/ChildFolds';
 import { Testimonials } from '../sections/Testimonials';
@@ -32,7 +33,7 @@ function Hero({ s }: { s: State }) {
     <section className="sp-hero stp-hero [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:6rem] [align-items:center] [padding:16.4rem_var(--gutter)_6rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1279px)]:[padding-top:12rem] [@media(max-width:_1279px)]:[min-height:0]">
       <div className="sp-hero__copy [display:flex] [flex-direction:column] [gap:2.8rem]">
         <motion.nav className="crumbs [display:flex] [align-items:center] [gap:1rem] [font-family:var(--f-mono)] [font-size:1.4rem] [text-transform:uppercase] [letter-spacing:0.04em] [color:#8a8ea0] [&_a]:[display:inline-flex] [&_a]:[align-items:center] [&_a]:[gap:0.4rem] [&_a]:[color:var(--purple)]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} aria-label="Breadcrumb">
-          <Link to="/states"><ChevronLeft size={16} /> States</Link><span>/</span><span>{s.name}</span>
+          <Link to="/states"><ChevronLeft size={16} /> States</Link><span>/</span><span className="[display:inline-flex] [align-items:center] [gap:0.8rem]"><StateFlag abbr={s.abbr} className="[width:2.7rem] [border-radius:0.35rem]" />{s.name}</span>
         </motion.nav>
         <SplitWords as="h1" className="page-title [font-weight:500] [font-size:6.12rem] [line-height:1.06] [letter-spacing:-0.18rem] [color:var(--ink-3)] [@media(max-width:_1279px)]:[font-size:4.32rem]" animateNow delay={0.3} stagger={0.05} lines={s.heroTitle} bold={[s.heroAccent]} />
         <motion.p className="page-sub [font-size:1.8rem] [line-height:1.6] [color:#4a4f63] [max-width:56rem] [.ab-hero\_\_copy_&]:[max-width:64rem]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.7 }}>{s.heroSub}</motion.p>
@@ -45,7 +46,7 @@ function Hero({ s }: { s: State }) {
         <div className="stp-card__map [position:relative] [height:30rem] [display:grid] [place-items:center] [@media(max-width:_1279px)]:[height:22rem]"><StateShape id={s.id} className="stp-shape [width:100%] [height:100%] [&_path]:[fill:rgba(255,_255,_255,_0.18)] [&_path]:[stroke:#fff] [&_path]:[stroke-width:2] [&_path]:[vector-effect:non-scaling-stroke] [&_path]:[stroke-linejoin:round]" /></div>
         <p className="stp-card__k [position:relative] [display:flex] [align-items:center] [gap:0.6rem] [margin-top:2.4rem] [font-family:var(--f-mono)] [font-size:1.2rem] [letter-spacing:0.06em] [text-transform:uppercase] [color:rgba(255,_255,_255,_0.8)]"><MapPin size={14} /> {s.name} billing, at a glance</p>
         <ul className="stp-card__chips [position:relative] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1rem] [margin-top:1.2rem] [&_li]:[padding:1.4rem_1.6rem] [&_li]:[border-radius:1.6rem] [&_li]:[background:rgba(255,_255,_255,_0.12)] [&_li]:[border:1px_solid_rgba(255,_255,_255,_0.22)] [&_small]:[display:block] [&_small]:[font-size:1.2rem] [&_small]:[color:rgba(255,_255,_255,_0.75)] [&_b]:[display:block] [&_b]:[margin-top:0.4rem] [&_b]:[font-weight:600] [&_b]:[font-size:1.6rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-          {s.chips.map(([k, v]) => <li key={k}><small>{k}</small><b>{v}</b></li>)}
+          {s.chips.map(([k, v]) => <li key={k}><small className={k === 'Medicare' ? '[display:flex]! [align-items:center] [gap:0.5rem]' : undefined}>{k === 'Medicare' && <Landmark size={13} strokeWidth={2} aria-hidden />}{k}</small><b>{v}</b></li>)}
         </ul>
         <p className="stp-card__cities [@media(max-width:_1279px)]:[font-size:16px]! [@media(max-width:_1279px)]:[line-height:1.6] [position:relative] [margin-top:1.6rem] [font-size:1.4rem] [color:rgba(255,_255,_255,_0.8)]">{s.cities.join(' · ')}</p>
       </motion.div>
@@ -177,7 +178,7 @@ function OtherStates({ s }: { s: State }) {
   const others = [...same, ...near].slice(0, 8);
   return (
     <nav className="ab container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [display:flex] [flex-wrap:wrap] [align-items:center] [gap:1rem_1.2rem] [padding-top:4rem] [font-size:1.6rem] [color:#6b6f7c] [&_a]:[padding:0.8rem_1.6rem] [&_a]:[border-radius:2rem] [&_a]:[border:1px_solid_var(--lav-border)] [&_a]:[color:var(--ink-2)] [&_a]:[transition:border-color_0.3s,_color_0.3s] [&_a:hover]:[border-color:var(--purple)] [&_a:hover]:[color:var(--purple)]" aria-label="Nearby states">
-      <span>{same.length ? `Same Medicare contractor (${mac}):` : 'Nearby states:'}</span>
+      <span className="[display:inline-flex] [align-items:center] [gap:0.6rem]">{same.length > 0 && <Landmark size={16} className="[color:var(--purple)]" aria-hidden />}{same.length ? `Same Medicare contractor (${mac}):` : 'Nearby states:'}</span>
       {others.map((x) => <Link key={x.slug} to={`/states/${x.slug}`}>{x.name}</Link>)}
       <Link to="/states" className="ab__all [.ab_&]:[display:inline-flex] [.ab_&]:[align-items:center] [.ab_&]:[gap:0.6rem] [.ab_&]:[border:0] [.ab_&]:[color:var(--purple)] [.ab_&]:[font-weight:500]">All 50 states <ArrowRight size={16} /></Link>
     </nav>
