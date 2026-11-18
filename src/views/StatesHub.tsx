@@ -21,7 +21,7 @@ import { MACS, MAC_OF, REGION_OF } from '../data/states-all';
 const MAC_LOGO: Record<string, string> = {
   'CGS Administrators': '/mac/cgs.webp',
   'Wisconsin Physicians Service (WPS)': '/mac/wps.webp',
-  'Noridian Healthcare Solutions': '/mac/noridian.svg',
+  'Noridian Healthcare Solutions': '/mac/noridian.webp',
   'First Coast Service Options': '/mac/firstcoast.webp',
   'National Government Services (NGS)': '/mac/ngs.webp',
   'Novitas Solutions': '/mac/novitas.webp',
