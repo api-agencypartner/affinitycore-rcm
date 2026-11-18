@@ -45,11 +45,11 @@ function itemsFor(s: SpecialtyFull): { phase: string; when: string; items: Item[
 export function Included({ s }: { s: SpecialtyFull }) {
   const cols = itemsFor(s);
   return (
-    <section className="inc container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:14rem]">
+    <section className="inc container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:14rem]">
       <div className="inc__head [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:6rem] [align-items:end] [&>div:first-child]:[display:flex] [&>div:first-child]:[flex-direction:column] [&>div:first-child]:[gap:1.6rem] [@media(max-width:_1024px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1024px)]:[gap:2rem]">
         <div>
           <Eyebrow>/ What’s included</Eyebrow>
-          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1279px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Every step of the cycle,', `run for ${plain(s)}.`]} stagger={0.04} />
+          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Every step of the cycle,', `run for ${plain(s)}.`]} stagger={0.04} />
         </div>
         <Reveal as="p" className="inc__intro [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#5b5f72] [max-width:56rem] [margin-bottom:-0.4rem]">One accountable team handles the whole revenue cycle, or just the parts you hand over. Every step below is done by people who bill {plain(s)} every day.</Reveal>
       </div>
@@ -111,12 +111,12 @@ function pick(s: SpecialtyFull): Article[] {
 export function SpecialtyReads({ s }: { s: SpecialtyFull }) {
   const list = pick(s);
   return (
-    <section className="cs container sr [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:14rem] [@media(max-width:_1279px)]:[padding-top:10rem]">
-      <div className="cs__head [display:flex] [justify-content:space-between] [align-items:flex-end] [gap:2rem] [&>div]:[display:flex] [&>div]:[flex-direction:column] [&>div]:[gap:1.2rem] [@media(max-width:_1279px)]:[flex-direction:column] [@media(max-width:_1279px)]:[align-items:flex-start]">
-        <div><Eyebrow>{`/ Guides for ${plain(s)} practices`}</Eyebrow><SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1279px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Read before', 'your next claim run.']} stagger={0.04} /></div>
+    <section className="cs container sr [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:14rem] [@media(max-width:_1099px)]:[padding-top:10rem]">
+      <div className="cs__head [display:flex] [justify-content:space-between] [align-items:flex-end] [gap:2rem] [&>div]:[display:flex] [&>div]:[flex-direction:column] [&>div]:[gap:1.2rem] [@media(max-width:_1099px)]:[flex-direction:column] [@media(max-width:_1099px)]:[align-items:flex-start]">
+        <div><Eyebrow>{`/ Guides for ${plain(s)} practices`}</Eyebrow><SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Read before', 'your next claim run.']} stagger={0.04} /></div>
         <Link to="/blog" className="text-link [display:inline-flex] [align-items:center] [gap:0.8rem] [font-weight:500] [font-size:max(1.8rem,16px)] [color:var(--purple)] [&_svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1)] [&:hover_svg]:[transform:translateX(0.5rem)] [.est\_\_carried_&]:[margin-top:0.6rem] [.est\_\_carried_&]:[font-size:max(1.5rem,14px)] [.est\_\_carried_&]:[color:#fff] [.est\_\_carried_&]:[text-decoration:underline] [.est\_\_carried_&]:[text-underline-offset:0.3em] [.est\_\_carried_&]:[opacity:0.85]">All articles <ArrowRight size={18} /></Link>
       </div>
-      <div className="bl__grid sr__grid [@media(max-width:_767px)]:[&:not(.is-all)>:nth-child(n+4)]:[display:none] [.sr_&]:[margin-top:4rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)]">{list.map((a, k) => <Card key={a.slug} a={a} k={k} />)}</div>
+      <div className="bl__grid sr__grid [@media(max-width:_767px)]:[&:not(.is-all)>:nth-child(n+4)]:[display:none] [.sr_&]:[margin-top:4rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)]">{list.map((a, k) => <Card key={a.slug} a={a} k={k} />)}</div>
     </section>
   );
 }
@@ -139,11 +139,11 @@ export function TrustRow() {
 /* ================================================================== */
 export function MidCta({ title, body }: { title: string; body: string }) {
   return (
-    <section className="mc container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:10rem] [.eng+&]:[padding-top:4rem]">
+    <section className="mc container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:10rem] [.eng+&]:[padding-top:4rem]">
       <motion.div className="mc__band [position:relative] [display:flex] [justify-content:space-between] [align-items:center] [gap:4rem] [padding:4rem_4.8rem] [border-radius:3.2rem] [background:var(--grad-x)] [color:#fff] [overflow:hidden] [box-shadow:0_3rem_8rem_-3rem_rgba(80,_40,_220,_0.45)] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[right:-10rem] [&::after]:[top:-14rem] [&::after]:[width:40rem] [&::after]:[height:40rem] [&::after]:[border-radius:50%] [&::after]:[background:radial-gradient(circle,_rgba(255,_255,_255,_0.22),_transparent_65%)] [&::after]:[pointer-events:none] [@media(max-width:_1024px)]:[flex-direction:column] [@media(max-width:_1024px)]:[align-items:flex-start] [@media(max-width:_1024px)]:[padding:3.2rem_2.4rem]" initial={{ opacity: 0, y: 30, scale: 0.98 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={vp} transition={{ duration: 0.9, ease: ease.out }}>
         <div className="mc__copy [position:relative] [display:flex] [flex-direction:column] [gap:0.8rem] [max-width:64rem]">
           <p className="mc__h [font-weight:500] [font-size:3.2rem] [line-height:1.15] [letter-spacing:-0.06rem]">{title}</p>
-          <p className="mc__p [@media(max-width:_1279px)]:[font-size:16px]! [font-size:max(1.7rem,15px)] [line-height:1.5] [color:rgba(255,_255,_255,_0.85)]">{body}</p>
+          <p className="mc__p [@media(max-width:_1099px)]:[font-size:16px]! [font-size:max(1.7rem,15px)] [line-height:1.5] [color:rgba(255,_255,_255,_0.85)]">{body}</p>
         </div>
         <div className="mc__act [position:relative] [display:flex] [flex-direction:column] [align-items:flex-end] [gap:1.2rem] [flex:none] [@media(max-width:_1024px)]:[align-items:flex-start] [@media(max-width:_640px)]:[width:100%]">
           <Button>Get a free revenue assessment</Button>
@@ -166,11 +166,11 @@ const STEPS: { when: string; title: string; body: string; you: string; icon: JSX
 
 export function Switching({ what }: { what: string }) {
   return (
-    <section className="swt container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:14rem]">
+    <section className="swt container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:14rem]">
       <div className="swt__head [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:6rem] [align-items:end] [&>div:first-child]:[display:flex] [&>div:first-child]:[flex-direction:column] [&>div:first-child]:[gap:1.6rem] [@media(max-width:_1024px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1024px)]:[gap:2rem]">
         <div>
           <Eyebrow>/ What switching takes</Eyebrow>
-          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1279px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Live in 30 days,', 'with no gap in cash flow.']} stagger={0.04} />
+          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Live in 30 days,', 'with no gap in cash flow.']} stagger={0.04} />
         </div>
         <Reveal as="p" className="swt__intro [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#5b5f72] [max-width:56rem] [margin-bottom:-0.4rem]">{`Moving ${what} to a new team is the part practices worry about most. Here’s exactly what happens, and how little it asks of your staff.`}</Reveal>
       </div>
@@ -182,11 +182,11 @@ export function Switching({ what }: { what: string }) {
             <small className="swt__when [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.08em] [text-transform:uppercase] [color:var(--purple)]">{st.when}</small>
             <b>{st.title}</b>
             <p>{st.body}</p>
-            <p className="swt__you [@media(max-width:_1279px)]:[line-height:1.6] [margin-top:auto] [padding:1rem_1.2rem] [border-radius:1.2rem] [background:#f7f4ff] [font-size:max(1.4rem,14px)]! [color:#4a4f63]! [&_em]:[font-style:normal] [&_em]:[font-weight:600] [&_em]:[color:var(--purple)]"><em>From you:</em> {st.you}</p>
+            <p className="swt__you [@media(max-width:_1099px)]:[line-height:1.6] [margin-top:auto] [padding:1rem_1.2rem] [border-radius:1.2rem] [background:#f7f4ff] [font-size:max(1.4rem,14px)]! [color:#4a4f63]! [&_em]:[font-style:normal] [&_em]:[font-weight:600] [&_em]:[color:var(--purple)]"><em>From you:</em> {st.you}</p>
           </motion.li>
         ))}
       </ol>
-      <p className="swt__note [@media(max-width:_1279px)]:[font-size:13.5px]! [@media(max-width:_1279px)]:[line-height:1.55] [margin-top:2.4rem] [font-size:max(1.3rem,13px)] [color:#8a8ea0]">Typical timeline; your onboarding plan confirms the dates.</p>
+      <p className="swt__note [@media(max-width:_1099px)]:[font-size:13.5px]! [@media(max-width:_1099px)]:[line-height:1.55] [margin-top:2.4rem] [font-size:max(1.3rem,13px)] [color:#8a8ea0]">Typical timeline; your onboarding plan confirms the dates.</p>
     </section>
   );
 }
@@ -197,7 +197,7 @@ export function Switching({ what }: { what: string }) {
 export function SpecialtyChips({ service }: { service: string }) {
   const list = SPECIALTIES.filter((x) => x.page);
   return (
-    <section className="spc container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:10rem]">
+    <section className="spc container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:10rem]">
       <div className="spc__head [display:flex] [flex-direction:column] [gap:1.2rem]">
         <Eyebrow>/ Specialties we do this for</Eyebrow>
         <p className="spc__h [font-weight:500] [font-size:3.2rem] [line-height:1.2] [letter-spacing:-0.06rem] [color:var(--ink-2)] [max-width:80rem]">{`${service}, run by people who know your specialty’s rules.`}</p>

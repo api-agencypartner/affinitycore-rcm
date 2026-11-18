@@ -129,7 +129,7 @@ export function ClaimFocus({ slug }: { slug: string }) {
           <motion.span className="cx-ring [position:absolute] [left:0] [top:0] [translate:-50%_-50%] [border-radius:50%] [border:2px_solid_rgba(255,_255,_255,_0.9)] [pointer-events:none] [@media(prefers-reduced-motion:_reduce)]:[display:none] [border-color:var(--purple)]! [box-shadow:0_0_0_4px_rgba(255,_255,_255,_0.85),_0_1.2rem_4rem_rgba(106,_65,_249,_0.3),_inset_0_0_2rem_rgba(106,_65,_249,_0.12)]" style={{ x: lx, y: ly, width: ringS, height: ringS }} aria-hidden />
         </div>
       </motion.div>
-      <XrayReadout className="cf-read [position:absolute]! [left:2.4rem]! [bottom:2.4rem]! [width:42rem]! [max-width:calc(100%_-_4.8rem)]! [margin:0] [margin-top:0]! [z-index:3]! [@media(max-width:_1279px)]:[left:1.2rem]! [@media(max-width:_1279px)]:[bottom:1.2rem]! [@media(max-width:_1279px)]:[max-width:calc(100%_-_2.4rem)]! [@media(max-width:_1279px)]:[padding:1.6rem_1.8rem] [@media(max-width:_1279px)]:[&_p]:[min-height:0]" active={active} stop={i} hover={hover} steps={boxes} label="X-ray · the boxes we own"
+      <XrayReadout className="cf-read [position:absolute]! [left:2.4rem]! [bottom:2.4rem]! [width:42rem]! [max-width:calc(100%_-_4.8rem)]! [margin:0] [margin-top:0]! [z-index:3]! [@media(max-width:_1099px)]:[left:1.2rem]! [@media(max-width:_1099px)]:[bottom:1.2rem]! [@media(max-width:_1099px)]:[max-width:calc(100%_-_2.4rem)]! [@media(max-width:_1099px)]:[padding:1.6rem_1.8rem] [@media(max-width:_1099px)]:[&_p]:[min-height:0]" active={active} stop={i} hover={hover} steps={boxes} label="X-ray · the boxes we own"
         override={!hover && boxes.includes(active) ? { title: BOX[active].title, slug, line: L[slug]?.[active] ?? BOX[active].line } : undefined} />
     </div>
   );

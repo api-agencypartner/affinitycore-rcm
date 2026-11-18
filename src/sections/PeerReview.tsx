@@ -70,11 +70,11 @@ function CallCard() {
 
 export function PeerReview() {
   return (
-    <section className="pp container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:14rem] [@media(max-width:_1279px)]:[padding-top:10rem]" id="peer-to-peer">
-      <div className="pp__panel [display:grid] [grid-template-columns:minmax(0,_1.05fr)_minmax(0,_0.95fr)] [gap:6.4rem] [align-items:center] [padding:7.2rem] [border-radius:4rem] [background:linear-gradient(160deg,_#f6f2ff_0%,_#fbfaff_60%,_#f1ecff_100%)] [border:1px_solid_#eee9ff] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1279px)]:[gap:4.8rem] [@media(max-width:_1279px)]:[padding:4.8rem_3.2rem_5.6rem] [@media(max-width:_1279px)]:[border-radius:3.2rem] [@media(max-width:_640px)]:[padding:3.2rem_1.8rem_4.8rem]">
+    <section className="pp container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:14rem] [@media(max-width:_1099px)]:[padding-top:10rem]" id="peer-to-peer">
+      <div className="pp__panel [display:grid] [grid-template-columns:minmax(0,_1.05fr)_minmax(0,_0.95fr)] [gap:6.4rem] [align-items:center] [padding:7.2rem] [border-radius:4rem] [background:linear-gradient(160deg,_#f6f2ff_0%,_#fbfaff_60%,_#f1ecff_100%)] [border:1px_solid_#eee9ff] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4.8rem] [@media(max-width:_1099px)]:[padding:4.8rem_3.2rem_5.6rem] [@media(max-width:_1099px)]:[border-radius:3.2rem] [@media(max-width:_640px)]:[padding:3.2rem_1.8rem_4.8rem]">
         <div className="pp__copy [display:flex] [flex-direction:column] [gap:1.6rem] [min-width:0]">
           <Eyebrow>/ Peer-to-peer review</Eyebrow>
-          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1279px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['A denial isn’t final', 'until the call is over.']} stagger={0.04} />
+          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['A denial isn’t final', 'until the call is over.']} stagger={0.04} />
           <Reveal as="p" className="pp__p [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:60rem]">
             When a payer says a test or procedure isn’t medically necessary, your physician often gets one short call with the plan’s reviewer. We book it inside the payer’s window, build the case, brief your physician in five minutes, and file the appeal if the call doesn’t turn it around.
           </Reveal>

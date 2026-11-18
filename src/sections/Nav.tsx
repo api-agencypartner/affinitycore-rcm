@@ -146,7 +146,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: ease.out } },
 };
 
-/* ---------- Drawer menu for tablet, small desktop and phone (below 1280px) ---------- */
+/* ---------- Drawer menu for tablet, small desktop and phone (below 1100px) ---------- */
 function MobileMenu({ onClose }: { onClose: () => void }) {
   const [sec, setSec] = useState<string | null>('services');
   const groups: { id: string; label: string; all?: [string, string]; links: [string, string][] }[] = [
@@ -235,22 +235,31 @@ export function Nav({ show }: { show: boolean }) {
     setOpen(m);
   };
   closeAll = () => setOpen(null);
-  const scheduleClose = () => { window.clearTimeout(closeT.current); closeT.current = window.setTimeout(() => setOpen(null), 160); };
+  // Touch (iPad and touch laptops): first tap opens the dropdown, second tap goes to the page; a tap outside closes it.
+  const touchTap = useRef<'open' | 'closed' | null>(null);
+  const hdr = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const f = (e: PointerEvent) => { if (e.pointerType !== 'mouse' && hdr.current && !hdr.current.contains(e.target as Node)) setOpen(null); };
+    document.addEventListener('pointerdown', f); return () => document.removeEventListener('pointerdown', f);
+  }, [open]);
+  const touchMode = useRef(false);
+  const scheduleClose = () => { if (touchMode.current) return; window.clearTimeout(closeT.current); closeT.current = window.setTimeout(() => setOpen(null), 160); };
 
   return (
-    <motion.header className="nav-wrap [position:fixed] [top:calc(1.2rem_+_env(safe-area-inset-top,_0px))] [left:calc(var(--gutter)_-_3.2rem)] [right:calc(var(--gutter)_-_3.2rem)] [z-index:50] [@media(max-width:_1279px)]:[top:1rem] [@media(max-width:_1279px)]:[left:1rem] [@media(max-width:_1279px)]:[right:1rem]" animate={{ y: hidden ? '-130%' : '0%' }} transition={{ duration: 0.6, ease: ease.out }}
+    <motion.header ref={hdr} onPointerMove={(e) => { if (e.pointerType === 'mouse') touchMode.current = false; }} className="nav-wrap [position:fixed] [top:calc(1.2rem_+_env(safe-area-inset-top,_0px))] [left:calc(var(--gutter)_-_3.2rem)] [right:calc(var(--gutter)_-_3.2rem)] [z-index:50] [@media(max-width:_1099px)]:[top:1rem] [@media(max-width:_1099px)]:[left:1rem] [@media(max-width:_1099px)]:[right:1rem]" animate={{ y: hidden ? '-130%' : '0%' }} transition={{ duration: 0.6, ease: ease.out }}
       onMouseLeave={scheduleClose} onMouseEnter={() => window.clearTimeout(closeT.current)}
       onKeyDown={(e) => { if (e.key === 'Escape') setOpen(null); }}>
-      <motion.nav layoutId={shell ? 'shell' : undefined} className={String.raw`nav [position:relative] [height:7.7rem] [border-radius:2.4rem]! [display:flex] [align-items:center] [justify-content:space-between] [padding-inline:3.2rem] [background:rgba(255,_255,_255,_0.8)] [backdrop-filter:blur(1.6rem)] [box-shadow:0_0_0_rgba(0,_0,_0,_0)] [transition:box-shadow_0.4s] [&.is-scrolled]:[box-shadow:0_1rem_4rem_rgba(40,_20,_120,_0.08)] [@media(max-width:_1279px)]:[padding-inline:2rem] [@media(max-width:_1279px)]:[height:7.6rem] [@media(max-width:_480px)]:[padding-inline:1.4rem] ${scrolled || open ? 'is-scrolled' : ''}`} style={{ borderRadius: 24 }}
+      <motion.nav layoutId={shell ? 'shell' : undefined} className={String.raw`nav [position:relative] [height:7.7rem] [border-radius:2.4rem]! [display:flex] [align-items:center] [justify-content:space-between] [padding-inline:3.2rem] [background:rgba(255,_255,_255,_0.8)] [backdrop-filter:blur(1.6rem)] [box-shadow:0_0_0_rgba(0,_0,_0,_0)] [transition:box-shadow_0.4s] [&.is-scrolled]:[box-shadow:0_1rem_4rem_rgba(40,_20,_120,_0.08)] [@media(max-width:_1099px)]:[padding-inline:2rem] [@media(max-width:_1099px)]:[height:7.6rem] [@media(max-width:_480px)]:[padding-inline:1.4rem] ${scrolled || open ? 'is-scrolled' : ''}`} style={{ borderRadius: 24 }}
         transition={{ duration: 1, ease: ease.curtain }}
         initial="hidden" animate={show ? 'show' : 'hidden'}
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.55 } } }}>
         <motion.a href={u("/")} variants={item} className="nav__logo [display:inline-flex] [align-items:center] [gap:1.4rem]" aria-label="Affinity Core Billers, home" onMouseEnter={() => scheduleClose()}><Logo /></motion.a>
-        <ul className="nav__links [margin-left:6.4rem] [margin-right:auto] [display:flex] [gap:3.2rem] [font-size:max(2rem,16px)] [letter-spacing:-0.01rem] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [@media(max-width:_1440px)]:[margin-left:4rem] [@media(max-width:_1440px)]:[gap:2.4rem] [@media(max-width:_1279px)]:[display:none]">
+        <ul className="nav__links [margin-left:6.4rem] [margin-right:auto] [display:flex] [gap:3.2rem] [font-size:max(2rem,16px)] [letter-spacing:-0.01rem] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [@media(max-width:_1440px)]:[margin-left:4rem] [@media(max-width:_1440px)]:[gap:2.4rem] [@media(max-width:_1099px)]:[display:none]">
           {(SHOW_STATES ? (['services', 'specialties', 'states', 'insights'] as const) : (['services', 'specialties', 'insights'] as const)).map((m) => (
             <motion.li key={m} variants={item}>
               <button ref={(el) => { trigRefs.current[m] = el; }} className={String.raw`nav__trigger [display:flex] [align-items:center] [gap:0.8rem] [line-height:6rem] [color:#000] [position:relative] [font-size:max(2rem,16px)] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[left:0] [&::after]:[right:3.2rem] [&::after]:[bottom:1.2rem] [&::after]:[height:1px] [&::after]:[background:currentColor] [&::after]:[transform:scaleX(0)] [&::after]:[transform-origin:right] [&::after]:[transition:transform_0.5s_cubic-bezier(.16,_1,_.3,_1)] [a&::after]:[right:0] [&:hover::after]:[transform:scaleX(1)] [&:hover::after]:[transform-origin:left] [&.is-open::after]:[transform:scaleX(1)] [&.is-open::after]:[transform-origin:left] [&.is-open]:[color:var(--purple)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:4px]! [&:focus-visible]:[border-radius:0.6rem] ${open === m ? 'is-open' : ''}`} aria-expanded={open === m} aria-haspopup="true"
-                onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (m === 'services' || m === 'specialties' || m === 'states') { go(`/${m}`); setOpen(null); } else setOpen(open === m ? null : m); }}>
+                onPointerDown={(e) => { touchMode.current = e.pointerType !== 'mouse'; touchTap.current = touchMode.current ? (open === m ? 'open' : 'closed') : null; }} onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (touchTap.current === 'closed') { touchTap.current = null; setOpen(m); return; } touchTap.current = null; if (m === 'services' || m === 'specialties' || m === 'states') { go(`/${m}`); setOpen(null); } else setOpen(open === m ? null : m); }}>
                 {m === 'services' ? 'Services' : m === 'specialties' ? 'Specialties' : m === 'states' ? <><UsFlag className="nav__flag [width:1.9rem] [margin-right:-0.3rem] [.mm\_\_lab_&]:[margin-right:0.6rem]" />States</> : 'Insights'}
                 <motion.span animate={{ rotate: open === m ? 180 : 0 }} transition={{ duration: 0.4, ease: ease.out }} style={{ display: 'grid' }}><Chevron /></motion.span>
               </button>
@@ -264,15 +273,15 @@ export function Nav({ show }: { show: boolean }) {
             <motion.svg variants={{ ring: { rotate: [0, -14, 12, -8, 0], transition: { duration: 0.6 } } }} width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 16.5v2.6a1.8 1.8 0 0 1-2 1.8A17.8 17.8 0 0 1 3.1 5 1.8 1.8 0 0 1 4.9 3h2.6c.9 0 1.6.6 1.8 1.5l.5 2.2c.1.6-.1 1.3-.6 1.7L7.9 9.6a14.4 14.4 0 0 0 6.5 6.5l1.2-1.3c.4-.5 1.1-.7 1.7-.6l2.2.5c.9.2 1.5.9 1.5 1.8Z" stroke="#fff" strokeWidth="1.5" strokeLinejoin="round" /></motion.svg>
             <span className="nav__phone-n [@media(max-width:_1440px)]:[display:none]">214-851-2698</span>
           </motion.a>
-          <motion.div variants={item} className="nav__cta"><Button to="/contact"><span className="nav__cta-full [@media(max-width:_1279px)]:[display:none]">Get a free revenue assessment</span><span className="nav__cta-short [display:none] [@media(max-width:_1279px)]:[display:inline]">Free assessment</span></Button></motion.div>
-          <motion.button variants={item} type="button" className="nav__burger [display:none] [width:4.8rem] [height:4.8rem] [border-radius:50%] [border:1px_solid_var(--lav-border,_#e6dfff)] [background:#fff] [color:var(--ink-2)] [place-items:center] [cursor:pointer] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [@media(max-width:_1279px)]:[display:grid]" aria-label="Open menu" aria-expanded={mob} onClick={() => setMob(true)}><MenuIcon /></motion.button>
+          <motion.div variants={item} className="nav__cta"><Button to="/contact"><span className="nav__cta-full [@media(max-width:_1099px)]:[display:none]">Get a free revenue assessment</span><span className="nav__cta-short [display:none] [@media(max-width:_1099px)]:[display:inline]">Free assessment</span></Button></motion.div>
+          <motion.button variants={item} type="button" className="nav__burger [display:none] [width:4.8rem] [height:4.8rem] [border-radius:50%] [border:1px_solid_var(--lav-border,_#e6dfff)] [background:#fff] [color:var(--ink-2)] [place-items:center] [cursor:pointer] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [@media(max-width:_1099px)]:[display:grid]" aria-label="Open menu" aria-expanded={mob} onClick={() => setMob(true)}><MenuIcon /></motion.button>
         </div>
       </motion.nav>
 
       <AnimatePresence>{mob && <MobileMenu onClose={closeMob} />}</AnimatePresence>
 
       {/* One panel that morphs its size between menus; content slides in the direction you moved */}
-      <div ref={wrapRef} className="dd-wrap [position:absolute] [left:0] [right:0] [top:100%] [display:flex] [justify-content:flex-start] [padding-top:1.2rem] [pointer-events:none] [@media(max-width:_1279px)]:[display:none]">
+      <div ref={wrapRef} className="dd-wrap [position:absolute] [left:0] [right:0] [top:100%] [display:flex] [justify-content:flex-start] [padding-top:1.2rem] [pointer-events:none] [@media(max-width:_1099px)]:[display:none]">
         <AnimatePresence>
           {open && (
             <motion.div ref={ddRef} className="dd [pointer-events:auto] [background:rgba(255,_255,_255,_0.96)] [backdrop-filter:blur(2rem)] [border:1px_solid_#ece8fb] [box-shadow:0_3rem_8rem_rgba(40,_20,_120,_0.14)] [overflow:hidden]" layout key="dd"

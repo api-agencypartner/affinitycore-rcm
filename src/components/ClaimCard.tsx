@@ -13,7 +13,7 @@ const TONE = ['#6b6f7c', '#6a41f9', '#2b6fe3', '#c77c00', '#d1435b', '#12a150'];
 export function ClaimCard({ step, className = '' }: { step: number; className?: string }) {
   const s = Math.max(0, Math.min(5, step));
   return (
-    <div className={String.raw`claim [width:46rem] [padding:2.8rem] [border-radius:2.4rem] [background:rgba(255,_255,_255,_0.94)] [backdrop-filter:blur(2rem)] [border:1px_solid_rgba(255,_255,_255,_0.8)] [box-shadow:0_3rem_8rem_rgba(40,_20,_120,_0.22)] [color:var(--navy)] [font-family:var(--f-man)] [.jr\_\_claim_&]:[box-shadow:0_3rem_8rem_rgba(20,_0,_80,_0.4)] [@media(max-width:_1279px)]:[width:100%] [.jy\_\_claim_&]:[box-shadow:0_3rem_8rem_rgba(57,_28,_160,_0.16),_0_0.4rem_1.2rem_rgba(57,_28,_160,_0.06)] ${className}`}>
+    <div className={String.raw`claim [width:46rem] [padding:2.8rem] [border-radius:2.4rem] [background:rgba(255,_255,_255,_0.94)] [backdrop-filter:blur(2rem)] [border:1px_solid_rgba(255,_255,_255,_0.8)] [box-shadow:0_3rem_8rem_rgba(40,_20,_120,_0.22)] [color:var(--navy)] [font-family:var(--f-man)] [.jr\_\_claim_&]:[box-shadow:0_3rem_8rem_rgba(20,_0,_80,_0.4)] [@media(max-width:_1099px)]:[width:100%] [.jy\_\_claim_&]:[box-shadow:0_3rem_8rem_rgba(57,_28,_160,_0.16),_0_0.4rem_1.2rem_rgba(57,_28,_160,_0.06)] ${className}`}>
       <div className="claim__head [display:flex] [justify-content:space-between] [align-items:center] [&_small]:[display:block] [&_small]:[font-size:max(1.2rem,12px)] [&_small]:[letter-spacing:0.1rem] [&_small]:[text-transform:uppercase] [&_small]:[color:#8a8ea0] [&_b]:[font-weight:700] [&_b]:[font-size:max(2rem,16px)] [&_b]:[letter-spacing:-0.02rem]">
         <div>
           <small>Claim</small>

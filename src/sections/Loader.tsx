@@ -47,25 +47,25 @@ export function Loader({ onHandoff, words = LOADER.words }: { onHandoff: () => v
         initial={{ x: '-22rem' }} animate={{ x: '22.3rem' }} transition={{ duration: t(0.5525), ease: 'linear' }} />
 
       {/* "Main" — the camera: starts zoomed 2.9× on the first words, pulls back to 1× */}
-      <motion.div className="loader__main [position:relative] [width:192rem] [height:108rem] [@media(max-width:_1279px)]:[width:100vw] [@media(max-width:_1279px)]:[height:100dvh] [display:grid] [place-items:center] [transform-origin:50%_50%]"
+      <motion.div className="loader__main [position:relative] [width:192rem] [height:108rem] [@media(max-width:_1099px)]:[width:100vw] [@media(max-width:_1099px)]:[height:100dvh] [display:grid] [place-items:center] [transform-origin:50%_50%]"
         initial={{ scale: 2.9, x: '170.78rem', y: 0 }}
         animate={{ scale: [2.9, 2.9, 1], x: ['170.78rem', '170.78rem', '0rem'] }}
         transition={{
           scale: { duration: t(0.6508), times: [0, 0.4575 / 0.6508, 1], ease: ['linear', ease.figmaZoom] },
           x: { duration: t(0.5525), times: [0, 0.0995 / 0.5525, 1], ease: ['linear', 'easeIn'] },
         }}>
-        <motion.div layoutId="shell" className="loader__bar [position:relative] [width:142.6rem] [height:15.8rem] [@media(max-width:_1279px)]:[width:min(720px,_calc(100vw_-_32px))] [@media(max-width:_1279px)]:[height:76px] [border:1px_solid_rgba(255,_255,_255,_0.28)] [background:linear-gradient(180deg,_rgba(255,_255,_255,_0.1),_rgba(255,_255,_255,_0.04))] [box-shadow:0_2rem_6rem_rgba(40,_10,_160,_0.25),_inset_0_0_4rem_rgba(255,_255,_255,_0.06)] [backdrop-filter:blur(1.2rem)]" transition={{ duration: 1, ease: ease.curtain }}
+        <motion.div layoutId="shell" className="loader__bar [position:relative] [width:142.6rem] [height:15.8rem] [@media(max-width:_1099px)]:[width:min(720px,_calc(100vw_-_32px))] [@media(max-width:_1099px)]:[height:76px] [border:1px_solid_rgba(255,_255,_255,_0.28)] [background:linear-gradient(180deg,_rgba(255,_255,_255,_0.1),_rgba(255,_255,_255,_0.04))] [box-shadow:0_2rem_6rem_rgba(40,_10,_160,_0.25),_inset_0_0_4rem_rgba(255,_255,_255,_0.06)] [backdrop-filter:blur(1.2rem)]" transition={{ duration: 1, ease: ease.curtain }}
           style={{ borderRadius: 6 }}>
-          <motion.div className="loader__content [position:absolute] [inset:0] [display:flex] [align-items:center] [gap:2.2rem] [padding-inline:5rem] [@media(max-width:_1279px)]:[padding-inline:20px] [@media(max-width:_1279px)]:[gap:12px] [color:#fff]" exit={{ opacity: 0, transition: { duration: 0.2 } }}>
+          <motion.div className="loader__content [position:absolute] [inset:0] [display:flex] [align-items:center] [gap:2.2rem] [padding-inline:5rem] [@media(max-width:_1099px)]:[padding-inline:20px] [@media(max-width:_1099px)]:[gap:12px] [color:#fff]" exit={{ opacity: 0, transition: { duration: 0.2 } }}>
             {/* iconsax-add: spins in -180° → 0° */}
-            <motion.svg className="loader__plus [width:5.2rem] [height:5.2rem] [@media(max-width:_1279px)]:[width:24px] [@media(max-width:_1279px)]:[height:24px]" viewBox="0 0 24 24" fill="none" initial={{ rotate: -180 }} animate={{ rotate: 0 }}
+            <motion.svg className="loader__plus [width:5.2rem] [height:5.2rem] [@media(max-width:_1099px)]:[width:24px] [@media(max-width:_1099px)]:[height:24px]" viewBox="0 0 24 24" fill="none" initial={{ rotate: -180 }} animate={{ rotate: 0 }}
               transition={{ duration: t(0.105), ease: 'easeOut' }}>
               <path d="M6 12h12M12 18V6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
             </motion.svg>
 
-            <div className="loader__text [position:relative] [flex:1] [display:flex] [align-items:center] [gap:1.1rem] [height:7.6rem] [font-size:3.4rem] [letter-spacing:0.02em] [@media(max-width:_1279px)]:[height:40px] [@media(max-width:_1279px)]:[font-size:20px] [@media(max-width:_1279px)]:[overflow:hidden] [@media(max-width:_640px)]:[font-size:14px] [@media(max-width:_640px)]:[letter-spacing:0]" ref={textRef}>
+            <div className="loader__text [position:relative] [flex:1] [display:flex] [align-items:center] [gap:1.1rem] [height:7.6rem] [font-size:3.4rem] [letter-spacing:0.02em] [@media(max-width:_1099px)]:[height:40px] [@media(max-width:_1099px)]:[font-size:20px] [@media(max-width:_1099px)]:[overflow:hidden] [@media(max-width:_640px)]:[font-size:14px] [@media(max-width:_640px)]:[letter-spacing:0]" ref={textRef}>
               {/* Rectangle 24 — selection highlight sweeping behind the words */}
-              <motion.span className="loader__select [position:absolute] [left:-1.4rem] [top:0] [height:100%] [width:85.6rem] [@media(max-width:_1279px)]:[max-width:calc(100%_+_1.4rem)] [background:rgba(255,_255,_255,_0.2)]"
+              <motion.span className="loader__select [position:absolute] [left:-1.4rem] [top:0] [height:100%] [width:85.6rem] [@media(max-width:_1099px)]:[max-width:calc(100%_+_1.4rem)] [background:rgba(255,_255,_255,_0.2)]"
                 initial={{ clipPath: 'inset(0 100% 0 0)' }}
                 animate={{ clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)', 'inset(0 0% 0 100%)'] }}
                 transition={{ delay: t(0.105), duration: t(0.5096 - 0.105), times: [0, (0.4575 - 0.105) / (0.5096 - 0.105), 1], ease: [ease.figmaSelect, 'linear'] }} />
@@ -80,7 +80,7 @@ export function Loader({ onHandoff, words = LOADER.words }: { onHandoff: () => v
                 </motion.span>
               ))}
               {/* "|" caret — follows words, then blinks */}
-              <motion.span className="loader__caret [position:absolute] [left:0] [top:50%] [translate:0_-54%] [font-size:4.4rem] [font-weight:300] [@media(max-width:_1279px)]:[font-size:24px]" style={{ x: caretX }}
+              <motion.span className="loader__caret [position:absolute] [left:0] [top:50%] [translate:0_-54%] [font-size:4.4rem] [font-weight:300] [@media(max-width:_1099px)]:[font-size:24px]" style={{ x: caretX }}
                 animate={{ opacity: [1, 1, 0, 1, 0, 1, 0, 1] }}
                 transition={{ duration: t(0.84), times: [0, 0.6, 0.66, 0.72, 0.78, 0.84, 0.9, 1], ease: ease.figmaSelect }}>|</motion.span>
             </div>

@@ -14,6 +14,14 @@
 }
 
 /* QA: tablet layouts get a proper side gutter (content sat 18px from the edge on iPad). Unlayered so it wins over the per-section 2rem. */
-@media (min-width: 641px) and (max-width: 1279px) {
+@media (min-width: 641px) and (max-width: 1099px) {
   .container { padding-inline: 32px; }
+}
+
+/* Narrow Android phones (≤400px, e.g. Galaxy A34 at 384): give the logo room next to the header actions. */
+@media (max-width: 400px) {
+  .nav { padding-inline: 12px !important; }
+  .nav__actions { gap: 5px !important; }
+  .nav__actions .btn__label { padding-inline: 14px !important; }
+  .nav__logo .logo { width: 98px !important; }
 }
