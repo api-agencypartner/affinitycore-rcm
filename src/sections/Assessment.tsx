@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useSpring, useTransform, useInView } from 'motion/react';
 import { ChevronDown, ChevronLeft, Check, ShieldCheck, Clock, BadgeCheck } from 'lucide-react';
-import { Arrow, Eyebrow, SplitWords } from '../components/ui';
+import { Button, Eyebrow, SplitWords } from '../components/ui';
 import { ease } from '../motion';
 import { SPECIALTIES } from '../data/specialties';
 import { useCarriedEstimate, setEstimate } from '../data/estimate';
@@ -96,10 +96,9 @@ function Estimator({ onUse, start = 250000 }: { onUse: (summary: string) => void
           Estimate only. Assumes a {BENCH_DENIAL}% benchmark denial rate, that half of denials above it are never reworked, and a {TARGET_AR}-day A/R target.
           Your assessment replaces these assumptions with your real claim data.
         </p>
-        <motion.button className="est__cta [align-self:flex-start] [display:inline-flex] [align-items:center] [gap:1.2rem] [height:4.8rem] [padding-inline:2.8rem] [border-radius:6rem] [background:#fff] [color:var(--purple)] [font-weight:600] [font-size:max(1.9rem,16px)] [&_svg]:[width:2rem] [&_svg]:[height:2rem] [@media(max-width:_640px)]:[align-self:stretch] [@media(max-width:_640px)]:[justify-content:center] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_640px)]:[padding-inline:2rem] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)] [@media(max-width:_640px)]:[white-space:nowrap]" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-          onClick={() => onUse(`${money(denied)}/yr in unrecovered denials · ${money(stuck)} tied up in A/R`)}>
-          Get my exact numbers <Arrow />
-        </motion.button>
+        <Button light className="est__cta [align-self:flex-start] [@media(max-width:_640px)]:[align-self:stretch]" onClick={() => onUse(`${money(denied)}/yr in unrecovered denials · ${money(stuck)} tied up in A/R`)}>
+          Get my exact numbers
+        </Button>
       </div>
     </div>
   );
@@ -139,9 +138,9 @@ function ServiceEstimator({ calc, onUse }: { calc: Calc; onUse: (summary: string
           </div>
         )}
         <p className="est__how [font-size:max(1.3rem,13px)] [line-height:1.55] [color:rgba(255,_255,_255,_0.72)] [@media(max-width:_1279px)]:[font-size:13.5px]! [@media(max-width:_1279px)]:[line-height:1.55]">{calc.note}</p>
-        <motion.button className="est__cta [align-self:flex-start] [display:inline-flex] [align-items:center] [gap:1.2rem] [height:4.8rem] [padding-inline:2.8rem] [border-radius:6rem] [background:#fff] [color:var(--purple)] [font-weight:600] [font-size:max(1.9rem,16px)] [&_svg]:[width:2rem] [&_svg]:[height:2rem] [@media(max-width:_640px)]:[align-self:stretch] [@media(max-width:_640px)]:[justify-content:center] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_640px)]:[padding-inline:2rem] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)] [@media(max-width:_640px)]:[white-space:nowrap]" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => onUse(summary)}>
-          Get my exact numbers <Arrow />
-        </motion.button>
+        <Button light className="est__cta [align-self:flex-start] [@media(max-width:_640px)]:[align-self:stretch]" onClick={() => onUse(summary)}>
+          Get my exact numbers
+        </Button>
       </div>
     </div>
   );
@@ -289,19 +288,13 @@ export function Assessment({ monthly, specialty, formFirst, source, calc }: { mo
             {step === 2 && !sent && (
               <button type="button" className="assess__back [display:inline-flex] [align-items:center] [gap:0.4rem] [height:5.6rem] [padding-inline:1.6rem_2rem] [border-radius:6rem] [border:1px_solid_#e4e0f2] [background:#fff] [font-size:max(1.6rem,15px)] [font-weight:500] [color:var(--navy)] [transition:border-color_0.3s] [&:hover]:[border-color:var(--purple)]" onClick={() => setStep(1)}><ChevronLeft size={18} />Back</button>
             )}
-            <motion.button type="submit" className="btn btn--block [position:relative] [display:inline-flex] [align-items:center] [isolation:isolate] [width:100%] [@media(max-width:_640px)]:[max-width:100%] [.assess\_\_actions_&]:[flex:1] [.eng\_\_cta_&]:[max-width:100%] [@media(max-width:_1279px)]:[.eng\_\_cta_&]:[width:100%] [@media(max-width:_1279px)]:[.eng\_\_cta_&]:[justify-content:center] [.stp-sv\_\_head_&]:[margin-top:0.8rem] [@media(max-width:_640px)]:[.mc\_\_act_&]:[width:100%]" whileHover="hover" whileTap={{ scale: 0.99 }} initial="rest" animate={sent ? 'sent' : 'rest'}>
-              <span className="btn__label [position:relative] [z-index:1] [display:inline-flex] [align-items:center] [justify-content:center] [height:5.6rem] [padding-inline:3.2rem] [border-radius:11.7rem] [background:var(--purple)] [color:#fff] [font-weight:500] [font-size:max(2rem,16px)] [line-height:1.4] [white-space:nowrap] [.btn--outline_&]:[background:transparent] [.btn--outline_&]:[color:var(--purple)] [.btn--outline_&]:[box-shadow:inset_0_0_0_1.5px_var(--purple)] [.btn--outline_&]:[transition:background_0.35s,_color_0.35s] [.btn--outline:hover_&]:[background:var(--purple)] [.btn--outline:hover_&]:[color:#fff] [.btn--outline_&]:[height:4.8rem] [.btn--outline_&]:[padding-inline:2.4rem] [.btn--outline_&]:[font-size:max(1.7rem,15px)] [.btn--block_&]:[flex:1] [.btn--block_&]:[overflow:hidden] [@media(max-width:_1279px)]:[.nav_&]:[display:none] [.nav_&]:[height:4.8rem] [.nav_&]:[padding-inline:2.6rem] [.nav_&]:[font-size:max(1.8rem,16px)] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_640px)]:[padding-inline:2.4rem] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)] [@media(max-width:_640px)]:[min-width:0] [.stp-sv\_\_head_&]:[background:#fff] [.stp-sv\_\_head_&]:[color:var(--purple)] [.mc\_\_act_&]:[background:#fff] [.mc\_\_act_&]:[color:var(--purple)] [@media(max-width:_640px)]:[.mc\_\_act_&]:[flex:1] [@media(max-width:_640px)]:[.mc\_\_act_&]:[min-width:0] [@media(max-width:_640px)]:[.mc\_\_act_&]:[padding-inline:1.8rem] [@media(max-width:_640px)]:[.mc\_\_act_&]:[font-size:max(1.6rem,15px)] [.ar\_\_toc-cta_&]:[height:4.8rem] [.ar\_\_toc-cta_&]:[padding-inline:2rem] [.ar\_\_toc-cta_&]:[font-size:max(1.6rem,15px)]">
+            <Button type="submit" block className="[.assess\_\_actions_&]:[flex:1]" icon={sent ? <Check size={20} /> : undefined}>
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span key={sent ? 's' : `n${step}`} initial={{ y: 16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} transition={{ duration: 0.35, ease: ease.out }}>
                     {sent ? 'Request received. We’ll be in touch.' : step === 1 ? 'Continue' : 'Get my free assessment'}
                   </motion.span>
                 </AnimatePresence>
-              </span>
-              <motion.span className="btn__icon [position:relative] [z-index:1] [display:inline-grid] [place-items:center] [width:5.6rem] [height:5.6rem] [border-radius:50%] [background:var(--purple)] [color:#fff] [&_svg]:[width:2rem] [&_svg]:[height:2rem] [.btn--outline_&]:[background:transparent] [.btn--outline_&]:[color:var(--purple)] [.btn--outline_&]:[box-shadow:inset_0_0_0_1.5px_var(--purple)] [.btn--outline_&]:[transition:background_0.35s,_color_0.35s] [.btn--outline:hover_&]:[background:var(--purple)] [.btn--outline:hover_&]:[color:#fff] [.btn--outline_&]:[width:4.8rem] [.btn--outline_&]:[height:4.8rem] [.nav_&]:[width:4.8rem] [.nav_&]:[height:4.8rem] [@media(max-width:_640px)]:[width:5.2rem] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_480px)]:[.nav_&]:[width:4.2rem]! [@media(max-width:_480px)]:[.nav_&]:[height:4.2rem]! [.stp-sv\_\_head_&]:[background:#fff] [.stp-sv\_\_head_&]:[color:var(--purple)] [.mc\_\_act_&]:[background:#fff] [.mc\_\_act_&]:[color:var(--purple)] [.ar\_\_toc-cta_&]:[width:4.8rem] [.ar\_\_toc-cta_&]:[height:4.8rem]" variants={{ rest: { x: 0, rotate: 0 }, hover: { x: 4, rotate: -45 }, sent: { rotate: 0, backgroundColor: '#12b886' } }}
-                transition={{ type: 'spring', stiffness: 260, damping: 22 }}>
-                {sent ? <Check size={20} /> : <Arrow />}
-              </motion.span>
-            </motion.button>
+              </Button>
           </motion.div>
           <motion.div className="assess__trust [display:flex] [flex-wrap:wrap] [gap:1rem_2.8rem] [font-size:max(1.4rem,14px)] [color:#5b5f72] [&_span]:[display:inline-flex] [&_span]:[align-items:center] [&_span]:[gap:0.8rem] [&_svg]:[width:1.8rem] [&_svg]:[height:1.8rem] [&_svg]:[color:var(--purple)]" variants={field}>
             <span><BadgeCheck />Free, no obligation</span>
