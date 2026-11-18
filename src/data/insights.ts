@@ -72,7 +72,7 @@ export const CASES: Case[] = [
     ],
   },
   {
-    slug: 'behavioral-health-coding', tag: 'Behavioral health · 14 clinicians', specialty: 'Mental Health', title: 'Time-based codes finally matched the notes.', photo: coder, alt: 'Clinician documenting a session at her desk', pos: '55% 30%',
+    slug: 'behavioral-health-coding', tag: 'Mental health · 14 clinicians', specialty: 'Mental Health', title: 'Time-based codes finally matched the notes.', photo: coder, alt: 'Clinician documenting a session at her desk', pos: '55% 30%',
     profile: [['Specialty', 'Outpatient therapy and psychiatry'], ['Providers', '11 therapists, 3 psychiatric NPs'], ['Location', 'Texas, in person + telehealth'], ['Systems', 'Existing EHR, unchanged'], ['Scope', 'Coding, billing, credentialing']],
     services: ['medical-coding', 'medical-billing', 'credentialing'],
     before: { denial: 12, ar: 41, clean: 86, net: 93 }, after: { denial: 5, ar: 27, clean: 97, net: 98 }, headline: 'clean',

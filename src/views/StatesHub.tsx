@@ -4,16 +4,16 @@
  * Hero → interactive map + filterable state grid (map and cards highlight each other) →
  * "by Medicare contractor" content fold (SEO/AEO, internal links) → form → FAQ → CTA.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Search, X, MapPin, Landmark } from 'lucide-react';
+import { ArrowRight, Search, X, MapPin, Landmark, ChevronLeft, ChevronRight } from 'lucide-react';
 import { StateFlag } from '../components/StateFlag';
 import { Eyebrow, SplitWords, Reveal } from '../components/ui';
 import { HeroCapture } from '../components/HeroCapture';
 import { USMap } from '../components/USMap';
 import { CTA, FAQ } from '../sections/Closing';
 import { Assessment } from '../sections/Assessment';
-import { Link } from '../router';
+import { Link, goAnchor } from '../router';
 import { STATES } from '../data/states';
 import { MACS, MAC_OF, REGION_OF } from '../data/states-all';
 import { ease, vp } from '../motion';
@@ -54,6 +54,17 @@ function Hero() {
 function Finder() {
   const [q, setQ] = useState('');
   const [region, setRegion] = useState<Region>('All');
+  // QA: after choosing a region, bring the updated results into view and move focus there (keyboard and screen-reader users land on them).
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const pickRegion = (r: Region) => {
+    setRegion(r);
+    requestAnimationFrame(() => {
+      const el = document.getElementById('stfd-results'); if (!el) return;
+      const top = el.getBoundingClientRect().top;
+      if (top > window.innerHeight * 0.7 || top < 0) goAnchor('stfd-results');
+      el.focus({ preventScroll: true });
+    });
+  };
   const [hot, setHot] = useState<string | null>(null);
   // Phones/tablets: show a short list first; search and region tabs narrow it, "Show more" reveals the rest
   const step = useStep();
@@ -77,13 +88,19 @@ function Finder() {
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search a state or city" aria-label="Search a state or city" />
             {q && <button type="button" onClick={() => setQ('')} aria-label="Clear search"><X size={16} /></button>}
           </label>
-          <div className="stfd__tabs [display:flex] [flex-wrap:wrap] [gap:0.4rem] [padding:0.4rem] [border-radius:10rem] [background:#f6f3ff] [&_button]:[position:relative] [&_button]:[height:4rem] [&_button]:[padding:0_1.8rem] [&_button]:[border-radius:10rem] [&_button]:[font-size:max(1.5rem,14px)] [&_button]:[font-weight:500] [&_button]:[color:#6b6f7c] [&_button]:[transition:color_0.3s] [&_button_span]:[position:relative] [&_button_span]:[z-index:1] [@media(max-width:_1279px)]:[flex-wrap:nowrap] [@media(max-width:_1279px)]:[overflow-x:auto] [@media(max-width:_1279px)]:[scrollbar-width:none] [@media(max-width:_1279px)]:[border-radius:1.6rem] [@media(max-width:_1279px)]:[&_button]:[flex:none]" role="tablist" aria-label="Filter by region">
+          <div className="stfd__tabwrap [display:flex] [align-items:center] [gap:0.8rem]">
+            <div ref={tabsRef} className="stfd__tabs [@media(max-width:_1279px)]:[flex:1] [@media(max-width:_1279px)]:[min-width:0] [display:flex] [flex-wrap:wrap] [gap:0.4rem] [padding:0.4rem] [border-radius:10rem] [background:#f6f3ff] [&_button]:[position:relative] [&_button]:[height:4rem] [&_button]:[padding:0_1.8rem] [&_button]:[border-radius:10rem] [&_button]:[font-size:max(1.5rem,14px)] [&_button]:[font-weight:500] [&_button]:[color:#6b6f7c] [&_button]:[transition:color_0.3s] [&_button_span]:[position:relative] [&_button_span]:[z-index:1] [@media(max-width:_1279px)]:[flex-wrap:nowrap] [@media(max-width:_1279px)]:[overflow-x:auto] [@media(max-width:_1279px)]:[scrollbar-width:none] [@media(max-width:_1279px)]:[border-radius:1.6rem] [@media(max-width:_1279px)]:[&_button]:[flex:none]" role="tablist" aria-label="Filter by region">
             {REGIONS.map((r) => (
-              <button key={r} type="button" role="tab" aria-selected={region === r} className={region === r ? String.raw`is-on [.assess\_\_steps_span&]:[color:var(--navy)] [.assess\_\_steps_span&_b]:[background:var(--purple)] [.assess\_\_steps_span&_b]:[border-color:var(--purple)] [.assess\_\_steps_span&_b]:[color:#fff] [.assess\_\_steps_i&::after]:[transform:scaleX(1)] [.cx-read\_\_n_i&]:[width:2.4rem] [.cx-read\_\_n_i&]:[background:var(--purple)] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[background:#fff] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[background:#fff] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [.sg\_\_toc_button&]:[color:var(--purple)] [.sg\_\_toc_button&]:[border-left-color:var(--purple)] [.pg\_\_toc_button&]:[color:#fff] [.pg\_\_toc_button&_small]:[color:rgba(255,_255,_255,_0.7)] [.pg\_\_dots_i&]:[width:2.4rem] [.pg\_\_dots_i&]:[background:var(--purple)] [.stfd\_\_tabs_button&]:[color:#fff] [.se\_\_dots_i&]:[width:6.4rem] [.sw-anes\_\_bar_i&]:[background:var(--grad)] [.sw-body_circle&]:[fill:var(--purple)] [.sw-vial\_\_body_i&]:[background:var(--grad)] [.sw-vial\_\_body_i&_small]:[color:#fff] [.sw-wound\_\_grid_i&]:[background:#c9b8ff] [.sw-wound\_\_grid_i&]:[border-color:transparent] [.sw-cal_i&]:[background:var(--purple)] [.sw-cal_i&]:[color:#fff] [.sw-wells_i&]:[background:#e2d9ff] [.sw-wells_i&]:[border-color:#c9b8ff] [.sw-shot_i&]:[background:var(--purple)] [.sw-shot_i&]:[border-color:var(--purple)] [.lf\_\_seg_button&]:[color:#fff] [.tc\_\_why_li&]:[opacity:1] [.sl\_\_tabs_button&]:[color:#fff] [.ar\_\_toc_a&]:[color:var(--ink-2)] [.ct-needs_button&]:[color:#fff] [.wa\_\_zones_li&]:[background:var(--grad)] [.wa\_\_zones_li&]:[border-color:transparent] [.wa\_\_zones_li&_small]:[color:#fff] [.wa\_\_zones_li&_b]:[color:#fff] [.wa\_\_zones_li&_em]:[color:#fff] [.se\_\_dots_i&]:[background:var(--purple)] [.ct-needs_button&]:[background:var(--grad)] [.ct-needs_button&]:[border-color:transparent] [.sc-cal_i&]:[background:var(--purple)] [.sc-cal_i&]:[color:#fff] [.ccp_button&]:[background:var(--purple)] [.ccp_button&]:[color:#fff] [.pa-art\_\_seg_button&]:[background:var(--grad)] [.pa-art\_\_seg_button&]:[color:#fff] [.pa-art\_\_steps_li&]:[background:var(--purple)] [.pa-art\_\_steps_li&]:[border-color:var(--purple)] [.pa-art\_\_steps_li&]:[color:#fff] [.ab-orbit\_\_rings_line&]:[stroke:var(--purple)] [.ab-orbit\_\_rings_line&]:[stroke-width:2]` : ''} onClick={() => setRegion(r)}>
+              <button key={r} type="button" role="tab" aria-selected={region === r} className={region === r ? String.raw`is-on [.assess\_\_steps_span&]:[color:var(--navy)] [.assess\_\_steps_span&_b]:[background:var(--purple)] [.assess\_\_steps_span&_b]:[border-color:var(--purple)] [.assess\_\_steps_span&_b]:[color:#fff] [.assess\_\_steps_i&::after]:[transform:scaleX(1)] [.cx-read\_\_n_i&]:[width:2.4rem] [.cx-read\_\_n_i&]:[background:var(--purple)] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[background:#fff] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1279px)]:[.hw2\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[background:#fff] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1279px)]:[.jyt\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [.sg\_\_toc_button&]:[color:var(--purple)] [.sg\_\_toc_button&]:[border-left-color:var(--purple)] [.pg\_\_toc_button&]:[color:#fff] [.pg\_\_toc_button&_small]:[color:rgba(255,_255,_255,_0.7)] [.pg\_\_dots_i&]:[width:2.4rem] [.pg\_\_dots_i&]:[background:var(--purple)] [.stfd\_\_tabs_button&]:[color:#fff] [.se\_\_dots_i&]:[width:6.4rem] [.sw-anes\_\_bar_i&]:[background:var(--grad)] [.sw-body_circle&]:[fill:var(--purple)] [.sw-vial\_\_body_i&]:[background:var(--grad)] [.sw-vial\_\_body_i&_small]:[color:#fff] [.sw-wound\_\_grid_i&]:[background:#c9b8ff] [.sw-wound\_\_grid_i&]:[border-color:transparent] [.sw-cal_i&]:[background:var(--purple)] [.sw-cal_i&]:[color:#fff] [.sw-wells_i&]:[background:#e2d9ff] [.sw-wells_i&]:[border-color:#c9b8ff] [.sw-shot_i&]:[background:var(--purple)] [.sw-shot_i&]:[border-color:var(--purple)] [.lf\_\_seg_button&]:[color:#fff] [.tc\_\_why_li&]:[opacity:1] [.sl\_\_tabs_button&]:[color:#fff] [.ar\_\_toc_a&]:[color:var(--ink-2)] [.ct-needs_button&]:[color:#fff] [.wa\_\_zones_li&]:[background:var(--grad)] [.wa\_\_zones_li&]:[border-color:transparent] [.wa\_\_zones_li&_small]:[color:#fff] [.wa\_\_zones_li&_b]:[color:#fff] [.wa\_\_zones_li&_em]:[color:#fff] [.se\_\_dots_i&]:[background:var(--purple)] [.ct-needs_button&]:[background:var(--grad)] [.ct-needs_button&]:[border-color:transparent] [.sc-cal_i&]:[background:var(--purple)] [.sc-cal_i&]:[color:#fff] [.ccp_button&]:[background:var(--purple)] [.ccp_button&]:[color:#fff] [.pa-art\_\_seg_button&]:[background:var(--grad)] [.pa-art\_\_seg_button&]:[color:#fff] [.pa-art\_\_steps_li&]:[background:var(--purple)] [.pa-art\_\_steps_li&]:[border-color:var(--purple)] [.pa-art\_\_steps_li&]:[color:#fff] [.ab-orbit\_\_rings_line&]:[stroke:var(--purple)] [.ab-orbit\_\_rings_line&]:[stroke-width:2]` : ''} onClick={() => pickRegion(r)}>
                 {region === r && <motion.i layoutId="stfd-tab" className="stfd__tab-hl [position:absolute] [inset:0] [border-radius:inherit] [background:var(--purple)]" transition={{ type: 'spring', stiffness: 380, damping: 34 }} />}
                 <span>{r}</span>
               </button>
             ))}
+          </div>
+            <div className="stfd__arrows [display:none] [@media(max-width:_1279px)]:[display:flex] [gap:0.6rem]">
+              <button type="button" aria-label="Scroll regions left" onClick={() => tabsRef.current?.scrollBy({ left: -180, behavior: 'smooth' })} className="[width:40px] [height:40px] [flex:none] [border-radius:50%] [display:grid] [place-items:center] [background:#fff] [border:1px_solid_#e4e0f2] [color:var(--purple)] [transition:background_0.3s,_color_0.3s] [&:hover]:[background:var(--purple)] [&:hover]:[color:#fff]"><ChevronLeft size={18} /></button>
+              <button type="button" aria-label="Scroll regions right" onClick={() => tabsRef.current?.scrollBy({ left: 180, behavior: 'smooth' })} className="[width:40px] [height:40px] [flex:none] [border-radius:50%] [display:grid] [place-items:center] [background:#fff] [border:1px_solid_#e4e0f2] [color:var(--purple)] [transition:background_0.3s,_color_0.3s] [&:hover]:[background:var(--purple)] [&:hover]:[color:#fff]"><ChevronRight size={18} /></button>
+            </div>
           </div>
         </div>
       </div>
@@ -92,7 +109,7 @@ function Finder() {
         <USMap active={hot} onActive={setHot} />
       </motion.div>
 
-      <motion.ul className="stfd__grid [list-style:none] [padding:0] [margin:4rem_0_0] [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1.2rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[margin-top:2rem] [@media(max-width:_767px)]:[gap:0.8rem]" layout>
+      <motion.ul id="stfd-results" tabIndex={-1} aria-label="States" className="stfd__grid [outline:none] [scroll-margin-top:12rem] [list-style:none] [padding:0] [margin:4rem_0_0] [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1.2rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[margin-top:2rem] [@media(max-width:_767px)]:[gap:0.8rem]" layout>
         <AnimatePresence initial={false}>
           {shown.slice(0, step ? (limit ?? step) : undefined).map((s) => (
             <motion.li key={s.slug} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.35, ease: ease.out }}>

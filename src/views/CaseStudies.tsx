@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup, useInView, animate, useMotionValue, useTransform } from 'motion/react';
-import { ArrowRight, ChevronLeft, Check } from 'lucide-react';
+import { ArrowRight, ChevronLeft, Check, MousePointerClick } from 'lucide-react';
 import { Button, CountUp, Eyebrow, Logo, Reveal, SplitWords } from '../components/ui';
 import { CTA } from '../sections/Closing';
 import { IntroBlock, caseIntro } from '../components/IntroBlock';
@@ -75,7 +75,10 @@ function Slope() {
           })}
         </svg>
       </div>
-      <p className="sl__foot [@media(max-width:_1279px)]:[font-size:13.5px]! [@media(max-width:_1279px)]:[line-height:1.55] [margin-top:1.2rem] [font-size:max(1.4rem,14px)] [color:#6b6f7c]">{m.better === 'down' ? 'Lower is better.' : 'Higher is better.'} Hover a line to pick out one practice; click to read it.</p>
+      <p className="sl__foot [margin-top:1.6rem] [display:flex] [flex-wrap:wrap] [align-items:center] [gap:1rem] [font-size:max(1.4rem,14px)] [color:#6b6f7c]">
+        <span className="sl__hint [display:inline-flex] [align-items:center] [gap:0.8rem] [padding:0.8rem_1.4rem] [border-radius:4rem] [background:#f1edff] [color:var(--purple)] [font-weight:500]"><MousePointerClick size={16} aria-hidden /><span className="[@media(hover:_none)]:[display:none]">Hover a line to pick out a practice, click to read it</span><span className="[display:none] [@media(hover:_none)]:[display:inline]">Tap a line to pick out a practice</span></span>
+        <span>{m.better === 'down' ? 'Lower is better.' : 'Higher is better.'}</span>
+      </p>
     </div>
   );
 }
@@ -176,7 +179,7 @@ export function CaseStudiesHub() {
           </div>
           {/* filter change: the whole grid crossfades once (no per-card reflow jumps) */}
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div key={f} className="cs__grid cs__grid--4 [display:grid] [margin-top:4rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] [.csl_&]:[margin-top:3.2rem] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:2rem] [@media(max-width:_1440px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.out } }} exit={{ opacity: 0, y: -6, transition: { duration: 0.2, ease: 'easeIn' } }}>
+            <motion.div key={f} className="cs__grid cs__grid--4 [display:grid] [margin-top:4rem]  [.csl_&]:[margin-top:3.2rem] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:2rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.out } }} exit={{ opacity: 0, y: -6, transition: { duration: 0.2, ease: 'easeIn' } }}>
               {list.map((c, k) => <CaseCard key={c.slug} c={c} k={k} still={f !== 'All' || undefined} />)}
             </motion.div>
           </AnimatePresence>
@@ -347,7 +350,7 @@ export function CaseStudyPage({ slug }: { slug: string }) {
             <motion.li key={i} className="ff__row [display:grid] [grid-template-columns:6rem_minmax(0,_1fr)_8rem_minmax(0,_1.2fr)] [align-items:center] [gap:2.4rem] [padding:3.2rem] [border-radius:2.8rem] [border:1px_solid_#ece8fa] [background:#fff] [&_small]:[display:block] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:max(1.2rem,12px)] [&_small]:[text-transform:uppercase] [&_small]:[letter-spacing:0.06em] [&_small]:[color:#8a8ea0] [&_small]:[margin-bottom:0.8rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1279px)]:[gap:1.6rem] [@media(max-width:_1279px)]:[padding:2.4rem]" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.8, ease: ease.out, delay: i * 0.08 }}>
               <span className="ff__n [font-family:var(--f-mono)] [font-size:max(1.6rem,15px)] [color:#a29cbc]">0{i + 1}</span>
               <div className="ff__found [&_p]:[font-size:max(1.9rem,16px)] [&_p]:[line-height:1.5] [&_p]:[color:var(--ink-2)]"><small>Found</small><p>{p}</p></div>
-              <motion.span className="ff__arrow [height:2px] [background:linear-gradient(90deg,_#d6cdf7,_var(--purple))] [transform-origin:left] [position:relative] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[right:-1px] [&::after]:[top:-0.5rem] [&::after]:[border:0.6rem_solid_transparent] [&::after]:[border-left:0.9rem_solid_var(--purple)]! [&::after]:[border-right:0]! [@media(max-width:_1279px)]:[width:4rem] [@media(max-width:_1279px)]:[transform:rotate(90deg)]" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={vp} transition={{ duration: 0.8, ease: ease.out, delay: 0.3 + i * 0.08 }} aria-hidden />
+              <motion.span className="ff__arrow [justify-self:center] [display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:50%] [color:#fff] [background:var(--grad)] [box-shadow:0_0.8rem_2rem_rgba(106,_65,_249,_0.3)] [@media(max-width:_1279px)]:[justify-self:start] [@media(max-width:_1279px)]:[width:40px] [@media(max-width:_1279px)]:[height:40px] [@media(max-width:_1279px)]:[&_svg]:[rotate:90deg]" initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={vp} transition={{ type: 'spring', stiffness: 320, damping: 20, delay: 0.3 + i * 0.08 }} aria-hidden><ArrowRight size={20} strokeWidth={2.2} /></motion.span>
               <div className="ff__fixed [padding:2.4rem] [border-radius:2rem] [background:var(--panel)] [border:1px_solid_#efebfb] [&_small]:[color:var(--purple)] [&_b]:[display:block] [&_b]:[font-weight:500] [&_b]:[font-size:2.2rem] [&_b]:[color:var(--ink-2)] [&_p]:[margin-top:0.6rem] [&_p]:[font-size:max(1.6rem,15px)] [&_p]:[line-height:1.5] [&_p]:[color:#5b5f72]"><small>Fixed</small><b>{c.did[i].title}</b><p>{c.did[i].body}</p></div>
             </motion.li>
           ))}
@@ -361,7 +364,7 @@ export function CaseStudyPage({ slug }: { slug: string }) {
           <div><Eyebrow>/ More case studies</Eyebrow><SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1279px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Other practices,', 'same four numbers.']} stagger={0.04} /></div>
           <Link to="/case-studies" className="text-link [display:inline-flex] [align-items:center] [gap:0.8rem] [font-weight:500] [font-size:max(1.8rem,16px)] [color:var(--purple)] [&_svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1)] [&:hover_svg]:[transform:translateX(0.5rem)] [.est\_\_carried_&]:[margin-top:0.6rem] [.est\_\_carried_&]:[font-size:max(1.5rem,14px)] [.est\_\_carried_&]:[color:#fff] [.est\_\_carried_&]:[text-decoration:underline] [.est\_\_carried_&]:[text-underline-offset:0.3em] [.est\_\_carried_&]:[opacity:0.85]">All case studies <ArrowRight size={18} /></Link>
         </div>
-        <div className="cs__grid cs__grid--3 [display:grid] [margin-top:4rem] [.csl_&]:[margin-top:3.2rem] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">{others.map((o, k) => <CaseCard key={o.slug} c={o} k={k} />)}</div>
+        <div className="cs__grid cs__grid--3 [display:grid] [margin-top:4rem] [.csl_&]:[margin-top:3.2rem] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2rem] [@media(max-width:_767px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">{others.map((o, k) => <CaseCard key={o.slug} c={o} k={k} />)}</div>
       </section>
 
       <CTA eyebrow="/ Your practice next" lines={['Want numbers like these?', 'Start with a free baseline.']} />

@@ -101,7 +101,7 @@ function WhoAnswers() {
   })();
   const hi = mine ?? 'CT';
   return (
-    <section className="wa container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:8rem] [align-items:center] [padding-top:16rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1279px)]:[gap:4rem] [@media(max-width:_1279px)]:[padding-top:10rem]">
+    <section className="wa container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:8rem] [align-items:center] [padding-top:16rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1279px)]:[gap:4rem] [@media(max-width:_1279px)]:[padding-top:10rem]">
       <motion.div className="wa__photo [position:relative] [aspect-ratio:5_/_4] [border-radius:2.4rem] [overflow:hidden] [&_img]:[width:100%] [&_img]:[height:100%] [&_img]:[object-fit:cover] [&_img]:[object-position:62%_40%]" initial={{ clipPath: 'inset(12% 12% 12% 12% round 2.4rem)' }} whileInView={{ clipPath: 'inset(0% 0% 0% 0% round 2.4rem)' }} viewport={vp} transition={{ duration: 1.3, ease: ease.curtain }}>
         <img src={teamPhoto} alt="Affinity Core billing specialist on a call with a practice" loading="lazy" />
         <motion.span className="hero-chip wa__chip [display:flex] [align-items:center] [gap:1.2rem] [padding:2.4rem] [border-radius:1.4rem] [background:rgba(248,_246,_255,_0.8)] [backdrop-filter:blur(1.2rem)] [color:var(--navy)] [white-space:nowrap] [z-index:4] [&_strong]:[display:block] [&_strong]:[font-weight:500] [&_strong]:[font-size:2.4rem] [&_strong]:[line-height:2.2rem] [&_strong]:[margin-bottom:0.8rem] [&_small]:[display:block] [&_small]:[font-size:max(1.4rem,14px)] [&_small]:[line-height:1.8rem] [position:absolute] [left:2.4rem] [bottom:2.4rem]" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.8, ease: ease.out, delay: 0.6 }}>
@@ -152,14 +152,14 @@ export function ContactPage() {
   }, []);
   return (
     <main className="page page--tail [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem] [padding-bottom:14rem] [@media(max-width:_1279px)]:[padding-bottom:8rem]">
-      <section className="ct container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [gap:6rem] [align-items:center] [padding-top:14rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1279px)]:[padding-top:12rem] [@media(max-width:_1279px)]:[gap:4rem]">
-        <div className="ct__copy [display:flex] [flex-direction:column] [gap:2.8rem]">
+      <section className="ct container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [gap:6rem] [align-items:center] [padding-top:14rem] [@media(max-width:_1023px)]:[grid-template-columns:minmax(0,_1fr)] [@media(min-width:_1024px)_and_(max-width:_1279px)]:[gap:3.2rem] [@media(min-width:_1024px)_and_(max-width:_1279px)]:[align-items:start] [@media(max-width:_1279px)]:[padding-top:12rem] [@media(max-width:_1279px)]:[gap:4rem]">
+        <div className="ct__copy [display:flex] [flex-direction:column] [gap:2.8rem] [@media(max-width:_1023px)]:[display:contents]">
           <motion.p className="eyebrow [font-family:var(--f-mono)] [font-size:max(1.6rem,15px)] [line-height:1.4] [text-transform:uppercase] [color:var(--ink)] [letter-spacing:0.02em] [.hero\_\_copy_&]:[margin-bottom:1.2rem] [.stmac\_\_intro_&]:[grid-column:1_/_-1]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: ease.out, delay: 0.2 }}>/ Contact</motion.p>
           <SplitWords as="h1" className="page-title [font-weight:500] [font-size:6.12rem] [line-height:1.06] [letter-spacing:-0.18rem] [color:var(--ink-3)] [@media(max-width:_1279px)]:[font-size:4.32rem]" animateNow delay={0.3} stagger={0.05} lines={['Talk to a billing', 'specialist, not', 'a sales bot.']} bold={['bot.']} />
           <motion.p className="page-sub [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:56rem] [.ab-hero\_\_copy_&]:[max-width:64rem]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.75 }}>
             Tell us what’s going on with your billing. We’ll come back with a straight answer, and a free assessment if it helps.
           </motion.p>
-          <motion.ul className="ct-ways [list-style:none] [border-top:1px_solid_#ece8f7] [&_a]:[display:grid] [&_a]:[grid-template-columns:5.2rem_1fr_auto] [&_a]:[gap:2rem] [&_a]:[align-items:center] [&_a]:[padding:2rem_0] [&_a]:[border-bottom:1px_solid_#ece8f7] [&_a]:[color:var(--ink-2)] [&_a>svg]:[color:#c9c2e4] [&_a>svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1),_color_0.3s] [&_a:hover>svg]:[color:var(--purple)] [&_a:hover>svg]:[transform:translateX(0.4rem)_rotate(-45deg)]" initial="h" animate="s" variants={{ h: {}, s: { transition: { staggerChildren: 0.1, delayChildren: 0.9 } } }}>
+          <motion.ul className="ct-ways [@media(max-width:_1023px)]:[order:3] [list-style:none] [border-top:1px_solid_#ece8f7] [&_a]:[display:grid] [&_a]:[grid-template-columns:5.2rem_1fr_auto] [&_a]:[gap:2rem] [&_a]:[align-items:center] [&_a]:[padding:2rem_0] [&_a]:[border-bottom:1px_solid_#ece8f7] [&_a]:[color:var(--ink-2)] [&_a>svg]:[color:#c9c2e4] [&_a>svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1),_color_0.3s] [&_a:hover>svg]:[color:var(--purple)] [&_a:hover>svg]:[transform:translateX(0.4rem)_rotate(-45deg)]" initial="h" animate="s" variants={{ h: {}, s: { transition: { staggerChildren: 0.1, delayChildren: 0.9 } } }}>
             {WAYS.map((w) => (
               <motion.li key={w.k} variants={{ h: { opacity: 0, y: 16 }, s: { opacity: 1, y: 0, transition: { duration: 0.7, ease: ease.out } } }}>
                 <a href={w.href} target={w.k === 'Visit' ? '_blank' : undefined} rel="noopener noreferrer">
@@ -171,7 +171,7 @@ export function ContactPage() {
             ))}
           </motion.ul>
         </div>
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease: ease.out, delay: 0.4 }}>
+        <motion.div className="ct__formwrap [@media(max-width:_1023px)]:[order:2]" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease: ease.out, delay: 0.4 }}>
           <Form />
         </motion.div>
       </section>

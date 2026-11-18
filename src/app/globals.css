@@ -12,3 +12,8 @@
 @theme {
   --spacing: 0.1rem;
 }
+
+/* QA: tablet layouts get a proper side gutter (content sat 18px from the edge on iPad). Unlayered so it wins over the per-section 2rem. */
+@media (min-width: 641px) and (max-width: 1279px) {
+  .container { padding-inline: 32px; }
+}

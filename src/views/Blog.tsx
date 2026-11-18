@@ -128,6 +128,7 @@ export function Card({ a, k, still }: { a: Article; k: number; still?: boolean }
         <h3>{a.title}</h3>
         <p>{a.dek}</p>
         {on && <span className="cs__more [margin-top:auto] [padding-top:1.2rem] [display:inline-flex] [align-items:center] [gap:0.6rem] [font-weight:500] [font-size:max(1.7rem,15px)] [color:var(--purple)] [&_svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1)] [.cs\_\_card:hover_&_svg]:[transform:translateX(0.5rem)]">Read article <ArrowRight size={18} /></span>}
+        {!on && <span className="bk__soon [margin-top:auto] [padding-top:1.2rem] [display:inline-flex] [align-items:center] [gap:0.8rem] [font-family:var(--f-mono)] [font-size:max(1.3rem,13px)] [text-transform:uppercase] [letter-spacing:0.06em] [color:#8a8ea0]"><i aria-hidden className="[width:0.8rem] [height:0.8rem] [border-radius:50%] [background:#c9bcff]" />Coming soon</span>}
       </div>
     </motion.article>
   );
@@ -175,7 +176,7 @@ export function BlogHub() {
           </LayoutGroup>
         </div>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div key={t} className={String.raw`bl__grid [@media(max-width:_767px)]:[&:not(.is-all)>:nth-child(n+4)]:[display:none] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)] ${all ? 'is-all' : ''}`} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.out } }} exit={{ opacity: 0, y: -6, transition: { duration: 0.2, ease: 'easeIn' } }}>
+          <motion.div key={t} className={String.raw`bl__grid [@media(max-width:_767px)]:[&:not(.is-all)>:nth-child(n+4)]:[display:none] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] ${all ? 'is-all' : ''}`} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.out } }} exit={{ opacity: 0, y: -6, transition: { duration: 0.2, ease: 'easeIn' } }}>
             {rest.length ? rest.map((a, k) => <Card key={a.slug} a={a} k={k} still={t !== 'All'} />) : <p className="bl__none [grid-column:1_/_-1] [font-size:max(2rem,16px)] [color:#6b6f7c] [padding:4rem_0]">Nothing on this topic yet. It’s on the list.</p>}
           </motion.div>
         </AnimatePresence>
@@ -239,7 +240,8 @@ export function ArticlePage({ slug }: { slug: string }) {
     const io = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) setAct(e.target.id); }); }, { rootMargin: '-30% 0px -60% 0px' });
     els.forEach((e) => io.observe(e)); return () => io.disconnect();
   }, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
-  const more = ARTICLES.filter((x) => x.slug !== slug).slice(0, 3);
+  // Published articles first, so related cards always lead somewhere; unpublished ones only fill gaps (and say 'Coming soon').
+  const more = [...ARTICLES.filter((x) => x.slug !== slug && live(x)), ...ARTICLES.filter((x) => x.slug !== slug && !live(x))].slice(0, 3);
   return (
     <main className="page [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem]">
       <motion.div className="ar__prog [will-change:transform] [position:fixed] [left:0] [right:0] [top:0] [height:0.4rem] [z-index:60] [background:linear-gradient(90deg,_#b7a3ff,_var(--purple))] [transform-origin:left]" style={{ scaleX: prog }} aria-hidden />
@@ -276,7 +278,7 @@ export function ArticlePage({ slug }: { slug: string }) {
       </div>
       <section className="bl container [padding-inline:var(--gutter)] [@media(max-width:_1279px)]:[padding-inline:2rem] [padding-top:12rem] [@media(max-width:_1279px)]:[padding-top:8rem]">
         <div className="bl__head [display:flex] [flex-direction:column] [gap:2.4rem]"><Eyebrow>/ Keep reading</Eyebrow></div>
-        <div className="bl__grid [@media(max-width:_767px)]:[&:not(.is-all)>:nth-child(n+4)]:[display:none] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)]">{more.map((m, k) => <Card key={m.slug} a={m} k={k} />)}</div>
+        <div className="bl__grid [@media(max-width:_767px)]:[&:not(.is-all)>:nth-child(n+4)]:[display:none] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">{more.map((m, k) => <Card key={m.slug} a={m} k={k} />)}</div>
       </section>
       <CTA eyebrow="/ Rather hand it off?" lines={['We’ll handle the paperwork.', 'You handle the patients.']} />
     </main>

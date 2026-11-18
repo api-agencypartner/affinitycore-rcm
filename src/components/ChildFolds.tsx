@@ -182,7 +182,7 @@ export function Switching({ what }: { what: string }) {
             <small className="swt__when [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.08em] [text-transform:uppercase] [color:var(--purple)]">{st.when}</small>
             <b>{st.title}</b>
             <p>{st.body}</p>
-            <p className="swt__you [@media(max-width:_1279px)]:[line-height:1.6] [margin-top:0.4rem] [padding:1rem_1.2rem] [border-radius:1.2rem] [background:#f7f4ff] [font-size:max(1.4rem,14px)]! [color:#4a4f63]! [&_em]:[font-style:normal] [&_em]:[font-weight:600] [&_em]:[color:var(--purple)]"><em>From you:</em> {st.you}</p>
+            <p className="swt__you [@media(max-width:_1279px)]:[line-height:1.6] [margin-top:auto] [padding:1rem_1.2rem] [border-radius:1.2rem] [background:#f7f4ff] [font-size:max(1.4rem,14px)]! [color:#4a4f63]! [&_em]:[font-style:normal] [&_em]:[font-weight:600] [&_em]:[color:var(--purple)]"><em>From you:</em> {st.you}</p>
           </motion.li>
         ))}
       </ol>
