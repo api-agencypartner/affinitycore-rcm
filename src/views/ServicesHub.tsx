@@ -16,6 +16,7 @@ import { CaseCard } from './CaseStudies';
 import { Assessment } from '../sections/Assessment';
 import { MidCta } from '../components/ChildFolds';
 import { useTouch } from '../components/useNarrow';
+import { serviceIcon } from '../sections/Nav';
 
 const byStation = (n: number) => SERVICES.filter((s) => s.station === n);
 
@@ -481,7 +482,10 @@ function NeedPicker() {
                   out: { opacity: 0, y: -6, transition: { duration: 0.18, ease: [0.4, 0, 1, 1] } },
                 }}>
                 <Link to={`/services/${s.slug}`}>
-                  <small>{i === ALL ? `Service ${String(k + 1).padStart(2, '0')}` : k === 0 ? 'Start here' : 'Then'}</small>
+                  <span className="need__ico [display:flex] [align-items:center] [gap:1.2rem]">
+                    <span aria-hidden className="[display:grid] [place-items:center] [width:4.4rem] [height:4.4rem] [border-radius:1.2rem] [background:#f1edff] [color:var(--purple)] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [&_svg]:[stroke-width:1.7]">{serviceIcon(s.name)}</span>
+                    {i !== ALL && <small>{k === 0 ? 'Start here' : 'Then'}</small>}
+                  </span>
                   <b>{s.name}</b>
                   <span>{s.line}</span>
                   <em>View service <ArrowRight size={16} /></em>

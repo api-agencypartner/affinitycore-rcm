@@ -25,6 +25,8 @@ const Chevron = () => (
 
 /* ---------- Menu content ---------- */
 // Services offered on rcm.affinitycore.co
+/** Icon for a service by its name (shared with the Services page cards). */
+export const serviceIcon = (name: string): ReactNode => SERVICES.find((x) => x[1] === name)?.[0] ?? null;
 const SERVICES: [ReactNode, string, string][] = [
   [<RefreshCw />, 'Revenue Cycle Management', 'One team from registration to payment'],
   [<Receipt />, 'Medical Billing', 'Clean claims, sent on time'],

@@ -230,7 +230,7 @@ export function ClaimXray({ onChange }: { onChange?: (s: XrayState) => void }) {
   return (
     <div className="cx [position:relative]" ref={wrapRef}>
       <div className="cx-stage [position:relative] [height:80rem] [perspective:220rem] [perspective-origin:30%_40%] [@media(max-width:_1099px)]:[perspective:none]" style={narrow ? { height: formH * scale } : undefined}>
-        <motion.div className="cx-tilt [position:absolute] [left:0] [top:2rem] [transform-style:preserve-3d] [will-change:transform] [cursor:crosshair] [@media(max-width:_1099px)]:[top:0] [@media(max-width:_1099px)]:[cursor:pointer]" style={{ scale, transformOrigin: narrow ? '0 0' : '40% 50%' }}
+        <motion.div className="cx-tilt [position:absolute] [right:7rem] [@media(max-width:_1099px)]:[right:auto] [@media(max-width:_1099px)]:[left:0] [top:2rem] [transform-style:preserve-3d] [will-change:transform] [cursor:crosshair] [@media(max-width:_1099px)]:[top:0] [@media(max-width:_1099px)]:[cursor:pointer]" style={{ scale, transformOrigin: narrow ? '0 0' : '40% 50%' }}
           initial={{ opacity: 0, y: 60, rotateY: -30, rotateX: 20 }} animate={{ opacity: 1, y: 0, ...tilt }}
           transition={{ type: 'spring', stiffness: 70, damping: 18, mass: 1, opacity: { duration: 0.8 } }}
           onPointerEnter={(e) => { if (e.pointerType !== 'touch') setHover(true); }} onPointerLeave={() => { if (!narrow) setHover(false); }}
