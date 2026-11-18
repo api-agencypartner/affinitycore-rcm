@@ -16,17 +16,8 @@ import { Assessment } from '../sections/Assessment';
 import { Link, goAnchor, u } from '../router';
 import { STATES } from '../data/states';
 import { MACS, MAC_OF, REGION_OF } from '../data/states-all';
+import { MAC_LOGO } from '../data/macLogos';
 
-/** Contractor logos we have files for (public/mac). The others keep the jurisdiction icon. Logos identify the MAC only; no affiliation implied. */
-const MAC_LOGO: Record<string, string> = {
-  'CGS Administrators': '/mac/cgs.webp',
-  'Wisconsin Physicians Service (WPS)': '/mac/wps.webp',
-  'Noridian Healthcare Solutions': '/mac/noridian.webp',
-  'First Coast Service Options': '/mac/firstcoast.webp',
-  'National Government Services (NGS)': '/mac/ngs.webp',
-  'Novitas Solutions': '/mac/novitas.webp',
-  'Palmetto GBA': '/mac/palmetto.webp',
-};
 import { ease, vp } from '../motion';
 import { useTouch } from '../components/useNarrow';
 

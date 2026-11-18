@@ -22,6 +22,7 @@ import { Link } from '../router';
 import { ease, vp } from '../motion';
 import { getState, STATES, type StatePage as State } from '../data/states';
 import { MAC_OF, REGION_OF } from '../data/states-all';
+import { macLogoFor } from '../data/macLogos';
 import { getSpecialtyLite } from '../data/specialties';
 import { SERVICES } from '../data/services';
 import { setJsonLd, pageJsonLd } from '../data/seo';
@@ -29,6 +30,7 @@ import { setJsonLd, pageJsonLd } from '../data/seo';
 const REGION: Record<string, string> = { texas: 'Texas|Dallas|Houston|Austin', florida: 'Florida|Miami|Tampa|Orlando', california: 'California|Los Angeles|San Diego' };
 
 function Hero({ s }: { s: State }) {
+  const logo = macLogoFor(s.slug);
   return (
     <section className="sp-hero stp-hero [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:6rem] [align-items:center] [padding:16.4rem_var(--gutter)_6rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[padding-top:12rem] [@media(max-width:_1099px)]:[min-height:0]">
       <div className="sp-hero__copy [display:flex] [flex-direction:column] [gap:2.8rem]">
@@ -46,7 +48,7 @@ function Hero({ s }: { s: State }) {
         <div className="stp-card__map [position:relative] [height:30rem] [display:grid] [place-items:center] [@media(max-width:_1099px)]:[height:22rem]"><StateShape id={s.id} className="stp-shape [width:100%] [height:100%] [&_path]:[fill:rgba(255,_255,_255,_0.18)] [&_path]:[stroke:#fff] [&_path]:[stroke-width:2] [&_path]:[vector-effect:non-scaling-stroke] [&_path]:[stroke-linejoin:round]" /></div>
         <p className="stp-card__k [position:relative] [display:flex] [align-items:center] [gap:0.6rem] [margin-top:2.4rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.06em] [text-transform:uppercase] [color:rgba(255,_255,_255,_0.8)]"><MapPin size={14} /> {s.name} billing, at a glance</p>
         <ul className="stp-card__chips [position:relative] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1rem] [margin-top:1.2rem] [&_li]:[padding:1.4rem_1.6rem] [&_li]:[border-radius:1.6rem] [&_li]:[background:rgba(255,_255,_255,_0.12)] [&_li]:[border:1px_solid_rgba(255,_255,_255,_0.22)] [&_small]:[display:block] [&_small]:[font-size:max(1.2rem,12px)] [&_small]:[color:rgba(255,_255,_255,_0.75)] [&_b]:[display:block] [&_b]:[margin-top:0.4rem] [&_b]:[font-weight:600] [&_b]:[font-size:max(1.6rem,15px)] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-          {s.chips.map(([k, v]) => <li key={k}><small className={k === 'Medicare' ? '[display:flex]! [align-items:center] [gap:0.5rem]' : undefined}>{k === 'Medicare' && <Landmark size={13} strokeWidth={2} aria-hidden />}{k}</small><b>{v}</b></li>)}
+          {s.chips.map(([k, v]) => <li key={k}><small className={k === 'Medicare' ? '[display:flex]! [align-items:center] [gap:0.5rem]' : undefined}>{k === 'Medicare' && !logo && <Landmark size={13} strokeWidth={2} aria-hidden />}{k}</small><b>{v}</b>{k === 'Medicare' && logo && <span className="stp-card__mac [display:inline-flex] [align-items:center] [margin-top:0.8rem] [padding:0.4rem_0.8rem] [border-radius:0.8rem] [background:#fff]"><img src={logo.src} alt={`${logo.name} logo`} className={`[display:block] ${logo.tall ? '[height:3.4rem]' : '[height:2rem]'} [width:auto] [max-width:100%]`} loading="lazy" decoding="async" /></span>}</li>)}
         </ul>
         <p className="stp-card__cities [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [position:relative] [margin-top:1.6rem] [font-size:max(1.4rem,14px)] [color:rgba(255,_255,_255,_0.8)]">{s.cities.join(' · ')}</p>
       </motion.div>
@@ -55,6 +57,7 @@ function Hero({ s }: { s: State }) {
 }
 
 function Rules({ s }: { s: State }) {
+  const logo = macLogoFor(s.slug);
   return (
     <section className="stp-rules container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:12rem] [@media(max-width:_1099px)]:[padding-top:8rem]">
       <div className="stp-head [display:flex] [flex-direction:column] [gap:1.2rem]">
@@ -64,6 +67,7 @@ function Rules({ s }: { s: State }) {
       <div className="stp-rules__grid [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:2rem] [margin-top:4rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
         {s.facts.map((f, i) => (
           <motion.article key={f.k} className="stp-rule [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [display:flex] [flex-direction:column] [gap:1.2rem] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [box-shadow:0_2rem_5rem_rgba(40,_20,_120,_0.06)] [&_h3]:[font-weight:500] [&_h3]:[font-size:2.2rem] [&_h3]:[line-height:1.2] [&_h3]:[color:var(--ink-2)] [&_p]:[font-size:max(1.55rem,14px)] [&_p]:[line-height:1.6] [&_p]:[color:#4a4f63]" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.7, ease: ease.out, delay: i * 0.08 }}>
+            {f.k === 'Medicare' && logo && <img src={logo.src} alt={`${logo.name} logo`} className={`stp-rule__logo [display:block] ${logo.tall ? '[height:5.6rem]' : '[height:3.6rem]'} [width:auto] [max-width:20rem] [object-fit:contain] [object-position:left_center]`} loading="lazy" decoding="async" />}
             <span className="stp-rule__k [align-self:flex-start] [padding:0.4rem_1rem] [border-radius:2rem] [background:#f1edff] [font-family:var(--f-mono)] [font-size:max(1.15rem,11.5px)] [letter-spacing:0.06em] [text-transform:uppercase] [color:var(--purple)]">{f.k}</span>
             <h3>{f.title}</h3>
             <p>{f.body}</p>
@@ -173,12 +177,13 @@ function Coverage({ s }: { s: State }) {
 function OtherStates({ s }: { s: State }) {
   // Same Medicare jurisdiction first (genuinely related pages), then fill to 8 from the same region
   const mac = MAC_OF[s.slug], reg = REGION_OF[s.abbr];
+  const sameLogo = macLogoFor(s.slug);
   const same = STATES.filter((x) => x.slug !== s.slug && MAC_OF[x.slug] === mac);
   const near = STATES.filter((x) => x.slug !== s.slug && REGION_OF[x.abbr] === reg && !same.includes(x));
   const others = [...same, ...near].slice(0, 8);
   return (
     <nav className="ab container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [display:flex] [flex-wrap:wrap] [align-items:center] [gap:1rem_1.2rem] [padding-top:4rem] [font-size:max(1.6rem,15px)] [color:#6b6f7c] [&_a]:[padding:0.8rem_1.6rem] [&_a]:[border-radius:2rem] [&_a]:[border:1px_solid_var(--lav-border)] [&_a]:[color:var(--ink-2)] [&_a]:[transition:border-color_0.3s,_color_0.3s] [&_a:hover]:[border-color:var(--purple)] [&_a:hover]:[color:var(--purple)]" aria-label="Nearby states">
-      <span className="[display:inline-flex] [align-items:center] [gap:0.6rem]">{same.length > 0 && <Landmark size={16} className="[color:var(--purple)]" aria-hidden />}{same.length ? `Same Medicare contractor (${mac}):` : 'Nearby states:'}</span>
+      <span className="[display:inline-flex] [align-items:center] [gap:0.6rem]">{same.length > 0 && (sameLogo ? <img src={sameLogo.src} alt="" className={`${sameLogo.tall ? '[height:3.2rem]' : '[height:2.2rem]'} [width:auto]`} loading="lazy" decoding="async" /> : <Landmark size={16} className="[color:var(--purple)]" aria-hidden />)}{same.length ? `Same Medicare contractor (${mac}):` : 'Nearby states:'}</span>
       {others.map((x) => <Link key={x.slug} to={`/states/${x.slug}`}>{x.name}</Link>)}
       <Link to="/states" className="ab__all [.ab_&]:[display:inline-flex] [.ab_&]:[align-items:center] [.ab_&]:[gap:0.6rem] [.ab_&]:[border:0] [.ab_&]:[color:var(--purple)] [.ab_&]:[font-weight:500]">All 50 states <ArrowRight size={16} /></Link>
     </nav>
