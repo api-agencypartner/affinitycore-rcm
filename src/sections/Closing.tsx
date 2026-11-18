@@ -1,6 +1,6 @@
 import { u } from '../router';
 import { useRef, useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView } from 'motion/react';
 import { Plus, Phone, Mail, MapPin } from 'lucide-react';
 import { Arrow, Button, Eyebrow, Logo, Reveal, SplitWords } from '../components/ui';
 import { ease, vp } from '../motion';
@@ -67,21 +67,21 @@ export function FAQ({ items = FAQS, eyebrow = '/ FAQs', lines = ['Questions prac
 const ROWS: { x: number; parts: ('p' | 'c')[] }[] = [
   { x: -22, parts: ['p', 'c'] }, { x: -40.8, parts: ['p', 'c', 'p'] }, { x: -12, parts: ['p', 'c'] }, { x: -42.8, parts: ['p', 'c', 'p'] }, { x: -1.8, parts: ['c', 'p', 'c'] },
 ];
-function Pattern({ side, p }: { side: 1 | -1; p: ReturnType<typeof useScroll>['scrollYProgress'] }) {
+function Pattern({ side, p, on }: { side: 1 | -1; p: ReturnType<typeof useScroll>['scrollYProgress']; on: boolean }) {
   return (
     <div className={String.raw`cta__pattern [position:absolute] [top:4.5rem] [width:49.4rem] [height:38rem] [@media(max-width:_1279px)]:[opacity:0.5] cta__pattern--${side === -1 ? 'l' : 'r'}`}>
-      {ROWS.map((r, i) => <Row key={i} r={r} i={i} side={side} p={p} />)}
+      {ROWS.map((r, i) => <Row key={i} r={r} i={i} side={side} p={p} on={on} />)}
     </div>
   );
 }
-function Row({ r, i, side, p }: { r: (typeof ROWS)[number]; i: number; side: 1 | -1; p: ReturnType<typeof useScroll>['scrollYProgress'] }) {
+function Row({ r, i, side, p, on }: { r: (typeof ROWS)[number]; i: number; side: 1 | -1; p: ReturnType<typeof useScroll>['scrollYProgress']; on: boolean }) {
   // Two layers so the scroll drift and the entrance never fight over the same `x` (that caused the jerk):
   // outer = gentle scroll parallax (sprung), inner = one-time slide-in.
   const raw = useTransform(p, [0, 1], [(i % 2 ? 60 : -60) * side, (i % 2 ? -60 : 60) * side]);
   const drift = useSpring(raw, { stiffness: 70, damping: 22, mass: 0.6 });
   return (
     <motion.div className="cta__row [position:absolute] [display:flex] [&:nth-child(1)]:[top:0] [&:nth-child(2)]:[top:7.8rem] [&:nth-child(3)]:[top:15.6rem] [&:nth-child(4)]:[top:23.4rem] [&:nth-child(5)]:[top:31.3rem] [will-change:transform] [gap:0]" style={{ left: `${r.x}rem`, x: drift }}>
-      <motion.div className="cta__row-in [display:flex] [gap:0.7rem] [will-change:transform,_opacity]" initial={{ opacity: 0, x: side * 220 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.3 }}
+      <motion.div className="cta__row-in [display:flex] [gap:0.7rem] [will-change:transform,_opacity]" initial={{ opacity: 0, x: side * 220 }} animate={on ? { opacity: 1, x: 0 } : { opacity: 0, x: side * 220 }}
         transition={{ type: 'spring', stiffness: 60, damping: 18, mass: 1, delay: i * 0.07, opacity: { duration: 0.8, ease: ease.out, delay: i * 0.07 } }}>
         {r.parts.map((t, k) => <span key={k} className={t === 'p' ? String.raw`cta__p [width:36.8rem] [height:6.6rem] [border-radius:4rem] [background:#e6defe]` : String.raw`cta__c [width:6.6rem]! [height:6.6rem] [border-radius:50%]! [background:#e6defe]`} />)}
       </motion.div>
@@ -92,11 +92,13 @@ function Row({ r, i, side, p }: { r: (typeof ROWS)[number]; i: number; side: 1 |
 export function CTA({ eyebrow = '/ Ready when you are', lines = ['Your focus: better care.', 'Ours: a healthier revenue cycle.'] }: { eyebrow?: string; lines?: string[] } = {}) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  // Trigger on the band, not per row: rows that start mostly off-screen never reach a per-row threshold.
+  const on = useInView(ref, { once: true, amount: 0.3 });
   return (
     <section className="cta [position:relative] [height:47rem] [margin-top:16rem] [display:grid] [place-items:center] [overflow:hidden] [@media(max-width:_1279px)]:[max-width:100vw] [@media(max-width:_1279px)]:[margin-top:8rem] [@media(max-width:_1279px)]:[padding-inline:2rem] [@media(max-width:_1279px)]:[&_p]:[font-size:16px]! [@media(max-width:_1279px)]:[&_p]:[line-height:1.6]" ref={ref}>
       <motion.div className="cta__bg [position:absolute] [inset:0] [background:#f6f3ff]" initial={{ scaleY: 0.6, opacity: 0 }} whileInView={{ scaleY: 1, opacity: 1 }} viewport={vp} transition={{ duration: 1, ease: ease.out }} />
-      <Pattern side={-1} p={scrollYProgress} />
-      <Pattern side={1} p={scrollYProgress} />
+      <Pattern side={-1} p={scrollYProgress} on={on} />
+      <Pattern side={1} p={scrollYProgress} on={on} />
       <div className="cta__inner [position:relative] [width:112rem] [display:flex] [flex-direction:column] [align-items:center] [gap:1.2rem] [text-align:center] [&>div:last-child]:[margin-top:2.8rem] [@media(max-width:_1279px)]:[width:100%]">
         <Eyebrow>{eyebrow}</Eyebrow>
         <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1279px)]:[font-size:3.8rem] [@media(max-width:_1279px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={lines} stagger={0.05} />
