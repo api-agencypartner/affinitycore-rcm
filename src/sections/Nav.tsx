@@ -17,6 +17,7 @@ import { slugify, u, go } from '../router';
 // lets menu links close the panel after navigating
 let closeAll = () => {};
 import { ease } from '../motion';
+import { useDialogFocus } from '../components/A11y';
 
 const Chevron = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden><path d="m8 10 4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -148,6 +149,8 @@ const item = {
 
 /* ---------- Drawer menu for tablet, small desktop and phone (below 1100px) ---------- */
 function MobileMenu({ onClose }: { onClose: () => void }) {
+  const panel = useRef<HTMLDivElement>(null);
+  useDialogFocus(panel);
   const [sec, setSec] = useState<string | null>('services');
   const groups: { id: string; label: string; all?: [string, string]; links: [string, string][] }[] = [
     { id: 'services', label: 'Services', all: [u('/services'), 'All services'], links: SVC_DATA.map((x) => [u(`/services/${x.slug}`), x.name]) },
@@ -164,7 +167,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
   return (
     <motion.div className="mm [position:fixed] [inset:0] [z-index:1000] [background:rgba(20,_14,_48,_0.35)] [-webkit-backdrop-filter:blur(0.6rem)] [backdrop-filter:blur(0.6rem)] [overflow-y:auto] [overscroll-behavior:contain]" role="dialog" aria-modal="true" aria-label="Site menu" data-lenis-prevent
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.25 } }} transition={{ duration: 0.3 }}>
-      <motion.div className="mm__panel [min-height:100%] [background:#fff] [display:flex] [flex-direction:column] [padding:2rem_2.4rem_3.2rem]" initial={{ y: -24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} transition={{ duration: 0.45, ease: ease.out }}>
+      <motion.div ref={panel} role="dialog" aria-modal="true" aria-label="Site menu" className="mm__panel [min-height:100%] [background:#fff] [display:flex] [flex-direction:column] [padding:2rem_2.4rem_3.2rem]" initial={{ y: -24, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -16, opacity: 0 }} transition={{ duration: 0.45, ease: ease.out }}>
         <div className="mm__head [display:flex] [justify-content:space-between] [align-items:center] [padding-bottom:1.6rem] [border-bottom:1px_solid_#f0edf9]">
           <a href={u("/")} className="nav__logo [display:inline-flex] [align-items:center] [gap:1.4rem]" onClick={onClose} aria-label="Affinity Core Billers, home"><Logo /></a>
           <button type="button" className="mm__close [width:4.8rem] [height:4.8rem] [border-radius:50%] [border:1px_solid_#e6dfff] [background:#f8f6ff] [color:var(--ink-2)] [display:grid] [place-items:center] [cursor:pointer] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem]" onClick={onClose} aria-label="Close menu"><X /></button>
@@ -249,7 +252,8 @@ export function Nav({ show }: { show: boolean }) {
   return (
     <motion.header ref={hdr} onPointerMove={(e) => { if (e.pointerType === 'mouse') touchMode.current = false; }} className="nav-wrap [position:fixed] [top:calc(1.2rem_+_env(safe-area-inset-top,_0px))] [left:calc(var(--gutter)_-_3.2rem)] [right:calc(var(--gutter)_-_3.2rem)] [z-index:50] [@media(max-width:_1099px)]:[top:1rem] [@media(max-width:_1099px)]:[left:1rem] [@media(max-width:_1099px)]:[right:1rem]" animate={{ y: hidden ? '-130%' : '0%' }} transition={{ duration: 0.6, ease: ease.out }}
       onMouseLeave={scheduleClose} onMouseEnter={() => window.clearTimeout(closeT.current)}
-      onKeyDown={(e) => { if (e.key === 'Escape') setOpen(null); }}>
+      onKeyDown={(e) => { if (e.key === 'Escape' && open) { const t = trigRefs.current[open]; setOpen(null); t?.focus(); } }}
+      onFocus={(e) => { const el = e.target as HTMLElement; if (open && !el.closest('.nav__trigger') && !ddRef.current?.contains(el)) setOpen(null); }}>
       <motion.nav layoutId={shell ? 'shell' : undefined} className={String.raw`nav [position:relative] [height:7.7rem] [border-radius:2.4rem]! [display:flex] [align-items:center] [justify-content:space-between] [padding-inline:3.2rem] [background:rgba(255,_255,_255,_0.8)] [backdrop-filter:blur(1.6rem)] [box-shadow:0_0_0_rgba(0,_0,_0,_0)] [transition:box-shadow_0.4s] [&.is-scrolled]:[box-shadow:0_1rem_4rem_rgba(40,_20,_120,_0.08)] [@media(max-width:_1099px)]:[padding-inline:2rem] [@media(max-width:_1099px)]:[height:7.6rem] [@media(max-width:_480px)]:[padding-inline:1.4rem] ${scrolled || open ? 'is-scrolled' : ''}`} style={{ borderRadius: 24 }}
         transition={{ duration: 1, ease: ease.curtain }}
         initial="hidden" animate={show ? 'show' : 'hidden'}
@@ -259,7 +263,7 @@ export function Nav({ show }: { show: boolean }) {
           {(SHOW_STATES ? (['services', 'specialties', 'states', 'insights'] as const) : (['services', 'specialties', 'insights'] as const)).map((m) => (
             <motion.li key={m} variants={item}>
               <button ref={(el) => { trigRefs.current[m] = el; }} className={String.raw`nav__trigger [display:flex] [align-items:center] [gap:0.8rem] [line-height:6rem] [color:#000] [position:relative] [font-size:max(2rem,16px)] [&::after]:[content:''] [&::after]:[position:absolute] [&::after]:[left:0] [&::after]:[right:3.2rem] [&::after]:[bottom:1.2rem] [&::after]:[height:1px] [&::after]:[background:currentColor] [&::after]:[transform:scaleX(0)] [&::after]:[transform-origin:right] [&::after]:[transition:transform_0.5s_cubic-bezier(.16,_1,_.3,_1)] [a&::after]:[right:0] [&:hover::after]:[transform:scaleX(1)] [&:hover::after]:[transform-origin:left] [&.is-open::after]:[transform:scaleX(1)] [&.is-open::after]:[transform-origin:left] [&.is-open]:[color:var(--purple)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:4px]! [&:focus-visible]:[border-radius:0.6rem] ${open === m ? 'is-open' : ''}`} aria-expanded={open === m} aria-haspopup="true"
-                onPointerDown={(e) => { touchMode.current = e.pointerType !== 'mouse'; touchTap.current = touchMode.current ? (open === m ? 'open' : 'closed') : null; }} onMouseEnter={() => openMenu(m)} onFocus={() => openMenu(m)} onClick={() => { if (touchTap.current === 'closed') { touchTap.current = null; setOpen(m); return; } touchTap.current = null; if (m === 'services' || m === 'specialties' || m === 'states') { go(`/${m}`); setOpen(null); } else setOpen(open === m ? null : m); }}>
+                onPointerDown={(e) => { touchMode.current = e.pointerType !== 'mouse'; touchTap.current = touchMode.current ? (open === m ? 'open' : 'closed') : null; }} onMouseEnter={() => openMenu(m)} onKeyDown={(e) => { if (e.key === 'ArrowDown') { e.preventDefault(); openMenu(m); setTimeout(() => ddRef.current?.querySelector<HTMLElement>('a, button')?.focus(), 60); } }} onClick={() => { if (touchTap.current === 'closed') { touchTap.current = null; setOpen(m); return; } touchTap.current = null; if (m === 'services' || m === 'specialties' || m === 'states') { go(`/${m}`); setOpen(null); } else setOpen(open === m ? null : m); }}>
                 {m === 'services' ? 'Services' : m === 'specialties' ? 'Specialties' : m === 'states' ? <><UsFlag className="nav__flag [width:1.9rem] [margin-right:-0.3rem] [.mm\_\_lab_&]:[margin-right:0.6rem]" />States</> : 'Insights'}
                 <motion.span animate={{ rotate: open === m ? 180 : 0 }} transition={{ duration: 0.4, ease: ease.out }} style={{ display: 'grid' }}><Chevron /></motion.span>
               </button>

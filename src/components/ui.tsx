@@ -1,8 +1,9 @@
 import { go, goAnchor } from '../router';
 import logoSvg from '../assets/logo.svg?raw';
 import { Fragment, useEffect, useRef, useState, useId, type ReactNode, type CSSProperties } from 'react';
-import { motion, useInView, animate, useMotionValue, useTransform, useReducedMotion } from 'motion/react';
+import { motion, useInView, animate, useMotionValue, useTransform } from 'motion/react';
 import { ease, dur, fadeUp, vp } from '../motion';
+import { useMotionOff } from '../motionPref';
 
 /* ---------- Arrow ---------- */
 export const Arrow = ({ size = 20 }: { size?: number }) => (
@@ -39,8 +40,7 @@ export function Button({ children, className = '', wide, onClick, type = 'button
             transition={{ type: 'spring', stiffness: 260, damping: 14, mass: 0.7 }} />
           <motion.i className="btn__goo-drop [right:4.8rem] [top:50%] [width:1.6rem] [height:1.6rem] [margin-top:-0.8rem] [border-radius:50%] [.btn--outline_&]:[right:4rem] [.nav_&]:[right:4rem]" variants={{
             rest: { x: '-1.6rem', scale: 0.4, transition: { duration: 0.2 } },
-            hover: { x: ['-1.6rem', '1.2rem', '2.4rem'], scale: [0.4, 1, 0.5], transition: { duration: 0.7, ease: [0.45, 0, 0.2, 1], times: [0, 0.55, 1] } },
-          }} />
+            hover: { x: ['-1.6rem', '1.2rem', '2.4rem'], scale: [0.4, 1, 0.5], transition: { duration: 0.7, ease: [0.45, 0, 0.2, 1], times: [0, 0.55, 1] } } }} />
         </motion.span>
       </span>
       <motion.span className="btn__label [position:relative] [z-index:1] [display:inline-flex] [align-items:center] [justify-content:center] [height:5.6rem] [padding-inline:3.2rem] [border-radius:11.7rem] [background:var(--purple)] [color:#fff] [font-weight:500] [font-size:max(2rem,16px)] [line-height:1.4] [white-space:nowrap] [.btn--outline_&]:[background:transparent] [.btn--outline_&]:[color:var(--purple)] [.btn--outline_&]:[box-shadow:inset_0_0_0_1.5px_var(--purple)] [.btn--outline_&]:[transition:background_0.35s,_color_0.35s] [.btn--outline:hover_&]:[background:var(--purple)] [.btn--outline:hover_&]:[color:#fff] [.btn--outline_&]:[height:4.8rem] [.btn--outline_&]:[padding-inline:2.4rem] [.btn--outline_&]:[font-size:max(1.7rem,15px)] [.btn--block_&]:[flex:1] [.btn--block_&]:[overflow:hidden] [@media(max-width:_1099px)]:[.nav_&]:[height:44px] [@media(max-width:_1099px)]:[.nav_&]:[padding-inline:16px] [@media(max-width:_1099px)]:[.nav_&]:[font-size:14px] [.nav_&]:[height:4.8rem] [.nav_&]:[padding-inline:2.6rem] [.nav_&]:[font-size:max(1.8rem,16px)] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_640px)]:[padding-inline:2.4rem] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)] [@media(max-width:_640px)]:[min-width:0] [.stp-sv\_\_head_&]:[background:#fff] [.stp-sv\_\_head_&]:[color:var(--purple)] [.mc\_\_act_&]:[background:#fff] [.mc\_\_act_&]:[color:var(--purple)] [.btn--light_&]:[background:#fff] [.btn--light_&]:[color:var(--purple)] [@media(max-width:_640px)]:[.mc\_\_act_&]:[flex:1] [@media(max-width:_640px)]:[.mc\_\_act_&]:[min-width:0] [@media(max-width:_640px)]:[.mc\_\_act_&]:[padding-inline:1.8rem] [@media(max-width:_640px)]:[.mc\_\_act_&]:[font-size:max(1.6rem,15px)] [.ar\_\_toc-cta_&]:[height:4.8rem] [.ar\_\_toc-cta_&]:[padding-inline:2rem] [.ar\_\_toc-cta_&]:[font-size:max(1.6rem,15px)]" variants={{ rest: { x: 0 }, hover: { x: 0 }, tap: { scale: 0.98 } }}
@@ -75,7 +75,7 @@ const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ/0123456789';
 export function Eyebrow({ children, className = '', style }: { children: string; className?: string; style?: CSSProperties }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, amount: 1 });
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   const [text, setText] = useState(children);
   useEffect(() => {
     if (!inView || reduce) return;
@@ -86,8 +86,7 @@ export function Eyebrow({ children, className = '', style }: { children: string;
         const revealed = Math.floor(p * target.length);
         setText(target.split('').map((c, i) => (i < revealed || c === ' ' ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0])).join(''));
       },
-      onComplete: () => setText(target),
-    });
+      onComplete: () => setText(target) });
     return () => ctrl.stop();
   }, [inView, children, reduce]);
   return (

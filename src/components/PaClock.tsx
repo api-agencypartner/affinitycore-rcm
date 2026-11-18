@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check } from 'lucide-react';
 import type { Article } from '../data/insights';
+import { isMotionOff } from '../motionPref';
 
 export function PaClock({ a }: { a: Article }) {
   const [mode, setMode] = useState<'u' | 's'>('u');
@@ -20,7 +21,7 @@ export function PaClock({ a }: { a: Article }) {
     o.observe(el); return () => o.disconnect();
   }, []);
   useEffect(() => {
-    let rm = false; try { rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { /* ignore */ }
+    let rm = false; try { rm = isMotionOff(); } catch { /* ignore */ }
     if (rm) { setH(Math.round(D * 0.62)); return; }
     if (!playing) return;
     let raf = 0, last = performance.now(), acc = 0;
@@ -66,7 +67,7 @@ export function PaClock({ a }: { a: Article }) {
           <circle cx="70" cy="70" r={R} className="pa-art__arc [fill:none] [stroke:var(--u3)] [stroke-width:8] [stroke-linecap:round] [transform:rotate(-90deg)] [transform-origin:70px_70px]" strokeDasharray={C} strokeDashoffset={C * (1 - fr)} />
           <circle cx={kx} cy={ky} r="6" className="pa-art__knob [fill:#fff] [stroke:#6a41f9] [stroke-width:3]" />
         </svg>
-        <div className="pa-art__c [position:absolute] [inset:0] [display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [text-align:center] [gap:.5rem] [padding:0_22%] [&_b]:[font:600_4.4rem/1_var(--f-sans)] [&_b]:[letter-spacing:-.12rem] [&_b]:[color:var(--ink-2)] [&_b]:[font-variant-numeric:tabular-nums] [&_small]:[font:500_1.05rem/1.25_var(--f-mono)] [&_small]:[color:#7b7f92] [&_small]:[text-transform:uppercase] [&_small]:[letter-spacing:.05em] [@media(min-width:1024px)]:[&_b]:[font-size:5.2rem]">
+        <div className="pa-art__c [position:absolute] [inset:0] [display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [text-align:center] [gap:.5rem] [padding:0_22%] [&_b]:[font:600_4.4rem/1_var(--f-sans)] [&_b]:[letter-spacing:-.12rem] [&_b]:[color:var(--ink-2)] [&_b]:[font-variant-numeric:tabular-nums] [&_small]:[font:500_1.05rem/1.25_var(--f-mono)] [&_small]:[color:#646776] [&_small]:[text-transform:uppercase] [&_small]:[letter-spacing:.05em] [@media(min-width:1024px)]:[&_b]:[font-size:5.2rem]">
           {done ? <>
             <span className="pa-art__ok [width:3.6rem] [height:3.6rem] [border-radius:50%] [display:grid] [place-items:center] [background:var(--grad)] [color:#fff] [animation:paPop_.5s_cubic-bezier(.16,1,.3,1)] [@media(prefers-reduced-motion:reduce)]:[animation:none]"><Check size={22} strokeWidth={3} /></span>
             <b className="pa-art__b--sm [.pa-art\_\_c_b&]:[font-size:2.2rem] [.pa-art\_\_c_b&]:[letter-spacing:-.04rem]">Decision due</b>
@@ -78,14 +79,14 @@ export function PaClock({ a }: { a: Article }) {
           </>}
         </div>
       </div>
-      <ol className="pa-art__steps [display:flex] [flex-wrap:wrap] [justify-content:center] [gap:.6rem] [list-style:none] [margin:0] [padding:0] [&_li]:[font:500_1.2rem/1_var(--f-sans)] [&_li]:[padding:.7rem_1.1rem] [&_li]:[border-radius:99px] [&_li]:[background:#ffffffc7] [&_li]:[border:1px_solid_#e6dfff] [&_li]:[color:#8a8ea0] [&_li]:[transition:background_.3s,color_.3s,border-color_.3s]" aria-hidden>
+      <ol className="pa-art__steps [display:flex] [flex-wrap:wrap] [justify-content:center] [gap:.6rem] [list-style:none] [margin:0] [padding:0] [&_li]:[font:500_1.2rem/1_var(--f-sans)] [&_li]:[padding:.7rem_1.1rem] [&_li]:[border-radius:99px] [&_li]:[background:#ffffffc7] [&_li]:[border:1px_solid_#e6dfff] [&_li]:[color:#636673] [&_li]:[transition:background_.3s,color_.3s,border-color_.3s]" aria-hidden>
         {['Request sent', 'Payer review', 'Decision'].map((l, i) => <li key={l} className={i === stage ? String.raw`is-on [.assess\_\_steps_span&]:[color:var(--navy)] [.assess\_\_steps_span&_b]:[background:var(--purple)] [.assess\_\_steps_span&_b]:[border-color:var(--purple)] [.assess\_\_steps_span&_b]:[color:#fff]! [.assess\_\_steps_i&::after]:[transform:scaleX(1)] [.cx-read\_\_n_i&]:[width:2.4rem] [.cx-read\_\_n_i&]:[background:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [.sg\_\_toc_button&]:[color:var(--purple)] [.sg\_\_toc_button&]:[border-left-color:var(--purple)] [.pg\_\_toc_button&]:[color:#fff] [.pg\_\_toc_button&_small]:[color:rgba(255,_255,_255,_0.7)]! [.pg\_\_dots_i&]:[width:2.4rem] [.pg\_\_dots_i&]:[background:var(--purple)] [.stfd\_\_tabs_button&]:[color:#fff] [.se\_\_dots_i&]:[width:6.4rem] [.sw-anes\_\_bar_i&]:[background:var(--grad)] [.sw-body_circle&]:[fill:var(--purple)] [.sw-vial\_\_body_i&]:[background:var(--grad)] [.sw-vial\_\_body_i&_small]:[color:#fff]! [.sw-wound\_\_grid_i&]:[background:#c9b8ff] [.sw-wound\_\_grid_i&]:[border-color:transparent] [.sw-cal_i&]:[background:var(--purple)] [.sw-cal_i&]:[color:#fff] [.sw-wells_i&]:[background:#e2d9ff] [.sw-wells_i&]:[border-color:#c9b8ff] [.sw-shot_i&]:[background:var(--purple)] [.sw-shot_i&]:[border-color:var(--purple)] [.lf\_\_seg_button&]:[color:#fff] [.tc\_\_why_li&]:[opacity:1] [.sl\_\_tabs_button&]:[color:#fff] [.ar\_\_toc_a&]:[color:var(--ink-2)] [.ct-needs_button&]:[color:#fff] [.wa\_\_zones_li&]:[background:var(--grad)] [.wa\_\_zones_li&]:[border-color:transparent] [.wa\_\_zones_li&_small]:[color:#fff]! [.wa\_\_zones_li&_b]:[color:#fff]! [.wa\_\_zones_li&_em]:[color:#fff]! [.se\_\_dots_i&]:[background:var(--purple)] [.ct-needs_button&]:[background:var(--grad)] [.ct-needs_button&]:[border-color:transparent] [.sc-cal_i&]:[background:var(--purple)] [.sc-cal_i&]:[color:#fff] [.ccp_button&]:[background:var(--purple)] [.ccp_button&]:[color:#fff] [.pa-art\_\_seg_button&]:[background:var(--grad)] [.pa-art\_\_seg_button&]:[color:#fff] [.pa-art\_\_steps_li&]:[background:var(--purple)] [.pa-art\_\_steps_li&]:[border-color:var(--purple)] [.pa-art\_\_steps_li&]:[color:#fff]! [.ab-orbit\_\_rings_line&]:[stroke:var(--purple)] [.ab-orbit\_\_rings_line&]:[stroke-width:2]` : i < stage ? String.raw`is-done [.pp\_\_list_li&]:[color:var(--ink-2)] [.pa-art\_\_steps_li&]:[color:#6a41f9]` : ''}>{l}</li>)}
       </ol>
       <div className="pa-art__scrub [display:flex] [align-items:center] [gap:1.2rem] [width:min(34rem,90%)] [&_input]:[flex:1] [&_input]:[min-width:0] [&_input]:[accent-color:#6a41f9] [&_input]:[cursor:pointer]" onClick={stop} onPointerDown={stop}>
         <button type="button" className="pa-art__play [flex:none] [width:3.4rem] [height:3.4rem] [border-radius:50%] [border:1px_solid_#e6dfff] [background:#fff] [color:#6a41f9] [cursor:pointer] [display:grid] [place-items:center] [font-size:1.1rem] [line-height:1]" aria-label={playing ? 'Pause' : 'Play'} onClick={(x) => { x.stopPropagation(); setPlaying(!playing); }}>{playing ? '❚❚' : '▶'}</button>
         <input type="range" min={0} max={D} step={1} value={Math.round(h)} aria-label="Hours since the request was sent" onChange={(x) => { setPlaying(false); setH(+x.target.value); }} />
       </div>
-      <p className="pa-art__src [position:absolute] [bottom:1.8rem] [left:2rem] [right:2rem] [margin:0] [text-align:center] [font:400_1.05rem/1.35_var(--f-mono)] [color:#8a8ea0]">CMS-0057-F · Medicare Advantage, Medicaid &amp; CHIP · since Jan 1, 2026</p>
+      <p className="pa-art__src [position:absolute] [bottom:1.8rem] [left:2rem] [right:2rem] [margin:0] [text-align:center] [font:400_1.05rem/1.35_var(--f-mono)] [color:#636673]">CMS-0057-F · Medicare Advantage, Medicaid &amp; CHIP · since Jan 1, 2026</p>
     </div>
   );
 }

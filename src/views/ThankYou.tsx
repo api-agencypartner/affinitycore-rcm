@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
 import { ArrowRight, Phone, FileSignature, BarChart3 } from 'lucide-react';
 import { Link } from '../router';
 import { ease } from '../motion';
 import '../styles/pages.css';
+import { useMotionOff } from '../motionPref';
 
 /** The forms store the first name here before routing to /thank-you. */
 export const TY_KEY = 'ac_ty_name';
@@ -37,7 +38,7 @@ function Confetti({ go }: { go: boolean }) {
 }
 
 export function ThankYouPage() {
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   const [name, setName] = useState('');
   const [stamped, setStamped] = useState(false);
   useEffect(() => { try { setName(sessionStorage.getItem(TY_KEY) ?? ''); } catch { /* noop */ } }, []);

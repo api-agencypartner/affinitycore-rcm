@@ -1,10 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useInView, useMotionValueEvent, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useInView, useMotionValueEvent, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Check, Wand2, X } from 'lucide-react';
 import { CountUp, Eyebrow, Reveal, SplitWords } from './ui';
 import { ease, vp } from '../motion';
 import type { SpecialtyFull, ClaimSide } from '../data/specialties';
 import { useTouch } from './useNarrow';
+import { useMotionOff } from '../motionPref';
 
 /* ================================================================== */
 /* 1. Where a month leaks: waterfall                                  */
@@ -100,7 +101,7 @@ export function LeakFall({ s }: { s: SpecialtyFull }) {
             </motion.div>
           </AnimatePresence>
         </div>
-        <p className="lf__note [@media(max-width:_1099px)]:[font-size:13.5px]! [margin-top:2rem] [font-size:max(1.3rem,13px)] [line-height:1.5] [color:#8a8ea0] [&_a]:[color:#8a8ea0] [&_a]:[text-decoration:underline] [&_a]:[text-underline-offset:0.25em]">{L.note}{L.source && <> <a href={L.source.href} target="_blank" rel="noopener noreferrer">{L.source.label}</a>.</>}</p>
+        <p className="lf__note [@media(max-width:_1099px)]:[font-size:13.5px]! [margin-top:2rem] [font-size:max(1.3rem,13px)] [line-height:1.5] [color:#636673] [&_a]:[color:#636673] [&_a]:[text-decoration:underline] [&_a]:[text-underline-offset:0.25em]">{L.note}{L.source && <> <a href={L.source.href} target="_blank" rel="noopener noreferrer">{L.source.label}</a>.</>}</p>
       </motion.div>
     </section>
   );
@@ -124,7 +125,7 @@ function Side({ s, side, rowsRef }: { s: SpecialtyFull; side: 'bad' | 'good'; ro
   const total = C.rows.reduce((t, r) => t + (r[side].amt ?? 0), 0);
   return (
     <div className={String.raw`tc__side [padding:3.2rem_4rem_3.6rem] [.tc\_\_over_&]:[height:100%] [@media(max-width:_640px)]:[padding:2rem_1.6rem_2.4rem] tc__side--${side}`} aria-hidden={side === 'good' ? true : undefined}>
-      <div className="tc__th [display:grid] [grid-template-columns:4rem_minmax(0,_1.2fr)_minmax(0,_0.9fr)_minmax(0,_1.4fr)_8rem] [align-items:center] [gap:1.6rem] [padding-bottom:1.2rem] [border-bottom:2px_solid_#ddd3fc] [font-family:var(--f-mono)] [font-size:1.1rem] [letter-spacing:0.08em] [text-transform:uppercase] [color:#8a8ea0] [&_span:last-child]:[text-align:right] [@media(max-width:_1024px)]:[grid-template-columns:3rem_minmax(0,_1fr)_minmax(0,_1fr)_6rem] [@media(max-width:_1024px)]:[&_span:nth-child(4)]:[display:none] [@media(max-width:_640px)]:[grid-template-columns:2.6rem_minmax(0,_1fr)_minmax(0,_1fr)_5.6rem] [@media(max-width:_640px)]:[gap:1rem]"><span>#</span><span>Line</span><span>Code</span><span>Status</span><span>Paid</span></div>
+      <div className="tc__th [display:grid] [grid-template-columns:4rem_minmax(0,_1.2fr)_minmax(0,_0.9fr)_minmax(0,_1.4fr)_8rem] [align-items:center] [gap:1.6rem] [padding-bottom:1.2rem] [border-bottom:2px_solid_#ddd3fc] [font-family:var(--f-mono)] [font-size:1.1rem] [letter-spacing:0.08em] [text-transform:uppercase] [color:#636673] [&_span:last-child]:[text-align:right] [@media(max-width:_1024px)]:[grid-template-columns:3rem_minmax(0,_1fr)_minmax(0,_1fr)_6rem] [@media(max-width:_1024px)]:[&_span:nth-child(4)]:[display:none] [@media(max-width:_640px)]:[grid-template-columns:2.6rem_minmax(0,_1fr)_minmax(0,_1fr)_5.6rem] [@media(max-width:_640px)]:[gap:1rem]"><span>#</span><span>Line</span><span>Code</span><span>Status</span><span>Paid</span></div>
       <div ref={rowsRef}>
         {C.rows.map((r, i) => (
           <div className="tc__row [display:grid] [grid-template-columns:4rem_minmax(0,_1.2fr)_minmax(0,_0.9fr)_minmax(0,_1.4fr)_8rem] [align-items:center] [gap:1.6rem] [padding:2rem_0] [border-bottom:1px_solid_#ece8f8] [font-size:max(1.7rem,15px)] [color:var(--ink-2)] [&_code]:[font-family:var(--f-mono)] [&_code]:[font-size:max(1.6rem,15px)] [.tc\_\_side--bad_&_code]:[color:#6b6f7c] [.tc\_\_side--good_&_code]:[color:var(--purple)] [.tc\_\_side--good_&_code]:[font-weight:500] [&_b]:[justify-self:end] [&_b]:[font-weight:500] [&_b]:[font-variant-numeric:tabular-nums] [@media(max-width:_1024px)]:[grid-template-columns:3rem_minmax(0,_1fr)_minmax(0,_1fr)_6rem] [@media(max-width:_640px)]:[grid-template-columns:2.6rem_minmax(0,_1fr)_minmax(0,_1fr)_5.6rem] [@media(max-width:_640px)]:[gap:1rem] [@media(max-width:_640px)]:[font-size:max(1.5rem,14px)] [@media(max-width:_640px)]:[&_code]:[font-size:max(1.3rem,13px)]" key={r.label}><span className="tc__n [width:2.6rem] [height:2.6rem] [border-radius:50%] [display:grid] [place-items:center] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [background:#fff] [border:1px_solid_#d9d0fb] [color:var(--purple)] [.tc\_\_why_li.is-on_&]:[background:var(--purple)] [.tc\_\_why_li.is-on_&]:[border-color:var(--purple)] [.tc\_\_why_li.is-on_&]:[color:#fff] [.tc\_\_why_&]:[flex:none] [.tc\_\_why_&]:[transition:background_0.3s,_color_0.3s]">{i + 1}</span><span className="tc__l">{r.label}</span><Cell c={r[side]} /></div>
@@ -141,7 +142,7 @@ export function TwoClaims({ s }: { s: SpecialtyFull }) {
   const n = C.rows.length;
   const card = useRef<HTMLDivElement>(null);
   const rows = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   // row boundaries as % of card height, measured so the fix line lands exactly on row edges
   const [edges, setEdges] = useState<number[]>(() => Array.from({ length: n + 2 }, (_, i) => (i / (n + 1)) * 100));
   useLayoutEffect(() => {
@@ -197,13 +198,13 @@ export function TwoClaims({ s }: { s: SpecialtyFull }) {
 
       <div className="tc__wrap [margin-top:5.6rem]">
         <div className="tc__bar [display:flex] [justify-content:space-between] [align-items:flex-end] [gap:2rem] [margin-bottom:2rem] [padding:0_0.4rem] [@media(max-width:_640px)]:[flex-wrap:wrap]">
-          <div className="tc__delta [display:flex] [align-items:center] [gap:2rem] [&>span]:[display:flex] [&>span]:[flex-direction:column] [&>span]:[gap:0.4rem] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:max(1.2rem,12px)] [&_small]:[letter-spacing:0.06em] [&_small]:[text-transform:uppercase] [&_small]:[color:#8a8ea0] [&_b]:[font-weight:500] [&_b]:[font-size:4rem] [&_b]:[line-height:1] [&_b]:[letter-spacing:-0.1rem] [&_b]:[font-variant-numeric:tabular-nums] [@media(max-width:_640px)]:[&_b]:[font-size:3.2rem]">
+          <div className="tc__delta [display:flex] [align-items:center] [gap:2rem] [&>span]:[display:flex] [&>span]:[flex-direction:column] [&>span]:[gap:0.4rem] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:max(1.2rem,12px)] [&_small]:[letter-spacing:0.06em] [&_small]:[text-transform:uppercase] [&_small]:[color:#636673] [&_b]:[font-weight:500] [&_b]:[font-size:4rem] [&_b]:[line-height:1] [&_b]:[letter-spacing:-0.1rem] [&_b]:[font-variant-numeric:tabular-nums] [@media(max-width:_640px)]:[&_b]:[font-size:3.2rem]">
             <span><small>Usually</small><b className="was [.proof\_\_pair_i&]:[background:#ddd8ee] [.cs\_\_track_i&]:[background:#cfc6f3] [.tc\_\_delta_b&]:[color:#a3a6b8] [.tc\_\_delta_b&]:[text-decoration:line-through] [.tc\_\_delta_b&]:[text-decoration-thickness:2px]! [.sl\_\_line_&]:[fill:#fff] [.sl\_\_line_&]:[stroke:#b7a3ff] [.sl\_\_line_&]:[stroke-width:3]">${bad.toLocaleString('en-US')}</b></span>
             <span className="tc__arrow [.tc\_\_delta_&]:[font-size:3.2rem] [.tc\_\_delta_&]:[color:#b9a5ff]" aria-hidden>→</span>
             <span><small>With us</small><b className="accent [.tc\_\_delta_b&]:[color:var(--purple)] [.tc\_\_delta_b&]:[min-width:4ch] [.calc\_\_out_b&]:[color:var(--purple)]"><CountUp value={running} prefix="$" start duration={0.6} /></b></span>
           </div>
           <div className="tc__right [display:flex] [flex-direction:column] [align-items:flex-end] [gap:1.2rem]">
-          <span className="tc__meta [display:flex] [gap:2rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [color:#8a8ea0] [@media(max-width:_1024px)]:[&_span:not(:last-child)]:[display:none] [@media(max-width:_640px)]:[display:none]">{C.visit.map((v) => <span key={v}>{v}</span>)}</span>
+          <span className="tc__meta [display:flex] [gap:2rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [color:#636673] [@media(max-width:_1024px)]:[&_span:not(:last-child)]:[display:none] [@media(max-width:_640px)]:[display:none]">{C.visit.map((v) => <span key={v}>{v}</span>)}</span>
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span key={status} className={String.raw`tc__badge [padding:0.8rem_1.4rem] [border-radius:99rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.06em] [text-transform:uppercase] [background:#efeaff] [color:var(--purple)] [&.is-raw]:[background:#ffe9ec] [&.is-raw]:[color:#c8364d] [&.is-done]:[background:var(--grad)] [&.is-done]:[color:#fff] ${shown >= n ? String.raw`is-done [.pp\_\_list_li&]:[color:var(--ink-2)] [.pa-art\_\_steps_li&]:[color:#6a41f9]` : shown === 0 ? 'is-raw' : ''}`}
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>{status}</motion.span>
@@ -230,7 +231,7 @@ export function TwoClaims({ s }: { s: SpecialtyFull }) {
           </li>
         ))}
       </ol>
-      <p className="tc__note [margin-top:2.4rem] [font-size:max(1.3rem,13px)] [color:#8a8ea0]">{C.note}</p>
+      <p className="tc__note [margin-top:2.4rem] [font-size:max(1.3rem,13px)] [color:#636673]">{C.note}</p>
     </section>
   );
 }

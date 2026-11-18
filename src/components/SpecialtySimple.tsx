@@ -92,7 +92,7 @@ export function LeakList({ s }: { s: SpecialtyFull }) {
           </div>
         </div>
 
-        <div className="ll__cols [display:grid] [grid-template-columns:minmax(0,_1.2fr)_minmax(0,_1fr)_18rem] [padding:2rem_0_1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.06em] [text-transform:uppercase] [color:#8a8ea0] [@media(max-width:_1099px)]:[display:none] [gap:1.2rem] [&_span:nth-child(1)]:[color:#d93a43] [&_span:nth-child(2)]:[color:#128a5b] [&_span:nth-child(1)]:[padding-left:2rem] [&_span:nth-child(2)]:[padding-left:2rem]" aria-hidden><span>Where it leaks</span><span>How we stop it</span><span>Per month</span></div>
+        <div className="ll__cols [display:grid] [grid-template-columns:minmax(0,_1.2fr)_minmax(0,_1fr)_18rem] [padding:2rem_0_1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.06em] [text-transform:uppercase] [color:#636673] [@media(max-width:_1099px)]:[display:none] [gap:1.2rem] [&_span:nth-child(1)]:[color:#d93a43] [&_span:nth-child(2)]:[color:#0f754d] [&_span:nth-child(1)]:[padding-left:2rem] [&_span:nth-child(2)]:[padding-left:2rem]" aria-hidden><span>Where it leaks</span><span>How we stop it</span><span>Per month</span></div>
         <ol className="ll__rows [&_li]:[display:grid] [&_li]:[grid-template-columns:minmax(0,_1.2fr)_minmax(0,_1fr)_18rem] [&_li]:[align-items:start] [@media(max-width:_1099px)]:[&_li]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[&_li]:[position:relative] [&_li]:[gap:1.2rem] [&_li]:[padding:1rem_0] [&_li]:[border-top:0] [@media(max-width:_1099px)]:[&_li]:[gap:0.8rem] [@media(max-width:_1099px)]:[&_li]:[padding:1.6rem_0] [@media(max-width:_1099px)]:[&_li]:[border-top:1px_solid_#f0edf8]">
           {L.leaks.map((l, i) => (
             <motion.li key={l.label} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, ease: ease.out, delay: i * 0.06 }}>
@@ -105,7 +105,7 @@ export function LeakList({ s }: { s: SpecialtyFull }) {
             </motion.li>
           ))}
         </ol>
-        <p className="lf__note [@media(max-width:_1099px)]:[font-size:13.5px]! [margin-top:2rem] [font-size:max(1.3rem,13px)] [line-height:1.5] [color:#8a8ea0] [&_a]:[color:#8a8ea0] [&_a]:[text-decoration:underline] [&_a]:[text-underline-offset:0.25em]">{L.note}{L.source && <> <a href={L.source.href} target="_blank" rel="noopener noreferrer">{L.source.label}</a>.</>}</p>
+        <p className="lf__note [@media(max-width:_1099px)]:[font-size:13.5px]! [margin-top:2rem] [font-size:max(1.3rem,13px)] [line-height:1.5] [color:#636673] [&_a]:[color:#636673] [&_a]:[text-decoration:underline] [&_a]:[text-underline-offset:0.25em]">{L.note}{L.source && <> <a href={L.source.href} target="_blank" rel="noopener noreferrer">{L.source.label}</a>.</>}</p>
       </motion.div>
     </section>
   );

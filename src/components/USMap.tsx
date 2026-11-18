@@ -16,7 +16,7 @@ export function USMap({ active, onActive }: { active?: string | null; onActive?:
   const lab = hot ? US_STATES.find((s) => s.id === hot) : null;
   return (
     <div className="usm [&_svg]:[display:block] [&_svg]:[width:100%] [&_svg]:[height:auto] [&_svg]:[overflow:visible]">
-      <svg viewBox={US_VIEWBOX} role="img" aria-label="Map of the United States. Every state links to its billing page.">
+      <svg viewBox={US_VIEWBOX} role="group" aria-label="Map of the United States. Every state links to its billing page.">
         <g className="usm__states">
           {US_STATES.map((s) => {
             const p = page[s.id];

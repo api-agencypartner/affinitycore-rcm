@@ -10,6 +10,7 @@ import { ArrowRight, Check, Clock, PhoneCall } from 'lucide-react';
 import { Button, Eyebrow, Reveal, SplitWords } from '../components/ui';
 import { Link } from '../router';
 import { ease, vp } from '../motion';
+import { isMotionOff } from '../motionPref';
 
 const PACKET = ['Denial criteria mapped to the chart', 'Failed conservative care documented', 'Specialty guideline attached', 'One-page brief sent to the physician'];
 const STATS: [string, string, string, string][] = [
@@ -24,7 +25,7 @@ function CallCard() {
   const [n, setN] = useState(0); // packet items ready
   useEffect(() => {
     if (!on) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduce = isMotionOff();
     if (reduce) { setN(PACKET.length + 1); return; }
     let k = 0;
     const t = window.setInterval(() => { k += 1; setN(k); if (k > PACKET.length) window.clearInterval(t); }, 650);
@@ -41,13 +42,13 @@ function CallCard() {
         <code>78452</code>
         <div><b>SPECT perfusion, rest + stress</b><small>Denied as not medically necessary · Sample Health Plan</small></div>
       </div>
-      <div className="pp__who [display:grid] [grid-template-columns:minmax(0,_1fr)_6rem_minmax(0,_1fr)] [align-items:center] [gap:1.2rem] [margin-top:2rem] [&_small]:[display:block] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:1.1rem] [&_small]:[letter-spacing:0.05em] [&_small]:[text-transform:uppercase] [&_small]:[color:#8a8ea0] [&_b]:[display:block] [&_b]:[margin-top:0.4rem] [&_b]:[font-weight:500] [&_b]:[font-size:max(1.6rem,15px)] [&_b]:[color:var(--ink-2)] [&>div:last-child]:[text-align:right] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)_3rem_minmax(0,_1fr)]">
+      <div className="pp__who [display:grid] [grid-template-columns:minmax(0,_1fr)_6rem_minmax(0,_1fr)] [align-items:center] [gap:1.2rem] [margin-top:2rem] [&_small]:[display:block] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:1.1rem] [&_small]:[letter-spacing:0.05em] [&_small]:[text-transform:uppercase] [&_small]:[color:#636673] [&_b]:[display:block] [&_b]:[margin-top:0.4rem] [&_b]:[font-weight:500] [&_b]:[font-size:max(1.6rem,15px)] [&_b]:[color:var(--ink-2)] [&>div:last-child]:[text-align:right] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)_3rem_minmax(0,_1fr)]">
         <div><small>Your physician</small><b>Ordering cardiologist</b></div>
         <span className="pp__line [position:relative] [height:1px] [background:repeating-linear-gradient(90deg,_#cfc6f3_0_6px,_transparent_6px_11px)] [&_i]:[position:absolute] [&_i]:[left:50%] [&_i]:[top:50%] [&_i]:[width:1rem] [&_i]:[height:1rem] [&_i]:[margin:-0.5rem_0_0_-0.5rem] [&_i]:[border-radius:50%] [&_i]:[background:var(--purple)] [&_i]:[box-shadow:0_0_0_0.5rem_rgba(106,_65,_249,_0.14)]" aria-hidden><i /></span>
         <div><small>Plan reviewer</small><b>Same specialty requested</b></div>
       </div>
       <p className="pp__k [margin-top:2.4rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.08em] [text-transform:uppercase] [color:var(--purple)]">Case packet</p>
-      <ul className="pp__list [display:flex] [flex-direction:column] [gap:1rem] [margin-top:1.2rem] [&_li]:[display:flex] [&_li]:[align-items:center] [&_li]:[gap:1.2rem] [&_li]:[font-size:max(1.6rem,15px)] [&_li]:[color:#8a8ea0] [&_li]:[transition:color_0.4s]">
+      <ul className="pp__list [display:flex] [flex-direction:column] [gap:1rem] [margin-top:1.2rem] [&_li]:[display:flex] [&_li]:[align-items:center] [&_li]:[gap:1.2rem] [&_li]:[font-size:max(1.6rem,15px)] [&_li]:[color:#636673] [&_li]:[transition:color_0.4s]">
         {PACKET.map((t, i) => (
           <li key={t} className={n > i ? String.raw`is-done [.pp\_\_list_li&]:[color:var(--ink-2)] [.pa-art\_\_steps_li&]:[color:#6a41f9]` : ''}>
             <span className="pp__tick [flex:none] [width:2.2rem] [height:2.2rem] [border-radius:50%] [display:grid] [place-items:center] [border:1.5px_solid_#d9d1fb] [color:#fff] [transition:background_0.3s,_border-color_0.3s] [.pp\_\_list_li.is-done_&]:[background:var(--purple)] [.pp\_\_list_li.is-done_&]:[border-color:var(--purple)]">{n > i && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 420, damping: 20 }}><Check size={13} strokeWidth={3} /></motion.span>}</span>
@@ -55,7 +56,7 @@ function CallCard() {
           </li>
         ))}
       </ul>
-      <div className={String.raw`pp__result [display:flex] [justify-content:space-between] [align-items:center] [gap:1.2rem] [margin-top:2.4rem] [padding:1.4rem_1.8rem] [border-radius:1.6rem] [background:#f6f3ff] [transition:background_0.4s] [&_span]:[font-family:var(--f-mono)] [&_span]:[font-size:1.15rem] [&_span]:[letter-spacing:0.06em] [&_span]:[text-transform:uppercase] [&_span]:[color:#8a8ea0] [&_b]:[font-weight:600] [&_b]:[font-size:max(1.6rem,15px)] [&_b]:[color:#6b6f7c] [&_b]:[text-align:right] [&.is-ok]:[background:var(--grad-x)] [&.is-ok_span]:[color:rgba(255,_255,_255,_0.8)] [&.is-ok_b]:[color:#fff] [@media(max-width:_640px)]:[flex-direction:column] [@media(max-width:_640px)]:[align-items:flex-start] [@media(max-width:_640px)]:[&_b]:[text-align:left] ${approved ? String.raw`is-ok [@media(max-width:_767px)]:[.lk\_\_mob_li&]:[background:#f6f3ff] [@media(max-width:_767px)]:[.lk\_\_mob_li&]:[border-color:#ddd3ff] [.ecg\_\_rows_em&]:[color:var(--purple)] [.ecg\_\_rows_em&]:[background:#ebe5ff] [.se\_\_dots_i&]:[background:#b7a3ff]` : ''}`} aria-live="polite">
+      <div className={String.raw`pp__result [display:flex] [justify-content:space-between] [align-items:center] [gap:1.2rem] [margin-top:2.4rem] [padding:1.4rem_1.8rem] [border-radius:1.6rem] [background:#f6f3ff] [transition:background_0.4s] [&_span]:[font-family:var(--f-mono)] [&_span]:[font-size:1.15rem] [&_span]:[letter-spacing:0.06em] [&_span]:[text-transform:uppercase] [&_span]:[color:#636673] [&_b]:[font-weight:600] [&_b]:[font-size:max(1.6rem,15px)] [&_b]:[color:#6b6f7c] [&_b]:[text-align:right] [&.is-ok]:[background:var(--grad-x)] [&.is-ok_span]:[color:rgba(255,_255,_255,_0.8)] [&.is-ok_b]:[color:#fff] [@media(max-width:_640px)]:[flex-direction:column] [@media(max-width:_640px)]:[align-items:flex-start] [@media(max-width:_640px)]:[&_b]:[text-align:left] ${approved ? String.raw`is-ok [@media(max-width:_767px)]:[.lk\_\_mob_li&]:[background:#f6f3ff] [@media(max-width:_767px)]:[.lk\_\_mob_li&]:[border-color:#ddd3ff] [.ecg\_\_rows_em&]:[color:var(--purple)] [.ecg\_\_rows_em&]:[background:#ebe5ff] [.se\_\_dots_i&]:[background:#b7a3ff]` : ''}`} aria-live="polite">
         <span>Decision</span>
         <AnimatePresence mode="wait" initial={false}>
           <motion.b key={approved ? 'ok' : 'no'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
@@ -63,7 +64,7 @@ function CallCard() {
           </motion.b>
         </AnimatePresence>
       </div>
-      <p className="pp__note [position:absolute] [right:3.2rem] [bottom:-2.8rem] [font-family:var(--f-mono)] [font-size:1.1rem] [color:#a29cbc]">Sample case</p>
+      <p className="pp__note [position:absolute] [right:3.2rem] [bottom:-2.8rem] [font-family:var(--f-mono)] [font-size:1.1rem] [color:#69657a]">Sample case</p>
     </motion.div>
   );
 }
@@ -78,7 +79,7 @@ export function PeerReview() {
           <Reveal as="p" className="pp__p [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:60rem]">
             When a payer says a test or procedure isn’t medically necessary, your physician often gets one short call with the plan’s reviewer. We book it inside the payer’s window, build the case, brief your physician in five minutes, and file the appeal if the call doesn’t turn it around.
           </Reveal>
-          <ul className="pp__stats [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:1.6rem] [padding-top:2.4rem] [border-top:1px_solid_#e6dfff] [&_li]:[display:flex] [&_li]:[flex-direction:column] [&_li]:[gap:0.6rem] [&_li]:[min-width:0] [&_b]:[font-weight:600] [&_b]:[font-size:4rem] [&_b]:[line-height:1] [&_b]:[letter-spacing:-0.1rem] [&_b]:[color:var(--purple)] [&_b]:[font-variant-numeric:tabular-nums] [&_span]:[font-size:max(1.5rem,14px)] [&_span]:[line-height:1.45] [&_span]:[color:#4a4f63] [&_a]:[font-family:var(--f-mono)] [&_a]:[font-size:1.15rem] [&_a]:[letter-spacing:0.04em] [&_a]:[color:#8a8ea0] [&_a]:[text-decoration:underline] [&_a]:[text-underline-offset:0.3em] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_640px)]:[gap:1.6rem] [@media(max-width:_640px)]:[&_li]:[display:grid] [@media(max-width:_640px)]:[&_li]:[grid-template-columns:11.5rem_minmax(0,_1fr)] [@media(max-width:_640px)]:[&_li]:[column-gap:1.2rem] [@media(max-width:_640px)]:[&_b]:[grid-row:span_2] [@media(max-width:_640px)]:[&_b]:[font-size:3.2rem]">
+          <ul className="pp__stats [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:1.6rem] [padding-top:2.4rem] [border-top:1px_solid_#e6dfff] [&_li]:[display:flex] [&_li]:[flex-direction:column] [&_li]:[gap:0.6rem] [&_li]:[min-width:0] [&_b]:[font-weight:600] [&_b]:[font-size:4rem] [&_b]:[line-height:1] [&_b]:[letter-spacing:-0.1rem] [&_b]:[color:var(--purple)] [&_b]:[font-variant-numeric:tabular-nums] [&_span]:[font-size:max(1.5rem,14px)] [&_span]:[line-height:1.45] [&_span]:[color:#4a4f63] [&_a]:[font-family:var(--f-mono)] [&_a]:[font-size:1.15rem] [&_a]:[letter-spacing:0.04em] [&_a]:[color:#636673] [&_a]:[text-decoration:underline] [&_a]:[text-underline-offset:0.3em] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_640px)]:[gap:1.6rem] [@media(max-width:_640px)]:[&_li]:[display:grid] [@media(max-width:_640px)]:[&_li]:[grid-template-columns:11.5rem_minmax(0,_1fr)] [@media(max-width:_640px)]:[&_li]:[column-gap:1.2rem] [@media(max-width:_640px)]:[&_b]:[grid-row:span_2] [@media(max-width:_640px)]:[&_b]:[font-size:3.2rem]">
             {STATS.map(([v, l, src, href]) => (
               <li key={v}><b>{v}</b><span>{l}</span><a href={href} target="_blank" rel="noopener noreferrer">{src}</a></li>
             ))}

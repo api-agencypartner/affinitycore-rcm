@@ -4,13 +4,13 @@ import { motion } from 'motion/react';
 import { ArrowUpRight, Mail } from 'lucide-react';
 import { Eyebrow, SplitWords } from '../components/ui';
 import { Link } from '../router';
-import { PRIVACY, TERMS, type LegalDoc } from '../data/legal';
+import { PRIVACY, TERMS, ACCESSIBILITY, type LegalDoc } from '../data/legal';
 import { ease } from '../motion';
 import '../styles/pages.css';
 
-export function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
-  const doc: LegalDoc = kind === 'privacy' ? PRIVACY : TERMS;
-  const other = kind === 'privacy' ? { to: '/terms', label: 'Terms and conditions' } : { to: '/privacy-policy', label: 'Privacy policy' };
+export function LegalPage({ kind }: { kind: 'privacy' | 'terms' | 'accessibility' }) {
+  const doc: LegalDoc = kind === 'privacy' ? PRIVACY : kind === 'terms' ? TERMS : ACCESSIBILITY;
+  const other = kind === 'terms' ? { to: '/privacy-policy', label: 'Privacy policy' } : { to: '/terms', label: 'Terms and conditions' };
   const [active, setActive] = useState(doc.sections[0].id);
 
   // Scroll-spy: the section nearest the top of the viewport lights up in the contents list.

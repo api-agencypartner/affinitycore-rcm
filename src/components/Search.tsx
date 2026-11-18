@@ -5,6 +5,7 @@
  * open the matching page. Strapi later: the same index can be built at build time from the CMS.
  */
 import { useNarrow } from './useNarrow';
+import { useDialogFocus } from './A11y';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
@@ -114,6 +115,8 @@ export function SiteSearch() {
   const [q, setQ] = useState('');
   const [hi, setHi] = useState(0);
   const input = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(panelRef, open);
   const list = useRef<HTMLDivElement>(null);
   const index = useMemo(() => (open ? buildIndex() : []), [open]);
   const results = useMemo(() => search(index, q), [index, q]);
@@ -153,10 +156,10 @@ export function SiteSearch() {
         <motion.div className="gs [position:fixed] [inset:0] [z-index:200] [display:flex] [justify-content:center] [align-items:flex-start] [padding:max(10vh,_6rem)_max(1.6rem,_env(safe-area-inset-right,_0px))_2rem_max(1.6rem,_env(safe-area-inset-left,_0px))] [background:rgba(20,_11,_48,_0.42)] [backdrop-filter:blur(6px)] [-webkit-backdrop-filter:blur(6px)] [@media(max-width:_640px)]:[padding-top:1.6rem]" role="dialog" aria-modal="true" aria-label="Search the site"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
           onMouseDown={(e) => { if (e.target === e.currentTarget) close(); }}>
-          <motion.div className="gs__panel [width:min(72rem,_100%)] [max-height:min(72rem,_80vh)] [display:flex] [flex-direction:column] [border-radius:2.4rem] [background:#fff] [box-shadow:0_4rem_10rem_rgba(20,_11,_48,_0.3)] [overflow:hidden] [@media(max-width:_640px)]:[max-height:calc(100svh_-_3.2rem)] [@media(max-width:_640px)]:[border-radius:2rem]" initial={{ opacity: 0, y: -16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -10, scale: 0.98 }} transition={{ duration: 0.3, ease: ease.out }}>
+          <motion.div ref={panelRef} role="dialog" aria-modal="true" aria-label="Search the site" className="gs__panel [width:min(72rem,_100%)] [max-height:min(72rem,_80vh)] [display:flex] [flex-direction:column] [border-radius:2.4rem] [background:#fff] [box-shadow:0_4rem_10rem_rgba(20,_11,_48,_0.3)] [overflow:hidden] [@media(max-width:_640px)]:[max-height:calc(100svh_-_3.2rem)] [@media(max-width:_640px)]:[border-radius:2rem]" initial={{ opacity: 0, y: -16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -10, scale: 0.98 }} transition={{ duration: 0.3, ease: ease.out }}>
             <div className="gs__bar [flex:none] [display:flex] [align-items:center] [gap:1.2rem] [padding:0_1.2rem_0_2.4rem] [height:7.2rem] [border-bottom:1px_solid_#ece8fa] [@media(max-width:_640px)]:[height:6.4rem] [@media(max-width:_640px)]:[padding-left:1.8rem]">
               <SearchIcon className="gs__icon [flex:none] [width:2.2rem] [height:2.2rem] [color:var(--purple)]" aria-hidden />
-              <input ref={input} id="site-search" className="gs__input [flex:1] [min-width:0] [height:100%] [border:0] [outline:0] [background:none] [font-family:inherit] [font-weight:inherit] [font-style:inherit] [line-height:inherit] [font-size:max(2rem,16px)] [color:var(--ink-2)] [&::placeholder]:[color:#a29cbc] [&::-webkit-search-cancel-button]:[display:none] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)]" type="search" value={q} autoComplete="off" spellCheck={false}
+              <input ref={input} id="site-search" className="gs__input [flex:1] [min-width:0] [height:100%] [border:0] [outline:0] [background:none] [font-family:inherit] [font-weight:inherit] [font-style:inherit] [line-height:inherit] [font-size:max(2rem,16px)] [color:var(--ink-2)] [&::placeholder]:[color:#69657a] [&::-webkit-search-cancel-button]:[display:none] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)]" type="search" value={q} autoComplete="off" spellCheck={false}
                 placeholder={narrow ? 'Search services, codes…' : 'Search services, specialties, CPT codes, questions…'} aria-label="Search the site" role="combobox" aria-expanded={!!flat.length} aria-controls="gs-list"
                 onChange={(e) => setQ(e.target.value)}
                 onKeyDown={(e) => {
@@ -171,7 +174,7 @@ export function SiteSearch() {
             <div className="gs__body [flex:1] [overflow-y:auto] [overscroll-behavior:contain] [padding:1.2rem]" ref={list} id="gs-list" role="listbox">
               {!q.trim() && (
                 <div className="gs__empty">
-                  <p className="gs__label [padding:1.2rem_1.2rem_0.6rem] [font-family:var(--f-mono)] [font-size:1.15rem] [letter-spacing:0.08em] [text-transform:uppercase] [color:#8a8ea0]">Try</p>
+                  <p className="gs__label [padding:1.2rem_1.2rem_0.6rem] [font-family:var(--f-mono)] [font-size:1.15rem] [letter-spacing:0.08em] [text-transform:uppercase] [color:#636673]">Try</p>
                   <div className="gs__chips [display:flex] [flex-wrap:wrap] [gap:0.8rem] [padding:0.4rem_1.2rem_1.2rem] [&_button]:[padding:0.8rem_1.4rem] [&_button]:[border-radius:2rem] [&_button]:[border:1px_solid_var(--lav-border)] [&_button]:[font-size:max(1.5rem,14px)] [&_button]:[color:var(--ink-2)] [&_button]:[transition:border-color_0.3s,_color_0.3s] [&_button:hover]:[border-color:var(--purple)] [&_button:hover]:[color:var(--purple)]">{SUGGEST.map((s) => <button key={s} type="button" onClick={() => setQ(s)}>{s}</button>)}</div>
                 </div>
               )}
@@ -187,7 +190,7 @@ export function SiteSearch() {
               )}
               {groups.map((g) => (
                 <div key={g.k} className="gs__group">
-                  <p className="gs__label [padding:1.2rem_1.2rem_0.6rem] [font-family:var(--f-mono)] [font-size:1.15rem] [letter-spacing:0.08em] [text-transform:uppercase] [color:#8a8ea0]">{LABEL[g.k]}</p>
+                  <p className="gs__label [padding:1.2rem_1.2rem_0.6rem] [font-family:var(--f-mono)] [font-size:1.15rem] [letter-spacing:0.08em] [text-transform:uppercase] [color:#636673]">{LABEL[g.k]}</p>
                   {g.items.map((x) => {
                     const i = flat.indexOf(x);
                     return (
@@ -203,7 +206,7 @@ export function SiteSearch() {
               ))}
             </div>
 
-            <div className="gs__foot [flex:none] [display:flex] [@media(hover:_none)]:[display:none] [gap:2.4rem] [padding:1.2rem_2.4rem] [border-top:1px_solid_#ece8fa] [font-size:max(1.3rem,13px)] [color:#8a8ea0] [&_kbd]:[display:inline-block] [&_kbd]:[min-width:2.2rem] [&_kbd]:[margin-right:0.4rem] [&_kbd]:[padding:0.1rem_0.6rem] [&_kbd]:[border-radius:0.6rem] [&_kbd]:[border:1px_solid_var(--lav-border)] [&_kbd]:[font-family:var(--f-mono)] [&_kbd]:[font-size:1.15rem] [&_kbd]:[text-align:center] [@media(max-width:_640px)]:[display:none]">
+            <div className="gs__foot [flex:none] [display:flex] [@media(hover:_none)]:[display:none] [gap:2.4rem] [padding:1.2rem_2.4rem] [border-top:1px_solid_#ece8fa] [font-size:max(1.3rem,13px)] [color:#636673] [&_kbd]:[display:inline-block] [&_kbd]:[min-width:2.2rem] [&_kbd]:[margin-right:0.4rem] [&_kbd]:[padding:0.1rem_0.6rem] [&_kbd]:[border-radius:0.6rem] [&_kbd]:[border:1px_solid_var(--lav-border)] [&_kbd]:[font-family:var(--f-mono)] [&_kbd]:[font-size:1.15rem] [&_kbd]:[text-align:center] [@media(max-width:_640px)]:[display:none]">
               <span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>↵</kbd> to open</span><span><kbd>Esc</kbd> to close</span>
             </div>
           </motion.div>

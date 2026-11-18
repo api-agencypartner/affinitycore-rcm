@@ -106,3 +106,31 @@ export const TERMS: LegalDoc = {
     { h: 'Contact us', id: 'contact', body: [`Questions about these terms: ${CONTACT}.`] },
   ],
 };
+
+export const ACCESSIBILITY: LegalDoc = {
+  eyebrow: '/ Accessibility',
+  title: 'Accessibility statement.',
+  intro: 'Affinity Core wants everyone, including people with disabilities, to be able to use this website. We work to meet the Web Content Accessibility Guidelines (WCAG) 2.1 at Level AA, the standard referenced for websites under the Americans with Disabilities Act (ADA).',
+  updated: 'November 18, 2026',
+  sections: [
+    { h: 'Our standard', id: 'standard', body: [
+      'We design, build and test this site against WCAG 2.1 Level AA, and we follow the newer WCAG 2.2 Level AA criteria where they apply.',
+      'Accessibility is part of how we publish, not a one-time project. We review new pages and features before they go live.',
+    ] },
+    { h: 'What we have done', id: 'measures', body: [
+      ['A “Skip to main content” link at the top of every page', 'Every link, button, menu and form works with a keyboard, with a visible focus outline', 'Text and controls meet AA colour-contrast ratios', 'Form fields have labels, required fields are marked, and errors are announced', 'Images have text alternatives; decorative images are hidden from screen readers', 'Pages use headings, landmarks and lists so screen readers can navigate them', 'A “Pause animations” control in the footer and at the top of the page; the site also follows your device’s reduce-motion setting', 'Layouts reflow on phones, tablets and at up to 400% zoom without sideways scrolling'],
+    ] },
+    { h: 'Known limitations', id: 'limitations', body: [
+      'Some illustrated widgets show sample claim forms and charts with small decorative text. The information they illustrate is also given in the surrounding text.',
+      'Links to payer, government and other third-party websites lead to content we don’t control and may not meet the same standard.',
+    ] },
+    { h: 'Tell us about a problem', id: 'feedback', body: [
+      'If anything on this site is hard to use, or you need information in another format, please tell us and we’ll help.',
+      ['Email: info@affinitycorebillers.com', 'Phone: 214-851-2698', 'Mail: Affinity Core, 5830 Granite Pkwy, STE 100 - 219, Plano, TX 75024'],
+      'Please include the page address and a short description of the problem. We aim to reply within five business days.',
+    ] },
+    { h: 'Assessment', id: 'assessment', body: [
+      'This site was last reviewed on November 18, 2026 using automated testing (axe-core) across every page at desktop and phone sizes, plus manual keyboard, zoom and reduced-motion checks.',
+    ] },
+  ],
+};

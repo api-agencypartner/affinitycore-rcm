@@ -7,6 +7,7 @@ import img1 from '../assets/hero-1.jpg';
 import img3 from '../assets/hero-3.jpg';
 import img4 from '../assets/hero-4.jpg';
 import img5 from '../assets/hero-5.jpg';
+import { useMotionOff } from '../motionPref';
 
 /* Figma: Component 369 — 3 variants (526:2372 / 526:2371 / 526:2370) */
 type Slide = {
@@ -66,7 +67,8 @@ export function HeroCarousel({ play }: { play: boolean }) {
     return () => ctrl.current?.stop();
   }, [index, play, progress]);
 
-  const paused = hover || !inView || tabHidden;
+  const motionOff = useMotionOff();
+  const paused = hover || !inView || tabHidden || motionOff;
   useEffect(() => { if (paused) ctrl.current?.pause(); else ctrl.current?.play(); }, [paused, index]);
 
   // Scale the 892×892 widget layer to the carousel's actual size (keeps Figma proportions on any screen)
@@ -186,7 +188,7 @@ function DenialCard() {
           <motion.li key={code} variants={{ hidden: { opacity: 0, x: -14 }, show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: ease.out } } }}>
             <code>{code}</code><span className="w-den__why [color:#575568] [white-space:nowrap] [overflow:hidden] [text-overflow:ellipsis]">{why}</span>
             <span className="w-den__st [position:relative] [height:2.6rem] [&_em]:[position:absolute] [&_em]:[inset:0] [&_em]:[display:inline-flex] [&_em]:[align-items:center] [&_em]:[justify-content:center] [&_em]:[gap:0.4rem] [&_em]:[border-radius:2rem] [&_em]:[font-style:normal] [&_em]:[font-weight:600] [&_em]:[font-size:max(1.25rem,12px)] [&_svg]:[width:1.3rem] [&_svg]:[height:1.3rem]">
-              <motion.em className="no [.w-den\_\_st_&]:[background:#f1edff] [.w-den\_\_st_&]:[color:#8a8ea0]" variants={{ hidden: { opacity: 1 }, show: { opacity: 0, transition: { delay: 0.9, duration: 0.3 } } }}>Denied</motion.em>
+              <motion.em className="no [.w-den\_\_st_&]:[background:#f1edff] [.w-den\_\_st_&]:[color:#636673]" variants={{ hidden: { opacity: 1 }, show: { opacity: 0, transition: { delay: 0.9, duration: 0.3 } } }}>Denied</motion.em>
               <motion.em className="ok [.w-den\_\_st_&]:[background:var(--purple)] [.w-den\_\_st_&]:[color:#fff] [color:#12a150] [.mw_em&]:[background:#dcf5ea] [.mw\_\_row_em&]:[background:#dcf5ea] [.dq_li_em&]:[background:#dcf5ea] [.lf\_\_dg_small&]:[color:#18a058]" variants={{ hidden: { opacity: 0, scale: 0.6 }, show: { opacity: 1, scale: 1, transition: { delay: 1.1, type: 'spring', stiffness: 420, damping: 18 } } }}><Check /> ${amt.toLocaleString('en-US')}</motion.em>
             </span>
           </motion.li>

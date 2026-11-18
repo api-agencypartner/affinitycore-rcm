@@ -21,6 +21,7 @@ import { Link } from '../router';
 import { ease, vp } from '../motion';
 import { US_STATES } from '../data/usMap';
 import { setJsonLd, pageJsonLd } from '../data/seo';
+import { isMotionOff, useMotionOff } from '../motionPref';
 
 const CONFIRM = '';
 
@@ -38,11 +39,12 @@ const DAY: { t: string; what: string; who: string; tone?: 'ok' | 'win' }[] = [
 
 function DayOnYourAccount() {
   const [n, setN] = useState(0);
+  const motionOff = useMotionOff();
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setN(DAY.length); return; }
+    if (motionOff) { setN(DAY.length); return; }
     const t = window.setInterval(() => setN((x) => (x >= DAY.length + 2 ? 1 : x + 1)), 1100);
     return () => window.clearInterval(t);
-  }, []);
+  }, [motionOff]);
   const shown = Math.min(n, DAY.length);
   return (
     <motion.div className="ab-day [position:relative] [padding:3.2rem] [border-radius:3.2rem] [background:var(--soft-grain),_radial-gradient(60%_70%_at_0%_0%,_rgba(255,_255,_255,_0.22),_transparent_60%),_radial-gradient(70%_80%_at_100%_100%,_rgba(201,_0,_251,_0.28),_transparent_60%),_linear-gradient(160deg,_#8a6bff_0%,_#6a41f9_55%,_#4a24d8_100%)] [border:1px_solid_rgba(255,_255,_255,_0.18)] [box-shadow:0_3rem_8rem_rgba(106,_65,_249,_0.32)] [min-width:0] [@media(max-width:_767px)]:[padding:2rem]" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease: ease.out, delay: 0.35 }} aria-label="An example day on a client account">
@@ -55,7 +57,7 @@ function DayOnYourAccount() {
           <li key={d.t} className={`${i < shown ? String.raw`is-in [.ab-day\_\_list_li&]:[opacity:1] [.ab-day\_\_list_li&]:[transform:none]` : ''} ${i === shown - 1 ? String.raw`is-now [.sc-stat\_\_bars_i&]:[background:var(--grad)]` : ''} ${d.tone ? `is-${d.tone}` : ''}`}>
             <time>{d.t}</time>
             <span className="ab-day__dot [position:relative] [z-index:1] [width:1.4rem] [height:1.4rem] [margin:0.4rem_auto_0] [border-radius:50%] [background:rgba(255,_255,_255,_0.2)] [border:2px_solid_rgba(255,_255,_255,_0.5)] [transition:background_0.4s,_border-color_0.4s,_box-shadow_0.4s] [.ab-day\_\_list_li.is-in_&]:[background:#fff] [.ab-day\_\_list_li.is-in_&]:[border-color:#fff] [.ab-day\_\_list_li.is-now_&]:[box-shadow:0_0_0_0.6rem_rgba(255,_255,_255,_0.22)] [.ab-day\_\_list_li.is-ok.is-in_&]:[background:#22c55e] [.ab-day\_\_list_li.is-ok.is-in_&]:[border-color:#22c55e] [.ab-day\_\_list_li.is-win.is-in_&]:[background:#22c55e] [.ab-day\_\_list_li.is-win.is-in_&]:[border-color:#22c55e]" aria-hidden />
-            <span className="ab-day__txt [padding:1.2rem_1.6rem] [border-radius:1.6rem] [background:rgba(255,_255,_255,_0.86)] [border:1px_solid_rgba(255,_255,_255,_0.6)] [transition:box-shadow_0.4s,_background_0.4s] [.ab-day\_\_list_li.is-now_&]:[background:#fff] [.ab-day\_\_list_li.is-now_&]:[box-shadow:0_1.2rem_3rem_rgba(30,_10,_120,_0.28)] [&_b]:[display:block] [&_b]:[font-weight:500] [&_b]:[font-size:max(1.6rem,15px)] [&_b]:[line-height:1.35] [&_b]:[color:var(--ink-2)] [&_small]:[display:block] [&_small]:[margin-top:0.3rem] [&_small]:[font-size:max(1.3rem,13px)] [&_small]:[color:#7b7f92] [.ab-day\_\_list_li.is-win_&_b]:[color:var(--purple)] [@media(max-width:_767px)]:[padding:1rem_1.2rem] [@media(max-width:_767px)]:[&_b]:[font-size:max(1.45rem,14px)]"><b>{d.what}</b><small>{d.who}</small></span>
+            <span className="ab-day__txt [padding:1.2rem_1.6rem] [border-radius:1.6rem] [background:rgba(255,_255,_255,_0.86)] [border:1px_solid_rgba(255,_255,_255,_0.6)] [transition:box-shadow_0.4s,_background_0.4s] [.ab-day\_\_list_li.is-now_&]:[background:#fff] [.ab-day\_\_list_li.is-now_&]:[box-shadow:0_1.2rem_3rem_rgba(30,_10,_120,_0.28)] [&_b]:[display:block] [&_b]:[font-weight:500] [&_b]:[font-size:max(1.6rem,15px)] [&_b]:[line-height:1.35] [&_b]:[color:var(--ink-2)] [&_small]:[display:block] [&_small]:[margin-top:0.3rem] [&_small]:[font-size:max(1.3rem,13px)] [&_small]:[color:#646776] [.ab-day\_\_list_li.is-win_&_b]:[color:var(--purple)] [@media(max-width:_767px)]:[padding:1rem_1.2rem] [@media(max-width:_767px)]:[&_b]:[font-size:max(1.45rem,14px)]"><b>{d.what}</b><small>{d.who}</small></span>
           </li>
         ))}
       </ol>
@@ -102,7 +104,8 @@ function Manifesto() {
   return (
     <section className="ab-man container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:16rem] [max-width:128rem] [@media(max-width:_1099px)]:[padding-top:10rem] [@media(max-width:_767px)]:[padding-top:8rem]">
       <Eyebrow>/ Why we exist</Eyebrow>
-      <div ref={ref} className="ab-man__p [margin-top:2.4rem] [font-family:var(--f-jak)] [font-weight:500] [font-size:5.2rem] [line-height:1.22] [letter-spacing:-0.16rem] [color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:4rem] [@media(max-width:_767px)]:[font-size:2.8rem] [@media(max-width:_767px)]:[letter-spacing:-0.08rem]" aria-label={MANIFESTO}>
+      <div ref={ref} className="ab-man__p [margin-top:2.4rem] [font-family:var(--f-jak)] [font-weight:500] [font-size:5.2rem] [line-height:1.22] [letter-spacing:-0.16rem] [color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:4rem] [@media(max-width:_767px)]:[font-size:2.8rem] [@media(max-width:_767px)]:[letter-spacing:-0.08rem]">
+        <span className="sr-only">{MANIFESTO}</span>
         <span aria-hidden>{words.map((w, i) => <Word key={i} w={w} i={i} total={words.length} p={scrollYProgress} />)}</span>
       </div>
     </section>
@@ -157,11 +160,12 @@ const TEAM = [
 function Team() {
   const [on, setOn] = useState(0);
   const [hold, setHold] = useState(false);
+  const motionOff = useMotionOff();
   useEffect(() => {
-    if (hold || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (hold || motionOff) return;
     const t = window.setInterval(() => setOn((x) => (x + 1) % TEAM.length), 3200);
     return () => window.clearInterval(t);
-  }, [hold]);
+  }, [hold, motionOff]);
   const cur = TEAM[on];
   const Icon = cur.icon;
   return (
@@ -227,7 +231,7 @@ function Numbers() {
           </motion.div>
         ))}
       </div>
-      <p className="ab-num__fine [@media(max-width:_1099px)]:[font-size:13.5px]! [@media(max-width:_1099px)]:[line-height:1.55] [margin-top:1.2rem] [font-size:max(1.2rem,12px)] [color:#a0a3b1]">Averages across active client accounts. {CONFIRM}</p>
+      <p className="ab-num__fine [@media(max-width:_1099px)]:[font-size:13.5px]! [@media(max-width:_1099px)]:[line-height:1.55] [margin-top:1.2rem] [font-size:max(1.2rem,12px)] [color:#656770]">Averages across active client accounts. {CONFIRM}</p>
     </section>
   );
 }

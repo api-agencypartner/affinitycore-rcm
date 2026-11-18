@@ -10,3 +10,4 @@ These lines were marked “[Confirm with Affinity Core]” on the live site. The
 - **data/careers.ts**: Clear steps from specialist to lead to manager, reviewed with you twice a year.
 - **data/careers.ts**: Benefits and paid time off for full-time roles.
 - **data/careers.ts**: Meet the lead you’d work with, then a decision within a week.
+- **data/legal.ts (Accessibility statement)**: "We aim to reply within five business days" to accessibility feedback.

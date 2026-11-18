@@ -32,7 +32,7 @@ function Hero({ s }: { s: State }) {
   return (
     <section className="sp-hero stp-hero [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:6rem] [align-items:center] [padding:16.4rem_var(--gutter)_6rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[padding-top:12rem] [@media(max-width:_1099px)]:[min-height:0]">
       <div className="sp-hero__copy [display:flex] [flex-direction:column] [gap:2.8rem]">
-        <motion.nav className="crumbs [display:flex] [align-items:center] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.4rem,14px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:#8a8ea0] [&_a]:[display:inline-flex] [&_a]:[align-items:center] [&_a]:[gap:0.4rem] [&_a]:[color:var(--purple)]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} aria-label="Breadcrumb">
+        <motion.nav className="crumbs [display:flex] [align-items:center] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.4rem,14px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:#636673] [&_a]:[display:inline-flex] [&_a]:[align-items:center] [&_a]:[gap:0.4rem] [&_a]:[color:var(--purple)]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} aria-label="Breadcrumb">
           <Link to="/states"><ChevronLeft size={16} /> States</Link><span>/</span><span className="[display:inline-flex] [align-items:center] [gap:0.8rem]"><StateFlag abbr={s.abbr} className="[width:2.7rem] [border-radius:0.35rem]" />{s.name}</span>
         </motion.nav>
         <SplitWords as="h1" className="page-title [font-weight:500] [font-size:6.12rem] [line-height:1.06] [letter-spacing:-0.18rem] [color:var(--ink-3)] [@media(max-width:_1099px)]:[font-size:4.32rem]" animateNow delay={0.3} stagger={0.05} lines={s.heroTitle} bold={[s.heroAccent]} />
@@ -67,7 +67,7 @@ function Rules({ s }: { s: State }) {
             <span className="stp-rule__k [align-self:flex-start] [padding:0.4rem_1rem] [border-radius:2rem] [background:#f1edff] [font-family:var(--f-mono)] [font-size:max(1.15rem,11.5px)] [letter-spacing:0.06em] [text-transform:uppercase] [color:var(--purple)]">{f.k}</span>
             <h3>{f.title}</h3>
             <p>{f.body}</p>
-            {f.src && <a href={f.src.href} target="_blank" rel="noopener noreferrer" className="stp-rule__src [margin-top:auto] [display:inline-flex] [align-items:center] [gap:0.4rem] [font-family:var(--f-mono)] [font-size:max(1.15rem,11.5px)] [color:#8a8ea0] [text-decoration:underline] [text-underline-offset:0.3em]">{f.src.label} <ExternalLink size={12} /></a>}
+            {f.src && <a href={f.src.href} target="_blank" rel="noopener noreferrer" className="stp-rule__src [margin-top:auto] [display:inline-flex] [align-items:center] [gap:0.4rem] [font-family:var(--f-mono)] [font-size:max(1.15rem,11.5px)] [color:#636673] [text-decoration:underline] [text-underline-offset:0.3em]">{f.src.label} <ExternalLink size={12} /></a>}
           </motion.article>
         ))}
       </div>
@@ -147,7 +147,7 @@ function Coverage({ s }: { s: State }) {
         <Eyebrow>{`/ Local to ${s.name}`}</Eyebrow>
         <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['A billing team that', 'keeps your hours.']} stagger={0.04} />
         <Reveal as="p" className="stp-cov__p [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:58rem]">{s.local}</Reveal>
-        <div className="stp-cov__cities [margin-top:1.6rem] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:max(1.3rem,13px)] [&_small]:[letter-spacing:0.04em] [&_small]:[text-transform:uppercase] [&_small]:[color:#8a8ea0] [&_ul]:[display:flex] [&_ul]:[flex-wrap:wrap] [&_ul]:[gap:0.8rem] [&_ul]:[margin-top:1.2rem] [&_li]:[display:inline-flex] [&_li]:[align-items:center] [&_li]:[gap:0.6rem] [&_li]:[padding:0.9rem_1.4rem] [&_li]:[border-radius:3rem] [&_li]:[background:#f6f3ff] [&_li]:[border:1px_solid_#ece6ff] [&_li]:[font-size:max(1.5rem,14px)] [&_li]:[color:var(--ink-2)] [&_li_svg]:[color:var(--purple)]">
+        <div className="stp-cov__cities [margin-top:1.6rem] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:max(1.3rem,13px)] [&_small]:[letter-spacing:0.04em] [&_small]:[text-transform:uppercase] [&_small]:[color:#636673] [&_ul]:[display:flex] [&_ul]:[flex-wrap:wrap] [&_ul]:[gap:0.8rem] [&_ul]:[margin-top:1.2rem] [&_li]:[display:inline-flex] [&_li]:[align-items:center] [&_li]:[gap:0.6rem] [&_li]:[padding:0.9rem_1.4rem] [&_li]:[border-radius:3rem] [&_li]:[background:#f6f3ff] [&_li]:[border:1px_solid_#ece6ff] [&_li]:[font-size:max(1.5rem,14px)] [&_li]:[color:var(--ink-2)] [&_li_svg]:[color:var(--purple)]">
           <small>{`Practices we serve across ${s.name}`}</small>
           <ul>{s.cities.map((c) => <li key={c}><MapPin size={14} />{c}</li>)}</ul>
         </div>
@@ -158,13 +158,13 @@ function Coverage({ s }: { s: State }) {
           <b>{time}</b>
           <span className={String.raw`stp-cov__status [display:inline-flex] [align-items:center] [gap:0.8rem] [margin-top:1.6rem] [padding:0.7rem_1.4rem] [border-radius:3rem] [background:rgba(255,_255,_255,_0.14)] [font-size:max(1.4rem,14px)] [&_i]:[width:0.8rem] [&_i]:[height:0.8rem] [&_i]:[border-radius:50%] [&_i]:[background:#cfc4ff] [&.is-open_i]:[background:#4ade80] [&.is-open_i]:[box-shadow:0_0_0_0.4rem_rgba(74,_222,_128,_0.25)] ${open ? 'is-open' : ''}`}><i />{open ? 'Our team is online' : 'We reply first thing next business day'}</span>
         </div>
-        <dl className="stp-cov__dl [display:flex] [flex-direction:column] [margin-top:1.6rem] [&_div]:[display:grid] [&_div]:[grid-template-columns:11rem_minmax(0,_1fr)] [&_div]:[gap:1.6rem] [&_div]:[padding:1.6rem_0] [&_div]:[border-bottom:1px_solid_#f0edf9] [&_div]:[font-size:max(1.6rem,15px)] [&_dt]:[display:inline-flex] [&_dt]:[align-items:center] [&_dt]:[gap:0.8rem] [&_dt]:[color:#8a8ea0] [&_dt_svg]:[color:var(--purple)] [&_dd]:[color:var(--ink-2)] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500] [@media(max-width:_767px)]:[&_div]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[&_div]:[gap:0.4rem]">
+        <dl className="stp-cov__dl [display:flex] [flex-direction:column] [margin-top:1.6rem] [&_div]:[display:grid] [&_div]:[grid-template-columns:11rem_minmax(0,_1fr)] [&_div]:[gap:1.6rem] [&_div]:[padding:1.6rem_0] [&_div]:[border-bottom:1px_solid_#f0edf9] [&_div]:[font-size:max(1.6rem,15px)] [&_dt]:[display:inline-flex] [&_dt]:[align-items:center] [&_dt]:[gap:0.8rem] [&_dt]:[color:#636673] [&_dt_svg]:[color:var(--purple)] [&_dd]:[color:var(--ink-2)] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500] [@media(max-width:_767px)]:[&_div]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[&_div]:[gap:0.4rem]">
           <div><dt><Clock size={16} /> Hours</dt><dd>{`Mon–Fri, 8 am – 6 pm ${s.tzName}`}</dd></div>
           <div><dt><Phone size={16} /> Call</dt><dd><a href="tel:+12148512698">214-851-2698</a></dd></div>
           <div><dt><Mail size={16} /> Email</dt><dd><a href="mailto:info@affinitycorebillers.com">info@affinitycorebillers.com</a></dd></div>
           <div><dt><Building2 size={16} /> Office</dt><dd>5830 Granite Pkwy, STE 100-219, Plano, TX 75024</dd></div>
         </dl>
-        <p className="stp-cov__fine [@media(max-width:_1099px)]:[font-size:13.5px]! [@media(max-width:_1099px)]:[line-height:1.55] [margin-top:1.2rem] [font-size:max(1.2rem,12px)] [color:#a0a3b1]">Hours shown for illustration.</p>
+        <p className="stp-cov__fine [@media(max-width:_1099px)]:[font-size:13.5px]! [@media(max-width:_1099px)]:[line-height:1.55] [margin-top:1.2rem] [font-size:max(1.2rem,12px)] [color:#656770]">Hours shown for illustration.</p>
       </motion.div>
     </section>
   );

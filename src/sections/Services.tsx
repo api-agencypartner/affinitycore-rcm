@@ -25,7 +25,7 @@ const inner = (delay = 0) => ({
 function Link({ children, to = '#assessment' }: { children: string; to?: string }) {
   return (
     <div className="svc__link [margin-top:auto] [padding-top:2.4rem] [display:flex] [@media(max-width:_1099px)]:[margin-top:2.4rem]">
-      <button type="button" className="svc__go [display:inline-flex] [align-items:center] [gap:0.8rem] [padding:0] [background:none] [border:0] [color:var(--purple)] [font:500_1.8rem/1.4_var(--f-sans)] [cursor:pointer] [&_span]:[background:linear-gradient(currentColor,_currentColor)_0_100%_/_0_1px_no-repeat] [&_span]:[transition:background-size_.4s_cubic-bezier(.16,1,.3,1)] [&_svg]:[transition:transform_.4s_cubic-bezier(.16,1,.3,1)] [&:hover_span]:[background-size:100%_1px] [&:hover_svg]:[transform:translateX(0.5rem)]" onClick={() => (to.startsWith('/') ? go(to) : goAnchor(to.replace(/^#/, '')))}>
+      <button type="button" className="svc__go [min-height:24px] [display:inline-flex] [align-items:center] [gap:0.8rem] [padding:0] [background:none] [border:0] [color:var(--purple)] [font:500_1.8rem/1.4_var(--f-sans)] [cursor:pointer] [&_span]:[background:linear-gradient(currentColor,_currentColor)_0_100%_/_0_1px_no-repeat] [&_span]:[transition:background-size_.4s_cubic-bezier(.16,1,.3,1)] [&_svg]:[transition:transform_.4s_cubic-bezier(.16,1,.3,1)] [&:hover_span]:[background-size:100%_1px] [&:hover_svg]:[transform:translateX(0.5rem)]" onClick={() => (to.startsWith('/') ? go(to) : goAnchor(to.replace(/^#/, '')))}>
         <span>{children}</span><ArrowRight size={18} strokeWidth={2} />
       </button>
     </div>

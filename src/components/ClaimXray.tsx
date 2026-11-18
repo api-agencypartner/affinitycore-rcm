@@ -4,6 +4,7 @@ import { ArrowRight, ScanSearch } from 'lucide-react';
 import { Link, go } from '../router';
 import { SERVICES } from '../data/services';
 import { ease } from '../motion';
+import { useMotionOff } from '../motionPref';
 
 /**
  * "X-ray of a claim" (Services hero).
@@ -175,8 +176,9 @@ export function ClaimXray({ onChange }: { onChange?: (s: XrayState) => void }) {
   }, []);
 
   // Idle tour: one stop per service
+  const motionOff = useMotionOff();
   useEffect(() => {
-    if (hover || !typed || !inView) return;
+    if (hover || !typed || !inView || motionOff) return;
     const goTo = (i: number) => {
       const id = TOUR[i]; const c = center(id); if (!c) return;
       lx.set(c.x); ly.set(c.y); lr.set(c.r); setActive(id); setStop(i);
@@ -186,7 +188,7 @@ export function ClaimXray({ onChange }: { onChange?: (s: XrayState) => void }) {
     const id = setInterval(() => { i = (i + 1) % TOUR.length; goTo(i); }, 2800);
     return () => { clearTimeout(first); clearInterval(id); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hover, typed, center, inView]);
+  }, [hover, typed, center, inView, motionOff]);
 
   // While hovering, re-read the pointer every frame: the form is still flattening out of its tilt,
   // so the lens and the box under the cursor have to follow the moving paper.

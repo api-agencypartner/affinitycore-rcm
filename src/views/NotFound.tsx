@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion, animate } from 'motion/react';
+import { motion, useMotionValue, useSpring, useTransform, animate } from 'motion/react';
 import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import { Link, go } from '../router';
 import { ease } from '../motion';
 import '../styles/pages.css';
+import { useMotionOff } from '../motionPref';
 
 const LINKS: [string, string, string][] = [
   ['Services', '/services', 'Ten services, one claim followed to paid'],
@@ -15,7 +16,7 @@ const LINKS: [string, string, string][] = [
 
 /** 404 as a denied claim: CARC CO-404, "service not found at this address". The 0 is a magnifier that hunts for the page. */
 export function NotFoundPage() {
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   const wrap = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0), my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 90, damping: 14 }), sy = useSpring(my, { stiffness: 90, damping: 14 });

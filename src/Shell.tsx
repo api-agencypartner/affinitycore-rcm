@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 import { BackToTop } from './components/BackToTop';
 import { SMOOTH } from './motion';
-import { AnimatePresence, LayoutGroup, MotionConfig, motion, useReducedMotion, frame, cancelFrame } from 'motion/react';
+import { AnimatePresence, LayoutGroup, MotionConfig, motion, frame, cancelFrame } from 'motion/react';
 import { useRoute, goAnchor, setScroller, scrollToPending, setPush, stripBase } from './router';
 import { useRouter } from 'next/navigation';
 import { ReadyContext } from './ready';
@@ -13,11 +13,13 @@ import { Loader } from './sections/Loader';
 import { SiteSearch } from './components/Search';
 import { Nav } from './sections/Nav';
 import { Footer } from './sections/Closing';
+import { useMotionOff } from './motionPref';
+import { SkipLinks } from './components/A11y';
 
 /** loading → (handoff) → ready. Reduced-motion users skip straight to ready. */
 export default function Shell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const reduce = useReducedMotion();
+  const reduce = useMotionOff();
   const path = useRoute();
   // The intro loader plays only when the site is entered on the home page; every other page opens straight to content.
   const entry = useRef(path).current;
@@ -113,7 +115,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   }, [ready]);
 
   return (
-    <MotionConfig reducedMotion="user">
+    <MotionConfig reducedMotion={reduce ? 'always' : 'user'}>
+      <SkipLinks />
       <GooDefs />
       {/* Perf: the layout group only spans the loader→nav handoff; pages and footer stay outside it,
           so a nav state change never re-renders the whole site. */}

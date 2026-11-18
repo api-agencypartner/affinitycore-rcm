@@ -126,7 +126,7 @@ export function SpecialtyReads({ s }: { s: SpecialtyFull }) {
 /* ================================================================== */
 export function TrustRow() {
   return (
-    <motion.ul className="tr [list-style:none] [display:flex] [flex-wrap:wrap] [margin-top:3.2rem] [padding-top:2.4rem] [border-top:1px_solid_#ece8f8] [&_li]:[display:flex] [&_li]:[align-items:center] [&_img]:[border-radius:50%] [&_img]:[background:#fff] [&_img]:[box-shadow:0_0_0_1px_#ebe7f7] [&_img]:[object-fit:contain] [&_svg]:[border-radius:50%] [&_svg]:[background:#f1ecff] [&_svg]:[color:var(--purple)] [&_span]:[display:flex] [&_span]:[flex-direction:column] [&_span]:[line-height:1.25] [&_b]:[font-weight:500] [&_b]:[color:var(--ink-2)] [&_small]:[color:#7a7e90] [gap:1.5rem_3.5rem] [&_li]:[gap:1.25rem] [&_img]:[width:4.5rem] [&_img]:[height:4.5rem] [&_svg]:[width:4.5rem] [&_svg]:[height:4.5rem] [&_svg]:[padding:1rem] [&_b]:[font-size:max(1.875rem,16px)] [&_small]:[font-size:max(1.56rem,14px)]" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: ease.out, delay: 1.05 }} aria-label="Why practices trust us">
+    <motion.ul className="tr [list-style:none] [display:flex] [flex-wrap:wrap] [margin-top:3.2rem] [padding-top:2.4rem] [border-top:1px_solid_#ece8f8] [&_li]:[display:flex] [&_li]:[align-items:center] [&_img]:[border-radius:50%] [&_img]:[background:#fff] [&_img]:[box-shadow:0_0_0_1px_#ebe7f7] [&_img]:[object-fit:contain] [&_svg]:[border-radius:50%] [&_svg]:[background:#f1ecff] [&_svg]:[color:var(--purple)] [&_span]:[display:flex] [&_span]:[flex-direction:column] [&_span]:[line-height:1.25] [&_b]:[font-weight:500] [&_b]:[color:var(--ink-2)] [&_small]:[color:#646776] [gap:1.5rem_3.5rem] [&_li]:[gap:1.25rem] [&_img]:[width:4.5rem] [&_img]:[height:4.5rem] [&_svg]:[width:4.5rem] [&_svg]:[height:4.5rem] [&_svg]:[padding:1rem] [&_b]:[font-size:max(1.875rem,16px)] [&_small]:[font-size:max(1.56rem,14px)]" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: ease.out, delay: 1.05 }} aria-label="Why practices trust us">
       <li><img src={hipaa} alt="" /> <span><b>HIPAA compliant</b><small>BAA with every client</small></span></li>
       <li><Users /> <span><b>30+ US-based</b><small>billers and coders</small></span></li>
       <li><BadgeCheck /> <span><b>Certified coders</b><small>CPC, CCS and specialty credentials</small></span></li>
@@ -186,7 +186,7 @@ export function Switching({ what }: { what: string }) {
           </motion.li>
         ))}
       </ol>
-      <p className="swt__note [@media(max-width:_1099px)]:[font-size:13.5px]! [@media(max-width:_1099px)]:[line-height:1.55] [margin-top:2.4rem] [font-size:max(1.3rem,13px)] [color:#8a8ea0]">Typical timeline; your onboarding plan confirms the dates.</p>
+      <p className="swt__note [@media(max-width:_1099px)]:[font-size:13.5px]! [@media(max-width:_1099px)]:[line-height:1.55] [margin-top:2.4rem] [font-size:max(1.3rem,13px)] [color:#636673]">Typical timeline; your onboarding plan confirms the dates.</p>
     </section>
   );
 }

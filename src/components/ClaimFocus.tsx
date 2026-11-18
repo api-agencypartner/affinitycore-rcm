@@ -3,6 +3,7 @@ import { motion, useInView, useMotionValue, useSpring, useTransform } from 'moti
 import { Form, XrayReadout } from './ClaimXray';
 import { go } from '../router';
 import { BOX } from './ClaimXray';
+import { useMotionOff } from '../motionPref';
 
 /**
  * Service-page hero: a close-up of the same CMS-1500 used on the Services overview.
@@ -81,11 +82,12 @@ export function ClaimFocus({ slug }: { slug: string }) {
   }, [i, size, hover, boxes, camX, camY, camZ, lx, ly, lr]);
 
   const inView = useInView(stageRef, { amount: 0.15 }); // perf: tour pauses off-screen
+  const motionOff = useMotionOff();
   useEffect(() => {
-    if (hover || !typed || boxes.length < 2 || !inView) return;
+    if (hover || !typed || boxes.length < 2 || !inView || motionOff) return;
     const t = setInterval(() => setI((v) => (v + 1) % boxes.length), 3200);
     return () => clearInterval(t);
-  }, [hover, typed, boxes.length, inView]);
+  }, [hover, typed, boxes.length, inView, motionOff]);
 
   // Hover: lens follows the pointer (re-read every frame while the camera settles)
   const ptr = useRef<{ x: number; y: number } | null>(null);
