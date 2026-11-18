@@ -4,6 +4,7 @@ import { Check, Wand2, X } from 'lucide-react';
 import { CountUp, Eyebrow, Reveal, SplitWords } from './ui';
 import { ease, vp } from '../motion';
 import type { SpecialtyFull, ClaimSide } from '../data/specialties';
+import { useTouch } from './useNarrow';
 
 /* ================================================================== */
 /* 1. Where a month leaks: waterfall                                  */
@@ -11,6 +12,7 @@ import type { SpecialtyFull, ClaimSide } from '../data/specialties';
 const AXIS_MIN = 85; // broken axis: bars start at 85% so the leaks are readable
 
 export function LeakFall({ s }: { s: SpecialtyFull }) {
+  const touch = useTouch();
   const L = s.leak!;
   const [size, setSize] = useState(L.sizes[1]);
   // open on the biggest specialty-specific leak (the last one is the shared "denials never worked")
@@ -35,7 +37,7 @@ export function LeakFall({ s }: { s: SpecialtyFull }) {
           <Eyebrow>{L.eyebrow}</Eyebrow>
           <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={L.lines} stagger={0.04} />
         </div>
-        <Reveal as="p" className="lf__intro [margin-bottom:-0.4rem] [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#5b5f72] [max-width:56rem]">{L.intro}</Reveal>
+        <Reveal as="p" className="lf__intro [margin-bottom:-0.4rem] [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#5b5f72] [max-width:56rem]">{touch ? L.intro.replace('Hover down the claim', 'Tap down the claim') : L.intro}</Reveal>
       </div>
 
       <motion.div className="lf__card [margin-top:5.6rem] [padding:4rem_4rem_3.2rem] [border-radius:3.2rem] [background:linear-gradient(165deg,_#f4f0ff_0%,_#fbfaff_55%,_#fff_100%)] [border:1px_solid_var(--lav-border)] [box-shadow:0_3rem_8rem_-3rem_rgba(80,_40,_220,_0.18)] [@media(max-width:_640px)]:[padding:2.4rem_1.6rem_2rem]" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 1, ease: ease.out }}>
@@ -134,6 +136,7 @@ function Side({ s, side, rowsRef }: { s: SpecialtyFull; side: 'bad' | 'good'; ro
 }
 
 export function TwoClaims({ s }: { s: SpecialtyFull }) {
+  const touch = useTouch();
   const C = s.claim!;
   const n = C.rows.length;
   const card = useRef<HTMLDivElement>(null);
@@ -189,7 +192,7 @@ export function TwoClaims({ s }: { s: SpecialtyFull }) {
           <Eyebrow>{C.eyebrow}</Eyebrow>
           <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={C.lines} stagger={0.04} />
         </div>
-        <Reveal as="p" className="tc__intro [margin-bottom:-0.4rem] [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#5b5f72] [max-width:56rem]">{C.intro}</Reveal>
+        <Reveal as="p" className="tc__intro [margin-bottom:-0.4rem] [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#5b5f72] [max-width:56rem]">{touch ? C.intro.replace('Hover down the claim', 'Tap down the claim') : C.intro}</Reveal>
       </div>
 
       <div className="tc__wrap [margin-top:5.6rem]">

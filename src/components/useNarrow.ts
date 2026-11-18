@@ -10,3 +10,14 @@ export function useNarrow(px = 640) {
   }, [px]);
   return n;
 }
+
+/** True on touch-first screens (phones, iPad), so "Hover…" hints can say "Tap…" instead. */
+export function useTouch() {
+  const [t, setT] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: none), (pointer: coarse)');
+    const on = () => setT(mq.matches); on();
+    mq.addEventListener('change', on); return () => mq.removeEventListener('change', on);
+  }, []);
+  return t;
+}

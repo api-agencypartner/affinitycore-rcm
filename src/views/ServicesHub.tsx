@@ -15,11 +15,13 @@ import { CASES as CASE_DATA } from '../data/insights';
 import { CaseCard } from './CaseStudies';
 import { Assessment } from '../sections/Assessment';
 import { MidCta } from '../components/ChildFolds';
+import { useTouch } from '../components/useNarrow';
 
 const byStation = (n: number) => SERVICES.filter((s) => s.station === n);
 
 /* ================= 1. Hero ================= */
 function Hero() {
+  const touch = useTouch();
   const [xs, setXs] = useState<XrayState>({ active: '33', stop: 0, hover: false });
   return (
     <section className="sh-hero sh-hero--x [display:grid] [padding:14rem_var(--gutter)_8rem] [@media(max-width:_1099px)]:[padding-top:12rem] [@media(max-width:_1099px)]:[min-height:0] [grid-template-columns:minmax(0,_0.8fr)_minmax(0,_1.2fr)] [gap:4rem] [padding-bottom:6rem]! [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [align-items:center]">
@@ -28,7 +30,7 @@ function Hero() {
         <SplitWords as="h1" className="page-title [font-weight:500] [font-size:6.12rem] [line-height:1.06] [letter-spacing:-0.18rem] [color:var(--ink-3)] [@media(max-width:_1099px)]:[font-size:4.32rem]" animateNow delay={0.3} stagger={0.05}
           lines={['Ten services.', 'One claim, followed', 'from visit to cash.']} bold={['cash.']} />
         <motion.p className="page-sub [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:56rem] [.ab-hero\_\_copy_&]:[max-width:64rem]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.8 }}>
-          Every box on a claim form is somebody’s job. Point at any box to see which of our ten services owns it, or scroll to follow one claim from visit to cash.
+          Every box on a claim form is somebody’s job. {touch ? 'Tap' : 'Point at'} any box to see which of our ten services owns it, or scroll to follow one claim from visit to cash.
         </motion.p>
         <motion.div className="sh-hero__cta [display:flex] [align-items:center] [gap:3.2rem] [flex-wrap:wrap]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.95 }}>
           <Button>Get a free revenue assessment</Button>

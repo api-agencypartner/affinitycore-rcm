@@ -11,6 +11,7 @@ import { SPECIALTIES, GROUPS, RULES, SPOT, ERROR_TYPES, getSpecialtyLite, matche
 import { ease } from '../motion';
 // Perf: pre-blurred copy of fluted-purple.jpg replaces a live backdrop-filter blur on these panels
 import fluted from '../assets/fluted-frost.jpg';
+import { useTouch } from '../components/useNarrow';
 
 const CONFIRM = '';
 const ruleShort = (id: RuleId) => RULES.find((r) => r.id === id)!.short;
@@ -160,6 +161,7 @@ function Tile({ s, lens, focus }: { s: SpecialtyLite; lens: RuleId | null; focus
 }
 
 function Index() {
+  const touch = useTouch();
   const [lens, setLens] = useState<RuleId | null>(null);
   const [focus, setFocus] = useState<string | null>(null);
   const [q, setQ] = useState('');
@@ -213,7 +215,7 @@ function Index() {
       <div className="xi__why [min-height:3.4rem] [margin-top:2.8rem] [font-size:2.2rem] [line-height:1.4] [color:var(--ink-2)] [max-width:90rem] [&_b]:[font-weight:500] [&_b]:[color:var(--purple)] [@media(max-width:_1099px)]:[font-size:max(1.8rem,16px)] [@media(max-width:_1099px)]:[min-height:7.6rem]">
         <AnimatePresence mode="wait" initial={false}>
           <motion.p key={lens ?? 'all'} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.35 }}>
-            {rule ? <><b>{rule.label}.</b> {rule.why}</> : 'Hover a specialty for the one thing that trips its claims most often. Pick a rule above to see who it hits.'}
+            {rule ? <><b>{rule.label}.</b> {rule.why}</> : (touch ? 'Tap' : 'Hover') + ' a specialty for the one thing that trips its claims most often. Pick a rule above to see who it hits.'}
           </motion.p>
         </AnimatePresence>
       </div>

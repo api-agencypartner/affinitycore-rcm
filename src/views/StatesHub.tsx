@@ -28,6 +28,7 @@ const MAC_LOGO: Record<string, string> = {
   'Palmetto GBA': '/mac/palmetto.webp',
 };
 import { ease, vp } from '../motion';
+import { useTouch } from '../components/useNarrow';
 
 /** Cards shown per step on small screens (0 = no limit on desktop). */
 function useStep() {
@@ -63,6 +64,7 @@ function Hero() {
 }
 
 function Finder() {
+  const touch = useTouch();
   const [q, setQ] = useState('');
   const [region, setRegion] = useState<Region>('All');
   // QA: after choosing a region, bring the updated results into view and move focus there (keyboard and screen-reader users land on them).
@@ -91,7 +93,7 @@ function Finder() {
       <div className="stfd__head [display:flex] [align-items:flex-end] [justify-content:space-between] [gap:4rem] [flex-wrap:wrap] [@media(max-width:_767px)]:[gap:2rem]">
         <div>
           <Eyebrow>/ Find your state</Eyebrow>
-          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Hover a state,', 'click to open its page.']} stagger={0.04} />
+          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={touch ? ['Tap a state', 'to open its page.'] : ['Hover a state,', 'click to open its page.']} stagger={0.04} />
         </div>
         <div className="stfd__tools [display:flex] [flex-direction:column] [align-items:flex-end] [gap:1.2rem] [@media(max-width:_1099px)]:[align-items:stretch] [@media(max-width:_1099px)]:[width:100%]">
           <label className="stfd__search [display:flex] [align-items:center] [gap:1rem] [width:38rem] [max-width:100%] [height:5.2rem] [padding:0_1.8rem] [border-radius:10rem] [background:#fff] [border:1px_solid_#e4e0f2] [color:var(--purple)] [transition:border-color_0.3s,_box-shadow_0.3s] [&:focus-within]:[border-color:var(--purple)] [&:focus-within]:[box-shadow:0_0_0_0.4rem_rgba(106,_65,_249,_0.12)] [&_input]:[flex:1] [&_input]:[min-width:0] [&_input]:[height:100%] [&_input]:[border:0] [&_input]:[outline:none] [&_input]:[background:transparent] [&_input]:[font-family:inherit] [&_input]:[font-weight:inherit] [&_input]:[font-style:inherit] [&_input]:[line-height:inherit] [&_input]:[font-size:max(1.6rem,15px)] [&_input]:[color:var(--ink-2)] [&_button]:[display:grid] [&_button]:[place-items:center] [&_button]:[color:#8a8ea0] [@media(max-width:_1099px)]:[width:100%]">

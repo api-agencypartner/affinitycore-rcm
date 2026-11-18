@@ -10,8 +10,10 @@ import { USMap } from '../components/USMap';
 import { STATES, FEATURED } from '../data/states';
 import { Link } from '../router';
 import { ease, vp } from '../motion';
+import { useTouch } from '../components/useNarrow';
 
 export function StatesFold() {
+  const touch = useTouch();
   const [active, setActive] = useState<string | null>(null);
   return (
     <section className="stf container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:14rem] [@media(max-width:_1099px)]:[padding-top:10rem]" id="states">
@@ -38,7 +40,7 @@ export function StatesFold() {
         </div>
         <motion.div className="stf__map [position:relative] [min-width:0] [@media(max-width:_1099px)]:[order:-1]" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 1, ease: ease.out }}>
           <USMap active={active} onActive={setActive} />
-          <p className="stf__hint [margin-top:1.6rem] [text-align:center] [font-size:max(1.4rem,14px)] [color:#6b6f7c]">Hover any state, click to open its page.</p>
+          <p className="stf__hint [margin-top:1.6rem] [text-align:center] [font-size:max(1.4rem,14px)] [color:#6b6f7c]">{touch ? 'Tap any state to open its page.' : 'Hover any state, click to open its page.'}</p>
         </motion.div>
       </div>
     </section>

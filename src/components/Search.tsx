@@ -203,7 +203,7 @@ export function SiteSearch() {
               ))}
             </div>
 
-            <div className="gs__foot [flex:none] [display:flex] [gap:2.4rem] [padding:1.2rem_2.4rem] [border-top:1px_solid_#ece8fa] [font-size:max(1.3rem,13px)] [color:#8a8ea0] [&_kbd]:[display:inline-block] [&_kbd]:[min-width:2.2rem] [&_kbd]:[margin-right:0.4rem] [&_kbd]:[padding:0.1rem_0.6rem] [&_kbd]:[border-radius:0.6rem] [&_kbd]:[border:1px_solid_var(--lav-border)] [&_kbd]:[font-family:var(--f-mono)] [&_kbd]:[font-size:1.15rem] [&_kbd]:[text-align:center] [@media(max-width:_640px)]:[display:none]">
+            <div className="gs__foot [flex:none] [display:flex] [@media(hover:_none)]:[display:none] [gap:2.4rem] [padding:1.2rem_2.4rem] [border-top:1px_solid_#ece8fa] [font-size:max(1.3rem,13px)] [color:#8a8ea0] [&_kbd]:[display:inline-block] [&_kbd]:[min-width:2.2rem] [&_kbd]:[margin-right:0.4rem] [&_kbd]:[padding:0.1rem_0.6rem] [&_kbd]:[border-radius:0.6rem] [&_kbd]:[border:1px_solid_var(--lav-border)] [&_kbd]:[font-family:var(--f-mono)] [&_kbd]:[font-size:1.15rem] [&_kbd]:[text-align:center] [@media(max-width:_640px)]:[display:none]">
               <span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>↵</kbd> to open</span><span><kbd>Esc</kbd> to close</span>
             </div>
           </motion.div>
