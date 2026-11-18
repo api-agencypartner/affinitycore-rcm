@@ -22,6 +22,10 @@ const MAC_LOGO: Record<string, string> = {
   'CGS Administrators': '/mac/cgs.webp',
   'Wisconsin Physicians Service (WPS)': '/mac/wps.webp',
   'Noridian Healthcare Solutions': '/mac/noridian.svg',
+  'First Coast Service Options': '/mac/firstcoast.webp',
+  'National Government Services (NGS)': '/mac/ngs.webp',
+  'Novitas Solutions': '/mac/novitas.webp',
+  'Palmetto GBA': '/mac/palmetto.webp',
 };
 import { ease, vp } from '../motion';
 
@@ -163,7 +167,7 @@ function ByContractor() {
       <div className="stmac__grid [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.2rem] [margin-top:4.8rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
         {groups.map(([k, list]) => (
           <div key={k} className="stmac__card [padding:2.4rem_2.6rem] [border-radius:2rem] [background:#fff] [border:1px_solid_#ece8fa] [&_h3]:[margin:0.8rem_0_1.2rem] [&_h3]:[font-family:var(--f-jak)] [&_h3]:[font-weight:500] [&_h3]:[font-size:max(2rem,16px)] [&_h3]:[line-height:1.3] [&_h3]:[color:var(--ink-2)]">
-            <p className="stmac__j [display:flex] [align-items:center] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:var(--purple)]">{MAC_LOGO[MACS[k].name] ? <img className="stmac__logo [display:block] [height:3.6rem] [width:auto] [max-width:16rem] [object-fit:contain]" src={u(MAC_LOGO[MACS[k].name])} alt={`${MACS[k].name} logo`} loading="lazy" decoding="async" /> : <span aria-hidden className="stmac__ico [display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:1rem] [background:#f3efff] [color:var(--purple)]"><Landmark size={18} strokeWidth={1.8} /></span>}Jurisdiction {MACS[k].j.replace(/^J/, '')}</p>
+            <p className="stmac__j [display:flex] [align-items:center] [min-height:6.4rem] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:var(--purple)]">{MAC_LOGO[MACS[k].name] ? <img className={`stmac__logo [display:block] ${MACS[k].name === 'Palmetto GBA' ? '[height:6.4rem]' : '[height:4.4rem]'} [width:auto] [max-width:20rem] [object-fit:contain] [object-position:left_center]`} src={u(MAC_LOGO[MACS[k].name])} alt={`${MACS[k].name} logo`} loading="lazy" decoding="async" /> : <span aria-hidden className="stmac__ico [display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:1rem] [background:#f3efff] [color:var(--purple)]"><Landmark size={18} strokeWidth={1.8} /></span>}</p>
             <h3>{MACS[k].name}</h3>
             <p className="stmac__states [font-size:max(1.6rem,15px)] [line-height:1.7] [color:#4a4f63] [&_a]:[color:var(--purple)] [&_a]:[text-decoration:underline] [&_a]:[text-decoration-color:rgba(106,_65,_249,_0.3)]! [&_a]:[text-underline-offset:0.2em] [&_a:hover]:[text-decoration-color:currentColor]! [@media(max-width:_1279px)]:[font-size:16px]">{list.map((s, i) => <span key={s.slug}>{i > 0 && ', '}<Link to={`/states/${s.slug}`}>{s.name}</Link></span>)}</p>
           </div>
