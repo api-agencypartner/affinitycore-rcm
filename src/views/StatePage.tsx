@@ -30,7 +30,6 @@ import { setJsonLd, pageJsonLd } from '../data/seo';
 const REGION: Record<string, string> = { texas: 'Texas|Dallas|Houston|Austin', florida: 'Florida|Miami|Tampa|Orlando', california: 'California|Los Angeles|San Diego' };
 
 function Hero({ s }: { s: State }) {
-  const logo = macLogoFor(s.slug);
   return (
     <section className="sp-hero stp-hero [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:6rem] [align-items:center] [padding:16.4rem_var(--gutter)_6rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[padding-top:12rem] [@media(max-width:_1099px)]:[min-height:0]">
       <div className="sp-hero__copy [display:flex] [flex-direction:column] [gap:2.8rem]">
@@ -48,7 +47,7 @@ function Hero({ s }: { s: State }) {
         <div className="stp-card__map [position:relative] [height:30rem] [display:grid] [place-items:center] [@media(max-width:_1099px)]:[height:22rem]"><StateShape id={s.id} className="stp-shape [width:100%] [height:100%] [&_path]:[fill:rgba(255,_255,_255,_0.18)] [&_path]:[stroke:#fff] [&_path]:[stroke-width:2] [&_path]:[vector-effect:non-scaling-stroke] [&_path]:[stroke-linejoin:round]" /></div>
         <p className="stp-card__k [position:relative] [display:flex] [align-items:center] [gap:0.6rem] [margin-top:2.4rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.06em] [text-transform:uppercase] [color:rgba(255,_255,_255,_0.8)]"><MapPin size={14} /> {s.name} billing, at a glance</p>
         <ul className="stp-card__chips [position:relative] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1rem] [margin-top:1.2rem] [&_li]:[padding:1.4rem_1.6rem] [&_li]:[border-radius:1.6rem] [&_li]:[background:rgba(255,_255,_255,_0.12)] [&_li]:[border:1px_solid_rgba(255,_255,_255,_0.22)] [&_small]:[display:block] [&_small]:[font-size:max(1.2rem,12px)] [&_small]:[color:rgba(255,_255,_255,_0.75)] [&_b]:[display:block] [&_b]:[margin-top:0.4rem] [&_b]:[font-weight:600] [&_b]:[font-size:max(1.6rem,15px)] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-          {s.chips.map(([k, v]) => <li key={k}><small className={k === 'Medicare' ? '[display:flex]! [align-items:center] [gap:0.5rem]' : undefined}>{k === 'Medicare' && !logo && <Landmark size={13} strokeWidth={2} aria-hidden />}{k}</small><b>{v}</b>{k === 'Medicare' && logo && <span className="stp-card__mac [display:inline-flex] [align-items:center] [margin-top:0.8rem] [padding:0.4rem_0.8rem] [border-radius:0.8rem] [background:#fff]"><img src={logo.src} alt={`${logo.name} logo`} className={`[display:block] ${logo.tall ? '[height:3.4rem]' : '[height:2rem]'} [width:auto] [max-width:100%]`} loading="lazy" decoding="async" /></span>}</li>)}
+          {s.chips.map(([k, v]) => <li key={k}><small className={k === 'Medicare' ? '[display:flex]! [align-items:center] [gap:0.5rem]' : undefined}>{k === 'Medicare' && <Landmark size={13} strokeWidth={2} aria-hidden />}{k}</small><b>{v}</b></li>)}
         </ul>
         <p className="stp-card__cities [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [position:relative] [margin-top:1.6rem] [font-size:max(1.4rem,14px)] [color:rgba(255,_255,_255,_0.8)]">{s.cities.join(' · ')}</p>
       </motion.div>
@@ -204,7 +203,7 @@ export function StatePage({ slug }: { slug: string }) {
   return (
     <main className="page [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem]">
       <Hero s={s} />
-      <IntroBlock d={stateIntro(s)} />
+      <IntroBlock d={stateIntro(s)} aside={(() => { const l = macLogoFor(s.slug); return l ? <img src={l.src} alt={`${l.name} logo`} className={`ib__mac [display:block] ${l.tall ? '[height:7.2rem]' : '[height:4.8rem]'} [width:auto] [max-width:24rem] [object-fit:contain] [object-position:left_bottom]`} loading="lazy" decoding="async" /> : null; })()} />
       <Rules s={s} />
       <Specialties s={s} />
       <Services s={s} />
