@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Arrow, Eyebrow, Reveal, SplitWords } from '../components/ui';
 import { ease, vp } from '../motion';
@@ -17,6 +17,13 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
 export function Testimonials() {
   const [i, setI] = useState(0);
+  // Slide by the real card width + gap (cards are fluid below 1280px, so a fixed rem step cropped them).
+  const track = useRef<HTMLDivElement>(null);
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    const measure = () => { const el = track.current; const a = el?.children[0] as HTMLElement | undefined, b = el?.children[1] as HTMLElement | undefined; if (a && b) setStep(b.offsetLeft - a.offsetLeft); };
+    measure(); window.addEventListener('resize', measure); return () => window.removeEventListener('resize', measure);
+  }, []);
   const [dir, setDir] = useState(1);
   const go = (d: number) => { const n = Math.min(QUOTES.length - 1, Math.max(0, i + d)); if (n !== i) { setDir(d); setI(n); } };
 
@@ -45,13 +52,13 @@ export function Testimonials() {
       </div>
 
       <div className="testi__viewport [position:relative] [z-index:1] [padding:2rem_0_6rem] [min-width:0]">
-        <motion.div className="testi__track [display:flex] [gap:4rem] [cursor:grab] [&:active]:[cursor:grabbing]" animate={{ x: `${-i * 80.4}rem` }} transition={{ duration: 1.1, ease: ease.out }}
+        <motion.div ref={track} className="testi__track [display:flex] [gap:4rem] [cursor:grab] [&:active]:[cursor:grabbing]" animate={{ x: -i * step }} transition={{ duration: 1.1, ease: ease.out }}
           drag="x" dragConstraints={{ left: 0, right: 0 }} dragElastic={0.15}
           onDragEnd={(_, info) => { if (info.offset.x < -80) go(1); else if (info.offset.x > 80) go(-1); }}>
           {QUOTES.map((q, k) => (
             <motion.div key={k} className="testi-card__in [flex-shrink:0]" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp}
               transition={{ duration: 0.9, ease: ease.out, delay: Math.min(k, 2) * 0.12 }}>
-            <motion.figure className="testi-card [width:76.4rem] [height:47.3rem] [padding:4rem] [border-radius:2.4rem] [background:linear-gradient(160deg,_#f8f6ff,_#fff_70%)] [box-shadow:0_2rem_6rem_rgba(106,_65,_249,_0.08)] [display:flex] [flex-direction:column] [user-select:none] [&_blockquote]:[margin-top:1.6rem] [&_blockquote]:[font-weight:500] [&_blockquote]:[font-size:3rem] [&_blockquote]:[line-height:4.4rem] [&_blockquote]:[color:var(--ink-2)] [&_figcaption]:[margin-top:auto] [&_figcaption]:[display:flex] [&_figcaption]:[align-items:center] [&_figcaption]:[gap:2rem] [&_figcaption]:[font-size:max(1.8rem,16px)] [&_figcaption]:[color:var(--navy)] [&_figcaption_img]:[width:6.4rem] [&_figcaption_img]:[height:6.4rem] [&_figcaption_img]:[border-radius:50%] [&_figcaption_b]:[display:block] [&_figcaption_b]:[font-weight:500] [&_figcaption_b]:[font-size:max(2rem,16px)] [&_figcaption_b]:[margin-bottom:0.4rem] [@media(max-width:_1279px)]:[width:calc(100vw_-_4rem)] [@media(max-width:_1279px)]:[height:auto] [@media(max-width:_1279px)]:[min-height:36rem] [@media(max-width:_1279px)]:[&_blockquote]:[font-size:2.4rem] [@media(max-width:_1279px)]:[&_blockquote]:[line-height:3.4rem] [@media(max-width:_640px)]:[min-height:0] [@media(max-width:_640px)]:[height:auto] [@media(max-width:_640px)]:[padding:2.8rem_2.4rem] [@media(max-width:_640px)]:[&_blockquote]:[font-size:max(2rem,16px)] [@media(max-width:_640px)]:[&_blockquote]:[line-height:1.5] [@media(max-width:_640px)]:[&_figcaption]:[margin-top:2.4rem]" initial={false}
+            <motion.figure className="testi-card [width:76.4rem] [height:47.3rem] [padding:4rem] [border-radius:2.4rem] [background:linear-gradient(160deg,_#f8f6ff,_#fff_70%)] [box-shadow:0_2rem_6rem_rgba(106,_65,_249,_0.08)] [display:flex] [flex-direction:column] [user-select:none] [&_blockquote]:[margin-top:1.6rem] [&_blockquote]:[font-weight:500] [&_blockquote]:[font-size:3rem] [&_blockquote]:[line-height:4.4rem] [&_blockquote]:[color:var(--ink-2)] [&_figcaption]:[margin-top:auto] [&_figcaption]:[display:flex] [&_figcaption]:[align-items:center] [&_figcaption]:[gap:2rem] [&_figcaption]:[font-size:max(1.8rem,16px)] [&_figcaption]:[color:var(--navy)] [&_figcaption_img]:[width:6.4rem] [&_figcaption_img]:[height:6.4rem] [&_figcaption_img]:[border-radius:50%] [&_figcaption_b]:[display:block] [&_figcaption_b]:[font-weight:500] [&_figcaption_b]:[font-size:max(2rem,16px)] [&_figcaption_b]:[margin-bottom:0.4rem] [@media(max-width:_1279px)]:[width:calc(100vw_-_64px)] [@media(max-width:_640px)]:[width:calc(100vw_-_4rem)] [@media(max-width:_1279px)]:[height:auto] [@media(max-width:_1279px)]:[min-height:36rem] [@media(max-width:_1279px)]:[&_blockquote]:[font-size:2.4rem] [@media(max-width:_1279px)]:[&_blockquote]:[line-height:3.4rem] [@media(max-width:_640px)]:[min-height:0] [@media(max-width:_640px)]:[height:auto] [@media(max-width:_640px)]:[padding:2.8rem_2.4rem] [@media(max-width:_640px)]:[&_blockquote]:[font-size:max(2rem,16px)] [@media(max-width:_640px)]:[&_blockquote]:[line-height:1.5] [@media(max-width:_640px)]:[&_figcaption]:[margin-top:2.4rem]" initial={false}
               animate={{ opacity: k < i ? 0.25 : 1, scale: k === i ? 1 : 0.97 }} transition={{ duration: 0.5, ease: ease.out }}>
               <div className="testi-card__top [display:flex] [justify-content:space-between] [align-items:center]">
                 <svg className="testi-card__mark [width:3.4rem] [height:2.4rem]" viewBox="0 0 34 24" aria-hidden><path d="M6 0h8L8 24H0zM26 0h8l-6 24h-8z" fill="#6a41f9" /></svg>

@@ -43,8 +43,8 @@ function Form() {
             onSubmit={(e) => { e.preventDefault(); rememberName(name); setSent(true); go('/thank-you'); }}>
             <p className="ct-form__k [font-weight:500] [font-size:2.6rem] [color:var(--ink-2)] [margin-bottom:2.4rem]">Request a call back</p>
             <div className="ct-grid [display:grid] [grid-template-columns:repeat(2,_minmax(0,_1fr))] [gap:1.6rem_2rem] [@media(max-width:_1279px)]:[grid-template-columns:minmax(0,_1fr)]">
-              <label>Full name<input required placeholder="Dr. Jane Smith" value={name} onChange={(e) => setName(e.target.value)} /></label>
-              <label>Work email<input required type="email" placeholder="jane@yourpractice.com" /></label>
+              <label>Full name *<input name="name" required autoComplete="name" placeholder="Dr. Jane Smith" value={name} onChange={(e) => setName(e.target.value)} /></label>
+              <label>Work email *<input name="email" required type="email" autoComplete="email" placeholder="jane@yourpractice.com" /></label>
               <label>Phone<input type="tel" placeholder="(214) 555-0123" /></label>
               <label>Practice name<input placeholder="Smith Family Medicine" /></label>
               <label>Specialty<select defaultValue=""><option value="" disabled>Select specialty</option>{SPECIALTIES.map((s) => <option key={s.slug}>{s.name}</option>)}<option>Other</option></select></label>

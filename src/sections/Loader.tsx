@@ -63,7 +63,7 @@ export function Loader({ onHandoff, words = LOADER.words }: { onHandoff: () => v
               <path d="M6 12h12M12 18V6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
             </motion.svg>
 
-            <div className="loader__text [position:relative] [flex:1] [display:flex] [align-items:center] [gap:1.1rem] [height:7.6rem] [font-size:3.4rem] [letter-spacing:0.02em] [@media(max-width:_1279px)]:[height:40px] [@media(max-width:_1279px)]:[font-size:20px] [@media(max-width:_1279px)]:[overflow:hidden]" ref={textRef}>
+            <div className="loader__text [position:relative] [flex:1] [display:flex] [align-items:center] [gap:1.1rem] [height:7.6rem] [font-size:3.4rem] [letter-spacing:0.02em] [@media(max-width:_1279px)]:[height:40px] [@media(max-width:_1279px)]:[font-size:20px] [@media(max-width:_1279px)]:[overflow:hidden] [@media(max-width:_640px)]:[font-size:14px] [@media(max-width:_640px)]:[letter-spacing:0]" ref={textRef}>
               {/* Rectangle 24 — selection highlight sweeping behind the words */}
               <motion.span className="loader__select [position:absolute] [left:-1.4rem] [top:0] [height:100%] [width:85.6rem] [@media(max-width:_1279px)]:[max-width:calc(100%_+_1.4rem)] [background:rgba(255,_255,_255,_0.2)]"
                 initial={{ clipPath: 'inset(0 100% 0 0)' }}
