@@ -172,7 +172,7 @@ export function Logo({ light, className = '' }: { light?: boolean; className?: s
   // unique gradient ids per instance (nav + footer both inline the SVG)
   const id = useId().replace(/[^a-zA-Z0-9]/g, '');
   return (
-    <span className={String.raw`logo [display:inline-block] [width:17rem] [aspect-ratio:233_/_57] [color:#000] [line-height:0] [&_svg]:[display:block] [&_svg]:[width:100%] [&_svg]:[height:100%] [&.logo--xl]:[width:25.6rem] [@media(max-width:_1099px)]:[width:14rem] [@media(max-width:_1099px)]:[&.logo--xl]:[width:14rem] [@media(max-width:_480px)]:[width:12rem] [@media(max-width:_480px)]:[&.logo--xl]:[width:12rem] [.cc\_\_mark_&]:[display:block] [.cc\_\_mark_&]:[width:11rem] ${light ? String.raw`logo--light [color:#fff]!` : ''} ${className}`} role="img" aria-label="Affinity Core"
+    <span className={String.raw`logo [display:inline-block] [width:17rem] [aspect-ratio:233_/_60] [color:#000] [line-height:0] [&_svg]:[display:block] [&_svg]:[width:100%] [&_svg]:[height:100%] [&.logo--xl]:[width:25.6rem] [@media(max-width:_1099px)]:[width:14rem] [@media(max-width:_1099px)]:[&.logo--xl]:[width:14rem] [@media(max-width:_480px)]:[width:12rem] [@media(max-width:_480px)]:[&.logo--xl]:[width:12rem] [.cc\_\_mark_&]:[display:block] [.cc\_\_mark_&]:[width:11rem] ${light ? String.raw`logo--light [color:#fff]!` : ''} ${className}`} role="img" aria-label="Affinity Core"
       dangerouslySetInnerHTML={{ __html: logoSvg.replace(/_LOGOID/g, '_' + id) }} />
   );
 }
