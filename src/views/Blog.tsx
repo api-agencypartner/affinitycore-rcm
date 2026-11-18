@@ -6,7 +6,7 @@ import person3 from '../assets/person-3.webp';
 import person4 from '../assets/person-4.webp';
 import person5 from '../assets/person-5.webp';
 import { motion, AnimatePresence, LayoutGroup, useScroll, useSpring } from 'motion/react';
-import { ArrowRight, ChevronLeft, ExternalLink, Clock } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Clock } from 'lucide-react';
 import { Button, Eyebrow, Logo, Reveal, SplitWords } from '../components/ui';
 import { CTA } from '../sections/Closing';
 import { Link, go } from '../router';
@@ -27,14 +27,6 @@ const live = (a: Article) => !!a.body;
 
 /* ---- Cover style: "headline" (text on image, best for Google Images / social), "split" (title + illustration) or "scene" (illustration). ---- */
 type CoverStyle = 'headline' | 'people' | 'split' | 'scene';
-let coverStyle: CoverStyle = (() => { try { return (localStorage.getItem('ac-blog-cover') as CoverStyle) || 'headline'; } catch { return 'headline'; } })();
-const coverSubs = new Set<(s: CoverStyle) => void>();
-const setCoverStyle = (v: CoverStyle) => { coverStyle = v; try { localStorage.setItem('ac-blog-cover', v); } catch { /* ignore */ } coverSubs.forEach((f) => f(v)); };
-function useCoverStyle() {
-  const [v, set] = useState(coverStyle);
-  useEffect(() => { coverSubs.add(set); return () => { coverSubs.delete(set); }; }, []);
-  return v;
-}
 
 /** Headline cover: the article's hook written on a branded image. Built to be the featured / OG image too. */
 /* Cutout people for the headline covers (Envato Elements, licensed to "Affinity Core Website"). */
@@ -92,28 +84,12 @@ function SplitCover({ a, big }: { a: Article; big?: boolean }) {
 
 /** Scene cover: a small, recognizable moment from the practice's day (see components/BlogCover). */
 function Cover({ a, big }: { a: Article; big?: boolean }) {
-  const style = useCoverStyle();
   return (
-    <motion.div className={String.raw`bc [position:relative] [isolation:isolate] [overflow:hidden] [aspect-ratio:16_/_9] [border-radius:2.4rem_2.4rem_0_0] [display:flex] [padding:2.4rem] [background:radial-gradient(120%_90%_at_85%_10%,_#ede6ff_0%,_#f6f3ff_45%,_#fbfaff_100%)] [justify-content:center] [align-items:center] [&::before]:[content:''] [&::before]:[position:absolute] [&::before]:[inset:0] [&::before]:[z-index:-1] [&::before]:[background-image:radial-gradient(rgba(106,_65,_249,_0.12)_1px,_transparent_1.2px)]! [&::before]:[background-size:1.8rem_1.8rem]! [&::before]:[-webkit-mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&::before]:[mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&.bc--big.pa-art]:[flex-direction:column] [&.bc--big.pa-art]:[justify-content:center] [&.bc--big.pa-art]:[gap:1.8rem] [&.bc--big.pa-art]:[cursor:default] [&.bc--big.pa-art]:[min-height:56rem] [&.bc--big.pa-art]:[padding:8.4rem_2rem_6.4rem]! [@media(min-width:1024px)]:[&.bc--big.pa-art]:[min-height:60rem] [@media(min-width:1024px)]:[&.bc--big.pa-art]:[padding:9rem_3.2rem_6.8rem]! [&.bc--big.ba]:[position:relative] [&.bc--big.ba]:[overflow:hidden] [&.bc--big.ba]:[min-height:56rem] [&.bc--big.ba]:[background:var(--soft-grain),_var(--soft-bg)]! [&.bc--big.ba]:[cursor:pointer] [&.bc--big.ba]:[isolation:isolate] [@media(max-width:_1099px)]:[&.bc--big.ba]:[min-height:48rem] [@media(max-width:_640px)]:[&.bc--big.ba]:[min-height:40rem] ${big ? String.raw`bc--big [aspect-ratio:auto]! [height:100%] [min-height:34rem] [border-radius:3.2rem_0_0_3.2rem]! [padding:4rem]! [@media(max-width:_1099px)]:[min-height:22rem] [@media(max-width:_1099px)]:[border-radius:3.2rem_3.2rem_0_0]!` : ''} ${style === 'headline' || style === 'people' ? String.raw`bc--headline [padding:0]! [background:#2a1580]! [&::before]:[display:none]` : ''} ${style === 'split' ? String.raw`bc--split [padding:0]!` : ''}`} initial="rest" animate="rest" whileHover="hover">
-      {style === 'split' ? <SplitCover a={a} big={big} /> : style !== 'scene' ? <HeadlineCover a={a} big={big} person={style === 'people'} /> : <>
-        <span className="bc__topic [position:absolute] [left:2.4rem] [top:2.4rem] [padding:0.6rem_1.2rem] [border-radius:3rem] [background:#fff] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.06em] [color:var(--purple)]">{a.topic}</span>
-        {a.cover && <SceneCover c={a.cover} />}
-      </>}
+    <motion.div className={String.raw`bc [position:relative] [isolation:isolate] [overflow:hidden] [aspect-ratio:16_/_9] [border-radius:2.4rem_2.4rem_0_0] [display:flex] [padding:2.4rem] [background:radial-gradient(120%_90%_at_85%_10%,_#ede6ff_0%,_#f6f3ff_45%,_#fbfaff_100%)] [justify-content:center] [align-items:center] [&::before]:[content:''] [&::before]:[position:absolute] [&::before]:[inset:0] [&::before]:[z-index:-1] [&::before]:[background-image:radial-gradient(rgba(106,_65,_249,_0.12)_1px,_transparent_1.2px)]! [&::before]:[background-size:1.8rem_1.8rem]! [&::before]:[-webkit-mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&::before]:[mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&.bc--big.pa-art]:[flex-direction:column] [&.bc--big.pa-art]:[justify-content:center] [&.bc--big.pa-art]:[gap:1.8rem] [&.bc--big.pa-art]:[cursor:default] [&.bc--big.pa-art]:[min-height:56rem] [&.bc--big.pa-art]:[padding:8.4rem_2rem_6.4rem]! [@media(min-width:1024px)]:[&.bc--big.pa-art]:[min-height:60rem] [@media(min-width:1024px)]:[&.bc--big.pa-art]:[padding:9rem_3.2rem_6.8rem]! [&.bc--big.ba]:[position:relative] [&.bc--big.ba]:[overflow:hidden] [&.bc--big.ba]:[min-height:56rem] [&.bc--big.ba]:[background:var(--soft-grain),_var(--soft-bg)]! [&.bc--big.ba]:[cursor:pointer] [&.bc--big.ba]:[isolation:isolate] [@media(max-width:_1099px)]:[&.bc--big.ba]:[min-height:48rem] [@media(max-width:_640px)]:[&.bc--big.ba]:[min-height:40rem] ${big ? String.raw`bc--big [aspect-ratio:auto]! [height:100%] [min-height:34rem] [border-radius:3.2rem_0_0_3.2rem]! [padding:4rem]! [@media(max-width:_1099px)]:[min-height:22rem] [@media(max-width:_1099px)]:[border-radius:3.2rem_3.2rem_0_0]!` : ''} bc--split [padding:0]!`} initial="rest" animate="rest" whileHover="hover">
+      {/* Approved cover style: title + illustration */}
+      <SplitCover a={a} big={big} />
       {!live(a) && <span className="bc__soon [position:absolute] [right:2.4rem] [top:2.4rem] [padding:0.6rem_1.2rem] [border-radius:3rem] [background:rgba(20,_11,_48,_0.85)] [color:#fff] [font-size:max(1.2rem,12px)] [font-weight:600] [.bc--headline_&]:[z-index:2]">Coming soon</span>}
     </motion.div>
-  );
-}
-
-/** Review switcher: compare the two cover styles (remove before launch). */
-function CoverPicker() {
-  const v = useCoverStyle();
-  return (
-    <div className="ccp [display:flex] [align-items:center] [gap:0.4rem] [width:max-content] [max-width:100%] [margin:3.2rem_auto_0] [padding:0.5rem] [border-radius:3rem] [border:1px_dashed_#cfc6f3] [background:#fff] [font-size:max(1.4rem,14px)] [&>span]:[padding:0_1.2rem_0_1rem] [&>span]:[font-family:var(--f-mono)] [&>span]:[font-size:max(1.15rem,11.5px)] [&>span]:[letter-spacing:0.05em] [&>span]:[text-transform:uppercase] [&>span]:[color:#636673] [&_button]:[padding:0.8rem_1.6rem] [&_button]:[border-radius:2.4rem] [&_button]:[color:var(--ink-2)] [&_button]:[transition:background_0.3s,_color_0.3s] [@media(max-width:_640px)]:[flex-wrap:wrap] [@media(max-width:_640px)]:[justify-content:center] [@media(max-width:_640px)]:[border-radius:2rem]" role="radiogroup" aria-label="Blog cover style (review)">
-      <span>Cover style</span>
-      {([['headline', 'Headline'], ['people', 'Headline + person'], ['split', 'Title + illustration'], ['scene', 'Illustration']] as const).map(([id, l]) => (
-        <button key={id} type="button" role="radio" aria-checked={v === id} className={v === id ? String.raw`is-on [.assess\_\_steps_span&]:[color:var(--navy)] [.assess\_\_steps_span&_b]:[background:var(--purple)] [.assess\_\_steps_span&_b]:[border-color:var(--purple)] [.assess\_\_steps_span&_b]:[color:#fff] [.assess\_\_steps_i&::after]:[transform:scaleX(1)] [.cx-read\_\_n_i&]:[width:2.4rem] [.cx-read\_\_n_i&]:[background:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [.sg\_\_toc_button&]:[color:var(--purple)] [.sg\_\_toc_button&]:[border-left-color:var(--purple)] [.pg\_\_toc_button&]:[color:#fff] [.pg\_\_toc_button&_small]:[color:rgba(255,_255,_255,_0.7)] [.pg\_\_dots_i&]:[width:2.4rem] [.pg\_\_dots_i&]:[background:var(--purple)] [.stfd\_\_tabs_button&]:[color:#fff] [.se\_\_dots_i&]:[width:6.4rem] [.sw-anes\_\_bar_i&]:[background:var(--grad)] [.sw-body_circle&]:[fill:var(--purple)] [.sw-vial\_\_body_i&]:[background:var(--grad)] [.sw-vial\_\_body_i&_small]:[color:#fff] [.sw-wound\_\_grid_i&]:[background:#c9b8ff] [.sw-wound\_\_grid_i&]:[border-color:transparent] [.sw-cal_i&]:[background:var(--purple)] [.sw-cal_i&]:[color:#fff] [.sw-wells_i&]:[background:#e2d9ff] [.sw-wells_i&]:[border-color:#c9b8ff] [.sw-shot_i&]:[background:var(--purple)] [.sw-shot_i&]:[border-color:var(--purple)] [.lf\_\_seg_button&]:[color:#fff] [.tc\_\_why_li&]:[opacity:1] [.sl\_\_tabs_button&]:[color:#fff] [.ar\_\_toc_a&]:[color:var(--ink-2)] [.ct-needs_button&]:[color:#fff] [.wa\_\_zones_li&]:[background:var(--grad)] [.wa\_\_zones_li&]:[border-color:transparent] [.wa\_\_zones_li&_small]:[color:#fff] [.wa\_\_zones_li&_b]:[color:#fff] [.wa\_\_zones_li&_em]:[color:#fff] [.se\_\_dots_i&]:[background:var(--purple)] [.ct-needs_button&]:[background:var(--grad)] [.ct-needs_button&]:[border-color:transparent] [.sc-cal_i&]:[background:var(--purple)] [.sc-cal_i&]:[color:#fff] [.ccp_button&]:[background:var(--purple)] [.ccp_button&]:[color:#fff] [.pa-art\_\_seg_button&]:[background:var(--grad)] [.pa-art\_\_seg_button&]:[color:#fff] [.pa-art\_\_steps_li&]:[background:var(--purple)] [.pa-art\_\_steps_li&]:[border-color:var(--purple)] [.pa-art\_\_steps_li&]:[color:#fff] [.ab-orbit\_\_rings_line&]:[stroke:var(--purple)] [.ab-orbit\_\_rings_line&]:[stroke-width:2]` : ''} onClick={() => setCoverStyle(id)}>{l}</button>
-      ))}
-    </div>
   );
 }
 
@@ -134,11 +110,45 @@ export function Card({ a, k, still }: { a: Article; k: number; still?: boolean }
   );
 }
 
+/* ---- Pagination: 6 articles per page, numbered pages with previous / next ---- */
+const PER_PAGE = 6;
+function Pager({ page, pages, total, onPage }: { page: number; pages: number; total: number; onPage: (n: number) => void }) {
+  if (!total) return null;
+  const from = (page - 1) * PER_PAGE + 1, to = Math.min(page * PER_PAGE, total);
+  const btn = String.raw`pg-btn [display:inline-grid] [place-items:center] [min-width:4.8rem] [height:4.8rem] [padding-inline:1.4rem] [border-radius:6rem] [border:1px_solid_#e3def5] [background:#fff] [color:var(--ink-2)] [font-size:max(1.7rem,15px)] [font-weight:500] [cursor:pointer] [transition:background_0.3s,_border-color_0.3s,_color_0.3s] [&:hover:not(:disabled)]:[border-color:var(--purple)] [&:hover:not(:disabled)]:[color:var(--purple)] [&:disabled]:[opacity:0.4] [&:disabled]:[cursor:default] [&[aria-current=page]]:[background:var(--grad)] [&[aria-current=page]]:[border-color:transparent] [&[aria-current=page]]:[color:#fff] [@media(max-width:_640px)]:[min-width:44px] [@media(max-width:_640px)]:[height:44px]`;
+  return (
+    <nav className="bl__pager [display:flex] [flex-wrap:wrap] [align-items:center] [justify-content:space-between] [gap:2rem] [margin-top:4.8rem] [padding-top:3.2rem] [border-top:1px_solid_#ece8fa] [@media(max-width:_640px)]:[justify-content:center]" aria-label="Blog pages">
+      <p className="[font-size:max(1.6rem,15px)] [color:#5b5f72]" aria-live="polite">Showing {from}–{to} of {total} articles</p>
+      {pages > 1 && (
+        <div className="[display:flex] [align-items:center] [gap:0.8rem]">
+          <button type="button" className={btn} onClick={() => onPage(page - 1)} disabled={page === 1} aria-label="Previous page"><ChevronLeft size={18} aria-hidden /></button>
+          {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
+            <button key={n} type="button" className={btn} onClick={() => onPage(n)} aria-current={n === page ? 'page' : undefined} aria-label={`Page ${n}`}>{n}</button>
+          ))}
+          <button type="button" className={btn} onClick={() => onPage(page + 1)} disabled={page === pages} aria-label="Next page"><ChevronRight size={18} aria-hidden /></button>
+        </div>
+      )}
+    </nav>
+  );
+}
+
 export function BlogHub() {
   const [t, setT] = useState<string>('All');
-  const [all, setAll] = useState(false);
+  const [page, setPage] = useState(1);
+  const gridTop = useRef<HTMLDivElement>(null);
   const feat = ARTICLES[0];
   const rest = ARTICLES.slice(1).filter((a) => t === 'All' || a.topic === t);
+  const pages = Math.max(1, Math.ceil(rest.length / PER_PAGE));
+  const cur = Math.min(page, pages);
+  const shown = rest.slice((cur - 1) * PER_PAGE, cur * PER_PAGE);
+  // ?page=2 in the address, so a page can be shared or bookmarked
+  useEffect(() => { const n = Number(new URLSearchParams(window.location.search).get('page')); if (n > 1) setPage(n); }, []);
+  const goPage = (n: number) => {
+    setPage(n);
+    const url = new URL(window.location.href); if (n > 1) url.searchParams.set('page', String(n)); else url.searchParams.delete('page');
+    window.history.replaceState(null, '', url);
+    gridTop.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   useEffect(() => setMeta('Medical Billing Blog', 'Plain-English guides on prior auth, coding, denials, credentialing and A/R for medical practices.'), []);
   return (
     <main className="page [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem]">
@@ -161,13 +171,13 @@ export function BlogHub() {
         </motion.article>
       </section>
 
-      <section className="bl container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:12rem] [@media(max-width:_1099px)]:[padding-top:8rem]">
+      <section ref={gridTop} className="bl container [scroll-margin-top:12rem] [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:12rem] [@media(max-width:_1099px)]:[padding-top:8rem]">
         <div className="bl__head [display:flex] [flex-direction:column] [gap:2.4rem]">
           <Eyebrow>/ All articles</Eyebrow>
           <LayoutGroup>
             <div className="need__chips bl__chips [display:flex] [flex-wrap:wrap] [gap:1.2rem] [margin-top:0]" role="tablist">
               {TOPICS.map((x) => (
-                <button key={x} role="tab" aria-selected={t === x} className={String.raw`need__chip [position:relative] [padding:1.4rem_2.4rem] [border-radius:6rem] [border:1px_solid_#e3def5] [font-size:max(1.8rem,16px)] [color:var(--ink-2)] [isolation:isolate] [transition:color_0.35s_0.08s,_border-color_0.35s] [&>span:not(.need\_\_pill)]:[position:relative] [&>span:not(.need\_\_pill)]:[z-index:1] [&.is-on]:[color:#fff] [&.is-on]:[border-color:var(--purple)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:3px]! [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[flex:0_0_auto] [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[white-space:nowrap] [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[font-size:max(1.6rem,15px)] [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[padding:1.2rem_2rem] ${t === x ? String.raw`is-on [.assess\_\_steps_span&]:[color:var(--navy)] [.assess\_\_steps_span&_b]:[background:var(--purple)] [.assess\_\_steps_span&_b]:[border-color:var(--purple)] [.assess\_\_steps_span&_b]:[color:#fff] [.assess\_\_steps_i&::after]:[transform:scaleX(1)] [.cx-read\_\_n_i&]:[width:2.4rem] [.cx-read\_\_n_i&]:[background:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [.sg\_\_toc_button&]:[color:var(--purple)] [.sg\_\_toc_button&]:[border-left-color:var(--purple)] [.pg\_\_toc_button&]:[color:#fff] [.pg\_\_toc_button&_small]:[color:rgba(255,_255,_255,_0.7)] [.pg\_\_dots_i&]:[width:2.4rem] [.pg\_\_dots_i&]:[background:var(--purple)] [.stfd\_\_tabs_button&]:[color:#fff] [.se\_\_dots_i&]:[width:6.4rem] [.sw-anes\_\_bar_i&]:[background:var(--grad)] [.sw-body_circle&]:[fill:var(--purple)] [.sw-vial\_\_body_i&]:[background:var(--grad)] [.sw-vial\_\_body_i&_small]:[color:#fff] [.sw-wound\_\_grid_i&]:[background:#c9b8ff] [.sw-wound\_\_grid_i&]:[border-color:transparent] [.sw-cal_i&]:[background:var(--purple)] [.sw-cal_i&]:[color:#fff] [.sw-wells_i&]:[background:#e2d9ff] [.sw-wells_i&]:[border-color:#c9b8ff] [.sw-shot_i&]:[background:var(--purple)] [.sw-shot_i&]:[border-color:var(--purple)] [.lf\_\_seg_button&]:[color:#fff] [.tc\_\_why_li&]:[opacity:1] [.sl\_\_tabs_button&]:[color:#fff] [.ar\_\_toc_a&]:[color:var(--ink-2)] [.ct-needs_button&]:[color:#fff] [.wa\_\_zones_li&]:[background:var(--grad)] [.wa\_\_zones_li&]:[border-color:transparent] [.wa\_\_zones_li&_small]:[color:#fff] [.wa\_\_zones_li&_b]:[color:#fff] [.wa\_\_zones_li&_em]:[color:#fff] [.se\_\_dots_i&]:[background:var(--purple)] [.ct-needs_button&]:[background:var(--grad)] [.ct-needs_button&]:[border-color:transparent] [.sc-cal_i&]:[background:var(--purple)] [.sc-cal_i&]:[color:#fff] [.ccp_button&]:[background:var(--purple)] [.ccp_button&]:[color:#fff] [.pa-art\_\_seg_button&]:[background:var(--grad)] [.pa-art\_\_seg_button&]:[color:#fff] [.pa-art\_\_steps_li&]:[background:var(--purple)] [.pa-art\_\_steps_li&]:[border-color:var(--purple)] [.pa-art\_\_steps_li&]:[color:#fff] [.ab-orbit\_\_rings_line&]:[stroke:var(--purple)] [.ab-orbit\_\_rings_line&]:[stroke-width:2]` : ''}`} onClick={() => setT(x)}>
+                <button key={x} role="tab" aria-selected={t === x} onClickCapture={() => goPage(1)} className={String.raw`need__chip [position:relative] [padding:1.4rem_2.4rem] [border-radius:6rem] [border:1px_solid_#e3def5] [font-size:max(1.8rem,16px)] [color:var(--ink-2)] [isolation:isolate] [transition:color_0.35s_0.08s,_border-color_0.35s] [&>span:not(.need\_\_pill)]:[position:relative] [&>span:not(.need\_\_pill)]:[z-index:1] [&.is-on]:[color:#fff] [&.is-on]:[border-color:var(--purple)] [&:focus-visible]:[outline:2px_solid_var(--purple)] [&:focus-visible]:[outline-offset:3px]! [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[flex:0_0_auto] [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[white-space:nowrap] [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[font-size:max(1.6rem,15px)] [@media(max-width:_1099px)]:[.xi\_\_chips_&]:[padding:1.2rem_2rem] ${t === x ? String.raw`is-on [.assess\_\_steps_span&]:[color:var(--navy)] [.assess\_\_steps_span&_b]:[background:var(--purple)] [.assess\_\_steps_span&_b]:[border-color:var(--purple)] [.assess\_\_steps_span&_b]:[color:#fff] [.assess\_\_steps_i&::after]:[transform:scaleX(1)] [.cx-read\_\_n_i&]:[width:2.4rem] [.cx-read\_\_n_i&]:[background:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.hw2\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[background:#fff] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[color:var(--purple)] [@media(max-width:_1099px)]:[.jyt\_\_tabs_button&]:[box-shadow:0_0.4rem_1.2rem_rgba(106,_65,_249,_0.14)] [.sg\_\_toc_button&]:[color:var(--purple)] [.sg\_\_toc_button&]:[border-left-color:var(--purple)] [.pg\_\_toc_button&]:[color:#fff] [.pg\_\_toc_button&_small]:[color:rgba(255,_255,_255,_0.7)] [.pg\_\_dots_i&]:[width:2.4rem] [.pg\_\_dots_i&]:[background:var(--purple)] [.stfd\_\_tabs_button&]:[color:#fff] [.se\_\_dots_i&]:[width:6.4rem] [.sw-anes\_\_bar_i&]:[background:var(--grad)] [.sw-body_circle&]:[fill:var(--purple)] [.sw-vial\_\_body_i&]:[background:var(--grad)] [.sw-vial\_\_body_i&_small]:[color:#fff] [.sw-wound\_\_grid_i&]:[background:#c9b8ff] [.sw-wound\_\_grid_i&]:[border-color:transparent] [.sw-cal_i&]:[background:var(--purple)] [.sw-cal_i&]:[color:#fff] [.sw-wells_i&]:[background:#e2d9ff] [.sw-wells_i&]:[border-color:#c9b8ff] [.sw-shot_i&]:[background:var(--purple)] [.sw-shot_i&]:[border-color:var(--purple)] [.lf\_\_seg_button&]:[color:#fff] [.tc\_\_why_li&]:[opacity:1] [.sl\_\_tabs_button&]:[color:#fff] [.ar\_\_toc_a&]:[color:var(--ink-2)] [.ct-needs_button&]:[color:#fff] [.wa\_\_zones_li&]:[background:var(--grad)] [.wa\_\_zones_li&]:[border-color:transparent] [.wa\_\_zones_li&_small]:[color:#fff] [.wa\_\_zones_li&_b]:[color:#fff] [.wa\_\_zones_li&_em]:[color:#fff] [.se\_\_dots_i&]:[background:var(--purple)] [.ct-needs_button&]:[background:var(--grad)] [.ct-needs_button&]:[border-color:transparent] [.sc-cal_i&]:[background:var(--purple)] [.sc-cal_i&]:[color:#fff] [.ccp_button&]:[background:var(--purple)] [.ccp_button&]:[color:#fff] [.pa-art\_\_seg_button&]:[background:var(--grad)] [.pa-art\_\_seg_button&]:[color:#fff] [.pa-art\_\_steps_li&]:[background:var(--purple)] [.pa-art\_\_steps_li&]:[border-color:var(--purple)] [.pa-art\_\_steps_li&]:[color:#fff] [.ab-orbit\_\_rings_line&]:[stroke:var(--purple)] [.ab-orbit\_\_rings_line&]:[stroke-width:2]` : ''}`} onClick={() => setT(x)}>
                   {t === x && <motion.span layoutId="bl-pill" className="need__pill [position:absolute] [inset:-1px] [border-radius:6rem] [z-index:0] [background:var(--grad)]" transition={{ type: 'spring', stiffness: 260, damping: 32 }} />}
                   <span>{x}</span>
                 </button>
@@ -176,12 +186,11 @@ export function BlogHub() {
           </LayoutGroup>
         </div>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div key={t} className={String.raw`bl__grid [@media(max-width:_767px)]:[&:not(.is-all)>:nth-child(n+4)]:[display:none] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] ${all ? 'is-all' : ''}`} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.out } }} exit={{ opacity: 0, y: -6, transition: { duration: 0.2, ease: 'easeIn' } }}>
-            {rest.length ? rest.map((a, k) => <Card key={a.slug} a={a} k={k} still={t !== 'All'} />) : <p className="bl__none [grid-column:1_/_-1] [font-size:max(2rem,16px)] [color:#6b6f7c] [padding:4rem_0]">Nothing on this topic yet. It’s on the list.</p>}
+          <motion.div key={t + cur} className={String.raw`bl__grid [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:3.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]`} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.out } }} exit={{ opacity: 0, y: -6, transition: { duration: 0.2, ease: 'easeIn' } }}>
+            {shown.length ? shown.map((a, k) => <Card key={a.slug} a={a} k={k} still={t !== 'All' || cur > 1} />) : <p className="bl__none [grid-column:1_/_-1] [font-size:max(2rem,16px)] [color:#6b6f7c] [padding:4rem_0]">Nothing on this topic yet. It’s on the list.</p>}
           </motion.div>
         </AnimatePresence>
-        {!all && rest.length > 3 && <button type="button" className="bl__more [display:none] [@media(max-width:_767px)]:[display:flex] [@media(max-width:_767px)]:[justify-content:center] [@media(max-width:_767px)]:[width:100%] [@media(max-width:_767px)]:[margin-top:2rem] [@media(max-width:_767px)]:[padding:1.4rem] [@media(max-width:_767px)]:[border-radius:3rem] [@media(max-width:_767px)]:[border:1px_solid_var(--lav-border)] [@media(max-width:_767px)]:[color:var(--purple)] [@media(max-width:_767px)]:[font-weight:600] [@media(max-width:_767px)]:[font-size:max(1.6rem,15px)]" onClick={() => setAll(true)}>Show all {rest.length} articles</button>}
-        <CoverPicker />
+        <Pager page={cur} pages={pages} total={rest.length} onPage={goPage} />
       </section>
 
       <section className="nl container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:14rem] [@media(max-width:_1099px)]:[padding-top:10rem]">
