@@ -161,7 +161,7 @@ function Coverage({ s }: { s: State }) {
         <dl className="stp-cov__dl [display:flex] [flex-direction:column] [margin-top:1.6rem] [&_div]:[display:grid] [&_div]:[grid-template-columns:11rem_minmax(0,_1fr)] [&_div]:[gap:1.6rem] [&_div]:[padding:1.6rem_0] [&_div]:[border-bottom:1px_solid_#f0edf9] [&_div]:[font-size:max(1.6rem,15px)] [&_dt]:[display:inline-flex] [&_dt]:[align-items:center] [&_dt]:[gap:0.8rem] [&_dt]:[color:#8a8ea0] [&_dt_svg]:[color:var(--purple)] [&_dd]:[color:var(--ink-2)] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500] [@media(max-width:_767px)]:[&_div]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[&_div]:[gap:0.4rem]">
           <div><dt><Clock size={16} /> Hours</dt><dd>{`Mon–Fri, 8 am – 6 pm ${s.tzName}`}</dd></div>
           <div><dt><Phone size={16} /> Call</dt><dd><a href="tel:+12148512698">214-851-2698</a></dd></div>
-          <div><dt><Mail size={16} /> Email</dt><dd><a href="mailto:info@affinitycore.co">info@affinitycore.co</a></dd></div>
+          <div><dt><Mail size={16} /> Email</dt><dd><a href="mailto:info@affinitycorebillers.com">info@affinitycorebillers.com</a></dd></div>
           <div><dt><Building2 size={16} /> Office</dt><dd>5830 Granite Pkwy, STE 100-219, Plano, TX 75024</dd></div>
         </dl>
         <p className="stp-cov__fine [@media(max-width:_1279px)]:[font-size:13.5px]! [@media(max-width:_1279px)]:[line-height:1.55] [margin-top:1.2rem] [font-size:max(1.2rem,12px)] [color:#a0a3b1]">Hours shown for illustration.</p>

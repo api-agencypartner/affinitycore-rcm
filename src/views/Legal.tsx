@@ -68,8 +68,8 @@ export function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
           ))}
           <div className="lg-cta">
             <span className="lg-cta__ico"><Mail size={20} /></span>
-            <div><b>Questions about this page?</b><p>Email info@affinitycore.co and a person on our team will reply.</p></div>
-            <a href="mailto:info@affinitycore.co" className="lg-cta__btn">Email us <ArrowUpRight size={16} /></a>
+            <div><b>Questions about this page?</b><p>Email info@affinitycorebillers.com and a person on our team will reply.</p></div>
+            <a href="mailto:info@affinitycorebillers.com" className="lg-cta__btn">Email us <ArrowUpRight size={16} /></a>
           </div>
         </article>
       </div>

@@ -123,7 +123,7 @@ function Roles() {
           {list.map((r) => <RoleRow key={r.slug} r={r} open={open === r.slug} onToggle={() => setOpen(open === r.slug ? null : r.slug)} />)}
         </motion.ul>
       </AnimatePresence>
-      <p className="cr__note [@media(max-width:_1279px)]:[font-size:16px]! [@media(max-width:_1279px)]:[line-height:1.6] [margin-top:3.2rem] [font-size:max(1.7rem,15px)] [color:#4a4f63] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500]">Don’t see your role? <a href="mailto:info@affinitycore.co?subject=Careers%20at%20Affinity%20Core">Send us your resume</a> and tell us what you’re great at.</p>
+      <p className="cr__note [@media(max-width:_1279px)]:[font-size:16px]! [@media(max-width:_1279px)]:[line-height:1.6] [margin-top:3.2rem] [font-size:max(1.7rem,15px)] [color:#4a4f63] [&_a]:[color:var(--purple)] [&_a]:[font-weight:500]">Don’t see your role? <a href="mailto:info@affinitycorebillers.com?subject=Careers%20at%20Affinity%20Core">Send us your resume</a> and tell us what you’re great at.</p>
     </section>
   );
 }
@@ -229,7 +229,7 @@ export function CareersPage() {
       </section>
 
       <FAQ items={CAREER_FAQS} eyebrow="/ Careers FAQs" lines={['Questions candidates', 'ask us first.']}
-        note="Something else on your mind? Email us and a real person will answer." cta={{ label: 'Email our team', href: 'mailto:info@affinitycore.co?subject=Careers%20question' }} />
+        note="Something else on your mind? Email us and a real person will answer." cta={{ label: 'Email our team', href: 'mailto:info@affinitycorebillers.com?subject=Careers%20question' }} />
     </main>
   );
 }

@@ -22,7 +22,7 @@ const MAPS = `https://www.google.com/maps/search/?api=1&query=${encodeURICompone
 
 const WAYS = [
   { icon: <Phone />, k: 'Call', v: '214-851-2698', note: 'Talk to a billing specialist', href: 'tel:+12148512698' },
-  { icon: <Mail />, k: 'Email', v: 'info@affinitycore.co', note: 'US-based team, working in your time zone', href: 'mailto:info@affinitycore.co' },
+  { icon: <Mail />, k: 'Email', v: 'info@affinitycorebillers.com', note: 'US-based team, working in your time zone', href: 'mailto:info@affinitycorebillers.com' },
   { icon: <MapPin />, k: 'Visit', v: 'Plano, Texas', note: ADDRESS, href: MAPS },
 ];
 
@@ -148,7 +148,7 @@ export function ContactPage() {
     document.title = 'Contact Affinity Core · Medical Billing in Plano, TX';
     let m = document.querySelector('meta[name="description"]');
     if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); }
-    m.setAttribute('content', 'Talk to a medical billing specialist at Affinity Core. Call 214-851-2698, email info@affinitycore.co, or request a call back.');
+    m.setAttribute('content', 'Talk to a medical billing specialist at Affinity Core. Call 214-851-2698, email info@affinitycorebillers.com, or request a call back.');
   }, []);
   return (
     <main className="page page--tail [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem] [padding-bottom:14rem] [@media(max-width:_1279px)]:[padding-bottom:8rem]">

@@ -5,7 +5,7 @@
 export type LegalBlock = { h: string; id: string; body: (string | string[])[] };
 export type LegalDoc = { eyebrow: string; title: string; intro: string; updated: string; sections: LegalBlock[] };
 
-const CONTACT = 'Affinity Core, 5830 Granite Pkwy, STE 100 - 219, Plano, TX 75024 · info@affinitycore.co · 214-851-2698';
+const CONTACT = 'Affinity Core, 5830 Granite Pkwy, STE 100 - 219, Plano, TX 75024 · info@affinitycorebillers.com · 214-851-2698';
 
 export const PRIVACY: LegalDoc = {
   eyebrow: '/ Privacy policy',
@@ -49,7 +49,7 @@ export const PRIVACY: LegalDoc = {
     { h: 'Your choices and rights', id: 'your-rights', body: [
       'Depending on where you live, including under the Texas Data Privacy and Security Act, you may have the right to:',
       ['Know what personal information we hold about you', 'Correct it', 'Delete it', 'Get a copy of it', 'Opt out of marketing emails at any time, using the link in the email'],
-      'To make a request, email info@affinitycore.co. We’ll confirm your request and respond within the time the law requires. We won’t discriminate against you for exercising your rights.',
+      'To make a request, email info@affinitycorebillers.com. We’ll confirm your request and respond within the time the law requires. We won’t discriminate against you for exercising your rights.',
     ] },
     { h: 'Children', id: 'children', body: [
       'This site is meant for healthcare professionals and job seekers. It isn’t directed to children under 13, and we don’t knowingly collect their information.',
