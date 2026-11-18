@@ -63,3 +63,7 @@ html.motion-off *, html.motion-off *::before, html.motion-off *::after { animati
 
 /* Footer motion toggle */
 .motion-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; min-height: 24px; }
+
+/* Two-font system: code/kbd/pre use the brand mono */
+:where(code, kbd, samp, pre) { font-family: var(--f-mono); }
+:where(button, input, select, textarea) { font-family: inherit; }

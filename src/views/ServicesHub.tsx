@@ -482,10 +482,10 @@ function NeedPicker() {
                   out: { opacity: 0, y: -6, transition: { duration: 0.18, ease: [0.4, 0, 1, 1] } },
                 }}>
                 <Link to={`/services/${s.slug}`}>
-                  <span className="need__ico [display:flex] [align-items:center] [gap:1.2rem]">
-                    <span aria-hidden className="[display:grid] [place-items:center] [width:4.4rem] [height:4.4rem] [border-radius:1.2rem] [background:#f1edff] [color:var(--purple)] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [&_svg]:[stroke-width:1.7]">{serviceIcon(s.name)}</span>
+                  <div className="need__ico [display:flex] [align-items:center] [gap:1.2rem]">
+                    <div aria-hidden className="[flex:none] [display:grid] [place-items:center] [width:4.4rem] [height:4.4rem] [border-radius:1.2rem] [background:#f1edff] [color:var(--purple)] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [&_svg]:[stroke-width:1.7]">{serviceIcon(s.name)}</div>
                     {i !== ALL && <small>{k === 0 ? 'Start here' : 'Then'}</small>}
-                  </span>
+                  </div>
                   <b>{s.name}</b>
                   <span>{s.line}</span>
                   <em>View service <ArrowRight size={16} /></em>

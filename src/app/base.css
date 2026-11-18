@@ -14,7 +14,7 @@
  main { overflow-x: clip; }
  select { -webkit-appearance: none; appearance: none; padding-right: 5.6rem !important; } }
 @layer overrides {
- :root { --purple: #6a41f9; --purple-2: #8a6bff; --grad: linear-gradient(180deg, #8a6bff, #6a41f9); --grad-x: linear-gradient(90deg, #8a6bff, #6a41f9); --ink: #17181b; --ink-2: #192533; --ink-3: #272727; --navy: #111645; --lav: rgba(220, 210, 255, 0.2); --lav-border: #e6dfff; --panel: #f9f8ff; --foot: #140b30; --f-sans: 'Rethink Sans', system-ui, sans-serif; --f-mono: 'Roboto Mono', ui-monospace, monospace; --f-jak: 'Plus Jakarta Sans', var(--f-sans); --f-man: 'Manrope', var(--f-sans); --gutter: 12rem; }
+ :root { --purple: #6a41f9; --purple-2: #8a6bff; --grad: linear-gradient(180deg, #8a6bff, #6a41f9); --grad-x: linear-gradient(90deg, #8a6bff, #6a41f9); --ink: #17181b; --ink-2: #192533; --ink-3: #272727; --navy: #111645; --lav: rgba(220, 210, 255, 0.2); --lav-border: #e6dfff; --panel: #f9f8ff; --foot: #140b30; --f-sans: 'Rethink Sans', system-ui, sans-serif; --f-mono: 'Roboto Mono', ui-monospace, monospace; --f-jak: var(--f-sans); --f-man: var(--f-sans); --gutter: 12rem; }
  html.is-loading { overflow: hidden; }
  html.is-loading body { overflow: hidden; }
  @media (max-width: 1099px) {
