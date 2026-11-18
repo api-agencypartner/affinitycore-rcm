@@ -4,10 +4,9 @@
  * step 1 of the assessment form and the page scrolls there, so nothing is typed twice.
  */
 import { useLayoutEffect, useRef, useState } from 'react';
-import { Mail, ShieldCheck, Clock } from 'lucide-react';
+import { ArrowRight, Mail, ShieldCheck, Clock } from 'lucide-react';
 import { prefillLead, isEmail, isPhone } from '../data/lead';
 import { goAnchor } from '../router';
-import { Button } from './ui';
 
 export function HeroCapture({ source }: { source?: string }) {
   const [v, setV] = useState('');
@@ -37,7 +36,7 @@ export function HeroCapture({ source }: { source?: string }) {
           <input ref={inp} type="text" inputMode="email" autoComplete="email" aria-label="Work email or phone number" placeholder="Work email or phone"
             value={v} onChange={(e) => { setV(e.target.value); setErr(false); }} />
         </span>
-        <Button type="submit" className="hcap__btn [flex:none] [@media(max-width:_640px)]:[width:100%]"><span className="[@media(min-width:_641px)_and_(max-width:_1279px)]:[display:none]">Get a free revenue assessment</span><span className="[display:none] [@media(min-width:_641px)_and_(max-width:_1279px)]:[display:inline]">Free assessment</span></Button>
+        <button type="submit" className="hcap__btn [flex:none] [display:inline-flex] [align-items:center] [gap:0.8rem] [height:5.6rem] [padding-inline:2.6rem_2.2rem] [border-radius:10rem] [background:var(--purple)] [color:#fff] [font-weight:500] [font-size:max(1.7rem,15px)] [white-space:nowrap] [transition:background_0.3s] [&:hover]:[background:#5a33e6] [&_svg]:[transition:transform_0.4s_cubic-bezier(.16,1,.3,1)] [&:hover_svg]:[transform:translateX(0.4rem)] [@media(max-width:_640px)]:[justify-content:center] [@media(max-width:_640px)]:[font-size:16px]"><span className="[@media(min-width:_641px)_and_(max-width:_1279px)]:[display:none]">Get a free revenue assessment</span><span className="[display:none] [@media(min-width:_641px)_and_(max-width:_1279px)]:[display:inline]">Free assessment</span> <ArrowRight size={18} /></button>
       </div>
       <p className="hcap__fine [display:flex] [flex-wrap:wrap] [gap:0.4rem_1.6rem] [margin-top:1.2rem] [padding-left:2rem] [font-size:max(1.4rem,14px)] [color:#6b6f7c] [&_span]:[display:inline-flex] [&_span]:[align-items:center] [&_span]:[gap:0.5rem] [&_svg]:[color:var(--purple)] [@media(max-width:_640px)]:[padding-left:0.4rem] [@media(max-width:_640px)]:[font-size:13px]">
         {err ? <span className="hcap__err [.hcap\_\_fine_&]:[color:#e5484d]">Enter a valid email or a 10-digit US phone number.</span> : (

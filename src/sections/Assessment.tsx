@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useSpring, useTransform, useInView } from 'motion/react';
 import { ChevronDown, ChevronLeft, Check, ShieldCheck, Clock, BadgeCheck } from 'lucide-react';
-import { Button, Eyebrow, SplitWords } from '../components/ui';
+import { Arrow, Button, Eyebrow, SplitWords } from '../components/ui';
 import { ease } from '../motion';
 import { SPECIALTIES } from '../data/specialties';
 import { useCarriedEstimate, setEstimate } from '../data/estimate';
@@ -96,9 +96,10 @@ function Estimator({ onUse, start = 250000 }: { onUse: (summary: string) => void
           Estimate only. Assumes a {BENCH_DENIAL}% benchmark denial rate, that half of denials above it are never reworked, and a {TARGET_AR}-day A/R target.
           Your assessment replaces these assumptions with your real claim data.
         </p>
-        <Button light className="est__cta [align-self:flex-start] [@media(max-width:_640px)]:[align-self:stretch]" onClick={() => onUse(`${money(denied)}/yr in unrecovered denials · ${money(stuck)} tied up in A/R`)}>
-          Get my exact numbers
-        </Button>
+        <motion.button className="est__cta [align-self:flex-start] [display:inline-flex] [align-items:center] [gap:1.2rem] [height:4.8rem] [padding-inline:2.8rem] [border-radius:6rem] [background:#fff] [color:var(--purple)] [font-weight:600] [font-size:max(1.9rem,16px)] [&_svg]:[width:2rem] [&_svg]:[height:2rem] [@media(max-width:_640px)]:[align-self:stretch] [@media(max-width:_640px)]:[justify-content:center] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_640px)]:[padding-inline:2rem] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)] [@media(max-width:_640px)]:[white-space:nowrap]" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+          onClick={() => onUse(`${money(denied)}/yr in unrecovered denials · ${money(stuck)} tied up in A/R`)}>
+          Get my exact numbers <Arrow />
+        </motion.button>
       </div>
     </div>
   );
@@ -138,9 +139,9 @@ function ServiceEstimator({ calc, onUse }: { calc: Calc; onUse: (summary: string
           </div>
         )}
         <p className="est__how [font-size:max(1.3rem,13px)] [line-height:1.55] [color:rgba(255,_255,_255,_0.72)] [@media(max-width:_1279px)]:[font-size:13.5px]! [@media(max-width:_1279px)]:[line-height:1.55]">{calc.note}</p>
-        <Button light className="est__cta [align-self:flex-start] [@media(max-width:_640px)]:[align-self:stretch]" onClick={() => onUse(summary)}>
-          Get my exact numbers
-        </Button>
+        <motion.button className="est__cta [align-self:flex-start] [display:inline-flex] [align-items:center] [gap:1.2rem] [height:4.8rem] [padding-inline:2.8rem] [border-radius:6rem] [background:#fff] [color:var(--purple)] [font-weight:600] [font-size:max(1.9rem,16px)] [&_svg]:[width:2rem] [&_svg]:[height:2rem] [@media(max-width:_640px)]:[align-self:stretch] [@media(max-width:_640px)]:[justify-content:center] [@media(max-width:_640px)]:[height:5.2rem] [@media(max-width:_640px)]:[padding-inline:2rem] [@media(max-width:_640px)]:[font-size:max(1.7rem,15px)] [@media(max-width:_640px)]:[white-space:nowrap]" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={() => onUse(summary)}>
+          Get my exact numbers <Arrow />
+        </motion.button>
       </div>
     </div>
   );

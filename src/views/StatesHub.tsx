@@ -13,9 +13,16 @@ import { HeroCapture } from '../components/HeroCapture';
 import { USMap } from '../components/USMap';
 import { CTA, FAQ } from '../sections/Closing';
 import { Assessment } from '../sections/Assessment';
-import { Link, goAnchor } from '../router';
+import { Link, goAnchor, u } from '../router';
 import { STATES } from '../data/states';
 import { MACS, MAC_OF, REGION_OF } from '../data/states-all';
+
+/** Contractor logos we have files for (public/mac). The others keep the jurisdiction icon. Logos identify the MAC only; no affiliation implied. */
+const MAC_LOGO: Record<string, string> = {
+  'CGS Administrators': '/mac/cgs.webp',
+  'Wisconsin Physicians Service (WPS)': '/mac/wps.webp',
+  'Noridian Healthcare Solutions': '/mac/noridian.svg',
+};
 import { ease, vp } from '../motion';
 
 /** Cards shown per step on small screens (0 = no limit on desktop). */
@@ -156,13 +163,13 @@ function ByContractor() {
       <div className="stmac__grid [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.2rem] [margin-top:4.8rem] [@media(max-width:_1279px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
         {groups.map(([k, list]) => (
           <div key={k} className="stmac__card [padding:2.4rem_2.6rem] [border-radius:2rem] [background:#fff] [border:1px_solid_#ece8fa] [&_h3]:[margin:0.8rem_0_1.2rem] [&_h3]:[font-family:var(--f-jak)] [&_h3]:[font-weight:500] [&_h3]:[font-size:max(2rem,16px)] [&_h3]:[line-height:1.3] [&_h3]:[color:var(--ink-2)]">
-            <p className="stmac__j [display:flex] [align-items:center] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:var(--purple)]"><span aria-hidden className="stmac__ico [display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:1rem] [background:#f3efff] [color:var(--purple)]"><Landmark size={18} strokeWidth={1.8} /></span>Jurisdiction {MACS[k].j.replace(/^J/, '')}</p>
+            <p className="stmac__j [display:flex] [align-items:center] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:var(--purple)]">{MAC_LOGO[MACS[k].name] ? <img className="stmac__logo [display:block] [height:3.6rem] [width:auto] [max-width:16rem] [object-fit:contain]" src={u(MAC_LOGO[MACS[k].name])} alt={`${MACS[k].name} logo`} loading="lazy" decoding="async" /> : <span aria-hidden className="stmac__ico [display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:1rem] [background:#f3efff] [color:var(--purple)]"><Landmark size={18} strokeWidth={1.8} /></span>}Jurisdiction {MACS[k].j.replace(/^J/, '')}</p>
             <h3>{MACS[k].name}</h3>
             <p className="stmac__states [font-size:max(1.6rem,15px)] [line-height:1.7] [color:#4a4f63] [&_a]:[color:var(--purple)] [&_a]:[text-decoration:underline] [&_a]:[text-decoration-color:rgba(106,_65,_249,_0.3)]! [&_a]:[text-underline-offset:0.2em] [&_a:hover]:[text-decoration-color:currentColor]! [@media(max-width:_1279px)]:[font-size:16px]">{list.map((s, i) => <span key={s.slug}>{i > 0 && ', '}<Link to={`/states/${s.slug}`}>{s.name}</Link></span>)}</p>
           </div>
         ))}
       </div>
-      <p className="stmac__src [margin-top:2rem] [font-size:max(1.4rem,14px)] [color:#8a8ea0] [&_a]:[color:inherit] [&_a]:[text-decoration:underline]">Source: <a href="https://www.cms.gov/files/document/macs-state-pdf" target="_blank" rel="noopener noreferrer">CMS, Medicare Administrative Contractors by state</a>.</p>
+      <p className="stmac__src [margin-top:2rem] [font-size:max(1.4rem,14px)] [color:#8a8ea0] [&_a]:[color:inherit] [&_a]:[text-decoration:underline]">Source: <a href="https://www.cms.gov/files/document/macs-state-pdf" target="_blank" rel="noopener noreferrer">CMS, Medicare Administrative Contractors by state</a>. Contractor names and logos belong to their owners and are shown for identification only; Affinity Core is not affiliated with them.</p>
     </section>
   );
 }
