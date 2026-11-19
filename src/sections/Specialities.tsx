@@ -1,7 +1,7 @@
 import { useNarrow } from '../components/useNarrow';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ArrowRight, Search, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ArrowRight, ArrowUpRight, Search, X } from 'lucide-react';
 import { go, goAnchor } from '../router';
 import { Eyebrow, SplitWords } from '../components/ui';
 import { ease, vp } from '../motion';
@@ -116,11 +116,6 @@ function SpecialtyFinder() {
 
 export function Specialities() {
   const [active, setActive] = useState(0);
-  // Mouse parallax (soft springs so it glides)
-  const mx = useMotionValue(0), my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 50, damping: 18, mass: 0.8 }), sy = useSpring(my, { stiffness: 50, damping: 18, mass: 0.8 });
-  const photoX = useTransform(sx, (v) => v * -14), photoY = useTransform(sy, (v) => v * -10);
-  const cardX = useTransform(sx, (v) => v * 10), cardY = useTransform(sy, (v) => v * 8);
 
   return (
     <section className="spec [padding:16rem_var(--gutter)_0] [display:flex] [flex-direction:column] [align-items:center] [@media(max-width:_1099px)]:[max-width:100vw] [@media(max-width:_1099px)]:[padding:10rem_2rem_0]" id="specialties">
@@ -128,12 +123,10 @@ export function Specialities() {
         <Eyebrow>/ Specialties we serve</Eyebrow>
         <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_1099px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Billing built around', 'your specialty’s codes.']} />
       </div>
-      <div className="spec__stage [position:relative] [width:157rem] [height:81.2rem] [margin-top:3.6rem] [@media(max-width:_1099px)]:[width:100%] [@media(max-width:_1099px)]:[height:auto] [@media(max-width:_1099px)]:[display:flex] [@media(max-width:_1099px)]:[flex-direction:column] [@media(max-width:_1099px)]:[align-items:center]"
-        onMouseMove={(e) => { const r = e.currentTarget.getBoundingClientRect(); mx.set((e.clientX - r.left) / r.width - 0.5); my.set((e.clientY - r.top) / r.height - 0.5); }}
-        onMouseLeave={() => { mx.set(0); my.set(0); }}>
+      <div className="spec__stage [position:relative] [width:157rem] [height:81.2rem] [margin-top:3.6rem] [@media(max-width:_1099px)]:[width:100%] [@media(max-width:_1099px)]:[height:auto] [@media(max-width:_1099px)]:[display:flex] [@media(max-width:_1099px)]:[flex-direction:column] [@media(max-width:_1099px)]:[align-items:center]">
         {/* Center: circle grows, clinicians rise out of it. Circle + photo move together, and the
             photo is clipped by the circle's own bottom arc so the two always line up. */}
-        <motion.div className="spec__center [position:absolute] [left:49.2rem] [top:0] [width:58.6rem] [height:73rem] [&::before]:[content:''] [&::before]:[position:absolute] [&::before]:[inset:0] [@media(max-width:_1099px)]:[position:relative] [@media(max-width:_1099px)]:[left:auto] [@media(max-width:_1099px)]:[width:min(58.6rem,_90vw)] [@media(max-width:_1099px)]:[height:auto] [@media(max-width:_1099px)]:[aspect-ratio:58.6_/_73] [@media(max-width:_1099px)]:[scale:1]" style={{ x: photoX, y: photoY }} initial="hidden" whileInView="show" viewport={vp}>
+        <motion.div className="spec__center [position:absolute] [left:49.2rem] [top:0] [width:58.6rem] [height:73rem] [&::before]:[content:''] [&::before]:[position:absolute] [&::before]:[inset:0] [@media(max-width:_1099px)]:[position:relative] [@media(max-width:_1099px)]:[left:auto] [@media(max-width:_1099px)]:[width:min(58.6rem,_90vw)] [@media(max-width:_1099px)]:[height:auto] [@media(max-width:_1099px)]:[aspect-ratio:58.6_/_73] [@media(max-width:_1099px)]:[scale:1]" initial="hidden" whileInView="show" viewport={vp}>
           <motion.div className="spec__circle [position:absolute] [left:0] [top:14.4rem] [width:58.6rem] [height:58.6rem] [border-radius:50%] [background:var(--purple)] [@media(max-width:_1099px)]:[width:100%] [@media(max-width:_1099px)]:[height:auto] [@media(max-width:_1099px)]:[aspect-ratio:1] [@media(max-width:_1099px)]:[top:20%]" variants={{ hidden: { scale: 0 }, show: { scale: 1, transition: { duration: 1.3, ease: ease.out } } }} />
           <div className="spec__clip [position:absolute] [inset:0] [border-radius:0_0_29.3rem_29.3rem] [overflow:hidden]">
             <motion.img className="spec__people [position:absolute] [left:0] [top:2.3rem] [width:58.6rem] [height:70.7rem] [@media(max-width:_1099px)]:[width:100%] [@media(max-width:_1099px)]:[height:auto] [@media(max-width:_1099px)]:[position:relative] [@media(max-width:_1099px)]:[top:0]" src={people} alt="Two smiling clinicians in purple scrubs"
@@ -141,7 +134,7 @@ export function Specialities() {
           </div>
         </motion.div>
 
-        <motion.div className="spec__cards [position:absolute] [inset:0] [@media(max-width:_1099px)]:[position:relative] [@media(max-width:_1099px)]:[inset:auto] [@media(max-width:_1099px)]:[display:grid] [@media(max-width:_1099px)]:[grid-template-columns:1fr] [@media(max-width:_1099px)]:[gap:1.6rem] [@media(max-width:_1099px)]:[width:100%] [@media(max-width:_1099px)]:[transform:none]! [@media(max-width:_1099px)]:[margin-top:3rem] [@media(min-width:_768px)_and_(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))]!" style={{ x: cardX, y: cardY }} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}
+        <motion.div className="spec__cards [position:absolute] [inset:0] [@media(max-width:_1099px)]:[position:relative] [@media(max-width:_1099px)]:[inset:auto] [@media(max-width:_1099px)]:[display:grid] [@media(max-width:_1099px)]:[grid-template-columns:1fr] [@media(max-width:_1099px)]:[gap:1.6rem] [@media(max-width:_1099px)]:[width:100%] [@media(max-width:_1099px)]:[transform:none]! [@media(max-width:_1099px)]:[margin-top:3rem] [@media(min-width:_768px)_and_(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))]!" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.25 }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.45 } } }}>
           {CARDS.map((c, i) => {
             const s = getSpecialtyLite(c.slug)!;
@@ -161,10 +154,12 @@ export function Specialities() {
                   animate={{ clipPath: active === i ? 'inset(0% 0% 0% 0%)' : (c.side < 0 ? 'inset(0% 100% 0% 0%)' : 'inset(0% 0% 0% 100%)') }}
                   transition={{ duration: 0.6, ease: ease.out }} />
                 <span className="spec-card__icon [width:7.2rem] [height:7.2rem] [flex-shrink:0] [display:grid] [place-items:center] [color:var(--purple)] [transition:color_0.35s] [&_svg]:[width:5.6rem] [&_svg]:[height:5.6rem] [&_svg]:[stroke-width:1.3] [.spec-card.is-active_&]:[color:#fff]"><Icon /></span>
-                <div>
+                <div className="[min-width:0] [&>h3]:[padding-right:4rem]">
                   <h3>{s.name}</h3>
                   <p>{c.body}</p>
                 </div>
+                {/* Link cue: the card opens its specialty page */}
+                <span className="spec-card__go [position:absolute] [top:2.4rem] [right:2.4rem] [width:3.6rem] [height:3.6rem] [border-radius:50%] [display:grid] [place-items:center] [background:#f4f0ff] [color:var(--purple)] [transition:background_0.35s,_color_0.35s,_transform_0.4s_cubic-bezier(.16,1,.3,1)] [&_svg]:[width:1.8rem] [&_svg]:[height:1.8rem] [.spec-card.is-active_&]:[background:#fff] [.spec-card.is-active_&]:[color:var(--purple)] [.spec-card:hover_&]:[transform:rotate(45deg)] [@media(max-width:_1099px)]:[width:32px] [@media(max-width:_1099px)]:[height:32px] [@media(max-width:_1099px)]:[top:16px] [@media(max-width:_1099px)]:[right:16px]" aria-hidden><ArrowUpRight /></span>
               </motion.article>
             );
           })}

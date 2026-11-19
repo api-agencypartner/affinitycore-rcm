@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Check } from 'lucide-react';
 import type { Article } from '../data/insights';
 import { isMotionOff } from '../motionPref';
+import { SkinRange } from './ui';
 
 export function PaClock({ a }: { a: Article }) {
   const [mode, setMode] = useState<'u' | 's'>('u');
@@ -84,7 +85,9 @@ export function PaClock({ a }: { a: Article }) {
       </ol>
       <div className="pa-art__scrub [display:flex] [align-items:center] [gap:1.2rem] [width:min(34rem,90%)] [&_input]:[flex:1] [&_input]:[min-width:0] [&_input]:[accent-color:#6a41f9] [&_input]:[cursor:pointer]" onClick={stop} onPointerDown={stop}>
         <button type="button" className="pa-art__play [flex:none] [width:3.4rem] [height:3.4rem] [border-radius:50%] [border:1px_solid_#e6dfff] [background:#fff] [color:#6a41f9] [cursor:pointer] [display:grid] [place-items:center] [font-size:1.1rem] [line-height:1]" aria-label={playing ? 'Pause' : 'Play'} onClick={(x) => { x.stopPropagation(); setPlaying(!playing); }}>{playing ? '❚❚' : '▶'}</button>
-        <input type="range" min={0} max={D} step={1} value={Math.round(h)} aria-label="Hours since the request was sent" onChange={(x) => { setPlaying(false); setH(+x.target.value); }} />
+        <SkinRange className="[flex:1] [min-width:0]" f={Math.round(h) / D} size="1.8rem" track="#efeaff" fill="#6a41f9" thumb="#6a41f9" ring="#6a41f9">
+          <input type="range" min={0} max={D} step={1} value={Math.round(h)} aria-label="Hours since the request was sent" onChange={(x) => { setPlaying(false); setH(+x.target.value); }} />
+        </SkinRange>
       </div>
       <p className="pa-art__src [position:absolute] [bottom:1.8rem] [left:2rem] [right:2rem] [margin:0] [text-align:center] [font:400_1.05rem/1.35_var(--f-mono)] [color:#636673]">CMS-0057-F · Medicare Advantage, Medicaid &amp; CHIP · since Jan 1, 2026</p>
     </div>

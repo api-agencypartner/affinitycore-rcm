@@ -67,3 +67,25 @@ html.motion-off *, html.motion-off *::before, html.motion-off *::after { animati
 /* Two-font system: code/kbd/pre use the brand mono */
 :where(code, kbd, samp, pre) { font-family: var(--f-mono); }
 :where(button, input, select, textarea) { font-family: inherit; }
+
+/* Services hub "Follow the claim" board on wide, short screens (16:9 laptops, 1920×880 windows):
+   the content was taller than the pinned board, so the route ran over the service rows.
+   Compact mode flattens the route (nodes and traveler use % of its box, so they stay on the line),
+   drops the row descriptions and trims the stop title. */
+@media (min-width: 1100px) and (min-aspect-ratio: 17/10) {
+  .jy__sticky .jy__route { margin: 0.4rem 0 1.6rem; }
+  .jy__sticky .jy__route svg { height: 9rem; }
+  .jy__sticky .jy__svc a { padding: 1.3rem 0; }
+  .jy__sticky .jy__svc small { display: none; }
+  .jy__sticky .jy__scene { gap: 1rem; }
+  .jy__sticky .jy__scene h3 { font-size: 4.4rem; }
+}
+/* The floating widget keeps a readable width on 1100–1500px screens (36rem alone was ~240px at 1280). */
+@media (min-width: 1100px) { .jy__sticky .jy__widget { width: max(36rem, 300px); } }
+
+/* Service pages, "Where this sits" rail on iPad landscape / small laptops (1100–1599px): the service names under
+   each stop wrapped to 3–4 lines and ran into the Before/After cards. Wider labels + room reserved under the route. */
+@media (min-width: 1100px) and (max-width: 1599px) {
+  .rail__route { margin-bottom: calc(8rem + 56px); }
+  .rail__lab { width: max(22rem, 180px); }
+}

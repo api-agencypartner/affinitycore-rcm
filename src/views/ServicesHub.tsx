@@ -131,6 +131,18 @@ function useMedia(q: string) {
 const DAYS = ['7 days before the visit', 'Visit day', 'Day 1', 'Day 14', 'Day 30'];
 const WLABEL = ['Payer enrollment', 'Charges captured', 'Pre-submission scrub', '835 remittance', 'Denial + A/R aging'];
 const STOPS = [0.1, 0.3, 0.5, 0.7, 0.9];
+/* Scroll → position on the route. The traveler holds still on every stop (so it sits centred on the node)
+   and travels between them: 5 equal travel legs, 5 equal holds; the last hold runs to the end of the section. */
+const HOLD = 0.1, LEG = (1 - HOLD * STOPS.length) / STOPS.length;
+const KEYS: [number, number][] = [[0, 0.04]];
+STOPS.forEach((s, i) => { const a = LEG * (i + 1) + HOLD * i; KEYS.push([a, s], [a + HOLD, s]); });
+function routeAt(u: number) {
+  for (let k = 1; k < KEYS.length; k++) {
+    const [u1, f1] = KEYS[k];
+    if (u <= u1) { const [u0, f0] = KEYS[k - 1]; return u1 === u0 ? f1 : f0 + ((u - u0) / (u1 - u0)) * (f1 - f0); }
+  }
+  return KEYS[KEYS.length - 1][1];
+}
 const ROUTE = 'M0 70 C 140 70 170 24 300 24 S 460 116 600 116 S 760 24 900 24 S 1060 116 1200 116 S 1360 70 1500 70';
 
 function Journey() {
@@ -157,7 +169,7 @@ function JourneyPinned() {
   const route = useRef<SVGPathElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const p = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.4 });
-  const toF = (v: number) => 0.04 + Math.min(1, Math.max(0, (v - 0.03) / 0.92)) * 0.9;
+  const toF = (v: number) => routeAt(Math.min(1, Math.max(0, (v - 0.03) / 0.92)));
   const f = useTransform(p, toF);
   const [geo, setGeo] = useState<{ L: number; pts: { x: number; y: number }[]; lut: [number, number][] }>({ L: 0, pts: [], lut: [] });
   useEffect(() => {
@@ -181,7 +193,7 @@ function JourneyPinned() {
   const [active, setActive] = useState(0);
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     const fv = toF(v); let a = 0;
-    STOPS.forEach((s, i) => { if (fv >= s - 0.07) a = i; });
+    STOPS.forEach((s, i) => { if (fv >= s - 0.04) a = i; });
     setActive(v > 0.965 ? 5 : a);
   });
   const st = Math.min(active, 4);
@@ -240,11 +252,11 @@ function JourneyPinned() {
           </div>
 
           <div className="jy__route [position:relative] [z-index:1] [margin:1.6rem_0_2rem] [&_svg]:[display:block] [&_svg]:[width:100%] [&_svg]:[height:auto] [&_svg]:[overflow:visible]" ref={routeBox}>
-            <svg viewBox="0 0 1500 140" aria-hidden>
+            <svg viewBox="0 0 1500 140" preserveAspectRatio="none" aria-hidden>
               <defs>
                 <linearGradient id="jy-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1500" y2="0"><stop offset="0" stopColor="#b7a3ff" /><stop offset="1" stopColor="#6a41f9" /></linearGradient>
               </defs>
-              <path ref={route} d={ROUTE} fill="none" stroke="#e2dafc" strokeWidth="2" strokeDasharray="1 9" strokeLinecap="round" />
+              <path ref={route} d={ROUTE} fill="none" stroke="#e2dafc" strokeWidth="2" strokeDasharray="1 9" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
               <motion.path d={ROUTE} fill="none" stroke="url(#jy-g)" strokeWidth="3" strokeLinecap="round" style={{ pathLength: f }} />
             </svg>
             {geo.pts.map((pt, i) => (

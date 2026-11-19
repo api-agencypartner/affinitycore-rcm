@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import { ArrowRight, Check, MapPin, Clock, GraduationCap, TrendingUp, Laptop, Users, BookOpen, HeartPulse, ChevronDown, ArrowUpRight } from 'lucide-react';
-import { Eyebrow, SplitWords, Reveal } from '../components/ui';
+import { Eyebrow, Req, SplitWords, Reveal } from '../components/ui';
 import { FAQ } from '../sections/Closing';
 import { ROLES, TEAMS, LADDER, PERKS, HIRING, CAREER_FAQS, type Role } from '../data/careers';
 import { ease, vp } from '../motion';
@@ -70,14 +70,14 @@ function RoleRow({ r, open, onToggle }: { r: Role; open: boolean; onToggle: () =
                 {sent ? (
                   <motion.p key="ok" className="jr2__ok [display:flex] [align-items:center] [gap:1rem] [padding:1.6rem_2rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [font-weight:500] [font-size:max(1.6rem,15px)]" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}><Check size={18} strokeWidth={3} /> Application received. We’ll be in touch about the {r.title} role.</motion.p>
                 ) : applying ? (
-                  <motion.form key="f" className="jr2__form [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1.2rem] [align-items:end] [&_label]:[display:flex] [&_label]:[flex-direction:column] [&_label]:[gap:0.6rem] [&_label]:[font-size:max(1.3rem,13px)] [&_label]:[color:#4a4f63] [&_input]:[height:5.2rem] [&_input]:[padding:0_1.4rem] [&_input]:[border-radius:1.2rem] [&_input]:[border:1px_solid_#e3ddf6] [&_input]:[background:#fff] [&_input]:[font-size:max(1.5rem,14px)] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)]" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+                  <motion.form key="f" className="jr2__form [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1.2rem] [align-items:end] [&_label]:[display:flex] [&_label]:[flex-direction:column] [&_label]:[gap:0.6rem] [&_label]:[font-size:max(1.6rem,15px)] [&_label]:[color:#4a4f63] [&_input]:[height:5.2rem] [&_input]:[padding:0_1.4rem] [&_input]:[border-radius:1.2rem] [&_input]:[border:1px_solid_#e3ddf6] [&_input]:[background:#fff] [&_input]:[font-size:max(1.7rem,16px)] [&_small]:[font-size:max(1.4rem,13px)] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)]" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
                     <input type="hidden" name="role" value={r.title} />
-                    <p className="jr2__for [grid-column:1/-1] [font-size:max(1.5rem,14px)] [color:#4a4f63]">Applying for <b className="[color:var(--ink-2)] [font-weight:600]">{r.title}</b> · {r.team}</p>
-                    <label>Full name *<input name="name" required autoComplete="name" placeholder="Jordan Lee" /></label>
-                    <label>Email *<input name="email" required type="email" autoComplete="email" placeholder="you@email.com" /></label>
+                    <p className="jr2__for [grid-column:1/-1] [font-size:max(1.7rem,15px)] [color:#4a4f63]">Applying for <b className="[color:var(--ink-2)] [font-weight:600]">{r.title}</b> · {r.team}</p>
+                    <label><Req>Full name</Req><input name="name" required autoComplete="name" placeholder="Jordan Lee" /></label>
+                    <label><Req>Email</Req><input name="email" required type="email" autoComplete="email" placeholder="you@email.com" /></label>
                     <label>LinkedIn (optional)<input name="linkedin" type="url" inputMode="url" placeholder="https://linkedin.com/in/…" /></label>
                     <label>Certifications<input name="certifications" placeholder="CPC, CCS…" /></label>
-                    <label className="jr2__file [grid-column:span_3] [@media(max-width:_1099px)]:[grid-column:1/-1]">Résumé or CV * <small className="[color:#636673]">PDF or Word, up to 5 MB</small>
+                    <label className="jr2__file [grid-column:span_3] [@media(max-width:_1099px)]:[grid-column:1/-1]"><Req>Résumé or CV</Req> <small className="[color:#636673]">PDF or Word, up to 5 MB</small>
                       <input name="resume" type="file" required accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         className="[padding:1.2rem_1.4rem]! [height:auto]! [cursor:pointer] [&::file-selector-button]:[margin-right:1.2rem] [&::file-selector-button]:[padding:0.8rem_1.6rem] [&::file-selector-button]:[border:0] [&::file-selector-button]:[border-radius:4rem] [&::file-selector-button]:[background:#f1edff] [&::file-selector-button]:[color:var(--purple)] [&::file-selector-button]:[font-weight:500] [&::file-selector-button]:[cursor:pointer]"
                         onChange={(e) => { const f = e.currentTarget.files?.[0]; e.currentTarget.setCustomValidity(f && f.size > 5 * 1024 * 1024 ? 'Please attach a file under 5 MB.' : ''); }} /></label>

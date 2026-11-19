@@ -5,7 +5,7 @@ import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence, useInView, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
 import { ArrowRight, Check, ChevronLeft } from 'lucide-react';
-import { Button, CountUp, Eyebrow, Reveal, SplitWords } from '../components/ui';
+import { Button, CountUp, Eyebrow, Reveal, SkinRange, SplitWords } from '../components/ui';
 import { CTA, FAQ } from '../sections/Closing';
 import { Proof } from './ServicesHub';
 import { Assessment } from '../sections/Assessment';
@@ -111,9 +111,10 @@ export function Problem({ s, withCalc = true }: { s: Pick<ServiceFull, 'slug' | 
           return (
             <div className="calc__field [&_input]:[width:100%] [&_input]:[appearance:none] [&_input]:[-webkit-appearance:none] [&_input]:[height:0.6rem] [&_input]:[border-radius:1rem] [&_input]:[cursor:pointer] [&_input::-webkit-slider-thumb]:[-webkit-appearance:none] [&_input::-webkit-slider-thumb]:[width:2.4rem] [&_input::-webkit-slider-thumb]:[height:2.4rem] [&_input::-webkit-slider-thumb]:[border-radius:50%] [&_input::-webkit-slider-thumb]:[background:#fff] [&_input::-webkit-slider-thumb]:[border:0.5rem_solid_#8a6bff] [&_input::-webkit-slider-thumb]:[transition:transform_0.25s] [&_input:active::-webkit-slider-thumb]:[transform:scale(1.18)] [&_input::-moz-range-thumb]:[width:2.4rem] [&_input::-moz-range-thumb]:[height:2.4rem] [&_input::-moz-range-thumb]:[border-radius:50%] [&_input::-moz-range-thumb]:[background:#fff] [&_input::-moz-range-thumb]:[border:0.5rem_solid_#8a6bff] [&_input:focus-visible]:[outline:2px_solid_#fff] [&_input:focus-visible]:[outline-offset:6px]! [&_input]:[display:block] [&_input]:[min-width:0] [&_input]:[background:linear-gradient(90deg,_var(--purple)_var(--p),_#e6e0fb_var(--p))] [&_input::-webkit-slider-thumb]:[border-color:var(--purple)]! [&_input::-webkit-slider-thumb]:[box-shadow:0_0.4rem_1rem_rgba(106,_65,_249,_0.3)] [&_input::-moz-range-thumb]:[border-color:var(--purple)]! [&_input:focus-visible]:[outline-color:var(--purple)]!" key={f.id}>
               <div className="calc__row [display:flex] [justify-content:space-between] [font-size:max(1.6rem,15px)] [margin-bottom:1rem] [&_output]:[font-weight:600] [&_output]:[font-variant-numeric:tabular-nums] [color:#4a4f63] [&_output]:[color:var(--ink-2)]"><label htmlFor={id}>{f.label}</label><output htmlFor={id}>{fmt(v, f.fmt)}</output></div>
-              <input id={id} type="range" min={f.min} max={f.max} step={f.step} value={v}
-                onChange={(e) => setVals((o) => ({ ...o, [f.id]: Number(e.target.value) }))}
-                style={{ ['--p' as string]: `${((v - f.min) / (f.max - f.min)) * 100}%` }} />
+              <SkinRange f={(v - f.min) / (f.max - f.min)}>
+                <input id={id} type="range" min={f.min} max={f.max} step={f.step} value={v}
+                  onChange={(e) => setVals((o) => ({ ...o, [f.id]: Number(e.target.value) }))} />
+              </SkinRange>
             </div>
           );
         })}

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 import { ArrowRight, BookOpen, Check, CheckCircle2, X, Search } from 'lucide-react';
 import { Button, Eyebrow, Reveal, SplitWords, CountUp } from '../components/ui';
+import { ScrollArrows } from '../components/ScrollArrows';
 import { CTA, FAQ } from '../sections/Closing';
 import { Assessment } from '../sections/Assessment';
 import { Proof } from './ServicesHub';
@@ -165,6 +166,7 @@ function Tile({ s, lens, focus }: { s: SpecialtyLite; lens: RuleId | null; focus
 function Index() {
   const touch = useTouch();
   const [lens, setLens] = useState<RuleId | null>(null);
+  const chipsRef = useRef<HTMLDivElement>(null);
   const [focus, setFocus] = useState<string | null>(null);
   const [q, setQ] = useState('');
   const shown = SPECIALTIES.filter((s) => matches(s, q));
@@ -200,7 +202,7 @@ function Index() {
 
       <div className="xi__bar [display:flex] [align-items:center] [justify-content:space-between] [gap:2.4rem] [margin-top:4.8rem] [@media(max-width:_1099px)]:[flex-direction:column-reverse] [@media(max-width:_1099px)]:[align-items:stretch] [@media(max-width:_1099px)]:[gap:1.6rem] [@media(max-width:_1099px)]:[margin-top:3.2rem]">
       <LayoutGroup>
-        <div className="need__chips xi__chips [display:flex] [flex-wrap:wrap] [gap:1.2rem] [margin-top:4.8rem] [@media(max-width:_1099px)]:[flex-wrap:nowrap] [@media(max-width:_1099px)]:[overflow-x:auto] [@media(max-width:_1099px)]:[margin-inline:calc(var(--gutter)_*_-1)] [@media(max-width:_1099px)]:[padding:0.4rem_var(--gutter)] [@media(max-width:_1099px)]:[scrollbar-width:none] [.xi\_\_bar_&]:[margin-top:0] [.xi\_\_bar_&]:[min-width:0] [@media(min-width:_1100px)]:[.xi\_\_bar_&]:[flex:none] [@media(min-width:_1100px)]:[.xi\_\_bar_&]:[flex-wrap:nowrap]" role="tablist" aria-label="Billing rule lens">
+        <div ref={chipsRef} className="need__chips xi__chips [display:flex] [flex-wrap:wrap] [gap:1.2rem] [margin-top:4.8rem] [@media(max-width:_1099px)]:[flex-wrap:nowrap] [@media(max-width:_1099px)]:[overflow-x:auto] [@media(max-width:_1099px)]:[margin-inline:calc(var(--gutter)_*_-1)] [@media(max-width:_1099px)]:[padding:0.4rem_var(--gutter)] [@media(max-width:_1099px)]:[scrollbar-width:none] [.xi\_\_bar_&]:[margin-top:0] [.xi\_\_bar_&]:[min-width:0] [@media(min-width:_1100px)]:[.xi\_\_bar_&]:[flex:none] [@media(min-width:_1100px)]:[.xi\_\_bar_&]:[flex-wrap:nowrap]" role="tablist" aria-label="Billing rule lens">
           {[null, ...RULES.map((r) => r.id)].map((id) => {
             const on = lens === id;
             return (
@@ -212,6 +214,7 @@ function Index() {
           })}
         </div>
       </LayoutGroup>
+      <div className="xi__chips-nav [display:none] [@media(max-width:_1099px)]:[display:flex] [justify-content:flex-end] [&:empty]:[display:none]"><ScrollArrows target={chipsRef} label="filters" /></div>
       <SpecialtySearch q={q} setQ={setQ} />
       </div>
       <div className="xi__why [min-height:3.4rem] [margin-top:2.8rem] [font-size:2.2rem] [line-height:1.4] [color:var(--ink-2)] [max-width:90rem] [&_b]:[font-weight:500] [&_b]:[color:var(--purple)] [@media(max-width:_1099px)]:[font-size:max(1.8rem,16px)] [@media(max-width:_1099px)]:[min-height:7.6rem]">

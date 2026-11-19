@@ -1,7 +1,7 @@
 import { go, goAnchor } from '../router';
 import logoSvg from '../assets/logo.svg?raw';
 import { Fragment, useEffect, useRef, useState, useId, type ReactNode, type CSSProperties } from 'react';
-import { motion, useInView, animate, useMotionValue, useTransform } from 'motion/react';
+import { motion, useInView, animate, useMotionValue, useTransform, type MotionValue } from 'motion/react';
 import { ease, dur, fadeUp, vp } from '../motion';
 import { useMotionOff } from '../motionPref';
 
@@ -193,5 +193,36 @@ export function UsFlag({ className = '', title }: { className?: string; title?: 
           )))}
       </g>
     </svg>
+  );
+}
+
+/** Label text for a required field, with a purple asterisk. Wraps the text so the asterisk stays on the same line in
+ *  column-flex labels. The input's own `required` attribute is what assistive tech announces. */
+export const Req = ({ children }: { children: ReactNode }) => (
+  <span className="req-label">{children}<span className="req [margin-left:0.2em] [color:var(--purple)] [font-weight:600]" aria-hidden>*</span></span>
+);
+
+/**
+ * Range slider that looks identical in every browser. Native thumbs differ by browser and OS (size, shape and
+ * colour), so the native <input type="range"> (passed as children) stays on top but invisible, for drag, touch,
+ * keyboard and screen readers, and the track, fill and thumb are drawn here.
+ * `f` is the filled fraction 0–1 (a number, or a motion value for a sprung fill).
+ */
+export function SkinRange({ f, size = '2.4rem', track = '#e6e0fb', fill = 'var(--purple)', ring = 'var(--purple)', thumb = 'var(--purple)', shadow = '0 0.4rem 1rem rgba(106, 65, 249, 0.3)', className = '', children }: {
+  f: number | MotionValue<number>; size?: string; track?: string; fill?: string; ring?: string; thumb?: string; shadow?: string; className?: string; children: ReactNode;
+}) {
+  const own = useMotionValue(typeof f === 'number' ? f : 0);
+  useEffect(() => { if (typeof f === 'number') own.set(f); }, [f, own]);
+  const src = typeof f === 'number' ? own : f;
+  // Same geometry as a native thumb: its centre runs from size/2 to (width − size/2)
+  const at = useTransform(src, (v) => `calc(${size} / 2 + (100% - ${size}) * ${Math.min(1, Math.max(0, v))})`);
+  const vars = { '--rs': size, '--rt': track, '--rf': fill, '--rr': ring, '--rb': thumb, '--rsh': shadow } as CSSProperties;
+  return (
+    <div className={String.raw`rng [position:relative] [display:flex] [align-items:center] [height:var(--rs)] [&_input]:[position:relative]! [&_input]:[z-index:1]! [&_input]:[display:block]! [&_input]:[width:100%]! [&_input]:[height:var(--rs)]! [&_input]:[margin:0]! [&_input]:[opacity:0]! [&_input]:[cursor:pointer]! ${className}`} style={vars}>
+      <span className="rng__track [position:absolute] [left:0] [right:0] [height:0.6rem] [border-radius:1rem] [background:var(--rt)] [pointer-events:none]" aria-hidden />
+      <motion.span className="rng__fill [position:absolute] [left:0] [height:0.6rem] [border-radius:1rem] [background:var(--rf)] [pointer-events:none]" style={{ width: at }} aria-hidden />
+      {children}
+      <motion.span className="rng__thumb [position:absolute] [top:50%] [z-index:2] [width:var(--rs)] [height:var(--rs)] [margin:calc(var(--rs)_/_-2)_0_0_calc(var(--rs)_/_-2)] [border-radius:50%] [background:#fff] [border:0.5rem_solid_var(--rb)] [box-shadow:var(--rsh)] [pointer-events:none] [transition:scale_0.25s_cubic-bezier(.16,1,.3,1)] [.rng:active_&]:[scale:1.15] [.rng:has(input:focus-visible)_&]:[outline:2px_solid_var(--rr)] [.rng:has(input:focus-visible)_&]:[outline-offset:3px]" style={{ left: at }} aria-hidden />
+    </div>
   );
 }

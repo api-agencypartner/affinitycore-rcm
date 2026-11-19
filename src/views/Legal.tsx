@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Mail } from 'lucide-react';
 import { Eyebrow, SplitWords } from '../components/ui';
 import { Link } from '../router';
+import { ScrollArrows } from '../components/ScrollArrows';
 import { PRIVACY, TERMS, ACCESSIBILITY, type LegalDoc } from '../data/legal';
 import { ease } from '../motion';
 import '../styles/pages.css';
@@ -12,6 +13,7 @@ export function LegalPage({ kind }: { kind: 'privacy' | 'terms' | 'accessibility
   const doc: LegalDoc = kind === 'privacy' ? PRIVACY : kind === 'terms' ? TERMS : ACCESSIBILITY;
   const other = kind === 'terms' ? { to: '/privacy-policy', label: 'Privacy policy' } : { to: '/terms', label: 'Terms and conditions' };
   const [active, setActive] = useState(doc.sections[0].id);
+  const tocRef = useRef<HTMLOListElement>(null);
 
   // Scroll-spy: the section nearest the top of the viewport lights up in the contents list.
   useEffect(() => {
@@ -41,9 +43,9 @@ export function LegalPage({ kind }: { kind: 'privacy' | 'terms' | 'accessibility
 
       <div className="lg-body container">
         <aside className="lg-toc" aria-label="On this page">
-          <p className="lg-toc__h">On this page</p>
+          <div className="lg-toc__top"><p className="lg-toc__h">On this page</p><ScrollArrows target={tocRef} label="sections" /></div>
           <div className="lg-toc__rail" aria-hidden><motion.i animate={{ scaleY: (idx + 1) / doc.sections.length }} transition={{ duration: 0.6, ease: ease.out }} /></div>
-          <ol>
+          <ol ref={tocRef}>
             {doc.sections.map((s, i) => (
               <li key={s.id}>
                 <a href={`#${s.id}`} className={s.id === active ? 'is-on' : ''}

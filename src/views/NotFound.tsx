@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, animate } from 'motion/react';
 import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
-import { Link, go } from '../router';
+import { Link } from '../router';
 import { ease } from '../motion';
 import '../styles/pages.css';
 import { useMotionOff } from '../motionPref';
@@ -85,7 +85,6 @@ export function NotFoundPage() {
         </motion.p>
         <motion.div className="nf-actions" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: ease.out, delay: 1 }}>
           <Link to="/" className="ty-btn ty-btn--solid"><ArrowLeft size={17} /> Appeal to the homepage</Link>
-          <button type="button" className="ty-btn" onClick={() => (typeof window !== 'undefined' && window.history.length > 1 ? window.history.back() : go('/'))}>Go back a page</button>
           <button type="button" className="ty-btn" onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, metaKey: true }))}><Search size={16} /> Search the site</button>
         </motion.div>
 
