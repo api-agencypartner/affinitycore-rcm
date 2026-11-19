@@ -90,7 +90,7 @@ function Row({ r, i, side, p, on }: { r: (typeof ROWS)[number]; i: number; side:
   );
 }
 
-const SIDE = String.raw`cta__side [position:relative] [align-self:stretch] [flex:1_1_0] [min-width:0] [overflow:hidden] [pointer-events:none] [@media(max-width:_900px)]:[flex:none] [@media(max-width:_900px)]:[width:100%] [@media(max-width:_900px)]:[height:8.4rem] [@media(max-width:_900px)]:[margin:0]!`;
+const SIDE = String.raw`cta__side [position:relative] [align-self:stretch] [flex:1_1_0] [min-width:0] [overflow:hidden] [pointer-events:none] [@media(max-width:_900px)]:[flex:none] [@media(max-width:_900px)]:[width:100%] [@media(max-width:_900px)]:[height:8.4rem] [@media(max-width:_900px)]:[margin:0]! [@media(max-width:_640px)]:[display:none]`;
 
 export function CTA({ eyebrow = '/ Ready when you are', lines = ['Your focus: better care.', 'Ours: a healthier revenue cycle.'] }: { eyebrow?: string; lines?: string[] } = {}) {
   const ref = useRef<HTMLElement>(null);
@@ -98,7 +98,7 @@ export function CTA({ eyebrow = '/ Ready when you are', lines = ['Your focus: be
   // Trigger on the band, not per row: rows that start mostly off-screen never reach a per-row threshold.
   const on = useInView(ref, { once: true, amount: 0.3 });
   return (
-    <section className="cta [position:relative] [height:47rem] [margin-top:16rem] [display:flex] [align-items:center] [justify-content:center] [overflow:hidden] [@media(max-width:_900px)]:[flex-direction:column] [@media(max-width:_900px)]:[height:auto] [@media(max-width:_1099px)]:[max-width:100vw] [@media(max-width:_1099px)]:[margin-top:8rem] [@media(max-width:_1099px)]:[padding-inline:2rem] [@media(max-width:_1099px)]:[&_p]:[font-size:16px]! [@media(max-width:_1099px)]:[&_p]:[line-height:1.6]" ref={ref}>
+    <section className="cta [position:relative] [height:47rem] [margin-top:16rem] [display:flex] [align-items:center] [justify-content:center] [overflow:hidden] [@media(max-width:_900px)]:[flex-direction:column] [@media(max-width:_900px)]:[height:auto] [@media(max-width:_640px)]:[padding-block:4.8rem] [@media(max-width:_1099px)]:[max-width:100vw] [@media(max-width:_1099px)]:[margin-top:8rem] [@media(max-width:_1099px)]:[padding-inline:2rem] [@media(max-width:_1099px)]:[&_p]:[font-size:16px]! [@media(max-width:_1099px)]:[&_p]:[line-height:1.6]" ref={ref}>
       <motion.div className="cta__bg [position:absolute] [inset:0] [background:#f6f3ff]" initial={{ scaleY: 0.6, opacity: 0 }} whileInView={{ scaleY: 1, opacity: 1 }} viewport={vp} transition={{ duration: 1, ease: ease.out }} />
       {/* Each pattern lives in its own side column and is clipped there, so the pills (and their scroll drift)
           can never pass behind the content. Phones: the columns become a strip above and below the content. */}
