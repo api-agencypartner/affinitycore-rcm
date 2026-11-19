@@ -102,41 +102,49 @@ export function PageGuide({ g }: { g: Guide }) {
 /* ================================================================== */
 /* Services                                                            */
 /* ================================================================== */
-export function serviceGuide(s: ServiceFull): Guide {
+/** Optional replacement copy for one page (content tests). Anything left out keeps the template text. */
+export type ServiceGuideCopy = {
+  answer?: string; whatP1?: string; whatP2?: string; incIntro?: string;
+  /** Chapter 4 paragraph 1, after the stat and its source link. */ whyTail?: string;
+  whyP2?: string; whenIntro?: string; whenClose?: string;
+};
+export function serviceGuide(s: ServiceFull, o: ServiceGuideCopy = {}): Guide {
   const n = s.name, low = n.toLowerCase();
   const scope = s.ticket.scope.map(strip);
   return {
     key: s.slug,
     tocTitle: `${n}, explained`,
     title: `What ${low} is, how it works, and when to outsource it.`,
-    answer: `${n} is one stage of the medical revenue cycle. In short: ${s.line.charAt(0).toLowerCase()}${s.line.slice(1)} Done well, it is the step that decides whether a claim is paid in full the first time, paid late after rework, or not paid at all. Practices either run it in-house or hand it to a specialist team that reports results monthly.`,
+    answer: o.answer ?? `${n} is one stage of the medical revenue cycle. In short: ${s.line.charAt(0).toLowerCase()}${s.line.slice(1)} Done well, it is the step that decides whether a claim is paid in full the first time, paid late after rework, or not paid at all. Practices either run it in-house or hand it to a specialist team that reports results monthly.`,
     secs: [
       { id: 'what', title: `What is ${low}?`, body: <>
-        <p>{strip(s.heroSub)}</p>
-        <p>{strip(s.ticket.intro)}</p>
+        <p>{o.whatP1 ?? strip(s.heroSub)}</p>
+        <p>{o.whatP2 ?? strip(s.ticket.intro)}</p>
       </> },
       { id: 'how', title: `How does ${low} work, step by step?`, body: <>
         <p>A well-run {low} process follows the same order on every claim. This is ours:</p>
         <ol className="pg__steps [list-style:none] [padding:0] [margin:2.4rem_0_0] [display:grid] [grid-template-columns:repeat(2,_minmax(0,_1fr))] [gap:1.4rem] [counter-reset:st] [&_li]:[padding:2rem_2.2rem] [&_li]:[border-radius:1.8rem] [&_li]:[background:#faf9ff] [&_li]:[border:1px_solid_#eee9ff] [&_b]:[display:flex] [&_b]:[gap:1rem] [&_b]:[align-items:baseline] [&_b]:[font-weight:500] [&_b]:[font-size:max(1.8rem,16px)] [&_b]:[color:var(--ink-2)] [&_small]:[font-family:var(--f-mono)] [&_small]:[font-size:max(1.2rem,12px)] [&_small]:[color:var(--purple)] [.pg\_\_body_.pg\_\_sec_&_p]:[margin-top:0.6rem] [.pg\_\_body_.pg\_\_sec_&_p]:[font-size:max(1.5rem,14px)] [.pg\_\_body_.pg\_\_sec_&_p]:[line-height:1.6] [.pg\_\_body_.pg\_\_sec_&_p]:[color:#5b5f72] [@media(max-width:_1099px)]:[&_p]:[font-size:16px]! [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)]">{s.steps.map((st, i) => <li key={st.title}><b><small>{String(i + 1).padStart(2, '0')}</small>{strip(st.title)}</b><p>{strip(st.body)}</p></li>)}</ol>
       </> },
       { id: 'inc', title: `What should a ${low} service include?`, body: <>
-        <p>Whoever runs it, in-house or outsourced, these are the parts to expect. If one is missing, that is usually where the money goes.</p>
+        <p>{o.incIntro ?? 'Whoever runs it, in-house or outsourced, these are the parts to expect. If one is missing, that is usually where the money goes.'}</p>
         <ul className="sg__ask [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [list-style:none] [padding:0] [margin:2.4rem_0_0] [display:flex] [flex-direction:column] [gap:1rem] [&_li]:[display:flex] [&_li]:[gap:1.2rem] [&_li]:[align-items:flex-start] [&_li]:[padding:1.6rem_2rem] [&_li]:[border-radius:1.6rem] [&_li]:[border:1px_solid_#ece8fa] [&_li]:[font-size:max(1.7rem,15px)] [&_li]:[line-height:1.5] [&_li]:[color:var(--ink-2)] [&_svg]:[flex:none] [&_svg]:[margin-top:0.3rem] [&_svg]:[color:var(--purple)] [.pg\_\_sec_&]:[margin-top:2rem]">{scope.map((t) => <li key={t}><CheckCircle2 size={18} />{t}</li>)}</ul>
         <p>Reporting: {strip(s.ticket.reporting)}. Owner: {strip(s.ticket.owner)}.</p>
       </> },
       { id: 'why', title: `Why does ${low} matter for revenue?`, body: <>
-        <p>{s.stat.prefix ?? ''}{s.stat.value}{s.stat.suffix ?? ''} {strip(s.stat.label)} (<a href={s.stat.href} target="_blank" rel="noopener noreferrer">{s.stat.source}</a>). That gap is rarely one big failure. It is small, repeatable misses: a field left blank, a rule that changed, a follow-up that never happened.</p>
-        <p>Because the misses repeat, fixing the cause is worth more than fixing the claim. That is why every {low} engagement ends each month with the pattern behind the numbers, not only the numbers.</p>
+        {o.whyTail
+          ? <p>{s.stat.prefix ?? ''}{s.stat.value}{s.stat.suffix ?? ''} {strip(s.stat.label).replace(/\.$/, '')} (<a href={s.stat.href} target="_blank" rel="noopener noreferrer">{s.stat.source}</a>). {o.whyTail}</p>
+          : <p>{s.stat.prefix ?? ''}{s.stat.value}{s.stat.suffix ?? ''} {strip(s.stat.label)} (<a href={s.stat.href} target="_blank" rel="noopener noreferrer">{s.stat.source}</a>). That gap is rarely one big failure. It is small, repeatable misses: a field left blank, a rule that changed, a follow-up that never happened.</p>}
+        <p>{o.whyP2 ?? <>Because the misses repeat, fixing the cause is worth more than fixing the claim. That is why every {low} engagement ends each month with the pattern behind the numbers, not only the numbers.</>}</p>
       </> },
       { id: 'when', title: `When should a practice outsource ${low}?`, body: <>
-        <p>Outsourcing makes sense when the work is falling behind, when one person holds all the knowledge, or when the numbers are drifting and nobody has time to find out why. Common signs:</p>
+        <p>{o.whenIntro ?? 'Outsourcing makes sense when the work is falling behind, when one person holds all the knowledge, or when the numbers are drifting and nobody has time to find out why. Common signs:'}</p>
         <ul className="pg__list [margin:1.6rem_0_0] [padding-left:2.2rem] [display:flex] [flex-direction:column] [gap:0.8rem] [font-size:max(1.7rem,15px)] [line-height:1.6] [color:#4a4f63] [&_li::marker]:[color:var(--purple)] [@media(max-width:_1099px)]:[font-size:16px]!">
           <li>Denial rate above 5–10%, or rising quarter over quarter.</li>
           <li>Days in A/R above 40, or a growing 90+ day bucket.</li>
           <li>Staff overtime or turnover in the billing office.</li>
           <li>No monthly report that explains why the numbers moved.</li>
         </ul>
-        <p>You can also hand over just this part of the cycle and keep the rest in-house. It starts with a free review of one month of your claims.</p>
+        <p>{o.whenClose ?? 'You can also hand over just this part of the cycle and keep the rest in-house. It starts with a free review of one month of your claims.'}</p>
       </> },
     ],
     cta: [`Want to see how your ${low} compares?`, 'Get a free revenue assessment'],

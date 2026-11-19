@@ -80,9 +80,9 @@ export function Included({ s }: { s: SpecialtyFull }) {
 /* EHR strip                                                          */
 /* ================================================================== */
 /** Same fold as the homepage "Platforms we work with", worded for the page. */
-export function EhrStrip({ what }: { what: string }) {
+export function EhrStrip({ what, lines, copy }: { what: string; lines?: string[]; copy?: string }) {
   return (
-    <Platforms copy={`No new software for your staff to learn. We bill ${what} directly in your EHR and practice management system, plus your clearinghouse and payer portals, and map access with you before anything changes.`} />
+    <Platforms lines={lines} copy={copy ?? `No new software for your staff to learn. We bill ${what} directly in your EHR and practice management system, plus your clearinghouse and payer portals, and map access with you before anything changes.`} />
   );
 }
 
@@ -194,13 +194,13 @@ export function Switching({ what }: { what: string }) {
 /* ================================================================== */
 /* Service pages: which specialties this service is run for            */
 /* ================================================================== */
-export function SpecialtyChips({ service }: { service: string }) {
+export function SpecialtyChips({ service, eyebrow = '/ Specialties we do this for', heading }: { service: string; eyebrow?: string; heading?: string }) {
   const list = SPECIALTIES.filter((x) => x.page);
   return (
     <section className="spc container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:10rem]">
       <div className="spc__head [display:flex] [flex-direction:column] [gap:1.2rem]">
-        <Eyebrow>/ Specialties we do this for</Eyebrow>
-        <p className="spc__h [font-weight:500] [font-size:3.2rem] [line-height:1.2] [letter-spacing:-0.06rem] [color:var(--ink-2)] [max-width:80rem]">{`${service}, run by people who know your specialty’s rules.`}</p>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <p className="spc__h [font-weight:500] [font-size:3.2rem] [line-height:1.2] [letter-spacing:-0.06rem] [color:var(--ink-2)] [max-width:80rem]">{heading ?? `${service}, run by people who know your specialty’s rules.`}</p>
       </div>
       <motion.ul className="spc__chips [list-style:none] [display:flex] [flex-wrap:wrap] [gap:1rem] [margin-top:3.2rem] [&_a]:[display:inline-flex] [&_a]:[align-items:center] [&_a]:[gap:0.6rem] [&_a]:[padding:1.1rem_1.8rem] [&_a]:[border-radius:99rem] [&_a]:[border:1px_solid_#e6dfff] [&_a]:[background:#fff] [&_a]:[font-size:max(1.55rem,14px)] [&_a]:[color:var(--ink-2)] [&_a]:[transition:background_0.3s,_color_0.3s,_border-color_0.3s] [&_a_svg]:[color:#b9a5ff] [&_a_svg]:[transition:color_0.3s,_transform_0.3s] [&_a:hover]:[background:var(--purple)] [&_a:hover]:[border-color:var(--purple)] [&_a:hover]:[color:#fff] [&_a:hover_svg]:[color:#fff] [&_a:hover_svg]:[transform:translate(0.2rem,_-0.2rem)]" initial="h" whileInView="s" viewport={vp} variants={{ h: {}, s: { transition: { staggerChildren: 0.025 } } }}>
         {list.map((x) => (

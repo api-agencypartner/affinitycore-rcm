@@ -1,5 +1,6 @@
 'use client';
 import { IntroBlock, serviceIntro } from '../components/IntroBlock';
+import type { ServiceGuideCopy } from '../components/PageGuide';
 import { PageGuide, serviceGuide } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -60,7 +61,7 @@ function WorkQueue({ s }: { s: ServiceFull }) {
   );
 }
 
-function Hero({ s }: { s: ServiceFull }) {
+function Hero({ s, source }: { s: ServiceFull; source?: string }) {
   return (
     <section className="sp-hero [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:6rem] [align-items:center] [padding:16.4rem_var(--gutter)_6rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[padding-top:12rem] [@media(max-width:_1099px)]:[min-height:0]">
       <div className="sp-hero__copy [display:flex] [flex-direction:column] [gap:2.8rem]">
@@ -70,7 +71,7 @@ function Hero({ s }: { s: ServiceFull }) {
         <SplitWords as="h1" className="page-title [font-weight:500] [font-size:6.12rem] [line-height:1.06] [letter-spacing:-0.18rem] [color:var(--ink-3)] [@media(max-width:_1099px)]:[font-size:4.32rem]" animateNow delay={0.3} stagger={0.05} lines={s.heroTitle} bold={[s.heroAccent]} />
         <motion.p className="page-sub [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:56rem] [.ab-hero\_\_copy_&]:[max-width:64rem]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.75 }}>{s.heroSub}</motion.p>
         <motion.div className="sh-hero__cta [display:flex] [align-items:center] [gap:3.2rem] [flex-wrap:wrap]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.9 }}>
-          <HeroCapture source={`service:${s.slug}`} />
+          <HeroCapture source={source ?? `service:${s.slug}`} />
         </motion.div>
         <TrustRow />
       </div>
@@ -256,7 +257,7 @@ export function HowWeWork({ s }: { s: Pick<ServiceFull, 'doc' | 'steps' | 'how'>
    Breaks the left-copy / right-visual rhythm of the folds around it. The stat sits centred in a soft
    lavender panel, a line drops from it to a "what we do about it" node, and the work order opens
    underneath as a wide ticket with the scope as chips (any count wraps cleanly). */
-function ProblemWork({ s }: { s: ServiceFull }) {
+function ProblemWork({ s, workTitle = 'Everything on the work order.', staticStat }: { s: ServiceFull; workTitle?: string; staticStat?: boolean }) {
   const { stat, ticket } = s;
   const ref = useRef<HTMLDivElement>(null);
   const on = useInView(ref, { once: true, amount: 0.35 });
@@ -267,7 +268,7 @@ function ProblemWork({ s }: { s: ServiceFull }) {
         <div className="pw__stat [display:flex] [flex-direction:column] [align-items:center] [gap:1.6rem]">
           <Eyebrow>/ The problem, in numbers</Eyebrow>
           <p className={String.raw`prob__big pw__big [font-weight:500] [font-size:22rem] [line-height:0.9] [letter-spacing:-0.8rem] [color:var(--purple)] [@media(max-width:_1099px)]:[font-size:14rem] [&.is-long]:[font-size:17rem] [&.is-long]:[letter-spacing:-0.6rem] [&.is-xlong]:[font-size:14rem] [&.is-xlong]:[letter-spacing:-0.5rem] [@media(max-width:_1099px)]:[&.is-long]:[font-size:11rem] [@media(max-width:_1099px)]:[&.is-xlong]:[font-size:9rem] [.prob--solo_&]:[grid-row:2_/_span_2] [@media(max-width:_1099px)]:[.prob--solo_&]:[grid-row:auto] [.prob--solo_&]:[padding-bottom:1.2rem] [padding-bottom:0.8rem] ${big.length > 4 ? 'is-long' : ''} ${big.length > 6 ? 'is-xlong' : ''}`}>
-            <CountUp value={stat.value} decimals={stat.decimals ?? 0} prefix={stat.prefix ?? ''} suffix={stat.suffix ?? ''} duration={1.6} />
+            {staticStat ? big : <CountUp value={stat.value} decimals={stat.decimals ?? 0} prefix={stat.prefix ?? ''} suffix={stat.suffix ?? ''} duration={1.6} />}
           </p>
           <Reveal as="p" className="pw__label [max-width:72rem] [font-weight:500] [font-size:2.8rem] [line-height:1.3] [letter-spacing:-0.04rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:2.2rem]">{stat.label}</Reveal>
           <a className="prob__src [font-family:var(--f-mono)] [font-size:max(1.3rem,13px)] [color:#636673] [text-decoration:underline] [text-underline-offset:0.3em] [.prob--solo_&]:[grid-column:2] [.prob--solo_&]:[justify-self:start] [.prob--solo_&]:[padding-bottom:1.6rem] [@media(max-width:_1099px)]:[.prob--solo_&]:[grid-column:1]" href={stat.href} target="_blank" rel="noopener noreferrer">Source: {stat.source}</a>
@@ -280,7 +281,7 @@ function ProblemWork({ s }: { s: ServiceFull }) {
 
         <div className="pw__head [display:flex] [flex-direction:column] [align-items:center] [gap:1.2rem] [margin-top:3.2rem]">
           <Eyebrow>/ What we do</Eyebrow>
-          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Everything on the work order.']} stagger={0.04} />
+          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={[workTitle]} stagger={0.04} />
           <Reveal as="p" className="body-18 [font-size:max(1.8rem,16px)] [line-height:1.6] [color:var(--navy)] [.testi\_\_intro_&]:[margin-top:0.8rem] [.faq\_\_intro_&]:[margin-top:0.8rem] [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [.tk\_\_head_&]:[margin-top:0.8rem] [.tk\_\_head_&]:[max-width:52rem] [.pw\_\_head_&]:[max-width:60rem] [.pw\_\_head_&]:[color:#4a4f63] [.ac\_\_copy_&]:[margin-top:0.8rem] [.mdef\_\_head_&]:[margin-top:0.8rem] [.mdef\_\_head_&]:[max-width:48rem] [.nl\_\_copy_&]:[margin-top:0.8rem]">{ticket.intro}</Reveal>
         </div>
 
@@ -392,30 +393,49 @@ function Rail({ s }: { s: ServiceFull }) {
   );
 }
 
+/** Replacement copy for one page, for content tests. Every field is optional; anything left out keeps the live template text. */
+export type ServicePageCopy = {
+  /** Full <title>, used as is. */ title?: string;
+  intro?: { lead?: string; body?: string; more?: string };
+  staticStat?: boolean; workTitle?: string;
+  platforms?: { lines?: string[]; copy?: string };
+  specialties?: { eyebrow?: string; heading?: string };
+  midBody?: string; guide?: ServiceGuideCopy; included?: string[];
+  /** Final FAQ list (question, answer), in display order. */ faqs?: string[][];
+  /** Lead-source tag for the forms, and whether to write JSON-LD (test pages skip it). */ source?: string; jsonLd?: boolean;
+};
+
 export function ServicePage({ slug }: { slug: string }) {
-  const s = getService(slug);
-  const faqs = useMemo(() => searchFaqs({ name: s.name, kind: 'service', faqs: s.faqs }), [s]);
+  return <ServicePageView s={getService(slug)} />;
+}
+
+export function ServicePageView({ s, copy: c = {} }: { s: ServiceFull; copy?: ServicePageCopy }) {
+  const built = useMemo(() => searchFaqs({ name: s.name, kind: 'service', faqs: s.faqs }), [s]);
+  const faqs = c.faqs ?? built;
+  const intro = { ...serviceIntro(s), ...c.intro };
+  const source = c.source ?? `service:${s.slug}`;
   useEffect(() => {
-    document.title = `${s.seoTitle} · Affinity Core`;
+    document.title = c.title ?? `${s.seoTitle} · Affinity Core`;
     let m = document.querySelector('meta[name="description"]');
     if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); }
     m.setAttribute('content', s.seoDescription);
+    if (c.jsonLd === false) return;
     setJsonLd(pageJsonLd({ name: s.name, description: s.seoDescription, path: `/services/${s.slug}`, crumb: ['Services', '/services'], faqs }));
     return () => setJsonLd(null);
-  }, [s, faqs]);
+  }, [s, faqs, c.title, c.jsonLd]);
   return (
     <main className="page [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem]">
-      <Hero s={s} />
-      <IntroBlock d={serviceIntro(s)} />
-      <ProblemWork s={s} />
+      <Hero s={s} source={source} />
+      <IntroBlock d={intro} />
+      <ProblemWork s={s} workTitle={c.workTitle} staticStat={c.staticStat} />
       <HowWeWork s={s} />
-      <EhrStrip what={s.name.toLowerCase()} />
-      <SpecialtyChips service={s.name} />
-      <MidCta title={`See what better ${s.name.toLowerCase()} is worth to you.`} body="We’ll review a month of your claims and show you the dollars, line by line. Free, no contract." />
+      <EhrStrip what={s.name.toLowerCase()} lines={c.platforms?.lines} copy={c.platforms?.copy} />
+      <SpecialtyChips service={s.name} eyebrow={c.specialties?.eyebrow} heading={c.specialties?.heading} />
+      <MidCta title={`See what better ${s.name.toLowerCase()} is worth to you.`} body={c.midBody ?? 'We’ll review a month of your claims and show you the dollars, line by line. Free, no contract.'} />
       <Rail s={s} />
       <Proof service={s.slug} />
-      <PageGuide g={serviceGuide(s)} />
-      <Assessment formFirst calc={s.calc} source={`service:${s.slug}`} />
+      <PageGuide g={serviceGuide(s, c.guide)} />
+      <Assessment formFirst calc={s.calc} source={source} included={c.included} />
       <FAQ items={faqs} eyebrow={`/ ${s.name} FAQs`} lines={s.faqLines} />
       <CTA eyebrow={s.closing.eyebrow} lines={s.closing.lines} />
     </main>

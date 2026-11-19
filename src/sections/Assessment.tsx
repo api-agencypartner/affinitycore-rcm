@@ -185,7 +185,7 @@ const INCLUDED = ['Denial root-cause review', 'A/R aging breakdown', 'Coding and
  * - `calc`: service pages pass their calculator, which then lives in the estimate card (no calculator higher up)
  * - `source`: sent with the form so sales knows which page the lead came from
  */
-export function Assessment({ monthly, specialty, formFirst, source, calc }: { monthly?: number; specialty?: string; formFirst?: boolean; source?: string; calc?: Calc } = {}) {
+export function Assessment({ monthly, specialty, formFirst, source, calc, included = INCLUDED }: { monthly?: number; specialty?: string; formFirst?: boolean; source?: string; calc?: Calc; included?: string[] } = {}) {
   const carried = useCarriedEstimate();
   const [sent, setSent] = useState(false);
   const [picked, setPicked] = useState('');
@@ -232,7 +232,7 @@ export function Assessment({ monthly, specialty, formFirst, source, calc }: { mo
         <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['See exactly where your', 'revenue is leaking.']} stagger={0.04} />
         <motion.ul className="assess__incl [display:grid] [grid-template-columns:1fr_1fr] [gap:1rem_2.4rem] [margin-top:1.6rem] [&_li]:[display:flex] [&_li]:[align-items:center] [&_li]:[gap:1rem] [&_li]:[font-size:max(1.6rem,15px)] [&_li]:[color:var(--navy)] [&_li_span]:[width:2.6rem] [&_li_span]:[height:2.6rem] [&_li_span]:[border-radius:50%] [&_li_span]:[background:#dcf5ea] [&_li_span]:[color:#12a150] [&_li_span]:[display:grid] [&_li_span]:[place-items:center] [&_li_span]:[flex-shrink:0] [&_svg]:[width:1.6rem] [&_svg]:[height:1.6rem] [@media(max-width:_1099px)]:[grid-template-columns:1fr]" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.5 }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } } }}>
-          {INCLUDED.map((t) => (
+          {included.map((t) => (
             <motion.li key={t} variants={field}><span><Check /></span>{t}</motion.li>
           ))}
         </motion.ul>
