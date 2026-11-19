@@ -70,7 +70,7 @@ const ROWS: { x: number; parts: ('p' | 'c')[] }[] = [
 ];
 function Pattern({ side, p, on }: { side: 1 | -1; p: ReturnType<typeof useScroll>['scrollYProgress']; on: boolean }) {
   return (
-    <div className={String.raw`cta__pattern [position:absolute] [top:4.5rem] [width:49.4rem] [height:38rem] [@media(max-width:_1099px)]:[opacity:0.5] cta__pattern--${side === -1 ? 'l' : 'r'}`}>
+    <div className={String.raw`cta__pattern [position:absolute] [top:4.5rem] [width:49.4rem] [height:38rem] [@media(max-width:_1099px)]:[opacity:0.5] [@media(max-width:_900px)]:[top:0.9rem] cta__pattern--${side === -1 ? 'l' : 'r'}`}>
       {ROWS.map((r, i) => <Row key={i} r={r} i={i} side={side} p={p} on={on} />)}
     </div>
   );
@@ -90,21 +90,25 @@ function Row({ r, i, side, p, on }: { r: (typeof ROWS)[number]; i: number; side:
   );
 }
 
+const SIDE = String.raw`cta__side [position:relative] [align-self:stretch] [flex:1_1_0] [min-width:0] [overflow:hidden] [pointer-events:none] [@media(max-width:_900px)]:[flex:none] [@media(max-width:_900px)]:[width:100%] [@media(max-width:_900px)]:[height:8.4rem] [@media(max-width:_900px)]:[margin:0]!`;
+
 export function CTA({ eyebrow = '/ Ready when you are', lines = ['Your focus: better care.', 'Ours: a healthier revenue cycle.'] }: { eyebrow?: string; lines?: string[] } = {}) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   // Trigger on the band, not per row: rows that start mostly off-screen never reach a per-row threshold.
   const on = useInView(ref, { once: true, amount: 0.3 });
   return (
-    <section className="cta [position:relative] [height:47rem] [margin-top:16rem] [display:grid] [place-items:center] [overflow:hidden] [@media(max-width:_1099px)]:[max-width:100vw] [@media(max-width:_1099px)]:[margin-top:8rem] [@media(max-width:_1099px)]:[padding-inline:2rem] [@media(max-width:_1099px)]:[&_p]:[font-size:16px]! [@media(max-width:_1099px)]:[&_p]:[line-height:1.6]" ref={ref}>
+    <section className="cta [position:relative] [height:47rem] [margin-top:16rem] [display:flex] [align-items:center] [justify-content:center] [overflow:hidden] [@media(max-width:_900px)]:[flex-direction:column] [@media(max-width:_900px)]:[height:auto] [@media(max-width:_1099px)]:[max-width:100vw] [@media(max-width:_1099px)]:[margin-top:8rem] [@media(max-width:_1099px)]:[padding-inline:2rem] [@media(max-width:_1099px)]:[&_p]:[font-size:16px]! [@media(max-width:_1099px)]:[&_p]:[line-height:1.6]" ref={ref}>
       <motion.div className="cta__bg [position:absolute] [inset:0] [background:#f6f3ff]" initial={{ scaleY: 0.6, opacity: 0 }} whileInView={{ scaleY: 1, opacity: 1 }} viewport={vp} transition={{ duration: 1, ease: ease.out }} />
-      <Pattern side={-1} p={scrollYProgress} on={on} />
-      <Pattern side={1} p={scrollYProgress} on={on} />
-      <div className="cta__inner [position:relative] [width:112rem] [display:flex] [flex-direction:column] [align-items:center] [gap:1.2rem] [text-align:center] [&>div:last-child]:[margin-top:2.8rem] [@media(max-width:_1099px)]:[width:100%]">
+      {/* Each pattern lives in its own side column and is clipped there, so the pills (and their scroll drift)
+          can never pass behind the content. Phones: the columns become a strip above and below the content. */}
+      <div className={SIDE + String.raw` [margin-right:4rem] [mask-image:linear-gradient(90deg,_#000_65%,_transparent)] [@media(max-width:_900px)]:[mask-image:none]`} aria-hidden><Pattern side={-1} p={scrollYProgress} on={on} /></div>
+      <div className="cta__inner [position:relative] [flex:0_1_auto] [max-width:112rem] [display:flex] [flex-direction:column] [align-items:center] [gap:1.2rem] [text-align:center] [&>div:last-child]:[margin-top:2.8rem] [@media(max-width:_900px)]:[width:100%] [@media(max-width:_900px)]:[padding-block:1.6rem]">
         <Eyebrow>{eyebrow}</Eyebrow>
         <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_1099px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={lines} stagger={0.05} />
         <Reveal delay={0.4}><Button>Get a free revenue assessment</Button></Reveal>
       </div>
+      <div className={SIDE + String.raw` [margin-left:4rem] [mask-image:linear-gradient(270deg,_#000_65%,_transparent)] [@media(max-width:_900px)]:[mask-image:none]`} aria-hidden><Pattern side={1} p={scrollYProgress} on={on} /></div>
     </section>
   );
 }
@@ -194,7 +198,7 @@ export function Footer() {
           <span className="foot__badge [width:8.4rem] [height:8.4rem] [flex:none] [border-radius:50%] [background:#fff] [display:grid] [place-items:center] [box-shadow:0_0_0_0.6rem_rgba(255,_255,_255,_0.08)] [&_img]:[width:7rem] [&_img]:[height:7rem] [&_img]:[object-fit:contain]"><img src={hipaaBadge} alt="HIPAA compliant" /></span><p className="foot__badge-t [font-weight:500] [font-size:max(1.7rem,15px)] [color:#fff] [line-height:1.35] [&_small]:[font-weight:400] [&_small]:[font-size:max(1.4rem,14px)] [&_small]:[color:#a59fc4]">HIPAA compliant<br /><small>BAA signed with every client</small></p>
         </Reveal>
       </div>
-      <p className="foot__copy [text-align:center] [padding:1.3rem_0] [font-size:max(1.8rem,16px)] [color:#c9c5d6] [border-bottom:1px_solid_#372f4f] [position:relative] [z-index:1] [@media(max-width:_1099px)]:[order:4]">© 2026 AffinityCore. All rights reserved.<span aria-hidden className="[margin:0_1.2rem] [color:#5d5674]">·</span><a href={u('/privacy-policy')} className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]">Privacy policy</a><span aria-hidden className="[margin:0_1.2rem] [color:#5d5674]">·</span><a href={u('/terms')} className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]">Terms</a><span aria-hidden className="[margin:0_1.2rem] [color:#5d5674]">·</span><a href={u('/accessibility')} className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]">Accessibility</a><span aria-hidden className="[margin:0_1.2rem] [color:#5d5674]">·</span><MotionToggle className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]" /></p>
+      <p className="foot__copy [text-align:center] [padding:1.3rem_0] [font-size:max(1.8rem,16px)] [color:#c9c5d6] [border-bottom:1px_solid_#372f4f] [position:relative] [z-index:1] [@media(max-width:_1099px)]:[order:4]">© 2026 AffinityCore. All rights reserved.<span aria-hidden className="[margin:0_1.2rem] [color:#5d5674] [@media(max-width:_640px)]:[display:none]">·</span><span className="foot__legal [@media(max-width:_640px)]:[display:block] [@media(max-width:_640px)]:[margin-top:0.6rem]"><a href={u('/privacy-policy')} className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]">Privacy policy</a><span aria-hidden className="[margin:0_1.2rem] [color:#5d5674]">·</span><a href={u('/terms')} className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]">Terms</a><span aria-hidden className="[margin:0_1.2rem] [color:#5d5674]">·</span><a href={u('/accessibility')} className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]">Accessibility</a></span><span aria-hidden className="[margin:0_1.2rem] [color:#5d5674] [@media(max-width:_640px)]:[display:none]">·</span><span className="foot__motion [@media(max-width:_640px)]:[display:block] [@media(max-width:_640px)]:[margin-top:0.6rem]"><MotionToggle className="[transition:color_0.3s] [&:hover]:[color:#b9a5ff]" /></span></p>
       <motion.div className="foot__bars [position:relative] [height:38.7rem] [overflow:hidden] [&_span]:[position:absolute] [&_span]:[bottom:0] [&_span]:[height:auto] [&_span]:[transform-origin:bottom] [&_span]:[background:linear-gradient(180deg,_rgba(106,_65,_249,_0)_0%,_rgba(96,_56,_220,_0.6)_100%)] [&_span]:[border-left:1px_dashed_rgba(255,_255,_255,_0.25)] [&_span]:[border-right:1px_dashed_rgba(255,_255,_255,_0.25)] [@media(max-width:_1099px)]:[height:20rem] [@media(max-width:_1099px)]:[order:5]" aria-hidden initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
         <div className="foot__bars-in [position:absolute] [left:50%] [top:0] [bottom:0] [width:192rem] [margin-left:-96rem] [transform:scaleX(0.875)]">
         {BARS.map(([l, t, w], i) => (
