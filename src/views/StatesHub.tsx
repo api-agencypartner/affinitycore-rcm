@@ -8,7 +8,7 @@ import { useEffect, useMemo, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Search, X, MapPin, Landmark, ChevronLeft, ChevronRight } from 'lucide-react';
 import { StateFlag } from '../components/StateFlag';
-import { Eyebrow, SplitWords, Reveal } from '../components/ui';
+import { Eyebrow, SplitWords, Reveal, CountUp } from '../components/ui';
 import { HeroCapture } from '../components/HeroCapture';
 import { USMap } from '../components/USMap';
 import { CTA, FAQ } from '../sections/Closing';
@@ -19,7 +19,6 @@ import { MACS, MAC_OF, REGION_OF } from '../data/states-all';
 import { MAC_LOGO } from '../data/macLogos';
 
 import { ease, vp } from '../motion';
-import { useTouch } from '../components/useNarrow';
 
 /** Cards shown per step on small screens (0 = no limit on desktop). */
 function useStep() {
@@ -34,28 +33,39 @@ type Region = (typeof REGIONS)[number];
 
 function Hero() {
   return (
-    <section className="sth [display:grid] [grid-template-columns:minmax(0,_1.25fr)_minmax(0,_0.75fr)] [gap:8rem] [align-items:end] [padding:16rem_var(--gutter)_4rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem] [@media(max-width:_1099px)]:[padding-top:12rem]">
+    <section className="sth [display:grid] [grid-template-columns:minmax(0,_0.95fr)_minmax(0,_1.05fr)] [gap:6.4rem] [align-items:center] [padding:16rem_var(--gutter)_4rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem] [@media(max-width:_1099px)]:[padding-top:12rem]">
       <div className="sth__copy [display:flex] [flex-direction:column] [gap:2.4rem]">
         <motion.p className="eyebrow [font-family:var(--f-mono)] [font-size:max(1.6rem,15px)] [line-height:1.4] [text-transform:uppercase] [color:var(--ink)] [letter-spacing:0.02em] [.hero\_\_copy_&]:[margin-bottom:1.2rem] [.stmac\_\_intro_&]:[grid-column:1_/_-1]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: ease.out, delay: 0.2 }}>/ States we serve</motion.p>
         <SplitWords as="h1" className="page-title [font-weight:500] [font-size:6.12rem] [line-height:1.06] [letter-spacing:-0.18rem] [color:var(--ink-3)] [@media(max-width:_1099px)]:[font-size:4.32rem]" animateNow delay={0.3} stagger={0.05} lines={['Medical billing', 'in all 50 states.']} bold={['50']} />
         <motion.p className="page-sub [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:56rem] [.ab-hero\_\_copy_&]:[max-width:64rem]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.8 }}>
           Every state has its own Medicare contractor, Medicaid program and prompt-pay deadline. Pick yours to see the rules we bill by there, or start with a free review of your claims.
         </motion.p>
+        <div className="hero__stats sth__stats [display:flex] [align-items:flex-start] [gap:4rem] [margin-top:0.8rem] [@media(max-width:_1099px)]:[gap:3.2rem] [@media(max-width:_640px)]:[display:grid] [@media(max-width:_640px)]:[grid-template-columns:repeat(3,_minmax(0,_1fr))] [@media(max-width:_640px)]:[gap:1.6rem] [@media(max-width:_640px)]:[&_span:not(.hero\_\_num)]:[font-size:14px]! [@media(max-width:_640px)]:[&_span:not(.hero\_\_num)]:[line-height:1.4]!">
+          <motion.div className="hero__stat [display:flex] [flex-direction:column] [gap:0.2rem] [&>span:not(.hero\_\_num)]:[font-size:max(1.53rem,14px)] [&>span:not(.hero\_\_num)]:[color:#4a4f63] [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[font-size:16px]! [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[line-height:1.6]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.85 }}>
+            <CountUp className="hero__num [.hero\_\_stat_&]:[display:block] [.hero\_\_stat_&]:[font-family:var(--f-sans)] [.hero\_\_stat_&]:[font-weight:600] [.hero\_\_stat_&]:[font-size:4.03rem] [.hero\_\_stat_&]:[line-height:1] [.hero\_\_stat_&]:[letter-spacing:-0.09rem] [.hero\_\_stat_&]:[color:var(--ink)] [@media(max-width:_1099px)]:[.hero\_\_stat_&]:[font-size:2.88rem]" value={50} start delay={0.9} duration={1.6} />
+            <span>States with their own billing page</span>
+          </motion.div>
+          <motion.div className="hero__stat [display:flex] [flex-direction:column] [gap:0.2rem] [&>span:not(.hero\_\_num)]:[font-size:max(1.53rem,14px)] [&>span:not(.hero\_\_num)]:[color:#4a4f63] [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[font-size:16px]! [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[line-height:1.6]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.93 }}>
+            <CountUp className="hero__num [.hero\_\_stat_&]:[display:block] [.hero\_\_stat_&]:[font-family:var(--f-sans)] [.hero\_\_stat_&]:[font-weight:600] [.hero\_\_stat_&]:[font-size:4.03rem] [.hero\_\_stat_&]:[line-height:1] [.hero\_\_stat_&]:[letter-spacing:-0.09rem] [.hero\_\_stat_&]:[color:var(--ink)] [@media(max-width:_1099px)]:[.hero\_\_stat_&]:[font-size:2.88rem]" value={12} start delay={1.0} duration={1.6} />
+            <span>Medicare jurisdictions we work</span>
+          </motion.div>
+          <motion.div className="hero__stat [display:flex] [flex-direction:column] [gap:0.2rem] [&>span:not(.hero\_\_num)]:[font-size:max(1.53rem,14px)] [&>span:not(.hero\_\_num)]:[color:#4a4f63] [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[font-size:16px]! [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[line-height:1.6]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 1.01 }}>
+            <CountUp className="hero__num [.hero\_\_stat_&]:[display:block] [.hero\_\_stat_&]:[font-family:var(--f-sans)] [.hero\_\_stat_&]:[font-weight:600] [.hero\_\_stat_&]:[font-size:4.03rem] [.hero\_\_stat_&]:[line-height:1] [.hero\_\_stat_&]:[letter-spacing:-0.09rem] [.hero\_\_stat_&]:[color:var(--ink)] [@media(max-width:_1099px)]:[.hero\_\_stat_&]:[font-size:2.88rem]" value={1} start delay={1.1} duration={1.6} />
+            <span>US-based team, in your time zone</span>
+          </motion.div>
+        </div>
         <motion.div className="sh-hero__cta [display:flex] [align-items:center] [gap:3.2rem] [flex-wrap:wrap]" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: ease.out, delay: 0.95 }}>
           <HeroCapture source="states" />
         </motion.div>
       </div>
-      <motion.dl className="sth__stats [display:flex] [flex-direction:column] [gap:0] [border-top:1px_solid_#ece8fa] [&>div]:[display:flex] [&>div]:[align-items:baseline] [&>div]:[gap:2rem] [&>div]:[padding:2.2rem_0] [&>div]:[border-bottom:1px_solid_#ece8fa] [&_dt]:[min-width:7rem] [&_dt]:[font-family:var(--f-jak)] [&_dt]:[font-weight:500] [&_dt]:[font-size:5.6rem] [&_dt]:[line-height:1] [&_dt]:[letter-spacing:-0.2rem] [&_dt]:[color:var(--purple)] [&_dd]:[margin:0] [&_dd]:[font-size:max(1.7rem,15px)] [&_dd]:[line-height:1.4] [&_dd]:[color:#4a4f63] [@media(max-width:_1099px)]:[&_dt]:[font-size:4.4rem] [@media(max-width:_1099px)]:[&_dd]:[font-size:16px]" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: ease.out, delay: 0.6 }}>
-        <div><dt>50</dt><dd>states with their own billing page</dd></div>
-        <div><dt>12</dt><dd>Medicare jurisdictions we work every day</dd></div>
-        <div><dt>1</dt><dd>US-based team, in your time zone</dd></div>
-      </motion.dl>
+      <motion.div className="sth__map [padding:3.2rem] [border-radius:3.2rem] [background:linear-gradient(180deg,_#faf9ff,_#f4f1ff)] [border:1px_solid_#ece8fa] [@media(max-width:_1099px)]:[padding:2rem] [@media(max-width:_1099px)]:[border-radius:2.4rem] [@media(max-width:_767px)]:[padding:1.2rem]" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: ease.out, delay: 0.5 }}>
+        <USMap />
+      </motion.div>
     </section>
   );
 }
 
 function Finder() {
-  const touch = useTouch();
   const [q, setQ] = useState('');
   const [region, setRegion] = useState<Region>('All');
   // QA: after choosing a region, bring the updated results into view and move focus there (keyboard and screen-reader users land on them).
@@ -84,7 +94,7 @@ function Finder() {
       <div className="stfd__head [display:flex] [align-items:flex-end] [justify-content:space-between] [gap:4rem] [flex-wrap:wrap] [@media(max-width:_767px)]:[gap:2rem]">
         <div>
           <Eyebrow>/ Find your state</Eyebrow>
-          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={touch ? ['Tap a state', 'to open its page.'] : ['Hover a state,', 'click to open its page.']} stagger={0.04} />
+          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Every state has', 'its own billing page.']} stagger={0.04} />
         </div>
         <div className="stfd__tools [display:flex] [flex-direction:column] [align-items:flex-end] [gap:1.2rem] [@media(max-width:_1099px)]:[align-items:stretch] [@media(max-width:_1099px)]:[width:100%]">
           <label className="stfd__search [display:flex] [align-items:center] [gap:1rem] [width:38rem] [max-width:100%] [height:5.2rem] [padding:0_1.8rem] [border-radius:10rem] [background:#fff] [border:1px_solid_#e4e0f2] [color:var(--purple)] [transition:border-color_0.3s,_box-shadow_0.3s] [&:focus-within]:[border-color:var(--purple)] [&:focus-within]:[box-shadow:0_0_0_0.4rem_rgba(106,_65,_249,_0.12)] [&_input]:[flex:1] [&_input]:[min-width:0] [&_input]:[height:100%] [&_input]:[border:0] [&_input]:[outline:none] [&_input]:[background:transparent] [&_input]:[font-family:inherit] [&_input]:[font-weight:inherit] [&_input]:[font-style:inherit] [&_input]:[line-height:inherit] [&_input]:[font-size:max(1.6rem,15px)] [&_input]:[color:var(--ink-2)] [&_button]:[display:grid] [&_button]:[place-items:center] [&_button]:[color:#636673] [@media(max-width:_1099px)]:[width:100%]">
@@ -109,11 +119,7 @@ function Finder() {
         </div>
       </div>
 
-      <motion.div className="stfd__map [max-width:112rem] [margin:5.6rem_auto_0] [padding:4rem] [border-radius:3.2rem] [background:linear-gradient(180deg,_#faf9ff,_#f4f1ff)] [border:1px_solid_#ece8fa] [@media(max-width:_1099px)]:[padding:2rem] [@media(max-width:_1099px)]:[border-radius:2.4rem] [@media(max-width:_767px)]:[margin-top:2.4rem] [@media(max-width:_767px)]:[padding:1.2rem]" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 1, ease: ease.out }}>
-        <USMap active={hot} onActive={setHot} />
-      </motion.div>
-
-      <motion.ul id="stfd-results" tabIndex={-1} aria-label="States" className="stfd__grid [outline:none] [scroll-margin-top:12rem] [list-style:none] [padding:0] [margin:4rem_0_0] [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[margin-top:2rem] [@media(max-width:_767px)]:[gap:0.8rem]" layout>
+      <motion.ul id="stfd-results" tabIndex={-1} aria-label="States" className="stfd__grid [outline:none] [scroll-margin-top:12rem] [list-style:none] [padding:0] [margin:5.6rem_0_0] [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[margin-top:2rem] [@media(max-width:_767px)]:[gap:0.8rem]" layout>
         <AnimatePresence initial={false}>
           {shown.slice(0, step ? (limit ?? step) : undefined).map((s) => (
             <motion.li key={s.slug} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.35, ease: ease.out }}>
