@@ -7,9 +7,9 @@ import person4 from '../assets/person-4.webp';
 import person5 from '../assets/person-5.webp';
 import { motion, AnimatePresence, LayoutGroup, useScroll, useSpring } from 'motion/react';
 import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Clock } from 'lucide-react';
-import { Eyebrow, Logo, Req, Reveal, SplitWords } from '../components/ui';
+import { Button, Eyebrow, Logo, Req, Reveal, SplitWords } from '../components/ui';
 import { CTA } from '../sections/Closing';
-import { Link, go, goAnchor } from '../router';
+import { Link, go } from '../router';
 import { ARTICLES, TOPICS, getArticle, type Article, type Block } from '../data/insights';
 import { ease, vp } from '../motion';
 // Perf: pre-blurred copy of fluted-purple.jpg replaces a live backdrop-filter blur on these panels
@@ -272,8 +272,9 @@ export function ArticlePage({ slug }: { slug: string }) {
           ))}
           <div className="ar__toc-cta [margin-top:3.2rem] [padding:2.4rem] [border-radius:2rem] [background:var(--panel)] [border:1px_solid_#efebfb] [display:flex] [flex-direction:column] [gap:1.6rem] [&_p]:[font-size:max(1.6rem,15px)] [&_p]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[display:none]">
             <p>Want us to handle this for you?</p>
-            {/* Compact pill sized to the sidebar: the arrow lives inside the pill, so hover never spills out of the card */}
-            <button type="button" onClick={() => goAnchor('assessment')} className="ar__toc-btn [cursor:pointer] [text-align:left] [display:flex] [align-items:center] [justify-content:space-between] [gap:1rem] [width:100%] [min-height:4.8rem] [padding:0.6rem_0.6rem_0.6rem_2rem] [border-radius:6rem] [background:var(--purple)] [color:#fff] [font-weight:500] [font-size:max(1.6rem,14px)] [line-height:1.25] [transition:background_0.3s] [&:hover]:[background:#5a32ec] [&>span]:[flex:none] [&>span]:[width:3.6rem] [&>span]:[height:3.6rem] [&>span]:[border-radius:50%] [&>span]:[display:grid] [&>span]:[place-items:center] [&>span]:[background:#fff] [&>span]:[color:var(--purple)] [&>span]:[transition:transform_0.45s_cubic-bezier(.16,1,.3,1)] [&:hover>span]:[transform:rotate(-45deg)]">Get a free assessment<span aria-hidden><ArrowRight size={16} /></span></button>
+            {/* Same button as the nav CTA (pill + circle, liquid hover), with the nav’s short label. It fills the card minus
+                the 6px the arrow moves on hover, so the hover never leaves the card. */}
+            <Button block className="[width:calc(100%_-_6px)]!">Free assessment</Button>
           </div>
         </aside>
         <article className="ar__body [font-size:max(1.9rem,16px)] [line-height:1.7] [color:#2c2f40] [&>*+*]:[margin-top:2.4rem] [&_h2]:[margin-top:5.6rem] [&_h2]:[font-weight:500] [&_h2]:[font-size:3.2rem] [&_h2]:[line-height:1.2] [&_h2]:[letter-spacing:-0.06rem] [&_h2]:[color:var(--ink-2)] [&_h2]:[scroll-margin-top:12rem] [&_ul]:[padding-left:2.4rem] [&_ul]:[list-style:none] [&_ul_li]:[position:relative] [&_ul_li]:[padding-left:0.8rem] [&_ul_li+li]:[margin-top:1rem] [&_ul_li::before]:[content:''] [&_ul_li::before]:[position:absolute] [&_ul_li::before]:[left:-1.6rem] [&_ul_li::before]:[top:1.2rem] [&_ul_li::before]:[width:0.8rem] [&_ul_li::before]:[height:0.8rem] [&_ul_li::before]:[border-radius:50%] [&_ul_li::before]:[background:var(--purple)] [@media(max-width:_1099px)]:[font-size:max(1.8rem,16px)]" ref={bodyRef}>
