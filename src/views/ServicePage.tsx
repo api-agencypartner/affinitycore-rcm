@@ -1,5 +1,6 @@
 'use client';
 import { IntroBlock, serviceIntro } from '../components/IntroBlock';
+import { COPY_V2_SERVICES, serviceV2 } from '../data/copy-v2/services';
 import type { ServiceGuideCopy } from '../components/PageGuide';
 import { PageGuide, serviceGuide } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
@@ -406,7 +407,9 @@ export type ServicePageCopy = {
 };
 
 export function ServicePage({ slug }: { slug: string }) {
-  return <ServicePageView s={getService(slug)} />;
+  if (!COPY_V2_SERVICES.includes(slug)) return <ServicePageView s={getService(slug)} />;
+  const { s, copy } = serviceV2(slug);
+  return <ServicePageView s={s} copy={{ ...copy, source: undefined, jsonLd: undefined }} />;
 }
 
 export function ServicePageView({ s, copy: c = {} }: { s: ServiceFull; copy?: ServicePageCopy }) {

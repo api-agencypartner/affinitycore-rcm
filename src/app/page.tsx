@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
-import { HomePage } from '../views/Home';
-export const metadata: Metadata = { title: { absolute: 'Affinity Core RCM · Medical Billing That Gets You Paid Faster' } };
-export default function Page() { return <HomePage />; }
+import { HOME_V2_META } from '../data/copy-v2/home';
+import { HomeV2 } from '../views/CopyV2';
+export const metadata: Metadata = { title: { absolute: HOME_V2_META.title }, description: HOME_V2_META.description };
+export default function Page() { return <HomeV2 />; }

@@ -1,5 +1,6 @@
 'use client';
 import { IntroBlock, specialtyIntro } from '../components/IntroBlock';
+import { COPY_V2_SPECIALTIES, specialtyV2 } from '../data/copy-v2/specialties';
 import { PageGuide, specialtyGuide, type SpecialtyGuideCopy } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -338,7 +339,9 @@ export type SpecialtyPageCopy = {
 };
 
 export function SpecialtyPage({ slug }: { slug: string }) {
-  return <SpecialtyPageView s={getSpecialty(slug)!} />;
+  if (!COPY_V2_SPECIALTIES.includes(slug)) return <SpecialtyPageView s={getSpecialty(slug)!} />;
+  const { s, copy } = specialtyV2(slug);
+  return <SpecialtyPageView s={s} copy={{ ...copy, source: undefined, jsonLd: undefined }} />;
 }
 
 export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?: SpecialtyPageCopy }) {
