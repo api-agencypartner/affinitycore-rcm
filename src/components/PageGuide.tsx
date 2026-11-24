@@ -107,6 +107,7 @@ export type ServiceGuideCopy = {
   answer?: string; whatP1?: string; whatP2?: string; incIntro?: string;
   /** Chapter 4 paragraph 1, after the stat and its source link. */ whyTail?: string;
   whyP2?: string; whenIntro?: string; whenClose?: string;
+  /** Guide title and chapter-1 title, for names that don't read as "What [name] is" (e.g. audits). */ title?: string; whatTitle?: string;
 };
 export function serviceGuide(s: ServiceFull, o: ServiceGuideCopy = {}): Guide {
   const n = s.name, low = n.toLowerCase();
@@ -114,10 +115,10 @@ export function serviceGuide(s: ServiceFull, o: ServiceGuideCopy = {}): Guide {
   return {
     key: s.slug,
     tocTitle: `${n}, explained`,
-    title: `What ${low} is, how it works, and when to outsource it.`,
+    title: o.title ?? `What ${low} is, how it works, and when to outsource it.`,
     answer: o.answer ?? `${n} is one stage of the medical revenue cycle. In short: ${s.line.charAt(0).toLowerCase()}${s.line.slice(1)} Done well, it is the step that decides whether a claim is paid in full the first time, paid late after rework, or not paid at all. Practices either run it in-house or hand it to a specialist team that reports results monthly.`,
     secs: [
-      { id: 'what', title: `What is ${low}?`, body: <>
+      { id: 'what', title: o.whatTitle ?? `What is ${low}?`, body: <>
         <p>{o.whatP1 ?? strip(s.heroSub)}</p>
         <p>{o.whatP2 ?? strip(s.ticket.intro)}</p>
       </> },
@@ -154,7 +155,31 @@ export function serviceGuide(s: ServiceFull, o: ServiceGuideCopy = {}): Guide {
 /* ================================================================== */
 /* Specialties                                                         */
 /* ================================================================== */
-export function specialtyGuide(s: SpecialtyFull): Guide {
+/** Optional per-specialty replacements for the shared template lines (copy previews). */
+export type SpecialtyGuideCopy = { answer?: string; askQ3?: string; related?: string };
+/** Plain text with links on the related specialties' names (or a known alias). */
+const ALIAS: Record<string, string[]> = {
+  'ambulatory-surgery-centers': ['surgery center', 'surgery centers', 'ASC'], orthopedics: ['orthopedic'], pediatrics: ['pediatric'],
+  'obstetrics-and-gynecology': ['OB/GYN', 'obstetrics & gynecology'], gastroenterology: ['GI'], 'mental-health': ['mental health'],
+  'allergy-and-immunology': ['allergy & immunology', 'allergy'], 'pain-management': ['pain management', 'pain'], 'wound-care': ['wound care'],
+  'internal-medicine': ['internal medicine', 'primary care'], 'urgent-care': ['urgent care'],
+};
+function linkRelated(text: string, rel: { slug: string; name: string }[]): ReactNode {
+  const hits: { at: number; len: number; slug: string }[] = [];
+  for (const r of rel) {
+    const names = [r.name.toLowerCase(), ...(ALIAS[r.slug] ?? [])].sort((a, b) => b.length - a.length);
+    for (const nm of names) {
+      const m = new RegExp(`\\b${nm.replace(/[.*+?^${}()|[\]\\/&]/g, '\\$&')}\\b`, 'i').exec(text);
+      if (m && !hits.some((h) => m.index < h.at + h.len && h.at < m.index + m[0].length)) { hits.push({ at: m.index, len: m[0].length, slug: r.slug }); break; }
+    }
+  }
+  hits.sort((a, b) => a.at - b.at);
+  const out: ReactNode[] = []; let i = 0;
+  for (const h of hits) { out.push(text.slice(i, h.at), <Link key={h.slug} to={`/specialties/${h.slug}`}>{text.slice(h.at, h.at + h.len)}</Link>); i = h.at + h.len; }
+  out.push(text.slice(i));
+  return out;
+}
+export function specialtyGuide(s: SpecialtyFull, o: SpecialtyGuideCopy = {}): Guide {
   const n = s.name, low = s.short && /^[A-Z/]+$/.test(s.short) ? s.short : n.toLowerCase();
   const codes = s.ledger.rows.slice(0, 6);
   const leaks = s.leak?.leaks ?? [];
@@ -165,7 +190,7 @@ export function specialtyGuide(s: SpecialtyFull): Guide {
     key: s.slug,
     tocTitle: `${n} billing, explained`,
     title: `${n} billing: the codes, rules and leaks that decide what you get paid.`,
-    answer: `${n} billing is the coding, claim submission and follow-up for ${low} services, from ${top.map((c) => soft(c.name.split(',')[0])).join(', ')} and beyond (CPT ${top.map((c) => c.code).join(', ')}). It differs from general medical billing because ${low} claims depend on specialty-specific codes, modifiers${s.auth ? ', prior authorizations' : ''} and payer policies that a generalist biller rarely sees.`,
+    answer: o.answer ?? `${n} billing is the coding, claim submission and follow-up for ${low} services, from ${top.map((c) => soft(c.name.split(',')[0])).join(', ')} and beyond (CPT ${top.map((c) => c.code).join(', ')}). It differs from general medical billing because ${low} claims depend on specialty-specific codes, modifiers${s.auth ? ', prior authorizations' : ''} and payer policies that a generalist biller rarely sees.`,
     secs: [
       { id: 'what', title: `What makes ${low} billing different?`, body: <>
         <p>{strip(s.heroSub)}</p>
@@ -190,10 +215,10 @@ export function specialtyGuide(s: SpecialtyFull): Guide {
         <ul className="sg__ask [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [list-style:none] [padding:0] [margin:2.4rem_0_0] [display:flex] [flex-direction:column] [gap:1rem] [&_li]:[display:flex] [&_li]:[gap:1.2rem] [&_li]:[align-items:flex-start] [&_li]:[padding:1.6rem_2rem] [&_li]:[border-radius:1.6rem] [&_li]:[border:1px_solid_#ece8fa] [&_li]:[font-size:max(1.7rem,15px)] [&_li]:[line-height:1.5] [&_li]:[color:var(--ink-2)] [&_svg]:[flex:none] [&_svg]:[margin-top:0.3rem] [&_svg]:[color:var(--purple)] [.pg\_\_sec_&]:[margin-top:2rem]">{[
           `How many ${low} practices do you bill for today, and which coders work them?`,
           `What are the top denial reasons you see in ${low}, and what do you change upstream to stop them?`,
-          `How do you handle ${codes[0]?.code ?? 'our highest-volume'} and our other high-dollar codes before they go out?`,
+          o.askQ3 ?? `How do you handle ${codes[0]?.code ?? 'our highest-volume'} and our other high-dollar codes before they go out?`,
           `Can you report our denial rate and days in A/R against ${low} benchmarks every month?`,
         ].map((q) => <li key={q}><CheckCircle2 size={18} />{q}</li>)}</ul>
-        {rel.length > 0 && <p>Practices that bill {low} often bill {rel.map((r, i) => <span key={r!.slug}>{i > 0 && (i === rel.length - 1 ? ' and ' : ', ')}<Link to={`/specialties/${r!.slug}`}>{r!.name.toLowerCase()}</Link></span>)} as well. Each follows its own rulebook, and we bill all of them.</p>}
+        {o.related ? <p>{linkRelated(o.related, rel.map((r) => ({ slug: r!.slug, name: r!.name })))}</p> : rel.length > 0 && <p>Practices that bill {low} often bill {rel.map((r, i) => <span key={r!.slug}>{i > 0 && (i === rel.length - 1 ? ' and ' : ', ')}<Link to={`/specialties/${r!.slug}`}>{r!.name.toLowerCase()}</Link></span>)} as well. Each follows its own rulebook, and we bill all of them.</p>}
       </> },
     ],
     cta: [`Send us a month of ${low} claims.`, 'Get a free revenue assessment'],

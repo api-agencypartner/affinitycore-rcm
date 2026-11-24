@@ -81,7 +81,7 @@ export const serviceIntro = (s: ServiceFull): Intro => {
   const scope = s.ticket.scope.map((x) => lc(clean(x)).replace(/\.$/, '')).slice(0, 4);
   return {
     self: `/services/${s.slug}`,
-    kicker: `/ About ${s.name.toLowerCase()}`,
+    kicker: `/ About ${/[A-Z]\/[A-Z]/.test(s.name) ? s.name : s.name.toLowerCase()}`,
     lead: `${s.name} for US medical practices, run by one accountable team.`,
     body: `${clean(s.seoDescription)} ${clean(s.ticket.intro)}`,
     more: `${st ? `In the revenue cycle, ${s.name.toLowerCase()} happens ${WHEN[st.n]}, so every miss here shows up later as a denial or a late payment.` : 'It covers the whole revenue cycle, from eligibility to the last dollar collected.'} The work includes ${list(scope)}. A ${lc(clean(s.ticket.owner))} owns your account, and reporting comes ${lc(clean(s.ticket.reporting)).replace(' · ', ', covering ')}. You can hand us just this piece or the whole cycle, and it starts with a free review of one month of your claims.`,

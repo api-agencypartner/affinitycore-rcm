@@ -17,7 +17,7 @@ const plain = (s: SpecialtyFull) => (s.short && /^[A-Z/]+$/.test(s.short) ? s.sh
 /* ================================================================== */
 /* 1. What we handle: what we bill + what we run, no clicks needed     */
 /* ================================================================== */
-export function Handle({ s }: { s: SpecialtyFull }) {
+export function Handle({ s, lines }: { s: SpecialtyFull; lines?: string[] }) {
   const p = plain(s);
   const run: [string, string, string][] = [
     ['Eligibility and benefits', 'Checked before every visit.', '/services/revenue-cycle-management'],
@@ -33,7 +33,7 @@ export function Handle({ s }: { s: SpecialtyFull }) {
     <section className="hd container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:12rem] [@media(max-width:_1099px)]:[padding-top:8rem]" id="handle">
       <div className="hd__head [display:flex] [flex-direction:column] [align-items:center] [gap:1.2rem] [text-align:center]">
         <Eyebrow>/ What we handle</Eyebrow>
-        <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={[`Everything ${p} billing needs,`, 'handled by one team.']} stagger={0.04} />
+        <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={lines ?? [`Everything ${p} billing needs,`, 'handled by one team.']} stagger={0.04} />
       </div>
       <div className="hd__grid [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1.2fr)] [gap:2.4rem] [margin-top:4.8rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:1.6rem] [@media(max-width:_1099px)]:[margin-top:3.2rem]">
         <motion.div className="hd__col [padding:3.6rem] [border-radius:3.2rem] [background:#f8f6ff] [border:1px_solid_#eee9ff] [@media(max-width:_1099px)]:[padding:2.4rem_2rem] [@media(max-width:_1099px)]:[border-radius:2.4rem]" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.8, ease: ease.out }}>

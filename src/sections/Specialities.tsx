@@ -1,4 +1,5 @@
 import { useNarrow } from '../components/useNarrow';
+import { useHomeCopy } from '../copyContext';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, ArrowUpRight, Search, X } from 'lucide-react';
@@ -115,13 +116,14 @@ function SpecialtyFinder() {
 }
 
 export function Specialities() {
+  const hc = useHomeCopy();
   const [active, setActive] = useState(0);
 
   return (
     <section className="spec [padding:16rem_var(--gutter)_0] [display:flex] [flex-direction:column] [align-items:center] [@media(max-width:_1099px)]:[max-width:100vw] [@media(max-width:_1099px)]:[padding:10rem_2rem_0]" id="specialties">
       <div className="spec__head [display:flex] [flex-direction:column] [align-items:center] [gap:1.2rem] [text-align:center]">
         <Eyebrow>/ Specialties we serve</Eyebrow>
-        <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_1099px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Billing built around', 'your specialty’s codes.']} />
+        <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_1099px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={hc.specialtiesLines ?? ['Billing built around', 'your specialty’s codes.']} />
       </div>
       <div className="spec__stage [position:relative] [width:157rem] [height:81.2rem] [margin-top:3.6rem] [@media(max-width:_1099px)]:[width:100%] [@media(max-width:_1099px)]:[height:auto] [@media(max-width:_1099px)]:[display:flex] [@media(max-width:_1099px)]:[flex-direction:column] [@media(max-width:_1099px)]:[align-items:center]">
         {/* Center: circle grows, clinicians rise out of it. Circle + photo move together, and the

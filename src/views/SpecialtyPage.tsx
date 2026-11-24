@@ -1,6 +1,6 @@
 'use client';
 import { IntroBlock, specialtyIntro } from '../components/IntroBlock';
-import { PageGuide, specialtyGuide } from '../components/PageGuide';
+import { PageGuide, specialtyGuide, type SpecialtyGuideCopy } from '../components/PageGuide';
 import { HeroCapture } from '../components/HeroCapture';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence, useInView, useMotionValue, useTransform, type MotionValue } from 'motion/react';
@@ -329,31 +329,49 @@ function Related({ s }: { s: SpecialtyFull }) {
   );
 }
 
+/** Replacement copy for one specialty page (copy previews). Anything left out keeps the live template text. */
+export type SpecialtyPageCopy = {
+  title?: string; intro?: { lead?: string; body?: string; more?: string }; handleLines?: string[];
+  platformsCopy?: string; midBody?: string; guide?: SpecialtyGuideCopy;
+  /** [current text, replacement] pairs, matched against each FAQ question and answer. */ faqSwap?: string[][];
+  source?: string; jsonLd?: boolean;
+};
+
 export function SpecialtyPage({ slug }: { slug: string }) {
-  const s = getSpecialty(slug)!;
+  return <SpecialtyPageView s={getSpecialty(slug)!} />;
+}
+
+export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?: SpecialtyPageCopy }) {
   const plain = s.short && /^[A-Z/]+$/.test(s.short) ? s.short : s.name.toLowerCase();
   const monthly = s.leak ? Math.min(2000000, Math.max(50000, Math.round((s.leak.perProvider * s.leak.sizes[1]) / 10000) * 10000)) : undefined;
-  const faqs = useMemo(() => searchFaqs({ name: s.name, kind: 'specialty', faqs: s.faqs, detail: s.leak?.leaks[0].label.toLowerCase() }), [s]);
+  const faqs = useMemo(() => {
+    const base = searchFaqs({ name: s.name, kind: 'specialty', faqs: s.faqs, detail: s.leak?.leaks[0].label.toLowerCase() });
+    if (!c.faqSwap) return base;
+    const norm = (t: string) => t.replace(/\s+/g, ' ').trim();
+    const swap = (t: string) => c.faqSwap!.find(([from]) => norm(from) === norm(t))?.[1] ?? t;
+    return base.map(([q, a]) => [swap(q), swap(a)]);
+  }, [s, c.faqSwap]);
   useEffect(() => {
-    document.title = `${s.seoTitle} · Affinity Core`;
+    document.title = c.title ?? `${s.seoTitle} · Affinity Core`;
     let m = document.querySelector('meta[name="description"]');
     if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); }
     m.setAttribute('content', s.seoDescription);
+    if (c.jsonLd === false) return;
     setJsonLd(pageJsonLd({ name: `${s.name} Billing Services`, description: s.seoDescription, path: `/specialties/${s.slug}`, crumb: ['Specialties', '/specialties'], faqs }));
     return () => setJsonLd(null);
-  }, [s, faqs]);
+  }, [s, faqs, c.title, c.jsonLd]);
   return (
     <main className="page [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem]">
       <Hero s={s} />
-      <IntroBlock d={specialtyIntro(s)} />
-      <Handle s={s} />
-      <EhrStrip what={plain} />
+      <IntroBlock d={{ ...specialtyIntro(s), ...c.intro }} />
+      <Handle s={s} lines={c.handleLines} />
+      <EhrStrip what={plain} copy={c.platformsCopy} />
       {s.leak ? <LeakList s={s} /> : <Problem s={s} />}
       <Proof specialty={s.name} />
-      <MidCta title="Want this on your own claims?" body={`Send us a month of ${plain} claims. We’ll show you every line we’d change and what it’s worth, free. Switching takes about 30 days, with no gap in billing.`} />
-      <PageGuide g={specialtyGuide(s)} />
+      <MidCta title="Want this on your own claims?" body={c.midBody ?? `Send us a month of ${plain} claims. We’ll show you every line we’d change and what it’s worth, free. Switching takes about 30 days, with no gap in billing.`} />
+      <PageGuide g={specialtyGuide(s, c.guide)} />
       <AlsoBilled s={s} />
-      <Assessment monthly={monthly} specialty={s.name} source={`specialty:${s.slug}`} />
+      <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
       <FAQ items={faqs} eyebrow={`/ ${s.name} billing FAQs`} lines={s.faqLines} />
       <CTA eyebrow={s.closing.eyebrow} lines={s.closing.lines} />
     </main>

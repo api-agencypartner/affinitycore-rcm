@@ -1,0 +1,647 @@
+{
+ "medical-coding": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "hero.title": 3,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "workTitle": 14,
+   "ticket.turnaround": 24,
+   "platforms.lines": 37,
+   "platforms.copy": 38,
+   "specialties.eyebrow": 39,
+   "specialties.heading": 40,
+   "midBody": 42,
+   "guide.answer": 44,
+   "guide.whatP1": 45,
+   "guide.whatP2": 46,
+   "guide.incIntro": 47,
+   "guide.whyTail": 48,
+   "guide.whyP2": 49,
+   "guide.whenIntro": 50,
+   "guide.whenClose": 51,
+   "included.0": 57,
+   "included.1": 58,
+   "included.2": 59,
+   "included.3": 60,
+   "faqs.0.a": 64,
+   "faqs.1.a": 66,
+   "faqs.6.a": 76,
+   "faqs.7.a": 78
+  },
+  "faqs": {
+   "0": [
+    null,
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, specialty and whether you add billing too. Your quote follows the free audit."
+   ],
+   "1": [
+    null,
+    "Usually 30 to 45 days. We sign a BAA, get access to your EHR, learn your specialty and payer rules, then take over all new charts while your team finishes what’s already coded, so claims never stop going out."
+   ],
+   "6": [
+    null,
+    "Yes, read access to your EHR to code from the full note, and work access to your PM software and clearinghouse. We sign a business associate agreement before any access is set up."
+   ],
+   "7": [
+    null,
+    "Yes. Many practices keep their coder or a biller and hand us overflow, audits or one specialty. We code from the same queues, flag patterns for your team and report to both each month."
+   ]
+  },
+  "included": {
+   "0": "Coding accuracy sampling",
+   "1": "E/M level breakdown",
+   "2": "Modifier and NCCI edit denials",
+   "3": "Documentation gap review"
+  },
+  "guide": {
+   "answer": "Medical coding is the process of turning a provider’s visit note into standard codes: ICD-10-CM for diagnoses, CPT and HCPCS for what was done, plus any modifiers. Payers decide what to pay from those codes, so medical coding decides whether a claim is paid in full the first time, is downcoded, denied outright, or flagged in a payer audit years later.",
+   "whatP1": "Practices code in-house, or outsource medical coding to certified coders. Either way, the real test is the same: does every code match what the note supports, on every chart?",
+   "whatP2": "Accurate codes, backed by the note, each time.",
+   "incIntro": "Whoever codes your charts, in-house or a medical coding company, these are the pieces to expect. If one is missing, money leaks.",
+   "whyTail": "That cost is rarely one big coding error. It’s small, repeatable misses: a missed modifier, an E/M level the note can’t support, vague codes.",
+   "whyP2": "Because coding misses repeat, fixing the cause is worth more than fixing the claim. That’s why every coding engagement ends each month with provider feedback on the patterns behind your code denials.",
+   "whenIntro": "Outsourcing medical coding makes sense when charts back up, when one coder holds all the specialty knowledge, or when code denials rise and no one has time to see why. Common signs:",
+   "whenClose": "The benefits of outsourced medical coding show in fewer denials and cleaner audits. Hand over coding, keep billing in-house; start here."
+  },
+  "intro": {
+   "lead": "Medical coding services for US practices, by certified medical coders.",
+   "body": "Hand us the charts and our certified medical coders return claims coded to the note: CPT, ICD-10 and HCPCS, E/M levels to MDM rules, modifiers checked, a query when a note is unclear.",
+   "more": "Medical coding happens right after the visit, so a code that doesn’t match the note returns later as a denial, a downcode, or an audit finding. Our medical coding services cover CPT, ICD-10-CM and HCPCS coding, E/M leveling to current MDM guidelines, NCCI edit and modifier checks, and provider queries when notes are unclear. A certified coder (CPC or CCS) owns your account and reports accuracy, denials by code and provider feedback each month. Outsource medical coding alone or with billing; it starts with a free review of 20 of your charts."
+  },
+  "title": "Medical Coding Services | Certified Coders | Affinity Core",
+  "description": "Outsource medical coding to certified CPC and CCS coders. CPT, ICD-10 and HCPCS codes the documentation supports, so claims pay on the first pass.",
+  "heroTitle": [
+   "Medical coding that",
+   "matches each chart."
+  ],
+  "heroAccent": "chart.",
+  "workTitle": "Medical coding, line by line.",
+  "turnaround": "Within one business day",
+  "platformsLines": [
+   "Certified coding",
+   "inside your current EHR."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our certified coders work right inside your EHR and practice management system, read the whole note in context, and we map all access with you before anything changes.",
+  "specEyebrow": "/ Specialty coding we handle",
+  "specHeading": "Medical coding services from coders trained in your specialty.",
+  "midBody": "We’ll audit 20 of your charts and show you where codes and notes disagree. Free, no contracts."
+ },
+ "revenue-cycle-management": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "ticket.turnaround": 25,
+   "platforms.lines": 38,
+   "platforms.copy": 39,
+   "specialties.eyebrow": 40,
+   "specialties.heading": 41,
+   "midBody": 43,
+   "guide.answer": 45,
+   "guide.whatP1": 46,
+   "guide.whatP2": 47,
+   "guide.incIntro": 48,
+   "guide.whyTail": 49,
+   "guide.whyP2": 50,
+   "guide.whenIntro": 51,
+   "guide.whenClose": 52,
+   "faqs.0.a": 64,
+   "faqs.1.a": 66,
+   "faqs.6.a": 76
+  },
+  "faqs": {
+   "0": [
+    null,
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and how much you hand over. Your quote follows the free assessment."
+   ],
+   "1": [
+    null,
+    "Yes. Many practices keep their front desk or biller and hand us the rest of the cycle: coding, posting, denials and old A/R. We work from the same queues and report to both each month."
+   ],
+   "6": [
+    null,
+    "Yes, read and work access to your practice management system, clearinghouse and payer portals, plus read-only EHR access. We sign a business associate agreement before any access."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "Revenue cycle management (RCM) is how a medical practice turns care into collected revenue: verifying coverage, enrolling providers, capturing and coding charges, submitting clean claims, posting payments and working denials and A/R. Done well, each stage hands the next stage clean work, so claims are paid in full the first time and none of it ages out.",
+   "whatP1": "Practices run RCM in-house, split it across vendors, or outsource it to one RCM company. Either way, the test is the same: is every dollar you earn collected, fast?",
+   "whatP2": "One team, one report, every stage of your cycle.",
+   "incIntro": "Whoever runs your revenue cycle, in-house or an RCM company, these are the pieces to expect. If one is missing, that’s the leak.",
+   "whyTail": "That gap is rarely one big failure. It’s small misses between stages: an eligibility change, a missed charge, a denial no one followed up on.",
+   "whyP2": "Because the misses repeat, fixing the cause is worth more than fixing the claim. That’s why every revenue cycle management engagement ends each month with KPIs against targets and what we changed to move them.",
+   "whenIntro": "Outsourcing revenue cycle management makes sense when several vendors own parts, when one person holds the knowledge, or when KPIs slip and no one has time to see why. Common signs:",
+   "whenClose": "The benefits of end-to-end revenue cycle management show in one report. Hand off all or part of the cycle; start with a free assessment."
+  },
+  "intro": {
+   "lead": "Revenue cycle management services for US practices, run by one accountable team.",
+   "body": "Hand us the revenue cycle and one team runs it inside your systems: eligibility, credentialing, charge capture, coding, billing, posting, denials and A/R, with one monthly report.",
+   "more": "Revenue cycle management covers everything from eligibility to the last dollar collected, so a miss at any stage shows up later as a denial or a late payment. Our RCM services include eligibility checks, credentialing, charge entry, certified coding, claim submissions, payment posting, denials and A/R. An account manager and specialist team own your account and report your KPIs against target every month. It starts with a free revenue assessment of one month of your data."
+  },
+  "title": "Revenue Cycle Management Services | Affinity Core",
+  "description": "End-to-end revenue cycle management services: credentialing, coding, billing, posting, denials and A/R run by one team in your systems, one monthly report.",
+  "turnaround": "Daily queues, monthly KPI review",
+  "platformsLines": [
+   "End-to-end RCM,",
+   "inside your existing EHR."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our RCM team works inside your EHR, practice management system, clearinghouse and payer portals, so providers keep their workflow, and we map all access before anything changes.",
+  "specEyebrow": "/ Revenue cycle by specialty",
+  "specHeading": "Revenue cycle management services, shaped around your specialty’s rules.",
+  "midBody": "We’ll review a month of data and show where your cycle leaks, line by line. Free, no contract."
+ },
+ "charge-entry": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "workTitle": 14,
+   "ticket.turnaround": 24,
+   "platforms.lines": 37,
+   "platforms.copy": 38,
+   "specialties.eyebrow": 39,
+   "specialties.heading": 40,
+   "midBody": 42,
+   "guide.answer": 44,
+   "guide.whatP1": 45,
+   "guide.whatP2": 46,
+   "guide.incIntro": 47,
+   "guide.whyTail": 48,
+   "guide.whyP2": 49,
+   "guide.whenIntro": 50,
+   "guide.whenClose": 51,
+   "faqs.0.a": 63,
+   "faqs.1.a": 65,
+   "faqs.6.a": 75,
+   "faqs.7.a": 77
+  },
+  "faqs": {
+   "0": [
+    null,
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your visit count, specialty and what you hand over. Your written quote follows the review."
+   ],
+   "1": [
+    null,
+    "Usually 30 to 45 days. We sign a BAA, get access to your EHR and PM system, learn your fee schedules and superbills, then take over new visits while your staff finishes the backlog, so no charge goes missing."
+   ],
+   "6": [
+    null,
+    "Yes, read access to your EHR to view every encounter, and work access to your billing system and clearinghouse. We sign a business associate agreement before any access is set up."
+   ],
+   "7": [
+    null,
+    "Yes. Many practices keep their front desk or a biller and hand us charge entry and reconciliation. We work from the same queues, flag any missing charges and report to both each month."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "Charge entry is the step in medical billing where every service from a visit becomes a line on the claim: the CPT or HCPCS codes, units, modifiers, provider and date. Charge capture makes sure nothing performed is left off. Done well, it is the step that decides whether every service is billed in full the same day, billed late, or never billed at all.",
+   "whatP1": "Practices enter charges in-house or outsource charge entry. Either way, the test is the same: does every service on the schedule end up on claims, the same day?",
+   "whatP2": "Each visit has a charge, and the charge is complete.",
+   "incIntro": "Whoever enters your charges, in-house or an outside billing company, these are the pieces to expect. Missing one? Revenue leaks.",
+   "whyTail": "The leak is rarely one big failure. It’s small, repeatable misses: an injection left off, a unit miscounted, a visit that never got a charge.",
+   "whyP2": "Because charge misses repeat, fixing the cause is worth more than fixing the claim. That’s why every charge entry engagement ends each month with missed charges by provider and the fix behind each.",
+   "whenIntro": "Outsourcing charge entry makes sense when superbills pile up, when one person holds all the knowledge, or when charge lag keeps growing and no one has time to see why. Common signs:",
+   "whenClose": "The benefits of outsourced charge entry show in same-day claims. Hand over charge entry alone, keep billing in-house; start with a week."
+  },
+  "intro": {
+   "lead": "Charge entry services for US practices, logged and reconciled daily.",
+   "body": "Hand us superbills and encounters and we turn every one into full claim lines the same day: CPT and units, modifiers, NDCs, and a daily check that every scheduled visit has a charge.",
+   "more": "Charge entry in medical billing happens right after the visit, so a missed service or a wrong unit never reaches the payer and is never paid for. Our charge entry services cover daily entry from superbills and EHR, encounter-to-charge reconciliation, unit, modifier and NDC checks, and charge lag tracked by provider. A dedicated charge entry specialist owns your account and reports missed charges and charge lag each month. Outsource charge entry alone or with coding and billing; it starts with a free review of one week of your superbills."
+  },
+  "title": "Charge Entry Services for Medical Practices | Affinity Core",
+  "description": "Charge entry services in medical billing: same-day entry from superbills and EHR, encounter reconciliation and unit checks, so every service gets billed.",
+  "workTitle": "Charge capture, line by line.",
+  "turnaround": "Same day as the visit",
+  "platformsLines": [
+   "Same-day charge entry",
+   "in your current EHR."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our charge entry team works right inside your EHR and practice management system, reads each encounter there, and we map all access with you before anything changes.",
+  "specEyebrow": "/ Specialty charges we enter",
+  "specHeading": "Charge entry services, from billers who know your specialty.",
+  "midBody": "We’ll match one week of your visits to your charges and show you which never got billed. Free."
+ },
+ "denial-management": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "workTitle": 14,
+   "ticket.turnaround": 24,
+   "platforms.lines": 37,
+   "platforms.copy": 38,
+   "specialties.eyebrow": 39,
+   "specialties.heading": 40,
+   "midBody": 42,
+   "guide.answer": 44,
+   "guide.whatP1": 45,
+   "guide.whatP2": 46,
+   "guide.incIntro": 47,
+   "guide.whyTail": 48,
+   "guide.whyP2": 49,
+   "guide.whenIntro": 50,
+   "guide.whenClose": 51,
+   "faqs.0.a": 64,
+   "faqs.1.a": 66,
+   "faqs.5.a": 74,
+   "faqs.7.a": 78
+  },
+  "faqs": {
+   "0": [
+    null,
+    "Most practices pay a percentage of what we collect, so we’re paid when you are. The rate depends on your denial volume and payer mix. Appeals are never extra. Your quote follows the free review."
+   ],
+   "1": [
+    null,
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review open denials and filing deadlines, then take over the daily queue while your staff finishes what’s in flight, so no deadline is missed."
+   ],
+   "5": [
+    null,
+    "Yes, read and work access to your practice management system, clearinghouse and payer portals, plus read-only EHR for appeals. We sign a business associate agreement before setup."
+   ],
+   "7": [
+    null,
+    "Yes. Many practices keep their biller and hand us the denials that slip: backlogs, appeals and payer follow-up. We work the same queues and report the root causes to both, every month."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "Denial management is the work of getting denied claims paid and stopping the same denials from coming back. It means reading each payer’s reason code, correcting or appealing the claim before the deadline, and tracing every denial to its root cause. Done well, it turns a denial from lost revenue into a late payment, and then into a denial that never happens.",
+   "whatP1": "Practices work denials in-house or use a denial management company. Either way, the test is the same: how many denied dollars come back, how quickly, and whether the same reasons repeat.",
+   "whatP2": "Every denial worked to a result, and each root cause fixed at the source.",
+   "incIntro": "Whoever handles your denials, in-house or a denial management company, these are the pieces to expect. Missing one? Money leaks.",
+   "whyTail": "Those denials are rarely one big failure. They are small, repeatable misses: a missed auth, a dropped modifier, an eligibility change missed.",
+   "whyP2": "Because denials repeat, fixing the cause is worth more than fixing the claim. That’s why every denial management engagement ends each month with the top denial reasons by payer and what we then changed.",
+   "whenIntro": "Outsourcing denial management makes sense when the queue outgrows the team, when appeals miss deadlines, or when the same denials recur and no one has time to see why. Common signs:",
+   "whenClose": "The benefits of outsourced denial management show in your recovered dollars. Hand over denials alone, keep billing in-house; start here."
+  },
+  "intro": {
+   "lead": "Denial management services for US practices, from our denial specialists.",
+   "body": "Hand us the denial queue and we work every claim to a result: decode the payer reason, correct and resubmit, appeal with clinical support, then fix the root cause. Appeals and follow-up are never billed extra.",
+   "more": "Denial management in medical billing starts the day a denial posts, because every payer sets a deadline to correct or appeal. Our denial management services cover the denial queue worked daily, corrected claims and resubmissions, written appeals with clinical support, and payer follow-up to resolution. A dedicated denial specialist owns your account and reports your denial rate, top reasons and dollars recovered every month. Outsource denied claims alone or the whole cycle; it starts with a free review of 90 days of denials."
+  },
+  "title": "Denial Management Services for Practices | Affinity Core",
+  "description": "Denial management services that work every denied claim back to paid, appeal when it’s worth it, and fix the root cause. Free review of 90 days of denials.",
+  "workTitle": "Denial management, every day.",
+  "turnaround": "Worked the day it posts",
+  "platformsLines": [
+   "Denial work inside",
+   "your existing systems."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our denial specialists work right inside your EHR, practice management system, clearinghouse and payer portals, and we map access with you first, before anything changes.",
+  "specEyebrow": "/ Specialty denials we fight",
+  "specHeading": "Denial management services from people who know your payer rules.",
+  "midBody": "We’ll check 90 days of your denials and show you what’s still recoverable. Free, no contracts."
+ },
+ "medical-billing-audits": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "workTitle": 14,
+   "ticket.turnaround": 24,
+   "platforms.lines": 37,
+   "platforms.copy": 38,
+   "specialties.eyebrow": 39,
+   "specialties.heading": 40,
+   "midBody": 42,
+   "guide.answer": 44,
+   "guide.whatP1": 45,
+   "guide.whatP2": 46,
+   "guide.incIntro": 47,
+   "guide.whyTail": 48,
+   "guide.whyP2": 49,
+   "guide.whenIntro": 50,
+   "guide.whenClose": 51,
+   "faqs.0.q": 63,
+   "faqs.0.a": 64,
+   "faqs.1.q": 65,
+   "faqs.1.a": 66,
+   "faqs.6.a": 76,
+   "faqs.7.a": 78
+  },
+  "faqs": {
+   "0": [
+    "How much does a medical billing or coding audit cost?",
+    "The price depends on the sample size, how many providers and payers, and whether you want a coding audit or a full billing audit. You get a written quote before we start, and the report’s yours."
+   ],
+   "1": [
+    "How long does a billing audit run, from the claim sample to the readout?",
+    "Timing depends on the sample size, and we set the readout date at kickoff. We sign a BAA, get read-only access, pull the claim sample, re-code and compare each claim, then walk your team through each finding."
+   ],
+   "6": [
+    null,
+    "Read-only access to your practice management system, EHR and clearinghouse, as an audit never changes any data. We sign a business associate agreement before any access is set up."
+   ],
+   "7": [
+    null,
+    "Yes. The audit doesn’t replace anyone. The fix list is written for your in-house team or billing company to act on, and if you want help with any fix later, we can quote it separately."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "A medical billing audit is an independent review of a sample of your claims: every one is re-coded from the documentation, checked against what was billed and paid, and screened for compliance risk. A coding audit checks codes; a billing audit adds payments, denials and contracts. Done well, it shows exactly where revenue leaks and what each fix is worth.",
+   "whatP1": "Practices audit in-house, hire an outside auditor, or trust their billing company. Only an independent audit gives clean answers: are codes, notes and payments right, and what does a gap cost?",
+   "whatP2": "An outside look, priced in dollars.",
+   "incIntro": "Whoever runs your audit, in-house or an outside medical billing auditor, these are the parts to expect. Missing one? Blind spot.",
+   "whyTail": "Those errors are rarely one big failure. They’re small, repeat misses: a note that doesn’t support the level, a misused modifier, short pays.",
+   "whyP2": "Because misses repeat, fixing the cause is worth more than fixing the claim. That’s why every medical billing audit ends with each finding priced in dollars, paired with a fix and with an owner on your team.",
+   "whenIntro": "A medical billing audit makes sense when collections dip and no one knows why, when you switch billing companies, before a payer audit, or when you want a second look. Common signs:",
+   "whenClose": "The benefits of a billing audit show in what you stop leaking. Use the fix list in-house or with any biller; start with a claims sample.",
+   "title": "What a medical billing audit is, how it works, and when to outsource it.",
+   "whatTitle": "What is a medical billing audit?"
+  },
+  "intro": {
+   "lead": "Medical billing audit services for US clinics, led by senior certified coders.",
+   "body": "We sample claims across providers and payers, re-code each one from the note, compare payments with contracts, and price every finding in dollars with a fix your team can act on.",
+   "more": "A medical billing audit looks at the whole revenue cycle, from the note to the last dollar collected. Our medical billing audit services cover a claim sample across providers and payers, a coding and documentation review, a denial and underpayment review, and compliance risk flags. A senior certified coder leads each audit and delivers a written report, findings in dollars and a readout call. It stands on its own, whether or not you outsource anything to us."
+  },
+  "title": "Medical Billing & Coding Audit Services | Affinity Core",
+  "description": "Medical billing audit services: an independent review of coding, documentation, claims and payments, with every finding priced in dollars and a fix list.",
+  "workTitle": "The full audit, line by line.",
+  "turnaround": "Report date set at kickoff",
+  "platformsLines": [
+   "Audits run right",
+   "inside your current EHR."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our auditors work read-only inside your EHR, practice management system, clearinghouse and remittances, so nothing in your workflow changes, and we map access before we start.",
+  "specEyebrow": "/ Specialty billing we audit",
+  "specHeading": "Medical billing audits, led by coders who know your specialty’s rules.",
+  "midBody": "We’ll review a month of claims and price every finding in dollars, line by line, at no charge."
+ },
+ "credentialing": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "ticket.turnaround": 24,
+   "platforms.lines": 37,
+   "platforms.copy": 38,
+   "specialties.eyebrow": 39,
+   "specialties.heading": 40,
+   "midBody": 42,
+   "guide.answer": 44,
+   "guide.whatP1": 45,
+   "guide.whatP2": 46,
+   "guide.incIntro": 47,
+   "guide.whyTail": 48,
+   "guide.whyP2": 49,
+   "guide.whenIntro": 50,
+   "guide.whenClose": 51,
+   "faqs.0.a": 64,
+   "faqs.1.a": 66
+  },
+  "faqs": {
+   "0": [
+    null,
+    "Pricing depends on how many providers and payers you need to enroll and whether you add billing. Ongoing upkeep and revalidations can be included. You get a written quote after your free review."
+   ],
+   "1": [
+    null,
+    "Yes. Many practices keep their office manager on credentialing and hand us the payer applications, follow-up and revalidations. We share one tracker and report to both every two weeks."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "Medical credentialing is how payers confirm a provider is licensed, trained, and insured; payer enrollment is how that provider then gets a contract and an ID to bill that payer. Both run through CAQH, PECOS and every payer’s process. Done well, every provider is in-network with every payer on your schedule before the first patient is seen, and stays that way.",
+   "whatP1": "Practices handle credentialing in-house or hire a credentialing company. Either way, the test is the same: is each provider enrolled with every payer before seeing patients, and does it stay that way?",
+   "whatP2": "In-network before the first visit, and current after that.",
+   "incIntro": "Whoever handles your enrollment, in-house or a credentialing company, these are the parts to expect. Missing one? Revenue stops.",
+   "whyTail": "Those denials are rarely one big failure. They’re small, repeatable misses: a lapsed CAQH re-attestation, a missed revalidation, a wrong NPI.",
+   "whyP2": "Because enrollment misses recur, fixing the cause is worth more than fixing the claim. That’s why each credentialing engagement ends with a status report by provider and payer, and a calendar of what’s due next.",
+   "whenIntro": "Outsourcing credentialing makes sense when you hire providers, when one person holds all the knowledge, or when enrollment denials rise and no one has time to see why. Common signs:",
+   "whenClose": "The benefits of outsourced credentialing show in on-time starts. Hand off enrollments alone, keep billing in-house; start with a review."
+  },
+  "intro": {
+   "lead": "Medical credentialing services for US practices, from application to revalidation.",
+   "body": "Hand us your providers, and we build one clean CAQH profile, file with every payer that same week, follow up on a fixed schedule, and confirm every effective date before the first claim.",
+   "more": "Credentialing and payer enrollment happen before the first visit, so a provider who isn’t enrolled can see patients and still never get paid. Our medical credentialing services cover a CAQH profile built and maintained, Medicare, Medicaid and commercial enrollment, application follow-up until approval, effective dates loaded in your billing system, and a revalidation and expiry calendar. A dedicated credentialing specialist owns your account and reports status by provider and payer every two weeks. It starts with a free review of where each of your providers stands."
+  },
+  "title": "Medical Credentialing & Payer Enrollment | Affinity Core",
+  "description": "Medical credentialing and payer enrollment services: CAQH kept current and every application tracked to a confirmed effective date with each payer.",
+  "turnaround": "Applications filed in week one",
+  "platformsLines": [
+   "Credentialing inside",
+   "your existing setup."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our credentialing team works in CAQH, PECOS and every payer portal, loads effective dates into your practice management system, and we map access with you before anything changes.",
+  "specEyebrow": "/ Credentialing by specialty",
+  "specHeading": "Provider credentialing services, by staff who know your specialty’s payers",
+  "midBody": "We’ll check each provider’s status with every payer you bill and show you each gap. It’s free."
+ },
+ "payment-posting": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "ticket.turnaround": 24,
+   "platforms.lines": 37,
+   "platforms.copy": 38,
+   "specialties.eyebrow": 39,
+   "specialties.heading": 40,
+   "midBody": 42,
+   "guide.answer": 44,
+   "guide.whatP1": 45,
+   "guide.whatP2": 46,
+   "guide.incIntro": 47,
+   "guide.whyTail": 48,
+   "guide.whyP2": 49,
+   "guide.whenIntro": 50,
+   "guide.whenClose": 51,
+   "faqs.0.a": 64,
+   "faqs.1.a": 66,
+   "faqs.6.a": 76,
+   "faqs.7.a": 78
+  },
+  "faqs": {
+   "0": [
+    null,
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your remit count, payer mix and what you hand over. Your written quote follows the review."
+   ],
+   "1": [
+    null,
+    "Usually 30 to 45 days. We sign a BAA, get access to your PM system and clearinghouse, load your fee schedules, then take over all new remits while your staff finishes the backlog, so no payment sits unposted."
+   ],
+   "6": [
+    null,
+    "Yes, work access to your practice management system, clearinghouse and ERA enrollment, plus EHR access, read-only. We sign a business associate agreement before any access begins."
+   ],
+   "7": [
+    null,
+    "Yes. Many practices keep their front desk or a biller and hand us payment posting and reconciliation. We work from the same queues, flag every short pay and report to both every month."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "Payment posting is the step in medical billing where each payer’s payment is applied to the claim lines it covers, from an ERA or paper EOB, and balanced to the bank deposit. It’s also where underpayments, denials and patient balances first show up. Done well, every dollar is applied to the right line the day it lands, and every short pay is caught.",
+   "whatP1": "Practices post payments in-house or outsource payment posting. Either way, the test is the same: is every remit posted on the day it lands, balanced and checked against your contract?",
+   "whatP2": "Each payment posted, balanced and checked, each day.",
+   "incIntro": "Whoever posts your payments, in-house or an outside billing company, these are the pieces to expect. Missing one? Revenue leaks.",
+   "whyTail": "The leak is rarely one big failure. It’s small, repeatable misses: a short pay written off, a denial posted as zero, a deposit never matched.",
+   "whyP2": "Because posting errors repeat, fixing the cause is worth more than fixing the claim. That is why every payment posting engagement ends each month with underpayments by payer and how much we recovered.",
+   "whenIntro": "Outsourcing payment posting makes sense when remits pile up, when one person holds all the knowledge, or when unapplied cash grows and no one has time to find out why. Common signs:",
+   "whenClose": "The benefits of outsourced payment posting show in caught short pays. Hand off posting alone, keep billing in-house; start with a month."
+  },
+  "intro": {
+   "lead": "Payment posting services for US practices, synced to the deposit daily.",
+   "body": "Hand us ERAs, EOBs and lockbox files and we post every payment line by line, balance it to the bank deposits, compare every allowed amount with your contracts, and route hidden denials straight to follow-up.",
+   "more": "Payment posting in medical billing happens when the payer responds, so a short pay or hidden denial missed here is often written off. Our payment posting services cover ERA auto-posting with exception handling, manual EOB and lockbox posting, daily deposit reconciliation, and contract checks on every allowed amount. A dedicated payment poster owns your account and reports underpayments, unapplied cash and denials found in remits every month. Outsource posting alone or the entire cycle; it starts with a free review of one month of remits."
+  },
+  "title": "Payment Posting Services for Practices | Affinity Core",
+  "description": "Payment posting services: ERAs and EOBs posted line by line, balanced to the deposit and checked against your contracts, so short pays surface that day.",
+  "turnaround": "Posted the day the remit lands",
+  "platformsLines": [
+   "Payment posting in",
+   "your current PM system."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our posting team works inside your practice management system, clearinghouse and bank files, balances to your deposits there, and we map access before anything changes.",
+  "specEyebrow": "/ Specialty payments we post",
+  "specHeading": "Payment posting services, from billers who know your contracts.",
+  "midBody": "We’ll review a month of your remits against your contracts and show you every short pay. Free."
+ },
+ "ar-recovery": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "ticket.turnaround": 24,
+   "platforms.lines": 37,
+   "platforms.copy": 38,
+   "specialties.eyebrow": 39,
+   "specialties.heading": 40,
+   "midBody": 42,
+   "guide.answer": 44,
+   "guide.whatP1": 45,
+   "guide.whatP2": 46,
+   "guide.incIntro": 47,
+   "guide.whyTail": 48,
+   "guide.whyP2": 49,
+   "guide.whenIntro": 50,
+   "guide.whenClose": 51,
+   "faqs.0.q": 63,
+   "faqs.0.a": 64,
+   "faqs.1.q": 65,
+   "faqs.1.a": 66,
+   "faqs.6.a": 76,
+   "faqs.7.a": 78
+  },
+  "faqs": {
+   "0": [
+    "How much does outsourced A/R recovery cost?",
+    "Most practices pay a percentage of what we collect, so we’re paid when you are. The rate depends on your A/R balance, its age and the payer mix. Backlogs can be quoted separately after a review."
+   ],
+   "1": [
+    "How long does it take to switch A/R recovery to Affinity Core?",
+    "Usually 30 to 45 days. We sign a BAA, get access to your PM system and portals, review your aging report and filing limits, then work oldest and largest claims first while your staff keeps billing new claims."
+   ],
+   "6": [
+    null,
+    "Yes, work access to your practice management system, clearinghouse and payer portals, plus read-only EHR, for appeals. We sign a business associate agreement before access begins."
+   ],
+   "7": [
+    null,
+    "Yes. Many practices keep their front desk or a biller and hand us the aged A/R that slips. We work from the same queues, document each write-off we recommend and report to both weekly."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "A/R recovery in medical billing is the follow-up work on claims that have been billed but not paid: checking status with the payer, fixing what’s holding each one up, appealing denials and resubmitting, all before the payer’s filing limit runs out. Done well, it brings days in A/R down, empties the 90+ day bucket, and turns old balances into cash.",
+   "whatP1": "Practices work A/R in-house, or outsource A/R recovery. Either way, the test is the same: is every claim worked before its filing limit, so the 90+ bucket shrinks?",
+   "whatP2": "Every open claim, chased to paid or closed.",
+   "incIntro": "Whoever works your aged A/R, in-house or an outside billing company, these are the pieces to expect. Missing one? Revenue leaks.",
+   "whyTail": "A backlog is rarely one big failure. It’s small, repeating misses: a claim no one chased, a denial left in the pile, a payer request ignored.",
+   "whyP2": "Because A/R misses repeat, fixing the cause is worth more than fixing the claim. That’s why every A/R recovery engagement ends each week with days in A/R, the 90+ bucket and what drove each change.",
+   "whenIntro": "Outsourcing A/R recovery makes sense when claims age beyond 90 days, when one person holds all the knowledge, or when days in A/R climb and no one has time to see why. Common signs:",
+   "whenClose": "The benefits of outsourced A/R recovery show in cash from aged claims. Hand off A/R alone, keep billing in-house; start with your aging."
+  },
+  "intro": {
+   "lead": "A/R recovery services for US practices, worked oldest-largest first.",
+   "body": "Hand us your aging report and we work every open claim, oldest and largest first: payer calls and portals, corrected claims and appeals, inside each filing limit, until it pays or closes.",
+   "more": "A/R recovery in medical billing happens during follow-up, when a claim has gone unpaid long enough to need a person on it. Our A/R recovery services cover backlog review and prioritization, payer calls, portals and resubmissions, appeals inside filing limits, coordination-of-benefits fixes, and write-off recommendations with reasons. A dedicated A/R specialist owns your account and reports aging buckets, collected and closed claims every week. It starts with a free, claim-by-claim review of your aging report."
+  },
+  "title": "A/R Recovery Services for Medical Practices | Affinity Core",
+  "description": "A/R recovery services that work aged and denied claims, oldest and largest first, inside each payer’s filing limits, until they pay or close with a reason.",
+  "turnaround": "Oldest, largest claims first",
+  "platformsLines": [
+   "A/R follow-up inside",
+   "your current systems."
+  ],
+  "platformsCopy": "No new software for your staff to master. Our A/R team works inside your practice management system, clearinghouse and payer portals, calls payers from there, and we map all access with you before we start.",
+  "specEyebrow": "/ Specialty A/R we work down",
+  "specHeading": "A/R recovery services, by billers who know your payers well.",
+  "midBody": "We’ll review your aging report and show you what’s still collectible, claim by claim. No cost."
+ },
+ "peer-to-peer-review": {
+  "n": {
+   "seo.title": 1,
+   "seo.description": 2,
+   "intro.lead": 9,
+   "intro.body": 10,
+   "intro.more": 11,
+   "platforms.lines": 38,
+   "platforms.copy": 39,
+   "specialties.eyebrow": 40,
+   "specialties.heading": 41,
+   "midBody": 43,
+   "guide.answer": 45,
+   "guide.whatP1": 46,
+   "guide.whatP2": 47,
+   "guide.incIntro": 48,
+   "guide.whyTail": 49,
+   "guide.whyP2": 50,
+   "guide.whenIntro": 51,
+   "guide.whenClose": 52,
+   "faqs.0.a": 65
+  },
+  "faqs": {
+   "0": [
+    null,
+    "Yes. Many practices keep their prior auth team and hand us the peer-to-peer prep, physician briefs and appeals. We work from the same denial queue and report to both teams every month."
+   ]
+  },
+  "included": {},
+  "guide": {
+   "answer": "A peer-to-peer review is a phone call between the treating physician and the health plan’s physician, often after a prior authorization or medical-necessity denial. The reviewer can reverse a denial on that call. Done well, the request goes in inside the payer’s window, the physician has the clinical case in front of them, and an upheld denial moves straight to a written appeal.",
+   "whatP1": "Many practices leave peer-to-peer calls to the physician alone, with no prep, and accept the denial when the window passes. Others hand the work around the call to specialists. Either way, the test is the same: is every eligible denial requested in time, and is every upheld denial appealed?",
+   "whatP2": "Your physician takes the call; we prepare everything else.",
+   "incIntro": "Whoever handles your peer-to-peers, in-house or an appeals team, these are the pieces to expect. Missing one? The denial stands.",
+   "whyTail": "Those denials rarely come from one big failure. They’re small, repeated gaps: a missed window, a thin case, a reviewer outside the specialty.",
+   "whyP2": "Because denials repeat, fixing the cause is worth more than winning a single call. That’s why each peer-to-peer engagement ends each month with outcomes by payer and service, and what we changed upstream.",
+   "whenIntro": "Outsourcing peer-to-peer prep makes sense when medical-necessity denials climb, when physicians take calls cold, or when windows close before anyone requests the call. Common signs:",
+   "whenClose": "The benefits of peer-to-peer support show up in overturned denials. Hand us the prep and the appeals, keep the call with your physician."
+  },
+  "intro": {
+   "lead": "Peer-to-peer review services for US practices, prepped by auth specialists.",
+   "body": "Hand us medical-necessity and prior authorization denials and we request the peer-to-peer review the same day, build the case from the chart and guidelines, brief your physician in one page, and appeal if the plan upholds it.",
+   "more": "A peer-to-peer review happens during follow-up, after a payer denies or pends care as not medically necessary, and the window to ask can be short. Our peer-to-peer review services cover denial and pend letters logged the same day, the call booked inside the payer’s window, a case packet with summary, chart evidence and guidelines, a one-page physician brief, and a written or expedited appeal if the denial is upheld. A prior auth and appeals specialist owns your account and reports requests, approvals, upheld and appealed cases every month. It starts with a free review."
+  },
+  "title": "Peer-to-Peer Review Services for Practices | Affinity Core",
+  "description": "Peer-to-peer review support: we book the call inside the payer’s window, build the clinical case, brief your physician and file the appeal if it’s upheld.",
+  "platformsLines": [
+   "Peer-to-peer prep",
+   "inside your current EHR."
+  ],
+  "platformsCopy": "No new software for your staff to learn. Our appeals specialists work inside your EHR to pull chart evidence, track each case in your PM system and payer portal, and we map access with you before anything changes.",
+  "specEyebrow": "/ Specialty calls we prepare",
+  "specHeading": "Peer-to-peer review support, from people who know specialty payers.",
+  "midBody": "Send us a month of denials; we’ll flag every one worth a peer-to-peer call. Free, no contract."
+ }
+}

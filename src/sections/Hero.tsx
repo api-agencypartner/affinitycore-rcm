@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useHomeCopy } from '../copyContext';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { CountUp, SplitWords, UsFlag } from '../components/ui';
 import { HeroCarousel } from './HeroCarousel';
@@ -7,6 +8,7 @@ import { HeroCapture } from '../components/HeroCapture';
 import hipaa from '../assets/hipaa-badge.png';
 
 export function Hero({ show }: { show: boolean }) {
+  const hc = useHomeCopy();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-18%']);
@@ -26,9 +28,9 @@ export function Hero({ show }: { show: boolean }) {
         <div className="hero__copy [display:flex] [flex-direction:column] [@media(max-width:_1099px)]:[margin-top:0] [gap:0] [margin-bottom:4.8rem] [@media(max-width:_1099px)]:[margin-bottom:3.6rem]">
           <motion.p className="eyebrow hero__eyebrow [font-family:var(--f-mono)] [font-size:max(1.6rem,15px)] [line-height:1.4] [text-transform:uppercase] [color:var(--ink)] [letter-spacing:0.02em] [.hero\_\_copy_&]:[margin-bottom:1.2rem] [display:flex] [align-items:center] [gap:1rem] [.stmac\_\_intro_&]:[grid-column:1_/_-1]" {...up(0.1)}><UsFlag className="hero__flag [width:2.2rem]" />/ Revenue cycle management for U.S. practices</motion.p>
           <SplitWords as="h1" className="hero__title [font-weight:500] [font-size:6.12rem] [line-height:1.06] [letter-spacing:-0.18rem] [color:var(--ink-3)] [@media(max-width:_1099px)]:[font-size:4.32rem] [@media(max-width:_1099px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:4rem]" animateNow={show} delay={d + 0.2} stagger={0.06}
-            lines={['You care for patients.', 'We make sure you get paid.']} bold={['paid.']} />
+            lines={hc.heroTitle ?? ['You care for patients.', 'We make sure you get paid.']} bold={hc.heroBold ?? ['paid.']} />
           <motion.p className="hero__sub [font-size:max(1.8rem,16px)] [line-height:1.55] [color:#4a4f63] [max-width:58rem] [.hero\_\_copy_&]:[margin-top:2rem] [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6]" {...up(0.55)}>
-            US-based certified coders, billers and A/R specialists who work inside your EHR, in your time zone, to cut denials, speed up payments and give your staff their time back.
+            {hc.heroSub ?? 'US-based certified coders, billers and A/R specialists who work inside your EHR, in your time zone, to cut denials, speed up payments and give your staff their time back.'}
           </motion.p>
           <div className="hero__stats [display:flex] [align-items:center] [gap:4rem] [@media(max-width:_1099px)]:[flex-wrap:wrap] [@media(max-width:_1099px)]:[gap:2.4rem] [.hero\_\_copy_&]:[margin-top:4rem] [@media(max-width:_1099px)]:[.hero\_\_copy_&]:[margin-top:3.2rem]">
             <motion.div className="hero__stat [display:flex] [flex-direction:column] [gap:0.2rem] [&>span:not(.hero\_\_num)]:[font-size:max(1.53rem,14px)] [&>span:not(.hero\_\_num)]:[color:#4a4f63] [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[font-size:16px]! [@media(max-width:_1099px)]:[&>span:not(.hero\_\_num)]:[line-height:1.6]" {...up(0.7)}>

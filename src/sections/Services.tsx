@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useHomeCopy } from '../copyContext';
 import { RefreshCw, FileText, ArrowRight } from 'lucide-react';
 import { Button, CountUp, Eyebrow, SplitWords } from '../components/ui';
 import { ease, vp } from '../motion';
@@ -135,12 +136,13 @@ function Denials() {
 }
 
 export function Services() {
+  const hc = useHomeCopy();
   return (
     <section className="svc container [padding-inline:var(--gutter)] [padding-top:16rem] [@media(max-width:_1099px)]:[padding-inline:2rem] [@media(max-width:_1099px)]:[max-width:100vw] [@media(max-width:_1099px)]:[padding-top:10rem]" id="services">
       <div className="svc__head [display:flex] [justify-content:space-between] [align-items:flex-end] [@media(max-width:_1099px)]:[flex-direction:column] [@media(max-width:_1099px)]:[align-items:flex-start] [@media(max-width:_1099px)]:[gap:2rem]">
         <div>
           <Eyebrow>/ Services</Eyebrow>
-          <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_1099px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Every step of the', 'revenue cycle, covered.']} />
+          <SplitWords className="h-64 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [.svc\_\_head_&]:[margin-top:1.2rem] [.plat\_\_center_&]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_1099px)]:[overflow-wrap:anywhere] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={hc.servicesLines ?? ['Every step of the', 'revenue cycle, covered.']} />
         </div>
         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={vp} transition={{ duration: 0.8, ease: ease.out, delay: 0.3 }}>
           <Button to="/services">View All</Button>

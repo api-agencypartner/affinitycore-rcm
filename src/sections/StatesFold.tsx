@@ -3,6 +3,7 @@
  * the three state links with each state's Medicare contractor, and a line for everyone else.
  */
 import { useState } from 'react';
+import { useHomeCopy } from '../copyContext';
 import { motion } from 'motion/react';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { Eyebrow, Reveal, SplitWords } from '../components/ui';
@@ -13,6 +14,7 @@ import { ease, vp } from '../motion';
 import { useTouch } from '../components/useNarrow';
 
 export function StatesFold() {
+  const hc = useHomeCopy();
   const touch = useTouch();
   const [active, setActive] = useState<string | null>(null);
   return (
@@ -20,7 +22,7 @@ export function StatesFold() {
       <div className="stf__panel [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [gap:5.6rem] [align-items:center] [padding:6.4rem] [border-radius:4rem] [background:linear-gradient(160deg,_#f6f2ff_0%,_#fbfaff_60%,_#f1ecff_100%)] [border:1px_solid_#eee9ff] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem] [@media(max-width:_1099px)]:[padding:4.8rem_3.2rem] [@media(max-width:_1099px)]:[border-radius:3.2rem] [@media(max-width:_640px)]:[padding:3.2rem_1.8rem]">
         <div className="stf__copy [display:flex] [flex-direction:column] [gap:1.6rem] [min-width:0]">
           <Eyebrow>/ States we serve</Eyebrow>
-          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['Billing in all 50 states,', 'by people who know each one.']} stagger={0.04} />
+          <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={hc.statesLines ?? ['Billing in all 50 states,', 'by people who know each one.']} stagger={0.04} />
           <Reveal as="p" className="stf__p [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:58rem]">
             Every state has its own Medicare contractor, Medicaid plans and prompt-pay deadline. We bill practices across the US from our Plano, Texas office, in your time zone, with each state’s rules built into the work.
           </Reveal>

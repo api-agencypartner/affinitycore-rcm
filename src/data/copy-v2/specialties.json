@@ -1,0 +1,907 @@
+{
+ "allergy-and-immunology": {
+  "intro": {
+   "lead": "Allergy billing services from certified coders who count every test, dose and vial on every claim.",
+   "body": "Affinity Core provides allergy billing services for testing, antigen preparation, immunotherapy injections and biologics. Allergy claims are paid in units: tests per prick, doses per vial, milligrams per injection. We count each one from your mixing and shot records, so the claim matches what was given.",
+   "more": "Our coders see 95004 (percutaneous tests), 95024 (intradermal tests) and 95165 (antigen preparation) on most allergy claims, and each one is checked against the record before it goes out. Biologics like omalizumab (J2357) are approved before the first dose, and each request is tracked against the CMS clock of 72 hours for urgent and 7 days for standard decisions. Leaks we close most often: tests billed as one, extract doses miscounted and the wrong injection code (95115 vs 95117). Each claim is coded by certified coders who work allergy and immunology daily, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Allergy and immunology billing is the coding, claim submission and follow-up for allergy testing, antigen preparation, immunotherapy injections and biologics (CPT 95004, 95024, 95165, J2357). It differs from general medical billing because allergy claims are paid by the unit: each test, each extract dose and each milligram of drug has to match the chart, and biologics require prior auth before the first dose.",
+   "askQ3": "How do you count tests and extract doses before a claim is sent to a payer?",
+   "related": "Allergy practices often need pediatrics, internal medicine and dermatology billing too. Each specialty runs on its own payer rules, and our coders bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “tests billed as one”. You get a written quote after it.",
+    "Most allergy practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and the services you hand us. The free assessment shows where you stand now, including leaks like tests billed as one, and you get a written quote after it."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and allergy & immunology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and open biologic approvals, and start billing new allergy and immunology claims while your team finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, EHR (read-only if possible), clearinghouse and your shot records. A business associate agreement comes first."
+   ],
+   [
+    "Yes. Many allergy & immunology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Plenty of allergy practices keep the shot room and check-in in-house and give us the work that slips: code review, denials and aged A/R. We share the same queues, and we report to both of you monthly."
+   ]
+  ],
+  "n": {},
+  "title": "Allergy Billing Services & Immunology Coding | Affinity Core",
+  "description": "Allergy billing services for skin and intradermal testing, antigen prep, immunotherapy shots and biologics, with every test, dose and unit counted right.",
+  "handleLines": [
+   "Allergy and immunology billing,",
+   "skin test to biologic, in one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill allergy and immunology claims inside your EHR and practice management system, work with your shot records, your clearinghouse and payer portals, and map every login with you first.",
+  "midBody": "Send us a month of allergy and immunology claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "ambulatory-surgery-centers": {
+  "intro": {
+   "lead": "ASC billing services that match each facility claim to the surgeon’s and the op report.",
+   "body": "Affinity Core provides ASC billing services for ambulatory surgery centers that run orthopedic, GI, eye and pain cases. Your facility claim has to agree with the surgeon’s claim, the approval and the op note. We check all three before each case is billed, so nothing is ever denied for a mismatch between the three.",
+   "more": "The codes we see most on surgery center claims are 29881 (knee arthroscopy), 66984 (cataract removal with lens implant) and 64483 (transforaminal epidural), and each case is checked against the op note before it goes out. Approvals are requested before the case is scheduled and tracked against the CMS clock of 72 hours for urgent and 7 days standard. Leaks we close most often: implants left off the claim, cases done without approval and bundled pairs billed. Every claim is coded by certified coders who bill ASC facility claims daily, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "ASC billing is the coding, claim submission and follow-up for the facility side of outpatient surgery, from knee arthroscopy and cataract removal to lumbar epidurals (CPT 29881, 66984, 64483). It differs from physician billing because the surgery center bills the facility fee, applies the multiple-procedure payment rules, and adds implants and separately payable drugs the surgeon’s claim never shows.",
+   "askQ3": "How do you make sure implants and devices make it onto each facility claim?",
+   "related": "Surgery centers often need orthopedic, anesthesia and gastroenterology billing too. We bill all three every day, each under its own payer rules."
+  },
+  "faqSwap": [
+   [
+    "How much does outsourced ambulatory surgery centers billing cost?",
+    "What do outsourced ASC billing services cost your surgery center?"
+   ],
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “device not on the claim”. You get a written quote after it.",
+    "Most surgery centers pay a set percentage of monthly collections, so we’re only paid when you are. Your rate depends on claim volume, payer mix and which services you hand over. The free assessment is the first step: it shows leaks like implants left off the claim, then we send a written quote."
+   ],
+   [
+    "How long does it take to switch ambulatory surgery centers billing to Affinity Core?",
+    "How long does it take to shift a surgery center’s ASC billing over to Affinity Core?"
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and ambulatory surgery centers payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Usually 30 to 45 days. Once the BAA is signed and access is set up, we review your open A/R and cases still waiting on approval, then take over new ASC claims while your team finishes the claims already in flight, so cash keeps moving."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, EHR (read-only if possible), clearinghouse and your implant logs. A business associate agreement comes first."
+   ],
+   [
+    "Yes. Many ambulatory surgery centers practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and plenty of surgery centers do. Your team keeps scheduling and pre-registration; we take coding review, denials and aged A/R. Both teams work from the same queues, and a single monthly report covers both."
+   ]
+  ],
+  "n": {},
+  "title": "ASC Billing Services | Ambulatory Surgery Center Billing",
+  "description": "ASC billing services for orthopedic, GI, eye and pain cases: approvals on file, multiple-procedure rules applied and every implant on the facility claim.",
+  "handleLines": [
+   "Everything your ASC claim",
+   "requires, from one team."
+  ],
+  "platformsCopy": "Keep the systems your staff already know. We work ASC claims in your EHR, practice management system and clearinghouse, read your implant logs where it helps, and agree on access with you up front.",
+  "midBody": "Get a free review of a month of ASC claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "anesthesia": {
+  "intro": {
+   "lead": "Anesthesia billing services coded from the record to the minute, case by case.",
+   "body": "Affinity Core is an anesthesia billing company for physician, CRNA and care-team groups. Anesthesia is paid in base units plus time, and the time must come straight from the record. We code every case from documented start and stop times, apply medical direction modifiers, and bill post-op blocks only when they’re truly separate.",
+   "more": "Most of our anesthesia claims carry codes like 01402 (total knee arthroplasty), 00790 (upper abdominal laparoscopy) and 00811 (lower GI endoscopy), each reviewed against the anesthesia record and the op note before it is submitted. The leaks we close most often: time rounded or borrowed, the wrong surgical crosswalk and post-op nerve blocks billed wrong. Certified coders who bill anesthesia every day code every case, and you get a monthly report on denial rate, days in A/R and collections to review with us."
+  },
+  "guide": {
+   "answer": "Anesthesia billing is the coding, claim submission and follow-up for anesthesia care, from joint replacements to labor epidurals and nerve blocks (CPT 01402, 01967, 64447). It differs from general medical billing because payment is base units plus time units, adjusted by modifiers for who provided the care, by physical status and by qualifying circumstances.",
+   "askQ3": "How do you verify anesthesia times and modifiers before the claim goes out?",
+   "related": "Anesthesia groups often require ambulatory surgery center, orthopedic and pain management billing too. Each runs on its own payer rules, and our team bills all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “time rounded or borrowed”. You get a written quote after it.",
+    "Most anesthesia groups pay a set percentage of monthly collections, so we’re only paid when you are. Your rate depends on volume, payer mix and which services you hand over. The free assessment comes first: it shows leaks like time rounded or borrowed between cases, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and anesthesia payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and case logs not yet billed, and start billing new anesthesia claims while your staff finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, your EHR (read-only if possible), clearinghouse plus your anesthesia record system. A signed BAA comes first."
+   ],
+   [
+    "Yes. Many anesthesia practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and many anesthesia groups do. Your team keeps case-log intake; we take coding review, denials and aged A/R. Both teams work from one set of queues, and one monthly report covers both teams."
+   ]
+  ],
+  "n": {},
+  "title": "Anesthesia Billing Services | Anesthesia Billing Company",
+  "description": "Anesthesia billing services: base and time units, care-team modifiers, physical status, nerve blocks and qualifying circumstances, coded to the minute.",
+  "handleLines": [
+   "Each anesthesia claim, base",
+   "units to blocks, in one team."
+  ],
+  "platformsCopy": "Keep the systems your staff use. We work anesthesia claims in your EHR, practice management system and clearinghouse, read your anesthesia record system where it helps, and agree on access with you first.",
+  "midBody": "Get a free review of a month of anesthesia claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "cardiology": {
+  "intro": {
+   "lead": "Cardiology billing services by coders who work echo, nuclear and cath studies.",
+   "body": "Affinity Core provides cardiology billing services for echo, nuclear, stress testing, device checks and the cath lab. Most cardiology denials come from a handful of codes billed a little wrong: the wrong component, a missing modifier or a study that outran its authorization. We catch them before the claim is sent.",
+   "more": "The codes we see most on cardiology claims are 93000 (ECG), 93306 (complete TTE echo) and 78452 (SPECT perfusion), and each one is checked against the report before it is sent. Prior authorizations are requested before the patient is scheduled and tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: studies with no auth on file, the wrong component billed and visits coded low. Certified coders who bill cardiology daily code each claim, and you get a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Cardiology billing is the coding, claim submission and follow-up for heart care, from office ECGs and echoes to nuclear studies and the cath lab (CPT 93000, 93306, 78452). It differs from general medical billing because most studies split into professional and technical components, many require prior authorization, and the cath lab uses vessel modifiers.",
+   "askQ3": "How do you review the echo, nuclear and cath lab claims before they go out?",
+   "related": "Cardiology groups often need radiology, nephrology and internal medicine billing as well. Each has its own payer rules, and our coders bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “no auth on file”. You get a written quote after it.",
+    "Usually a percentage of each month’s collections, so our fee rises only when your collections do. Volume, payer mix and the services you hand over set the rate. Start with the free assessment, which finds leaks like studies done with no auth on file. You get a written quote right after."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and cardiology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and pending prior auths, then start billing new cardiology claims while your staff finishes whatever is already submitted, so cash flow never stops."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes: your practice management system, EHR (read-only when possible), clearinghouse and your device clinic portals, if used. We sign a BAA before any login."
+   ],
+   [
+    "Yes. Many cardiology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Plenty of cardiology groups keep scheduling and prior auth intake in-house and give us the rest: coding review, denials and aged A/R. We share the same queues, and we report to both monthly."
+   ]
+  ],
+  "n": {},
+  "title": "Cardiology Billing Services | Cardiology Medical Billing",
+  "description": "Cardiology billing services for echo, nuclear, stress tests, device checks and the cath lab, with prior auths tracked and components split right.",
+  "handleLines": [
+   "Cardiology medical billing,",
+   "ECG to cath lab, by one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill cardiology claims inside your EHR and practice management system, use your device clinic portals, your clearinghouse and the payer portals, and map access with you first.",
+  "midBody": "Send us one month of cardiology claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "dermatology": {
+  "intro": {
+   "lead": "Dermatology billing services: each lesion counted, each excision sized properly.",
+   "body": "Affinity Core offers dermatology billing services for biopsies, destructions, excisions, repairs and Mohs surgery. Dermatology claims are counts and measurements: the note has to say how many lesions, where, and how big, including the margins. We code from those details, not from habit, on every claim.",
+   "more": "The codes we see most on dermatology claims are 11102 (tangential biopsy, first lesion), 17000 (first premalignant lesion destroyed) and 17004 (15 or more lesions), and each is reviewed against the note before it is submitted. The leaks we close most often: every biopsy billed as a first lesion, repairs left off after excisions and excisions sized without their margins. Certified coders who bill dermatology every day code every claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "Dermatology billing is the coding, claim submission and follow-up for skin procedures and visits, from biopsies and destructions to excisions and Mohs surgery (CPT 11102, 17000, 11602). It differs from general medical billing because claims depend on lesion counts, sizes and sites, and on keeping follow-up visits out of 10- and 90-day globals.",
+   "askQ3": "How do you verify lesion counts, sizes and repairs before a claim goes out?",
+   "related": "Dermatology practices often need pathology, surgery center and allergy & immunology billing. Each runs on its own insurer rules, and our team bills all of them every day."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “biopsies billed as first”. You get a written quote after it.",
+    "Usually a percentage of each month’s collections, so we earn more only when you collect more. Claim volume, payer mix and which services you hand over set the rate. First comes the free assessment, which finds leaks like every biopsy billed as a first lesion. You get a written quote right after."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and dermatology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and pathology results still pending, and start billing new dermatology claims as your staff finishes anything already submitted, so cash flow never stops."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, your EHR (read-only if possible), clearinghouse plus your path lab portal. A BAA is signed before any access."
+   ],
+   [
+    "Yes. Many dermatology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. A lot of dermatology practices keep check-in and cosmetic scheduling and hand us coding review, denials and aged A/R. We share the same queues with your team and send both one monthly report."
+   ]
+  ],
+  "n": {},
+  "title": "Dermatology Billing Services | Dermatology Medical Billing",
+  "description": "Dermatology billing services for biopsies, destructions, excisions, repairs and Mohs, with lesion counts, sizes and 10-day globals coded right.",
+  "handleLines": [
+   "Dermatology medical billing",
+   "from biopsy to Mohs, one team."
+  ],
+  "platformsCopy": "Keep the systems your staff know. We work dermatology claims in your EHR, practice management system and clearinghouse, pull from your path lab portal where it helps, and agree on access with you up front.",
+  "midBody": "Get a free review of a month of dermatology claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "gastroenterology": {
+  "intro": {
+   "lead": "Gastroenterology billing services that keep screenings billed as screenings.",
+   "body": "Affinity Core provides gastroenterology billing services for screening and diagnostic colonoscopy, EGD, capsule endoscopy and office visits. A screening that finds a polyp changes the claim and usually the patient’s bill, so we apply the screening modifiers each payer expects and code every technique on each lesion we see.",
+   "more": "The codes we see most on GI claims are G0121 (Medicare screening colonoscopy), 45378 (diagnostic colonoscopy) and 45385 (colonoscopy with snare polypectomy), and each is checked against the procedure report before it is sent. Approvals are requested before the procedure is scheduled and tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: screenings turned diagnostic, biopsy and snare on the same lesion and capsule studies without approval. Certified coders who bill GI daily code each claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Gastroenterology billing is the coding, claim submission and follow-up for GI care, from screening and diagnostic colonoscopy to EGD and capsule endoscopy (CPT G0121, 45378, 45385). It is different from general medical billing because a screening can turn diagnostic mid-procedure, each payer wants different screening modifiers, and every technique on every lesion has its own rules.",
+   "askQ3": "How do you code a screening colonoscopy that finds a polyp partway through?",
+   "related": "GI practices often need surgery center, anesthesia and pathology billing too. Each runs on its own payer rules, and our team bills all three every day."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “screenings turned diagnostic”. You get a written quote after it.",
+    "Most GI practices pay a set percentage of monthly collections, so we’re only paid when you are. Your rate depends on volume, payer mix and which services you hand over. The free assessment is the first step: it measures leaks like screenings turned diagnostic, then we send a written quote to review."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and gastroenterology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and procedures still awaiting approval, and start billing new GI claims while your staff finishes whatever is already submitted, so cash flow never stops."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We use your practice management system, EHR (read-only if possible), clearinghouse and your scope reports. A business associate agreement comes first."
+   ],
+   [
+    "Yes. Many gastroenterology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and many GI practices do. You keep scheduling and procedure prep calls; we take coding review, denials and aged A/R. Both teams work from the same queues, and one monthly report covers both teams."
+   ]
+  ],
+  "n": {},
+  "title": "Gastroenterology Billing Services | GI Medical Billing",
+  "description": "Gastroenterology billing services for screening and diagnostic colonoscopy, EGD, capsule endoscopy and visits, with screening modifiers applied right.",
+  "handleLines": [
+   "GI billing, from scope to",
+   "capsule, with one team."
+  ],
+  "platformsCopy": "Nothing new for your team to learn. Our GI billers log in to your EHR and practice management system, plus your scope reports, your clearinghouse and payer portals, once access is mapped with you.",
+  "midBody": "Get a free review of a month of GI claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "internal-medicine": {
+  "intro": {
+   "lead": "Internal medicine billing services that code every visit to what the note actually supports.",
+   "body": "Affinity Core provides internal medicine billing services for E/M visits, G2211, annual wellness visits, chronic care management and in-office labs. Primary care is paid in small amounts, many times a day, so we code each visit to what the note supports and add each add-on it qualifies for, from G2211 to advance care planning.",
+   "more": "The codes we see most on internal medicine claims are 99214 (established office visit), G2211 (visit complexity add-on) and G0439 (annual wellness visit), and each one is checked against the note before it goes out. The leaks we close most often: visits coded low, G2211 missed and chronic care management left unbilled. A wellness visit and a sick visit on the same day are both billed, so neither is bundled away. Certified coders who bill internal medicine every day code each claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Internal medicine billing is the coding, claim submission and follow-up for adult primary care, from office and wellness visits to chronic care management (CPT 99214, G0439, 99490). It differs from specialty billing since the money is in volume and add-ons: E/M levels set by MDM or time, G2211, care management minutes and same-day wellness and sick visits that payers often bundle.",
+   "askQ3": "How do you set the E/M level and add-ons before a claim is sent to a payer?",
+   "related": "Internal medicine practices often require pediatrics, cardiology and nephrology billing too. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “visits coded low”. You get a written quote after it.",
+    "Usually a percentage of monthly collections, so we earn more only when you collect more. Volume, payer mix and which services you hand over set the rate. Start with the free assessment, which finds leaks like visits coded below what the note supports. You get a written quote right after."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and internal medicine payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and care management enrollments, and start billing new internal medicine claims as your staff finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We use your practice management system, EHR (read-only if possible), clearinghouse and your lab interface. A business associate agreement comes first."
+   ],
+   [
+    "Yes. Many internal medicine practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Plenty of internal medicine practices keep check-in and lab draws in-house and give us the rest: coding review, denials and aged A/R. We share the same queues, and we report to both of you monthly."
+   ]
+  ],
+  "n": {},
+  "title": "Internal Medicine Billing Services | Primary Care Billing",
+  "description": "Internal medicine billing services for E/M visits, G2211, wellness visits, chronic care management and in-office labs, coded to what the note supports.",
+  "handleLines": [
+   "Primary care billing, wellness",
+   "visits to chronic care, one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill internal medicine claims inside your EHR and practice management system, use your lab interface, your clearinghouse and the payer portals, and set up every login with you first.",
+  "midBody": "Send us one month of internal medicine claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "mental-health": {
+  "intro": {
+   "lead": "Mental health billing services coded to the minutes in every therapy note you write.",
+   "body": "Affinity Core is a behavioral health billing company for therapists and group practices. Therapy is paid by the minute, and a few minutes either way changes the code. We code every session from the times in the note, bill telehealth with the place of service each payer wants, and keep credentialing current so sessions aren’t denied out of network.",
+   "more": "The codes we see most on mental health claims are 90791 (psychiatric diagnostic evaluation), 90834 (45-minute psychotherapy) and 90837 (60-minute psychotherapy), and each one is checked against the session times before it goes out. Session authorizations and visit limits are tracked per patient, and requests are followed against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: sessions coded short, visit limits missed and interactive complexity (90785) skipped. Certified coders who bill mental health daily code every claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Mental health billing is the coding, claim submission and follow-up for therapy services, from diagnostic evaluations and individual psychotherapy to family and crisis sessions (CPT 90791, 90834, 90847). It differs from general medical billing because codes depend on session minutes, telehealth requires the place of service each payer wants, and many plans limit visits or require authorization first.",
+   "askQ3": "How do you ensure each therapy session is coded to the minutes in the note?",
+   "related": "Mental health practices often require psychiatry, neurology and internal medicine billing too. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “sessions coded short”. You get a written quote after it.",
+    "Usually a percentage of each month’s collections, so we earn more only when you collect more. Volume, payer mix and the services you hand over set the rate. Start with the free assessment, which finds leaks like sessions coded shorter than the note shows. You get a written quote right after."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and mental health payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and open session authorizations, and start billing new mental health claims as your staff finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We use your practice management system, EHR (read-only if possible), clearinghouse and your therapy scheduling app. A BAA is signed before any access."
+   ],
+   [
+    "Yes. Many mental health practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. A lot of mental health practices keep intake and scheduling and hand us coding review, denials and aged A/R. We work one set of work queues with your team and send both the same monthly report."
+   ]
+  ],
+  "n": {},
+  "title": "Mental Health Billing Services | Behavioral Health Billing",
+  "description": "Mental health billing services for psychotherapy, family therapy, crisis sessions and telehealth, coded to the minutes in the note with the right POS.",
+  "handleLines": [
+   "Mental health billing, intake",
+   "to teletherapy, with one team."
+  ],
+  "platformsCopy": "Keep the systems your staff know. We work mental health claims in your EHR, practice management system and clearinghouse, read your therapy scheduling app when we need to, and agree on access with you first.",
+  "midBody": "Get a free review of a month of mental health claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "nephrology": {
+  "intro": {
+   "lead": "Nephrology billing services that count every ESRD visit, every month you bill.",
+   "body": "Affinity Core offers nephrology billing services for monthly ESRD care, home dialysis, CKD visits and dialysis access procedures. ESRD care is paid monthly, by how often you saw each patient, so we count the visits, switch to daily codes when the month is cut short, and bill access procedures with their imaging as the codes bundle them.",
+   "more": "The codes we see most on nephrology claims are 90960 (monthly ESRD care, 4+ visits), 90961 (2–3 visits) and 90966 (home dialysis), and each one is checked against the visit log and the dialysis unit’s records before it goes out. The leaks we close most often: monthly tiers dropped, home and in-center care mixed up, and partial months billed as full months. Certified coders who bill nephrology every day code every claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "Nephrology billing is the coding, claim submission and follow-up for kidney and dialysis care, from monthly ESRD services and home dialysis to hemodialysis evaluations (CPT 90960, 90966, 90935). It is different from general medical billing because ESRD care is paid per month by visit count and patient age, with daily codes for partial months.",
+   "askQ3": "How do you count monthly ESRD visits across units before billing the month?",
+   "related": "Nephrology groups often need internal medicine, cardiology and radiology billing too. Each runs on its own payer rules, and our coders bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “monthly tier dropped”. You get a written quote after it.",
+    "Most nephrology groups pay a set percentage of monthly collections, so we’re only paid when you are. Your rate reflects volume, payer mix and which services you hand over. The free assessment comes first: it measures leaks like monthly ESRD tiers billed too low, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and nephrology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and this month’s ESRD visit counts, and start billing new nephrology claims while your team finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes: your practice management system, EHR (read-only when possible), clearinghouse and your dialysis unit records, if used. We sign a BAA before any login."
+   ],
+   [
+    "Yes. Many nephrology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and many nephrology groups do. You keep dialysis rounding schedules; we pick up coding review, denials and aged A/R. Both teams work from the same queues, and one monthly report covers both."
+   ]
+  ],
+  "n": {},
+  "title": "Nephrology Billing Services | Nephrology Medical Billing",
+  "description": "Nephrology billing services for monthly ESRD care, home dialysis, CKD visits and access procedures, with visit counts and partial months coded right.",
+  "handleLines": [
+   "Nephrology medical billing,",
+   "CKD to dialysis, in one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill nephrology claims inside your EHR and practice management system, use your dialysis unit records, your clearinghouse and the payer portals, and map access with you first.",
+  "midBody": "Get a free review of a month of nephrology claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "neurology": {
+  "intro": {
+   "lead": "Neurology billing services that count every nerve, each unit and each study.",
+   "body": "Affinity Core offers neurology billing services for EEG, EMG and nerve conduction studies, botulinum toxin (Botox) injections and office visits. We code each study to the component you performed, count each nerve and each unit, and report the drug you discarded, so neurology claims get paid the first time without rework.",
+   "more": "The codes we see most on neurology claims are 95816 (routine EEG), 95910 (nerve conduction, 7–8 studies) and 95886 (needle EMG with NCS), and each one is checked against the report before it is sent. Botox and infusion approvals are requested before the visit is scheduled and tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: Botox given without approval, nerve studies miscounted and drug waste left unbilled. Certified coders who bill neurology daily code each claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Neurology billing is the coding, claim submission and follow-up for neurology services, from EEGs and long-term monitoring to nerve conduction, EMG and Botox for migraine (CPT 95816, 95910, 95886). It differs from general medical billing since studies split into components, nerve conduction is billed by study count, and drug waste must be reported on the claim.",
+   "askQ3": "How do you verify nerve studies and Botox units before each claim goes out?",
+   "related": "Neurology practices often require psychiatry, pain management and radiology billing too. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “botox without approval”. You get a written quote after it.",
+    "Most neurology practices pay a set percentage of monthly collections, so we’re only paid when you are. Your rate reflects volume, payer mix and which services you hand over. The free assessment is the first step: it measures leaks like Botox given before approval, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and neurology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and pending Botox approvals, and start billing new neurology claims while your staff finishes anything already submitted, so cash flow never stops."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes: your practice management system, EHR (read-only when possible), clearinghouse and your EEG and EMG software, if used. We sign a BAA before any access."
+   ],
+   [
+    "Yes. Many neurology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Plenty of neurology practices keep EEG scheduling in-house and give us the work that slips: coding review, denials and aged A/R. We share the same queues, and we report to both every month."
+   ]
+  ],
+  "n": {},
+  "title": "Neurology Billing Services | Neurology Medical Billing",
+  "description": "Neurology billing services for EEG, EMG and nerve conduction studies, Botox injections and office visits, with components, units and waste coded right.",
+  "handleLines": [
+   "Neurology medical billing,",
+   "EEGs to Botox, with one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill neurology claims inside your EHR and practice management system, use your EEG and EMG software, your clearinghouse and payer portals, and map every login with you first.",
+  "midBody": "Send us one month of neurology claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "obstetrics-and-gynecology": {
+  "intro": {
+   "lead": "OB/GYN billing services that track each prenatal visit until the global package closes.",
+   "body": "Affinity Core provides OB/GYN billing services for global obstetric care, transfers of care, ultrasounds, IUDs and gynecologic procedures. Pregnancy care is paid as one package that can take up to nine months to close, so we track every prenatal visit and split the package when care transfers to another provider.",
+   "more": "The codes we see most on OB/GYN claims are 59400 (global OB care, vaginal delivery), 59510 (global OB care, cesarean) and 59426 (antepartum care only, 7+ visits), and each one is checked against the chart before it is submitted. The leaks we close most often: the global billed after a transfer of care, the wrong delivery package billed and the ultrasound components billed wrong. Certified coders who bill OB/GYN every day code each claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "OB/GYN billing is the coding, claim submission and follow-up for obstetric and gynecologic care, from global OB packages to ultrasounds and IUDs (CPT 59400, 59426, 76805). It is different from general medical billing because pregnancy care is billed as one global package, split when care is transferred, and visit-day rules decide what ultrasounds are paid.",
+   "askQ3": "How do you bill the global OB package when a patient transfers care midway?",
+   "related": "OB/GYN practices often require pediatrics, radiology and urology billing too. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “global billed after a transfer”. You get a written quote after it.",
+    "Usually a percentage of monthly collections, so our fee rises only when your collections do. Claim volume, payer mix and the services you hand over set the rate. Start with the free assessment, which finds leaks like global packages billed after a transfer of care. You get a written quote right after."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and obstetrics & gynecology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Usually 30 to 45 days. Once the BAA is signed and access is set up, we review your open A/R and open global OB packages, then take over new OB/GYN claims while your team closes out the claims already in flight, so cash keeps moving."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, EHR (read-only if possible), clearinghouse plus your prenatal flow sheets. A BAA is signed before any access."
+   ],
+   [
+    "Yes. Many obstetrics & gynecology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and plenty of OB/GYN practices do. Your team keeps prenatal scheduling; we take coding review, denials and aged A/R. Both teams work from one set of queues, and a single monthly report covers both teams."
+   ]
+  ],
+  "n": {},
+  "title": "OB/GYN Billing Services | OBGYN Medical Billing & Coding",
+  "description": "OB/GYN billing services for global obstetric packages, transfers of care, ultrasounds, IUDs and gyn procedures, coded so nothing is billed twice or missed.",
+  "handleLines": [
+   "OB/GYN billing, first visit",
+   "to delivery, in one team."
+  ],
+  "platformsCopy": "Keep the systems your staff know. We work OB/GYN claims in your EHR, practice management system and clearinghouse, read your prenatal flow sheets where it helps, and agree on access with you up front.",
+  "midBody": "Get a free review of a month of OB/GYN claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "oncology": {
+  "intro": {
+   "lead": "Oncology billing services that match every milligram billed to the record.",
+   "body": "Affinity Core provides oncology billing services for chemotherapy and immunotherapy infusions, drug units, NDCs and waste. Drugs are most of an oncology claim, and every milligram has to match, so we approve every regimen before the chair is booked and code infusion hours in the right order on every claim.",
+   "more": "The codes we see most on oncology claims are 96413 (chemo infusion, first hour), 96415 (each additional hour) and 96367 (sequential infusion), and each one is checked against the infusion log before it is sent. Regimens are approved before the chair is booked, and requests are tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: drug units that don’t match, regimens given without approval and infusions coded in the wrong order. Certified coders who bill oncology daily code each claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Oncology billing is the coding, claim submission and follow-up for cancer care, from chemotherapy and immunotherapy infusions to injections and the drugs themselves (CPT 96413, 96367, 96375 and J-codes such as J9271). It differs from general medical billing since drugs are most of the claim, units, NDCs and waste must match, and infusions follow a strict coding hierarchy.",
+   "askQ3": "How do you check the drug units, NDCs and waste before each claim goes out?",
+   "related": "Oncology practices often require radiology, pathology and internal medicine billing too. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “drug units mismatch”. You get a written quote after it.",
+    "Most oncology practices pay a set percentage of monthly collections, so our pay tracks yours. Your rate reflects volume, payer mix and which services you hand over. The free assessment is the first step: it shows leaks like drug units that don’t match the vial, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and oncology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and regimens waiting on approval, and start billing new oncology claims while your staff finishes anything already submitted, so cash flow never stops."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes, read-only where we can: the practice management system, EHR, clearinghouse and your pharmacy system. Our business associate agreement is signed first."
+   ],
+   [
+    "Yes. Many oncology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Many oncology practices keep infusion scheduling and drug ordering in-house and give us the rest: coding review, denials and aged A/R. We share the same queues, and report to both monthly."
+   ]
+  ],
+  "n": {},
+  "title": "Oncology Billing Services | Oncology Medical Billing",
+  "description": "Oncology billing services for chemo and immunotherapy infusions, drug units, NDCs and waste, with every regimen approved before the chair is booked.",
+  "handleLines": [
+   "Oncology billing, approval",
+   "to infusions, with one team."
+  ],
+  "platformsCopy": "Nothing new for your team to learn. Our oncology billers log in to your EHR and practice management system, plus your pharmacy system, your clearinghouse and payer portals, after we map access with you.",
+  "midBody": "Get a free review of a month of oncology claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "ophthalmology": {
+  "intro": {
+   "lead": "Ophthalmology billing services that put the right eye onto each claim line you bill.",
+   "body": "Affinity Core offers ophthalmology billing services for cataract surgery, intravitreal injections, retinal imaging and eye exams. Almost every eye claim depends on which eye, so we put RT and LT on each line, bill anti-VEGF drugs by the milligram with their waste, and track the 90-day global after cataract surgery.",
+   "more": "The codes we see most on ophthalmology claims are 66984 (cataract surgery with lens implant), 67028 (intravitreal injection) and J0178 (aflibercept), and each one is checked against the note before it is sent. Anti-VEGF approvals and step therapy are done before the injection is scheduled and tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: drug units billed per vial, lines with no eye modifier and post-op visits billed inside the global. Certified coders who bill ophthalmology daily code each claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Ophthalmology billing is the coding, claim submission and follow-up for eye care, from eye exams and retinal imaging to injections and cataract surgery (CPT 92014, 67028, 66984). It differs from general medical billing since nearly every line requires an eye modifier, anti-VEGF drugs are billed by the milligram with waste, imaging follows once-a-day rules, and cataract surgery carries a 90-day global.",
+   "askQ3": "How do you check RT/LT modifiers and drug units before each claim goes out?",
+   "related": "Ophthalmology practices often need surgery center, anesthesia and internal medicine billing too. Each runs on its own payer rules, and our team bills all three every day."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “drug units per vial”. You get a written quote after it.",
+    "Usually a percentage of monthly collections, so we earn more only when you collect more. Volume, payer mix and which services you hand over set the rate. Start with the free assessment, which finds leaks like drug units billed per vial instead of per milligram, then a written quote follows."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and ophthalmology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and pending anti-VEGF approvals, and start billing new ophthalmology claims as your staff finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes: your practice management system, EHR (read-only where we can), clearinghouse and your surgery scheduler. We sign a business associate agreement first."
+   ],
+   [
+    "Yes. Many ophthalmology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Many ophthalmology practices keep the front desk and surgery scheduling in-house and give us the rest: coding review, denials and aged A/R. We share the same queues, and report to both monthly."
+   ]
+  ],
+  "n": {},
+  "title": "Ophthalmology Medical Billing Services | Eye Care Billing",
+  "description": "Ophthalmology billing services for cataract surgery, intravitreal injections, imaging and eye exams, with RT/LT, drug units and approvals on every line.",
+  "handleLines": [
+   "Eye care billing, eye exam to",
+   "cataract surgery, in one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill ophthalmology claims inside your EHR and practice management system, use your surgery scheduler, your clearinghouse and payer portals, and set up every login with you first.",
+  "midBody": "Send us one month of ophthalmology claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "orthopedics": {
+  "intro": {
+   "lead": "Orthopedic billing that codes the side, the drug and global period on each line.",
+   "body": "Affinity Core provides orthopedic billing services for visits, injections, joint replacements, arthroscopy, imaging and DME. We code the side, the drug and the global period on every line, get MRI and surgery approvals before they’re scheduled, and stop follow-ups from being billed inside a 90-day global.",
+   "more": "The codes we see most on orthopedic claims are 20610 (large joint injection), 20611 (large joint injection with ultrasound) and J7325 (hyaluronan such as Synvisc, per mg), and each one is checked against the note before it goes out. MRI and surgery approvals are requested before the patient is scheduled and tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: imaging done before approval, injection visits bundled and hyaluronan units billed wrong. Certified coders who bill orthopedics daily code every claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "Orthopedic billing is the coding, claim submission and follow-up for musculoskeletal care, from office visits and joint injections to arthroscopy and joint replacement (CPT 20610, 29881, 27447). It is different from general medical billing because claims depend on laterality modifiers, drug units, 90-day global periods and prior authorization for imaging and surgery, and a single missed modifier can deny an entire claim line.",
+   "askQ3": "How do you track global periods and side modifiers before a claim goes out?",
+   "related": "Orthopedic practices often need ambulatory surgery center, pain management and radiology billing too. Each runs on its own payer rules, and our team bills all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “imaging before approval”. You get a written quote after it.",
+    "Most orthopedic practices pay a set percentage of monthly collections, so we’re only paid when you are. Your rate depends on volume, payer mix and which services you hand over. The free assessment is the first step: it shows leaks like imaging done before approval, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and orthopedics payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and pending MRI and surgery approvals, and start billing new orthopedic claims as your staff finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, your EHR (read-only where we can), clearinghouse plus your imaging and DME vendors. A signed BAA comes first."
+   ],
+   [
+    "Yes. Many orthopedics practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. A lot of orthopedic practices keep surgery scheduling and hand us coding review, denials and aged A/R. We work one set of work queues with your team and send everyone the same monthly report."
+   ]
+  ],
+  "n": {},
+  "title": "Orthopedic Billing Services | Orthopedic Medical Billing",
+  "description": "Orthopedic billing services for visits, injections, joint replacements, arthroscopy, imaging and DME, with approvals tracked and global periods respected.",
+  "handleLines": [
+   "Orthopedic billing, from",
+   "injection to the OR, in one team."
+  ],
+  "platformsCopy": "Keep the systems your staff know. We work orthopedic claims in your EHR, practice management system and clearinghouse, read your imaging and DME vendors when we need to, and agree on access with you first.",
+  "midBody": "Get a free review of one month of orthopedic claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days with no pause in billing."
+ },
+ "pain-management": {
+  "intro": {
+   "lead": "Pain management billing services that count every level and side and get approval first.",
+   "body": "Affinity Core provides pain management billing services for epidurals, facet blocks, radiofrequency ablation and neurostimulators. Interventional pain is paid level by level and side by side, and most of it requires approval first, so we document the prior conservative care, count every level and follow Medicare’s LCD frequency limits.",
+   "more": "The codes we see most on pain management claims are 64483 (transforaminal epidural, lumbar), 64484 (each additional level) and 64493 (lumbar facet joint block), and each one is reviewed against the procedure note before it goes out. Approvals are requested before the patient is scheduled and tracked against the CMS clock of 72 hours urgent and 7 days standard. The leaks we close most often: ablations billed without two qualifying blocks, repeats past frequency limits and levels miscounted. Certified coders who bill pain management daily code every claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Pain management billing is the coding, claim submission and follow-up for interventional pain care, from epidurals and facet blocks to radiofrequency ablation and neurostimulators (CPT 64483, 64493, 64635). It differs from general medical billing because procedures are paid per level and side, most require prior authorization with proof of conservative care, and Medicare LCDs limit how often each can repeat.",
+   "askQ3": "How do you check levels, laterality and LCD limits before a claim goes out?",
+   "related": "Pain management practices often need ambulatory surgery center, orthopedic and anesthesia billing too. Each runs on its own payer rules, and our team bills all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “ablation without two blocks”. You get a written quote after it.",
+    "Most pain management practices pay a set percentage of monthly collections, so we’re only paid when you are. Your rate reflects claim volume, payer mix and scope. The free assessment is the first step: it shows leaks like ablations billed without two qualifying blocks, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and pain management payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, audit open A/R and procedures still awaiting approval, and start billing new pain management claims as your team finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes: the practice management system, EHR (read-only where we can), clearinghouse and your procedure schedule. We sign a business associate agreement first."
+   ],
+   [
+    "Yes. Many pain management practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and many pain management practices do. Your team keeps procedure scheduling; we take coding review, denials and aged A/R. Both teams work from the same queues, and one monthly report covers both."
+   ]
+  ],
+  "n": {},
+  "title": "Pain Management Billing Services | Pain Medical Billing",
+  "description": "Pain management billing services for epidurals, facet blocks, radiofrequency ablation and neurostimulators, with approvals, levels and LCD rules applied.",
+  "handleLines": [
+   "Pain management billing, blocks",
+   "to stimulators, with one team."
+  ],
+  "platformsCopy": "Nothing new for your team to learn. Our pain management billers work in your EHR and practice management system, plus your procedure schedule, your clearinghouse and payer portals, once we map access with you.",
+  "midBody": "Get a free review of a month of pain management claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "pathology": {
+  "intro": {
+   "lead": "Pathology billing services: each specimen, stain and component billed right.",
+   "body": "Affinity Core provides pathology billing services for surgical pathology, IHC, special stains and cytology. Pathology is billed per specimen, per stain and per component, so we code straight from the report and requisition together, count specimens the way CPT defines them, and split the read from the lab work.",
+   "more": "The codes we see most on pathology claims are 88305 (surgical pathology, level IV), 88307 (level V) and 88342 (immunohistochemistry, first antibody), and each one is reviewed against the report before it goes out. The leaks we close most often: separate specimens billed as one, IHC billed per slide instead of per antibody, and levels picked from the history instead of the specimen. Certified coders who bill pathology daily code every claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "Pathology billing is the coding, claim submission and follow-up for pathology services, from surgical pathology to IHC and cytology (CPT 88305, 88342, 88112). It differs from general medical billing because every specimen, stain and antibody is billed on its own, and the professional and technical components often belong to different parties.",
+   "askQ3": "How do you count specimens and stains before the claim goes out to a payer?",
+   "related": "Pathology groups often need gastroenterology, dermatology and oncology billing too. Each runs on its own payer rules, and our coders bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “specimens billed as one”. You get a written quote after it.",
+    "Most pathology groups pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and the services you hand us. The free assessment shows where you stand now, including leaks like specimens billed as one, and you get a written quote afterward."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and pathology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and cases waiting on requisition data, and start billing new pathology claims as your team finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes: your practice management system, EHR (read-only where we can), clearinghouse and your lab information system, if used. We sign a BAA before any login."
+   ],
+   [
+    "Yes. Many pathology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Plenty of pathology groups keep accessioning and the front desk in-house and give us the rest: coding review, denials and aged A/R. We share the same queues, and report to both every month."
+   ]
+  ],
+  "n": {},
+  "title": "Pathology Billing Services | Pathology & Lab Billing",
+  "description": "Pathology billing services for surgical pathology, IHC, special stains and cytology, billed per specimen with professional and technical components split.",
+  "handleLines": [
+   "Pathology & lab billing,",
+   "specimen to stain, in one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill pathology claims inside your EHR and practice management system, use your lab information system, your clearinghouse and payer portals, and set up access with you first.",
+  "midBody": "Send us one month of pathology claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "pediatrics": {
+  "intro": {
+   "lead": "Pediatric billing services that get each vaccine dose and screen billed right.",
+   "body": "Affinity Core offers pediatric billing services for well-child visits, vaccines, developmental screenings and sick visits. A toddler’s checkup carries a dozen lines, so we code every one, bill VFC doses the way your state wants, and keep sick care from vanishing into the well visit.",
+   "more": "The codes we see most on pediatric claims are 99392 (preventive visit, age 1–4), 90460 (vaccine admin with counseling, first component) and 90461 (each additional component), and each one is checked against the note and the vaccine records before it is submitted. The leaks we close most often: vaccine components left unpaid, developmental and behavioral screens left unbilled, and sick care lost inside well visits. Certified coders who bill pediatrics every day code every claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "Pediatric billing is the coding, claim submission and follow-up for children’s care, from well-child visits and vaccines to screenings and sick-child visits (CPT 99392, 90460, 96110). It differs from general medical billing because vaccines are billed per component, VFC doses follow state rules, screenings are paid per instrument, and a sick concern can be billed with a well visit.",
+   "askQ3": "How do you bill vaccine components and VFC doses before the claim goes out?",
+   "related": "Pediatric practices often need internal medicine, allergy & immunology and urgent care billing as well. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “vaccine components unpaid”. You get a written quote after it.",
+    "Most pediatric practices pay a set percentage of monthly collections, so we’re only paid when you are. Your rate reflects volume, payer mix and which services you hand over. The free assessment is the first step: it measures leaks like vaccine components left unpaid, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and pediatrics payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review your open A/R and open VFC and vaccine claims, and start billing new pediatric claims as your staff finishes anything already submitted, so cash flow never stops."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We use your practice management system, EHR (read-only if possible), clearinghouse and your state vaccine registry. A BAA is signed before any access."
+   ],
+   [
+    "Yes. Many pediatrics practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. A lot of pediatric practices keep check-in and vaccine inventory and hand us coding review, denials and aged A/R. We work the same queues with your team and send everyone one monthly report."
+   ]
+  ],
+  "n": {},
+  "title": "Pediatric Billing Services | Pediatric Medical Billing",
+  "description": "Pediatric billing services for well-child visits, vaccines (including VFC), developmental screenings and sick visits, coded so every component gets paid.",
+  "handleLines": [
+   "Pediatric billing, from checkup",
+   "to vaccines, in one team."
+  ],
+  "platformsCopy": "Keep the systems your staff use. We work pediatric claims in your EHR, practice management system and clearinghouse, read your state vaccine registry where it helps, and agree on access with you up front.",
+  "midBody": "Get a free review of one month of pediatric claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days with no pause in billing."
+ },
+ "podiatry": {
+  "intro": {
+   "lead": "Podiatry billing services that prove routine foot care isn’t routine here.",
+   "body": "Affinity Core provides podiatry billing services for routine foot care, nail and callus procedures, wound care and surgery. Routine foot care is only covered when the chart proves it isn’t routine for this patient, so we document class findings, add the Q and toe modifiers, and we track the 60-day frequency.",
+   "more": "The codes we see most on podiatry claims are 11721 (nail debridement, 6 or more), 11720 (nail debridement, 1–5) and 11055 (paring of a single corn or callus), and each one is checked against the note before it goes out. The leaks we close most often: missing Q and toe modifiers, visits inside the 60-day frequency limit and codes stacked on one claim that should be billed alone. Certified coders who bill podiatry daily code every claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "Podiatry billing is the coding, claim submission and follow-up for foot care, from nail debridement and callus paring to nail removal and wound care (CPT 11721, 11055, 11730). It differs from general medical billing because Medicare covers routine foot care only with documented class findings, Q and toe modifiers, and visits spaced at least 60 days apart.",
+   "askQ3": "How do you check class findings and Q modifiers before each claim goes out?",
+   "related": "Podiatry practices often need wound care, orthopedic and internal medicine billing as well. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “q modifiers missing”. You get a written quote after it.",
+    "Most podiatry practices pay a set percentage of monthly collections, so we’re only paid when you are. Your rate reflects volume, payer mix and scope. The free assessment comes first: it measures leaks like routine foot care billed without Q modifiers, then we send a written quote to review."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and podiatry payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and patients near their 60-day limit, and start billing new podiatry claims as your staff finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, your EHR (read-only if possible), clearinghouse and your wound measurement records. A signed BAA comes first."
+   ],
+   [
+    "Yes. Many podiatry practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and many podiatry practices do. You keep check-in and shoe fittings; we take coding review, denials and aged A/R. Both teams work from one set of queues and one monthly report covers both."
+   ]
+  ],
+  "n": {},
+  "title": "Podiatry Billing Services | Podiatry Medical Billing",
+  "description": "Podiatry billing services for routine foot care, nail and callus care, wound care and surgery, with class findings, toe modifiers and frequency limits.",
+  "handleLines": [
+   "Podiatric billing, nail care",
+   "to surgery, with one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill podiatry claims inside your EHR and practice management system, use your wound measurement records, your clearinghouse and payer portals, and map access with you first.",
+  "midBody": "Get a free review of a month of podiatry claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "psychiatry": {
+  "intro": {
+   "lead": "Psychiatry billing services that capture the med visit and the therapy add-on.",
+   "body": "Affinity Core offers psychiatry billing services for evaluations, medication management with psychotherapy add-ons, long-acting injectables, TMS and Spravato. A medication visit with therapy is two services on a single claim, so we code both, bill injectables by their units, and get TMS approved first.",
+   "more": "The codes we see most on psychiatry claims are 90792 (psychiatric evaluation with medical services), 90833 (30-minute psychotherapy add-on) and 90836 (45-minute add-on), and each one is reviewed against the note before it goes out. TMS and Spravato approvals are requested before the first session and tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: injectable units billed wrong, therapy add-ons left off and the injection itself not billed. Certified coders who bill psychiatry daily code every claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Psychiatry billing is the coding, claim submission and follow-up for psychiatric care, from evaluations and medication management to psychotherapy add-ons and long-acting injectables (CPT 90792, 90833, J2426). It differs from general medical billing since a medication visit and therapy are billed as two services, each with its own documentation, and TMS, Spravato and injectables need their own approvals and units.",
+   "askQ3": "How do you bill a therapy add-on with a medication visit on the same claim?",
+   "related": "Psychiatry practices often require mental health, neurology and internal medicine billing too. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “lai units”. You get a written quote after it.",
+    "Most psychiatry practices pay a set percentage of monthly collections, so our pay tracks yours. Your rate depends on volume, payer mix and scope. The free assessment comes first: it shows leaks like long-acting injectables billed with the wrong units, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and psychiatry payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, audit open A/R and pending TMS and Spravato approvals, and start billing new psychiatry claims as your team finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, your EHR (read-only if possible), clearinghouse and your specialty pharmacy portal. A signed BAA comes first."
+   ],
+   [
+    "Yes. Many psychiatry practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Plenty of psychiatry practices keep intake and refill calls in-house and give us the rest: coding review, denials and aged A/R. Both teams use the same queues, and we report to both monthly."
+   ]
+  ],
+  "n": {},
+  "title": "Psychiatry Billing Services | Psychiatric Medical Billing",
+  "description": "Psychiatry billing services for evaluations, med management with therapy add-ons, long-acting injectables, TMS and Spravato, with approvals tracked.",
+  "handleLines": [
+   "Psychiatric billing, from",
+   "evaluation to TMS, in one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill psychiatry claims inside your EHR and practice management system, use your specialty pharmacy portal, your clearinghouse and payer portals, and map access with you first.",
+  "midBody": "Send us one month of psychiatry claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "radiology": {
+  "intro": {
+   "lead": "Radiology billing services that match every approval to the study performed.",
+   "body": "Affinity Core offers radiology billing services for MRI, CT, PET, mammography and ultrasound. Advanced imaging almost always needs approval, and the approval has to match the study done, so we check before each scan, fix the authorization when the protocol changes, and bill the read and the equipment to their owners.",
+   "more": "The codes we see most on radiology claims are 70553 (MRI brain), 74177 (CT abdomen and pelvis) and 77067 (screening mammography), and each one is checked against the report before it is sent. Approvals are requested before the patient is scheduled and tracked against the CMS clock of 72 hours urgent and 7 days standard. The leaks we close most often: studies that outran their approval, components billed to the wrong owner and contrast or add-on codes missed. Certified coders who bill radiology daily code each claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Radiology billing is the coding, claim submission and follow-up for imaging, from MRI and CT to mammography and ultrasound (CPT 70553, 74177, 77067). It differs from general medical billing since most advanced imaging requires prior authorization that must match the exact study, and the professional read and the technical equipment fee are often billed by different parties.",
+   "askQ3": "What happens to the claim when a protocol changes after approval is issued?",
+   "related": "Radiology groups often need cardiology, oncology and orthopedic billing too. Each runs on its own insurer rules, and our team bills all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “study outran the approval”. You get a written quote after it.",
+    "Usually a percentage of each month’s collections, so our fee rises only when your collections do. Claim volume, payer mix and which services you hand over set the rate. First comes the free assessment, which finds leaks like studies that outran their approval. You get a written quote right after."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and radiology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and scans still waiting on approval, and start billing new radiology claims as your staff finishes anything already submitted, so cash flow never stops."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, EHR (read-only if possible), clearinghouse and your RIS and PACS. A business associate agreement comes first."
+   ],
+   [
+    "Yes. Many radiology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. A lot of radiology groups keep scheduling and imaging authorizations and hand us coding review, denials and aged A/R. We work the same work queues and send everyone the same monthly report."
+   ]
+  ],
+  "n": {},
+  "title": "Radiology Billing Services | Radiology Medical Billing",
+  "description": "Radiology billing services for MRI, CT, PET, mammography and ultrasound, with approvals matched to the study and components split right.",
+  "handleLines": [
+   "Radiology medical billing,",
+   "scan to payment, in one team."
+  ],
+  "platformsCopy": "Keep the systems your staff already know. We work radiology claims in your EHR, practice management system and clearinghouse, read your RIS and PACS where it helps, and agree on access with you up front.",
+  "midBody": "Get a free review of a month of radiology claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "urgent-care": {
+  "intro": {
+   "lead": "Urgent care billing services that bill each payer the way its contract requires.",
+   "body": "Affinity Core is an urgent care billing company for single clinics and multi-location groups. High volume and many payers mean many rules, so we bill global S9083 claims where the contract says so, itemize everywhere else, and make sure every stitch, splint and swab gets onto every claim.",
+   "more": "The codes we see most on urgent care claims are S9083 (urgent care global fee), 99204 (new patient visit) and 12002 (simple repair, 2.6–7.5 cm), and each one is reviewed against the record before it goes out. The leaks we close most often: global fees billed where the contract wants itemized claims, returning patients billed as new, and lacerations split that should be summed. Certified coders who bill urgent care every day code every claim, with a monthly report on denial rate, days in A/R and collections that we review with you."
+  },
+  "guide": {
+   "answer": "Urgent care billing is the coding, claim submission and follow-up for walk-in care, from visits and laceration repairs to rapid tests, x-rays and injections (CPT 99204, 12002, 87880). It differs from general medical billing because each payer’s contract decides whether a visit gets billed as one global S9083 fee or itemized line by line, and volume runs high.",
+   "askQ3": "How do you decide between an S9083 claim and an itemized claim for a payer?",
+   "related": "Urgent care groups often need internal medicine, pediatrics and radiology billing too. Each runs on its own payer rules, and our coders bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “global vs itemized”. You get a written quote after it.",
+    "Most urgent care groups pay a set percentage of monthly collections, so we’re only paid when you are. Your rate depends on volume, payer mix and scope. The free assessment comes first: it shows leaks like global claims billed where the contract wants itemized, then we send a written quote."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and urgent care payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Usually 30 to 45 days. Once the BAA is signed and access is set up, we review your open A/R and payer contracts, then take over new urgent care claims as your team finishes what’s already in flight, so cash keeps moving."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes, read-only where we can: the practice management system, EHR, clearinghouse and your check-in system. Our business associate agreement is signed first."
+   ],
+   [
+    "Yes. Many urgent care practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes, and many urgent care groups do. You keep front desk check-in; we take coding review, denials and aged A/R. Both teams work from the same queues, and a single monthly report covers both teams."
+   ]
+  ],
+  "n": {},
+  "title": "Urgent Care Billing Services | Urgent Care Billing Company",
+  "description": "Urgent care billing services for visits, procedures, rapid tests, x-rays and injections, with each payer billed the way its contract requires.",
+  "handleLines": [
+   "Urgent care billing, check-in",
+   "to payment, within one team."
+  ],
+  "platformsCopy": "Nothing new for your team to learn. Our urgent care billers log in to your EHR and practice management system, plus your check-in system, your clearinghouse and payer portals, after we map access with you.",
+  "midBody": "Get a free review of a month of urgent care claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ },
+ "urology": {
+  "intro": {
+   "lead": "Urology billing services that get the drug units and components correct.",
+   "body": "Affinity Core offers urology billing services for cystoscopy, urodynamics, prostate biopsy and hormone injections. We code every office procedure to what the note supports, bill urodynamics by component, get approvals for imaging and devices, and stop drug lines from being underpaid.",
+   "more": "The codes we see most on urology claims are 52000 (cystoscopy), 51798 (post-void residual) and 51728 (voiding pressure study), and each one is checked against the note before it goes out. Device and imaging approvals are requested before the patient is scheduled and tracked against the CMS clock of 72 hours for urgent and 7 days for standard. The leaks we close most often: drug units billed wrong, urodynamics components missed and same-day visits bundled away. Certified coders who bill urology daily code every claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Urology billing is the coding, claim submission and follow-up for urologic care, from cystoscopy and urodynamics to prostate biopsy and hormone injections (CPT 52000, 51728, 55700). It is different from general medical billing since urodynamics is billed by component, drugs such as leuprolide are billed in fixed units, and devices and imaging require approval before the procedure.",
+   "askQ3": "How do you check drug units and urodynamics billing before a claim is sent?",
+   "related": "Urology practices often require oncology, radiology and nephrology billing too. Each runs on its own insurer rules, and we bill all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “drug units”. You get a written quote after it.",
+    "Usually a percentage of monthly collections, so we earn more only when you collect more. Volume, payer mix and the services you hand us set the rate. Start with the free assessment, which finds leaks like hormone injections billed with the wrong units, then a written quote follows."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and urology payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Usually 30 to 45 days. Once the BAA is signed and access is set up, we review your open A/R and open approvals, then take on new urology claims while your team finishes what’s already in flight, so cash keeps moving."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes: your practice management system, EHR (read-only when possible), clearinghouse and your urodynamics software, if used. We sign a BAA before any access."
+   ],
+   [
+    "Yes. Many urology practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. Plenty of urology practices keep procedure scheduling in-house and give us the rest: coding review, denials and aged A/R. We share one set of queues, and we report to both of you monthly."
+   ]
+  ],
+  "n": {},
+  "title": "Urology Billing Services | Urology Medical Billing",
+  "description": "Urology billing services for cystoscopy, urodynamics, prostate biopsy and hormone injections, with components, drug units and approvals coded right.",
+  "handleLines": [
+   "Urology medical billing,",
+   "cysto to biopsy, in one team."
+  ],
+  "platformsCopy": "No new software to learn. We bill urology claims inside your EHR and practice management system, use your urodynamics software, your clearinghouse and payer portals, and map every login with you first.",
+  "midBody": "Send us one month of urology claims. We’ll mark every line we’d fix and show what it’s worth, free. Switching takes 30 to 45 days, with no gap in billing."
+ },
+ "wound-care": {
+  "intro": {
+   "lead": "Wound care billing services coded by depth, surface area and every centimeter.",
+   "body": "Affinity Core offers wound care billing services for debridement, skin substitutes and hyperbaric oxygen. Wound care is paid by depth and surface area, and skin substitutes by the square centimeter, so we code from the note’s measurements, report all graft used and wasted, and get the approval before the product is opened.",
+   "more": "Our most common wound care codes are 97597 (selective debridement), 11042 (subcutaneous debridement) and 11045 (each additional 20 cm²), and each is reviewed against the measurements before it goes out. Skin substitute approvals are requested before the product is applied and tracked against the CMS clock of 72 hours urgent and 7 days standard. Leaks we close most often: graft waste left off, wounds billed separately instead of summed, and the wrong depth coded. Certified coders who bill wound care daily code every claim, with a monthly report on denial rate, days in A/R and collections."
+  },
+  "guide": {
+   "answer": "Wound care billing is the coding, claim submission and follow-up for chronic wound treatment, from debridement to skin substitutes and compression (CPT 97597, 11042, 15275). It is different from general medical billing since codes depend on wound depth and total surface area, skin substitutes are billed per square centimeter with waste, and coverage rules change often for grafts.",
+   "askQ3": "How do you code multiple wounds of different depths before a claim is sent?",
+   "related": "Wound care clinics often need podiatry, dermatology and internal medicine billing too. Each runs on its own payer rules, and our team bills all three."
+  },
+  "faqSwap": [
+   [
+    "Most practices pay a percentage of monthly collections, so we’re paid when you are. The rate depends on your volume, payer mix and which services you hand over, and the free assessment shows where you stand today, including leaks like “skin substitute waste”. You get a written quote after it.",
+    "Usually a percentage of monthly collections, so we earn more only when you collect more. Claim volume, payer mix and which services you hand over set the rate. Start with the free assessment, which finds leaks like skin substitute waste left off the claim. You get a written quote right after."
+   ],
+   [
+    "Usually 30 to 45 days. We sign a BAA, get access to your systems, review your open A/R and wound care payer rules, then take over new claims while your team finishes what’s already in flight, so cash flow doesn’t pause.",
+    "Plan on 30 to 45 days. We sign a BAA, get access, review open A/R and pending skin substitute approvals, and start billing new wound care claims as your team finishes anything already submitted. Cash flow doesn’t pause."
+   ],
+   [
+    "Yes: your practice management system, EHR (read-only where possible) and clearinghouse. We sign a business associate agreement before any access is set up.",
+    "Yes. We need your practice management system, EHR (read-only if possible), clearinghouse and your graft logs. We sign a business associate agreement first."
+   ],
+   [
+    "Yes. Many wound care practices keep their front desk or a biller and hand us the work that slips: coding review, denials and aged A/R. We work from the same queues and report to both every month.",
+    "Yes. A lot of wound care clinics keep wound measurements and graft logs and hand us coding review, denials and aged A/R. We work one set of queues with your team and send both one monthly report."
+   ]
+  ],
+  "n": {},
+  "title": "Wound Care Billing Services | Wound Care Medical Billing",
+  "description": "Wound care billing services for debridement, skin substitutes and hyperbaric oxygen, coded by depth and area with approvals and waste reported.",
+  "handleLines": [
+   "Wound care billing, debridement",
+   "to grafts, with one team."
+  ],
+  "platformsCopy": "Keep the systems your staff know. We work wound care claims in your EHR, practice management system and clearinghouse, pull from your graft logs where it helps, and agree on every login with you up front.",
+  "midBody": "Get a free review of a month of wound care claims: every line we’d fix and its dollar value. If you switch, it takes 30 to 45 days, and billing never pauses."
+ }
+}
