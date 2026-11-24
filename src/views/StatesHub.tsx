@@ -160,13 +160,13 @@ function ByContractor() {
         <Eyebrow>/ By Medicare contractor</Eyebrow>
         <h2 id="stmac-t" className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]">Who processes Medicare claims in your state?</h2>
         <Reveal as="p" className="stmac__p [margin:0] [padding-top:0.6rem] [font-size:max(1.8rem,16px)] [line-height:1.7] [color:#4a4f63] [@media(max-width:_1099px)]:[font-size:16px]">
-          Medicare Part B claims are processed by a Medicare Administrative Contractor (MAC) assigned to each state. Each MAC publishes its own local coverage determinations, edits and portal, so the same claim can pass in one state and deny in another. These are the jurisdictions we work, and the states in each.
+          Medicare Part B claims are processed by a Medicare Administrative Contractor (MAC) assigned to each state. Each MAC publishes its own local coverage determinations, edits and portal, so the same claim can pass in one state and deny in another. Some contractors run two jurisdictions under separate contracts and rules, so they appear twice. These are the 12 jurisdictions we work, and the states in each.
         </Reveal>
       </div>
       <div className="stmac__grid [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.2rem] [margin-top:4.8rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
         {groups.map(([k, list]) => (
           <div key={k} className="stmac__card [padding:2.4rem_2.6rem] [border-radius:2rem] [background:#fff] [border:1px_solid_#ece8fa] [&_h3]:[margin:0.8rem_0_1.2rem] [&_h3]:[font-family:var(--f-jak)] [&_h3]:[font-weight:500] [&_h3]:[font-size:max(2rem,16px)] [&_h3]:[line-height:1.3] [&_h3]:[color:var(--ink-2)]">
-            <p className="stmac__j [display:flex] [align-items:center] [min-height:6.4rem] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:var(--purple)]">{MAC_LOGO[MACS[k].name] ? <img className={`stmac__logo [display:block] ${MACS[k].name === 'Palmetto GBA' ? '[height:6.4rem]' : '[height:4.4rem]'} [width:auto] [max-width:20rem] [object-fit:contain] [object-position:left_center]`} src={u(MAC_LOGO[MACS[k].name])} alt={`${MACS[k].name} logo`} loading="lazy" decoding="async" /> : <span aria-hidden className="stmac__ico [display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:1rem] [background:#f3efff] [color:var(--purple)]"><Landmark size={18} strokeWidth={1.8} /></span>}</p>
+            <p className="stmac__j [display:flex] [flex-wrap:wrap] [row-gap:0.8rem] [align-items:center] [min-height:6.4rem] [gap:1rem] [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.04em] [color:var(--purple)]">{MAC_LOGO[MACS[k].name] ? <img className={`stmac__logo [display:block] ${MACS[k].name === 'Palmetto GBA' ? '[height:6.4rem]' : '[height:4.4rem]'} [width:auto] [max-width:20rem] [object-fit:contain] [object-position:left_center]`} src={u(MAC_LOGO[MACS[k].name])} alt={`${MACS[k].name} logo`} loading="lazy" decoding="async" /> : <span aria-hidden className="stmac__ico [display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:1rem] [background:#f3efff] [color:var(--purple)]"><Landmark size={18} strokeWidth={1.8} /></span>}<span className="stmac__tag [margin-left:auto] [align-self:flex-start] [flex:none] [padding:0.5rem_1rem] [border-radius:99rem] [background:#f3f0ff] [border:1px_solid_#e4ddfb] [white-space:nowrap]">{`J${k.slice(1)} · ${REGION[k]}`}</span></p>
             <h3>{MACS[k].name}</h3>
             <p className="stmac__states [font-size:max(1.6rem,15px)] [line-height:1.7] [color:#4a4f63] [&_a]:[color:var(--purple)] [&_a]:[text-decoration:underline] [&_a]:[text-decoration-color:rgba(106,_65,_249,_0.3)]! [&_a]:[text-underline-offset:0.2em] [&_a:hover]:[text-decoration-color:currentColor]! [@media(max-width:_1099px)]:[font-size:16px]">{list.map((s, i) => <span key={s.slug}>{i > 0 && ', '}<Link to={`/states/${s.slug}`}>{s.name}</Link></span>)}</p>
           </div>
@@ -176,6 +176,9 @@ function ByContractor() {
     </section>
   );
 }
+
+/** Short region names for the 12 A/B jurisdictions (CMS codes) */
+const REGION: Record<string, string> = { J5: 'Heartland', J6: 'Upper Midwest', J8: 'Great Lakes', J15: 'Ohio Valley', JE: 'Pacific', JF: 'Northwest & Mountain', JH: 'South Central', JJ: 'Southeast', JK: 'Northeast', JL: 'Mid-Atlantic', JM: 'Carolinas & Virginias', JN: 'Florida' };
 
 const FAQS = [
   ['Do you really bill in all 50 states?', 'Yes. Billing and coding run inside your EHR and payer portals, so we can work any state. What changes by state is the payer rulebook: the Medicare contractor, the Medicaid program and the prompt-pay law, and each state page covers those.'],
