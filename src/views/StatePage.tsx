@@ -56,7 +56,6 @@ function Hero({ s }: { s: State }) {
 }
 
 function Rules({ s }: { s: State }) {
-  const logo = macLogoFor(s.slug);
   return (
     <section className="stp-rules container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:12rem] [@media(max-width:_1099px)]:[padding-top:8rem]">
       <div className="stp-head [display:flex] [flex-direction:column] [gap:1.2rem]">
@@ -66,7 +65,6 @@ function Rules({ s }: { s: State }) {
       <div className="stp-rules__grid [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:2rem] [margin-top:4rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
         {s.facts.map((f, i) => (
           <motion.article key={f.k} className="stp-rule [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [display:flex] [flex-direction:column] [gap:1.2rem] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [box-shadow:0_2rem_5rem_rgba(40,_20,_120,_0.06)] [&_h3]:[font-weight:500] [&_h3]:[font-size:2.2rem] [&_h3]:[line-height:1.2] [&_h3]:[color:var(--ink-2)] [&_p]:[font-size:max(1.55rem,14px)] [&_p]:[line-height:1.6] [&_p]:[color:#4a4f63]" initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.7, ease: ease.out, delay: i * 0.08 }}>
-            {f.k === 'Medicare' && logo && <img src={logo.src} alt={`${logo.name} logo`} className={`stp-rule__logo [display:block] ${logo.tall ? '[height:5.6rem]' : '[height:3.6rem]'} [width:auto] [max-width:20rem] [object-fit:contain] [object-position:left_center]`} loading="lazy" decoding="async" />}
             <span className="stp-rule__k [align-self:flex-start] [padding:0.4rem_1rem] [border-radius:2rem] [background:#f1edff] [font-family:var(--f-mono)] [font-size:max(1.15rem,11.5px)] [letter-spacing:0.06em] [text-transform:uppercase] [color:var(--purple)]">{f.k}</span>
             <h3>{f.title}</h3>
             <p>{f.body}</p>
