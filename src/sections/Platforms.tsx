@@ -6,7 +6,7 @@ import oracle from '../assets/ehr-oracle.png';
 import meditech from '../assets/ehr-meditech.svg';
 import athena from '../assets/ehr-athena.svg';
 import epic from '../assets/ehr-epic.svg';
-import ecw from '../assets/ehr-ecw.png';
+import ecw from '../assets/ehr-ecw.svg';
 import nextgen from '../assets/ehr-nextgen.png';
 import greenway from '../assets/ehr-greenway.png';
 import modmed from '../assets/ehr-modmed.svg';
@@ -20,18 +20,18 @@ const LOGOS = [
   { src: modmed, alt: 'ModMed', x: 1634, y: 113, w: 180, h: 99, iw: 116, depth: 1.1 },
   { src: nextgen, alt: 'NextGen Healthcare', x: 1442, y: 189, w: 170, h: 112, iw: 100, depth: 0.7 },
   { src: greenway, alt: 'Greenway Health', x: 1653, y: 347, w: 170, h: 99, iw: 110, depth: 1.3 },
-  { src: ecw, alt: 'eClinicalWorks', x: 1423, y: 454, w: 232, h: 92, iw: 179, depth: 0.8 },
+  { src: ecw, alt: 'eClinicalWorks', x: 1423, y: 454, w: 232, h: 92, iw: 160, depth: 0.8 },
 ];
 
 function Pill({ l, i, p }: { l: (typeof LOGOS)[number]; i: number; p: MotionValue<number> }) {
   const y = useTransform(p, [0, 1], [`${8 * l.depth}rem`, `${-8 * l.depth}rem`]);
   const fromLeft = l.x < 960;
   return (
-    <motion.div className="plat__pill-wrap [position:absolute] [z-index:1] [@media(max-width:_1099px)]:[display:none] [will-change:transform]" style={{ left: `${l.x / 10}rem`, top: `${l.y / 10}rem`, width: `${l.w / 10}rem`, height: `${l.h / 10}rem`, y }}>
+    <motion.div className="plat__pill-wrap [position:absolute] [z-index:1] [@media(max-width:_1099px)]:[display:none]" style={{ left: `${l.x / 10}rem`, top: `${l.y / 10}rem`, width: `${l.w / 10}rem`, height: `${l.h / 10}rem`, y }}>
       <motion.div className="plat__pill [width:100%] [height:100%] [display:grid] [place-items:center] [border-radius:10rem] [background:#fff] [border:1px_solid_#f1eefb] [box-shadow:0_1rem_3rem_rgba(25,_37,_51,_0.06)]"
-        initial={{ opacity: 0, scale: 0.4, x: fromLeft ? '-8rem' : '8rem' }} whileInView={{ opacity: 1, scale: 1, x: 0 }} viewport={vp}
+        initial={{ opacity: 0, x: fromLeft ? '-8rem' : '8rem' }} whileInView={{ opacity: 1, x: 0 }} viewport={vp}
         transition={{ type: 'spring', stiffness: 160, damping: 16, delay: 0.2 + i * 0.07 }}
-        whileHover={{ scale: 1.08, boxShadow: '0 1.6rem 4rem rgba(106,65,249,0.22)' }}>
+        whileHover={{ y: -4, boxShadow: '0 1.6rem 4rem rgba(106,65,249,0.22)' }}>
         <motion.img src={l.src} alt={l.alt} style={{ width: `${l.iw / 10}rem` }}
           animate={{ y: [0, -6, 0] }} transition={{ duration: 3 + (i % 3) * 0.7, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }} />
       </motion.div>
