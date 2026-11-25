@@ -126,6 +126,8 @@ import type { Cover } from '../components/BlogCover';
 export type Article = {
   /** cover image (16:9), e.g. '/blog/covers/<slug>.webp'. Used everywhere the article is shown; a CMS only needs to supply this. */
   image?: string;
+  /** optional taller crop (about 1.22:1) for the featured card on desktop; falls back to image */
+  featureImage?: string;
   /** scene thumbnail (components/BlogCover): the animated fallback when there's no image */
   cover?: Cover;
   /** text-on-image cover: a short hook (accent words in the 2nd item) — also the OG / featured image text */
@@ -138,7 +140,7 @@ export const TOPICS = ['All', 'Prior auth', 'Coding', 'Denials', 'Credentialing'
 
 export const ARTICLES: Article[] = [
   {
-    slug: 'cms-prior-authorization-rule-2026', image: '/blog/covers/cms-prior-authorization-rule-2026.webp', hook: ['Prior auth now has a', '72‑hour clock.'], cover: { k: 'clock', n: 72, of: 72, unit: 'hours', label: 'Urgent prior auth decision' }, topic: 'Prior auth', date: 'Oct 2026', read: '6 min read', author: 'Affinity Core billing team',
+    slug: 'cms-prior-authorization-rule-2026', image: '/blog/covers/cms-prior-authorization-rule-2026.webp', featureImage: '/blog/covers/cms-prior-authorization-rule-2026-feature.webp', hook: ['Prior auth now has a', '72‑hour clock.'], cover: { k: 'clock', n: 72, of: 72, unit: 'hours', label: 'Urgent prior auth decision' }, topic: 'Prior auth', date: 'Oct 2026', read: '6 min read', author: 'Affinity Core billing team',
     title: 'The 2026 prior authorization rule: what changed, and what your practice should do now',
     dek: 'Medicare Advantage, Medicaid and CHIP plans now have deadlines for prior auth decisions. Here’s what that means at the front desk.',
     body: [
