@@ -124,7 +124,9 @@ export type Block =
 
 import type { Cover } from '../components/BlogCover';
 export type Article = {
-  /** scene thumbnail (components/BlogCover) */
+  /** cover image (16:9), e.g. '/blog/covers/<slug>.webp'. Used everywhere the article is shown; a CMS only needs to supply this. */
+  image?: string;
+  /** scene thumbnail (components/BlogCover): the animated fallback when there's no image */
   cover?: Cover;
   /** text-on-image cover: a short hook (accent words in the 2nd item) — also the OG / featured image text */
   hook?: [string, string];
@@ -136,7 +138,7 @@ export const TOPICS = ['All', 'Prior auth', 'Coding', 'Denials', 'Credentialing'
 
 export const ARTICLES: Article[] = [
   {
-    slug: 'cms-prior-authorization-rule-2026', hook: ['Prior auth now has a', '72‑hour clock.'], cover: { k: 'clock', n: 72, of: 72, unit: 'hours', label: 'Urgent prior auth decision' }, topic: 'Prior auth', date: 'Oct 2026', read: '6 min read', author: 'Affinity Core billing team',
+    slug: 'cms-prior-authorization-rule-2026', image: '/blog/covers/cms-prior-authorization-rule-2026.webp', hook: ['Prior auth now has a', '72‑hour clock.'], cover: { k: 'clock', n: 72, of: 72, unit: 'hours', label: 'Urgent prior auth decision' }, topic: 'Prior auth', date: 'Oct 2026', read: '6 min read', author: 'Affinity Core billing team',
     title: 'The 2026 prior authorization rule: what changed, and what your practice should do now',
     dek: 'Medicare Advantage, Medicaid and CHIP plans now have deadlines for prior auth decisions. Here’s what that means at the front desk.',
     body: [
@@ -176,7 +178,7 @@ export const ARTICLES: Article[] = [
     ],
   },
   {
-    slug: 'modifier-25-same-day-visits', hook: ['Modifier 25:', 'get both paid.'], cover: { k: 'claim', code: '99213', mod: '25', box: 'Box 24D', label: 'Visit + injection, same day' }, topic: 'Coding', date: 'Sep 2026', read: '5 min read', author: 'Affinity Core coding team',
+    slug: 'modifier-25-same-day-visits', image: '/blog/covers/modifier-25-same-day-visits.webp', hook: ['Modifier 25:', 'get both paid.'], cover: { k: 'claim', code: '99213', mod: '25', box: 'Box 24D', label: 'Visit + injection, same day' }, topic: 'Coding', date: 'Sep 2026', read: '5 min read', author: 'Affinity Core coding team',
     title: 'Modifier 25: when a same-day visit actually gets paid',
     dek: 'A visit and a minor procedure on the same day can both be paid, but only when the note shows two separate pieces of work.',
     body: [
@@ -205,13 +207,13 @@ export const ARTICLES: Article[] = [
     ],
     sources: [['AMA CPT® code set: modifier 25 descriptor (AMA, CPT Professional)', 'https://www.ama-assn.org/practice-management/cpt']],
   },
-  { slug: 'top-denial-codes', hook: ['The denial codes', 'we see most.'], cover: { k: 'eob', code: '93000', desc: 'ECG, complete', amt: '$0.00', reason: 'CO-97', stamp: 'Fixable' }, topic: 'Denials', date: 'Coming soon', read: '7 min read', author: 'Affinity Core', title: 'The denial codes we see most, and how each one gets fixed', dek: 'CO-16, CO-97, CO-197 and the rest: what the payer is really saying, and the fastest path back to paid.' },
-  { slug: 'credentialing-timeline', hook: ['Credential before', 'day one.'], cover: { k: 'sticky', note: 'Dr. Patel starts Monday.', sub: 'Enrolled with Aetna yet?' }, topic: 'Credentialing', date: 'Coming soon', read: '5 min read', author: 'Affinity Core', title: 'Hiring a new provider? Start credentialing before their first day', dek: 'Why enrollment takes months, and how to keep a new hire from seeing patients you can’t bill for.' },
-  { slug: 'ar-aging-buckets', hook: ['Read your A/R report', 'in 5 minutes.'], cover: { k: 'stat', from: '52', to: '31', label: 'Days in A/R', bars: [52, 49, 44, 40, 36, 31] }, topic: 'A/R', date: 'Coming soon', read: '4 min read', author: 'Affinity Core', title: 'Reading your A/R aging report in five minutes', dek: 'Which bucket matters most, what “good” looks like, and when to worry.' },
-  { slug: 'timely-filing-limits', hook: ['Day 89 of 90?', 'Here’s what to do.'], cover: { k: 'clock', n: 87, of: 90, unit: 'days', label: 'Timely filing window' }, topic: 'A/R', date: 'Coming soon', read: '6 min read', author: 'Affinity Core', title: 'Timely filing limits by payer, and what to do on day 89', dek: 'Medicare, Medicaid and the big commercial plans side by side, plus the proof that saves a late claim.' },
-  { slug: 'peer-to-peer-script', hook: ['What to say on a', 'peer-to-peer call.'], cover: { k: 'hold', payer: 'Payer UM line', time: '00:47:12', label: 'Peer-to-peer, still on hold' }, topic: 'Prior auth', date: 'Coming soon', read: '5 min read', author: 'Affinity Core', title: 'What to say on a peer-to-peer call (and what to have open)', dek: 'A one-page script for physicians when a prior auth is denied, built from the calls that turned it around.' },
-  { slug: 'co-197-denial', hook: ['CO-197:', 'no auth, no pay.'], cover: { k: 'eob', code: '78452', desc: 'SPECT, multiple', amt: '$0.00', reason: 'CO-197', stamp: 'Appeal' }, topic: 'Denials', date: 'Coming soon', read: '5 min read', author: 'Affinity Core', title: 'CO-197: the study was done, the auth wasn’t. Now what?', dek: 'When a retro-authorization works, when an appeal does, and how to stop it happening twice.' },
-  { slug: 'clean-claim-rate', hook: ['From 82% to', '96% clean claims.'], cover: { k: 'stat', from: '82%', to: '96%', label: 'Clean claim rate', bars: [82, 85, 88, 91, 94, 96] }, topic: 'A/R', date: 'Coming soon', read: '4 min read', author: 'Affinity Core', title: 'Your clean claim rate is the number to watch first', dek: 'How to measure it honestly, what good looks like, and the three fixes that move it fastest.' },
-  { slug: 'telehealth-pos-codes', hook: ['Telehealth codes', 'payers accept.'], cover: { k: 'claim', code: '90837', mod: '95', box: 'POS 10', label: 'Patient at home, on video' }, topic: 'Coding', date: 'Coming soon', read: '4 min read', author: 'Affinity Core', title: 'Telehealth place-of-service codes: 02 vs 10', dek: 'Where the patient is decides the code, and some payers still want something different.' },
+  { slug: 'top-denial-codes', image: '/blog/covers/top-denial-codes.webp', hook: ['The denial codes', 'we see most.'], cover: { k: 'eob', code: '93000', desc: 'ECG, complete', amt: '$0.00', reason: 'CO-97', stamp: 'Fixable' }, topic: 'Denials', date: 'Coming soon', read: '7 min read', author: 'Affinity Core', title: 'The denial codes we see most, and how each one gets fixed', dek: 'CO-16, CO-97, CO-197 and the rest: what the payer is really saying, and the fastest path back to paid.' },
+  { slug: 'credentialing-timeline', image: '/blog/covers/credentialing-timeline.webp', hook: ['Credential before', 'day one.'], cover: { k: 'sticky', note: 'Dr. Patel starts Monday.', sub: 'Enrolled with Aetna yet?' }, topic: 'Credentialing', date: 'Coming soon', read: '5 min read', author: 'Affinity Core', title: 'Hiring a new provider? Start credentialing before their first day', dek: 'Why enrollment takes months, and how to keep a new hire from seeing patients you can’t bill for.' },
+  { slug: 'ar-aging-buckets', image: '/blog/covers/ar-aging-buckets.webp', hook: ['Read your A/R report', 'in 5 minutes.'], cover: { k: 'stat', from: '52', to: '31', label: 'Days in A/R', bars: [52, 49, 44, 40, 36, 31] }, topic: 'A/R', date: 'Coming soon', read: '4 min read', author: 'Affinity Core', title: 'Reading your A/R aging report in five minutes', dek: 'Which bucket matters most, what “good” looks like, and when to worry.' },
+  { slug: 'timely-filing-limits', image: '/blog/covers/timely-filing-limits.webp', hook: ['Day 89 of 90?', 'Here’s what to do.'], cover: { k: 'clock', n: 87, of: 90, unit: 'days', label: 'Timely filing window' }, topic: 'A/R', date: 'Coming soon', read: '6 min read', author: 'Affinity Core', title: 'Timely filing limits by payer, and what to do on day 89', dek: 'Medicare, Medicaid and the big commercial plans side by side, plus the proof that saves a late claim.' },
+  { slug: 'peer-to-peer-script', image: '/blog/covers/peer-to-peer-script.webp', hook: ['What to say on a', 'peer-to-peer call.'], cover: { k: 'hold', payer: 'Payer UM line', time: '00:47:12', label: 'Peer-to-peer, still on hold' }, topic: 'Prior auth', date: 'Coming soon', read: '5 min read', author: 'Affinity Core', title: 'What to say on a peer-to-peer call (and what to have open)', dek: 'A one-page script for physicians when a prior auth is denied, built from the calls that turned it around.' },
+  { slug: 'co-197-denial', image: '/blog/covers/co-197-denial.webp', hook: ['CO-197:', 'no auth, no pay.'], cover: { k: 'eob', code: '78452', desc: 'SPECT, multiple', amt: '$0.00', reason: 'CO-197', stamp: 'Appeal' }, topic: 'Denials', date: 'Coming soon', read: '5 min read', author: 'Affinity Core', title: 'CO-197: the study was done, the auth wasn’t. Now what?', dek: 'When a retro-authorization works, when an appeal does, and how to stop it happening twice.' },
+  { slug: 'clean-claim-rate', image: '/blog/covers/clean-claim-rate.webp', hook: ['From 82% to', '96% clean claims.'], cover: { k: 'stat', from: '82%', to: '96%', label: 'Clean claim rate', bars: [82, 85, 88, 91, 94, 96] }, topic: 'A/R', date: 'Coming soon', read: '4 min read', author: 'Affinity Core', title: 'Your clean claim rate is the number to watch first', dek: 'How to measure it honestly, what good looks like, and the three fixes that move it fastest.' },
+  { slug: 'telehealth-pos-codes', image: '/blog/covers/telehealth-pos-codes.webp', hook: ['Telehealth codes', 'payers accept.'], cover: { k: 'claim', code: '90837', mod: '95', box: 'POS 10', label: 'Patient at home, on video' }, topic: 'Coding', date: 'Coming soon', read: '4 min read', author: 'Affinity Core', title: 'Telehealth place-of-service codes: 02 vs 10', dek: 'Where the patient is decides the code, and some payers still want something different.' },
 ];
 export const getArticle = (slug: string) => ARTICLES.find((a) => a.slug === slug);

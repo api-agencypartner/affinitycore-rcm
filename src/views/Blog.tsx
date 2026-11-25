@@ -9,7 +9,7 @@ import { motion, AnimatePresence, LayoutGroup, useScroll, useSpring } from 'moti
 import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink, Clock } from 'lucide-react';
 import { Button, Eyebrow, Logo, Req, Reveal, SplitWords } from '../components/ui';
 import { CTA } from '../sections/Closing';
-import { Link, go } from '../router';
+import { Link, go, u } from '../router';
 import { ARTICLES, TOPICS, getArticle, type Article, type Block } from '../data/insights';
 import { ease, vp } from '../motion';
 // Perf: pre-blurred copy of fluted-purple.jpg replaces a live backdrop-filter blur on these panels
@@ -86,8 +86,8 @@ function SplitCover({ a, big }: { a: Article; big?: boolean }) {
 function Cover({ a, big }: { a: Article; big?: boolean }) {
   return (
     <motion.div className={String.raw`bc [position:relative] [isolation:isolate] [overflow:hidden] [aspect-ratio:16_/_9] [border-radius:2.4rem_2.4rem_0_0] [display:flex] [padding:2.4rem] [background:radial-gradient(120%_90%_at_85%_10%,_#ede6ff_0%,_#f6f3ff_45%,_#fbfaff_100%)] [justify-content:center] [align-items:center] [&::before]:[content:''] [&::before]:[position:absolute] [&::before]:[inset:0] [&::before]:[z-index:-1] [&::before]:[background-image:radial-gradient(rgba(106,_65,_249,_0.12)_1px,_transparent_1.2px)]! [&::before]:[background-size:1.8rem_1.8rem]! [&::before]:[-webkit-mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&::before]:[mask-image:linear-gradient(180deg,_#000,_transparent_85%)] [&.bc--big.pa-art]:[flex-direction:column] [&.bc--big.pa-art]:[justify-content:center] [&.bc--big.pa-art]:[gap:1.8rem] [&.bc--big.pa-art]:[cursor:default] [&.bc--big.pa-art]:[min-height:56rem] [&.bc--big.pa-art]:[padding:8.4rem_2rem_6.4rem]! [@media(min-width:1024px)]:[&.bc--big.pa-art]:[min-height:60rem] [@media(min-width:1024px)]:[&.bc--big.pa-art]:[padding:9rem_3.2rem_6.8rem]! [&.bc--big.ba]:[position:relative] [&.bc--big.ba]:[overflow:hidden] [&.bc--big.ba]:[min-height:56rem] [&.bc--big.ba]:[background:var(--soft-grain),_var(--soft-bg)]! [&.bc--big.ba]:[cursor:pointer] [&.bc--big.ba]:[isolation:isolate] [@media(max-width:_1099px)]:[&.bc--big.ba]:[min-height:48rem] [@media(max-width:_640px)]:[&.bc--big.ba]:[min-height:40rem] ${big ? String.raw`bc--big [aspect-ratio:auto]! [height:100%] [min-height:34rem] [border-radius:3.2rem_0_0_3.2rem]! [padding:4rem]! [@media(max-width:_1099px)]:[min-height:22rem] [@media(max-width:_1099px)]:[border-radius:3.2rem_3.2rem_0_0]!` : ''} bc--split [padding:0]!`} initial="rest" animate="rest" whileHover="hover">
-      {/* Approved cover style: title + illustration */}
-      <SplitCover a={a} big={big} />
+      {/* Cover image (title + illustration, rendered from the approved cover style); the animated version is the fallback */}
+      {a.image ? <img className="bc__img [position:absolute] [inset:0] [width:100%] [height:100%] [object-fit:cover]" src={u(a.image)} alt={a.hook ? a.hook.join(' ') : ''} loading="lazy" decoding="async" /> : <SplitCover a={a} big={big} />}
       {!live(a) && <span className="bc__soon [position:absolute] [right:2.4rem] [top:2.4rem] [padding:0.6rem_1.2rem] [border-radius:3rem] [background:rgba(20,_11,_48,_0.85)] [color:#fff] [font-size:max(1.2rem,12px)] [font-weight:600] [.bc--headline_&]:[z-index:2]">Coming soon</span>}
     </motion.div>
   );
@@ -161,8 +161,10 @@ export function BlogHub() {
           </motion.p>
         </div>
         <motion.article className="bf [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1fr)] [border-radius:3.2rem] [border:1px_solid_#ece8fa] [background:#fff] [overflow:hidden] [cursor:pointer] [box-shadow:0_3rem_8rem_-2rem_rgba(57,_28,_160,_0.16)] [transition:transform_0.6s_cubic-bezier(.16,1,.3,1)] [&:hover]:[transform:translateY(-0.6rem)] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)]" onClick={() => go(`/blog/${feat.slug}`)} initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, ease: ease.out, delay: 0.4 }}>
-          <BlogArt />
-          <div className="bf__body [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [display:flex] [flex-direction:column] [gap:1.6rem] [padding:4rem] [&_h2]:[font-weight:500] [&_h2]:[font-size:3.2rem] [&_h2]:[line-height:1.15] [&_h2]:[letter-spacing:-0.06rem] [&_h2]:[color:var(--ink-2)] [&_p]:[font-size:max(1.7rem,15px)] [&_p]:[line-height:1.55] [&_p]:[color:#5b5f72] [@media(max-width:_1099px)]:[padding:2.8rem] [@media(max-width:_1099px)]:[&_h2]:[font-size:2.6rem]">
+          {feat.image ? (
+            <div className="bf__img [position:relative] [overflow:hidden] [background:#f8f6ff] [@media(max-width:_1099px)]:[aspect-ratio:16_/_9]"><img className="[position:absolute] [inset:0] [width:100%] [height:100%] [object-fit:contain]" src={u(feat.image)} alt={feat.hook ? feat.hook.join(' ') : ''} /></div>
+          ) : <BlogArt />}
+          <div className="bf__body [@media(max-width:_1099px)]:[font-size:16px]! [@media(max-width:_1099px)]:[line-height:1.6] [display:flex] [flex-direction:column] [gap:1.2rem] [padding:3.2rem] [&_h2]:[font-weight:500] [&_h2]:[font-size:2.6rem] [&_h2]:[line-height:1.15] [&_h2]:[letter-spacing:-0.06rem] [&_h2]:[color:var(--ink-2)] [&_p]:[font-size:max(1.7rem,15px)] [&_p]:[line-height:1.55] [&_p]:[color:#5b5f72] [@media(max-width:_1099px)]:[padding:2.8rem] [@media(max-width:_1099px)]:[&_h2]:[font-size:2.6rem]">
             <small className="bk__meta [font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [text-transform:uppercase] [letter-spacing:0.06em] [color:#636673]"><span className="bf__new [display:inline-block] [margin-right:0.6rem] [padding:0.3rem_0.8rem] [border-radius:2rem] [color:#fff] [background:var(--grad)] [border-color:transparent]">Latest</span> {feat.topic} · {feat.date} · {feat.read}</small>
             <h2>{feat.title}</h2>
             <p>{feat.dek}</p>
