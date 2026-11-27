@@ -125,13 +125,6 @@ const STEPS: { t: string; d: string; art: string[] }[] = [
   { t: 'Work denials and A/R', d: 'Imaging and device denials appealed with the records the payer asks for; aged claims chased until they pay or close.', art: ['CO-197 · appealed', 'Paid in 21 days'] },
   { t: 'Report every month', d: 'Denial rate, days in A/R and collections by study type, reviewed with you on a call.', art: ['Denials 4.1%', 'A/R 32 days'] },
 ];
-const FIXES: [string, string, string][] = [
-  ['26 / TC', 'Global billed when only the read was done', 'Modifier 26 or TC set by place of service before the claim goes out.'],
-  ['Prior auth', 'Nuclear and echo denied for no prior auth', 'Auth requested at scheduling and the number checked on the claim.'],
-  ['NCCI', 'Diagnostic cath lost inside a same-day PCI', 'Billed separately when the note shows no prior study or a changed condition.'],
-  ['Remote period', 'Device checks billed in an open remote period', 'Each patient’s 90-day period tracked so checks aren’t denied as duplicates.'],
-  ['LCD', 'Imaging denied as not medically necessary', 'ICD-10 codes matched to the payer’s LCD before submission.'],
-];
 
 function Step({ s, i }: { s: (typeof STEPS)[number]; i: number }) {
   const ref = useRef<HTMLLIElement>(null);
@@ -157,28 +150,6 @@ function Step({ s, i }: { s: (typeof STEPS)[number]; i: number }) {
   );
 }
 
-function FixCard({ tag, p, f, i }: { tag: string; p: string; f: string; i: number }) {
-  const off = useMotionOff();
-  return (
-    <motion.li initial={off ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6, ease: ease.out, delay: (i % 3) * 0.08 }}
-      className="cvf__card [display:flex] [flex-direction:column] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [box-shadow:0_2rem_5rem_-3.2rem_rgba(57,_28,_160,_0.3)] [@media(max-width:_1099px)]:[padding:2.2rem]">
-      <div className="[display:flex] [justify-content:space-between] [align-items:center] [gap:1.2rem]">
-        <span className={`${MONO} [padding:0.6rem_1.1rem] [border-radius:99rem] [background:#f1edff] [color:var(--purple)]`}>{tag}</span>
-        <span className={`${MONO} [color:#a3a0b5]`} aria-hidden>{String(i + 1).padStart(2, '0')}</span>
-      </div>
-      <p className="[margin-top:2.4rem] [display:flex] [gap:1rem] [align-items:flex-start] [font-size:max(1.6rem,15px)] [line-height:1.5] [color:#9b1c33]">
-        <X size={16} strokeWidth={2.6} aria-hidden className="[flex:none] [margin-top:0.3rem]" /><span><span className="sr-only">Problem: </span>{p}</span>
-      </p>
-      <div aria-hidden className="[position:relative] [margin:2.6rem_0_2.4rem] [border-top:1px_dashed_#e3dcf8]">
-        <span className="[position:absolute] [left:0] [top:-1.3rem] [display:grid] [place-items:center] [width:2.6rem] [height:2.6rem] [border-radius:50%] [background:#fff] [border:1px_solid_#e3dcf8] [color:var(--purple)]"><ArrowRight size={13} className="[rotate:90deg]" /></span>
-      </div>
-      <p className="[display:flex] [gap:1rem] [align-items:flex-start] [font-size:max(1.9rem,17px)] [line-height:1.45] [font-weight:500] [color:var(--ink-2)]">
-        <span aria-hidden className="[flex:none] [display:grid] [place-items:center] [width:2.4rem] [height:2.4rem] [margin-top:0.1rem] [border-radius:50%] [background:#13a35f] [color:#fff]"><Check size={13} strokeWidth={3} /></span>
-        <span><span className="sr-only">How we fix it: </span>{f}</span>
-      </p>
-    </motion.li>
-  );
-}
 
 export function SolutionJourney() {
   const ref = useRef<HTMLOListElement>(null);
@@ -209,16 +180,6 @@ export function SolutionJourney() {
           {STEPS.map((s, i) => <Step key={s.t} s={s} i={i} />)}
         </ol>
       </div>
-      <ul className="cvf [margin-top:12rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [@media(max-width:_1099px)]:[margin-top:7.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-        <li className="[display:flex] [flex-direction:column] [gap:12px] [padding:0.8rem_2.4rem_2.4rem_0] [@media(max-width:_640px)]:[padding:0]">
-          <div>
-            <p className={`${MONO} [color:#646776]`}>Problem <span aria-hidden>→</span> Fix</p>
-            <h3 className="[margin-top:1.6rem] [font-size:max(3.4rem,26px)] [font-weight:500] [line-height:1.15] [letter-spacing:-0.06rem] [color:var(--ink-2)] [text-wrap:balance]">Common cardiology billing problems, and how we fix each one.</h3>
-          </div>
-          <p className="[font-size:max(1.6rem,15px)] [line-height:1.6] [color:#4a4f63]">Five places cardiology claims go wrong most often. Each one is checked before the claim leaves.</p>
-        </li>
-        {FIXES.map(([tag, p, f], i) => <FixCard key={p} tag={tag} p={p} f={f} i={i} />)}
-      </ul>
     </section>
     </div>
   );
