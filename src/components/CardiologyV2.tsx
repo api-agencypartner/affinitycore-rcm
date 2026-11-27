@@ -305,7 +305,7 @@ function LogoRow({ items, dir, still }: { items: typeof EHRS; dir: 1 | -1; still
   if (still) return <ul className="[display:flex] [flex-wrap:wrap] [justify-content:center] [gap:1.2rem]">{items.map(([i, n, w]) => pill(i, n, w))}</ul>;
   return (
     <div className="[overflow:hidden] [mask-image:linear-gradient(90deg,_transparent,_#000_10%,_#000_90%,_transparent)]">
-      <ul className={`cve__row [display:flex] [gap:1.6rem] [width:max-content] [padding-block:1.6rem] [animation:${dir > 0 ? 'cveL' : 'cveR'}_48s_linear_infinite] [&:hover]:[animation-play-state:paused]`}>
+      <ul className={`cve__row [display:flex] [gap:1.6rem] [width:max-content] [padding-block:1.6rem] ${dir > 0 ? '[animation:cveL_48s_linear_infinite]' : '[animation:cveR_48s_linear_infinite]'} [&:hover]:[animation-play-state:paused]`}>
         {items.map(([i, n, w]) => pill(i, n, w))}
         {items.map(([i, n, w]) => pill(i, n, w, true))}
       </ul>
