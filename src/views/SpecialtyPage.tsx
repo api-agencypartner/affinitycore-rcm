@@ -377,10 +377,10 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
       {c.variant === 'cardiology-b' ? (<>
         <SpecializedServices />
         <OurSolution />
-        <EhrWall />
         {s.leak ? <LeakList s={s} /> : <Problem s={s} />}
-        <HomeCopyCtx.Provider value={{ statesLines: [`${s.name} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold pills /></HomeCopyCtx.Provider>
-        <MidCta title="Want this on your own claims?" body={c.midBody ?? `Send us a month of ${plain} claims. We’ll show you every line we’d change.`} />
+        <EhrWall />
+        <HomeCopyCtx.Provider value={{ statesLines: [`${s.name} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold pills dark /></HomeCopyCtx.Provider>
+        <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
         <RelatedServices />
       </>) : (<>
       <Handle s={s} lines={c.handleLines} />
@@ -390,8 +390,8 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
       <MidCta title="Want this on your own claims?" body={c.midBody ?? `Send us a month of ${plain} claims. We’ll show you every line we’d change and what it’s worth, free. Switching takes about 30 days, with no gap in billing.`} />
       <PageGuide g={specialtyGuide(s, c.guide)} />
       <AlsoBilled s={s} />
-      </>)}
       <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
+      </>)}
       <FAQ items={faqs} eyebrow={`/ ${s.name} billing FAQs`} lines={s.faqLines} />
       <CTA eyebrow={s.closing.eyebrow} lines={s.closing.lines} />
     </main>

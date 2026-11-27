@@ -15,11 +15,11 @@ import { useTouch } from '../components/useNarrow';
 import { StateFlag } from '../components/StateFlag';
 
 /** pills: fourteen states as flag + name pills (used by the cardiology variation) instead of three detail rows. */
-export function StatesFold({ pills = false }: { pills?: boolean } = {}) {
+export function StatesFold({ pills = false, dark = false }: { pills?: boolean; dark?: boolean } = {}) {
   const hc = useHomeCopy();
   const touch = useTouch();
   const [active, setActive] = useState<string | null>(null);
-  return (
+  const body = (
     <section className="stf container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [padding-top:14rem] [@media(max-width:_1099px)]:[padding-top:10rem]" id="states">
       <div className="stf__panel [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [gap:5.6rem] [align-items:center] [padding:6.4rem] [border-radius:4rem] [background:linear-gradient(160deg,_#f6f2ff_0%,_#fbfaff_60%,_#f1ecff_100%)] [border:1px_solid_#eee9ff] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem] [@media(max-width:_1099px)]:[padding:4.8rem_3.2rem] [@media(max-width:_1099px)]:[border-radius:3.2rem] [@media(max-width:_640px)]:[padding:3.2rem_1.8rem]">
         <div className="stf__copy [display:flex] [flex-direction:column] [gap:1.6rem] [min-width:0]">
@@ -63,5 +63,15 @@ export function StatesFold({ pills = false }: { pills?: boolean } = {}) {
         </motion.div>
       </div>
     </section>
+  );
+  if (!dark) return body;
+  return (
+    <div className={String.raw`stf-dark [margin-top:14rem] [padding-bottom:12rem] [background:radial-gradient(90%_70%_at_75%_40%,_#3a2490_0%,_#1d1150_55%,_#140b30_100%)] [color:#fff] [@media(max-width:_1099px)]:[margin-top:8rem] [@media(max-width:_1099px)]:[padding-bottom:7.2rem]
+      [&_.stf]:[padding-top:12rem]! [@media(max-width:_1099px)]:[&_.stf]:[padding-top:7.2rem]!
+      [&_.stf\_\_panel]:[background:none]! [&_.stf\_\_panel]:[border:0]! [&_.stf\_\_panel]:[padding:0]! [&_.stf\_\_panel]:[border-radius:0]!
+      [&_.eyebrow]:[color:#c4b8ff]! [&_h2]:[color:#fff]! [&_.stf\_\_p]:[color:#cfc8ea]! [&_.stf\_\_hint]:[color:#a99fd0]! [&_.stf\_\_more]:[color:#cfc8ea]! [&_.stf\_\_more_svg]:[color:#c4b8ff]! [&_.stf\_\_more_a]:[color:#fff]!
+      [&_.usm\_\_st]:[fill:rgba(255,255,255,0.1)]! [&_.usm\_\_st.is-page]:[fill:rgba(196,184,255,0.22)]! [&_.usm\_\_st.is-page:hover]:[fill:#a48bff]! [&_.usm\_\_st.is-hot]:[fill:#a48bff]! [&_.usm\_\_borders]:[stroke:#2b1c6b]!
+      [&_.stf\_\_pills_a]:[background:rgba(255,255,255,0.08)]! [&_.stf\_\_pills_a]:[border-color:rgba(255,255,255,0.18)]! [&_.stf\_\_pills_a]:[color:#fff]! [&_.stf\_\_pills_a_svg]:[color:#c4b8ff]! [&_.stf\_\_pills_a:hover]:[background:rgba(255,255,255,0.14)]! [&_.stf\_\_pills_a:hover]:[border-color:#a48bff]! [&_.stf\_\_pills_.state-flag]:[box-shadow:0_0_0_1px_rgba(255,255,255,0.25)]!
+      [&_.usm\_\_tip_rect]:[fill:#fff]! [&_.usm\_\_tip_text]:[fill:#140b30]!`}>{body}</div>
   );
 }

@@ -4,12 +4,12 @@
  *  1. StudySelector    – pick a study, watch its claim get worked line by line (tabs, auto-advance).
  *  2. SolutionJourney  – sticky headline + a scroll-filled rail; each step drops the artifact it produces,
  *                        then problem → fix rows that strike through and resolve as they enter.
- *  3. EhrFlow          – two drifting logo rows and a live EHR → coders → payer pipe.
+ *  3. EhrFlow          – copy and how access works beside a hairline grid of EHR logos.
  *  4. ServiceBuilder   – related specialties as link cards.
  * Every fold has a static end state for reduced motion and the site's Pause animations control.
  */
 import { motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
-import { Activity, ArrowRight, Atom, Bandage, Building2, Check, Droplets, Gauge, HeartPulse, MonitorSmartphone, ScanLine, Stethoscope, Syringe, Waypoints, X, Zap } from 'lucide-react';
+import { Activity, ArrowRight, Atom, Bandage, Building2, Check, Droplets, Gauge, HeartPulse, MonitorSmartphone, Plus, ScanLine, Stethoscope, Syringe, Waypoints, X, Zap } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button, Eyebrow, SplitWords } from './ui';
 import { Link } from '../router';
@@ -290,65 +290,50 @@ export function SolutionJourney() {
   );
 }
 
-/* 3. EHR / EMR: drifting logo rows + a live pipe ----------------------------------------------- */
+/* 3. EHR / EMR: copy + how access works beside a hairline logo grid ------------------------------------ */
 const EHRS: [Img, string, number][] = [
   [epic, 'Epic', 7.2], [oracle, 'Oracle Health', 9.6], [athena, 'athenahealth', 15], [ecw, 'eClinicalWorks', 15], [nextgen, 'NextGen Healthcare', 10],
   [greenway, 'Greenway Health', 11], [modmed, 'ModMed', 12], [meditech, 'MEDITECH', 13], [advancedmd, 'AdvancedMD', 15], [curemd, 'CureMD', 11.5],
   [practicefusion, 'Practice Fusion', 16], [tebra, 'Tebra', 10], [veradigm, 'Veradigm', 13], [drchrono, 'DrChrono', 11], [gehc, 'GE HealthCare', 15],
 ];
-
-function LogoRow({ items, dir, still }: { items: typeof EHRS; dir: 1 | -1; still: boolean }) {
-  const pill = (img: Img, name: string, w: number, hide?: boolean) => (
-    <li key={name + (hide ? '-b' : '')} aria-hidden={hide || undefined} className="[flex:none] [display:grid] [place-items:center] [height:8.8rem] [padding:0_3.2rem] [border-radius:99rem] [background:#fff] [border:1px_solid_#ece8fa] [@media(max-width:_1099px)]:[height:68px] [@media(max-width:_1099px)]:[padding:0_22px]">
-      <img src={src(img)} alt={hide ? '' : name} loading="lazy" decoding="async" style={{ width: `${w}rem` }} className="[max-height:4rem] [object-fit:contain] [@media(max-width:_1099px)]:[max-height:30px]" />
-    </li>
-  );
-  if (still) return <ul className="[display:flex] [flex-wrap:wrap] [justify-content:center] [gap:1.2rem]">{items.map(([i, n, w]) => pill(i, n, w))}</ul>;
-  return (
-    <div className="[overflow:hidden] [mask-image:linear-gradient(90deg,_transparent,_#000_10%,_#000_90%,_transparent)]">
-      <ul className={`cve__row [display:flex] [gap:1.6rem] [width:max-content] [padding-block:1.6rem] ${dir > 0 ? '[animation:cveL_48s_linear_infinite]' : '[animation:cveR_48s_linear_infinite]'} [&:hover]:[animation-play-state:paused]`}>
-        {items.map(([i, n, w]) => pill(i, n, w))}
-        {items.map(([i, n, w]) => pill(i, n, w, true))}
-      </ul>
-    </div>
-  );
-}
+const ACCESS: [string, string][] = [
+  ['BAA signed first', 'A business associate agreement is in place before anyone logs in.'],
+  ['Your logins, your rules', 'Role-based accounts in your EHR and PM system, which you can switch off at any time.'],
+  ['Out through your clearinghouse', 'Claims, auths and appeals go out on the rails you already pay for.'],
+];
 
 export function EhrFlow() {
   const off = useMotionOff();
-  const a = EHRS.slice(0, 8), b = EHRS.slice(8);
-  const node = (k: string, t: string, d: string, main?: boolean) => (
-    <div className={`[position:relative] [z-index:1] [display:flex] [flex-direction:column] [gap:0.4rem] [padding:2rem_2.4rem] [border-radius:2rem] [text-align:left] ${main ? '[background:linear-gradient(180deg,_#8060ff,_#6a41f9)] [color:#fff] [box-shadow:0_2rem_5rem_-1.6rem_rgba(106,65,249,0.55)]' : '[background:#fff] [border:1px_solid_#ece8fa] [color:var(--ink-2)]'}`}>
-      <span className={`${MONO} ${main ? '[color:#e7e0ff]' : '[color:var(--purple)]'}`}>{k}</span>
-      <b className="[font-weight:500] [font-size:max(2rem,17px)]">{t}</b>
-      <span className={`[font-size:max(1.5rem,14px)] [line-height:1.45] ${main ? '[color:#efeaff]' : '[color:#4a4f63]'}`}>{d}</span>
-    </div>
-  );
-  const pipe = (
-    <div aria-hidden className="[position:relative] [height:2px] [background:repeating-linear-gradient(90deg,_#cfc5f7_0_6px,_transparent_6px_12px)] [@media(max-width:_767px)]:[height:3.2rem] [@media(max-width:_767px)]:[width:2px] [@media(max-width:_767px)]:[justify-self:center] [@media(max-width:_767px)]:[background:repeating-linear-gradient(180deg,_#cfc5f7_0_6px,_transparent_6px_12px)]">
-      {!off && <span className="[position:absolute] [top:50%] [left:0] [width:1rem] [height:1rem] [margin-top:-0.5rem] [border-radius:50%] [background:var(--purple)] [box-shadow:0_0_0_0.5rem_rgba(106,65,249,0.18)] [animation:cvePulse_2.4s_ease-in-out_infinite] [@media(max-width:_767px)]:[left:50%] [@media(max-width:_767px)]:[margin-left:-0.5rem] [@media(max-width:_767px)]:[animation-name:cvePulseV]" />}
-    </div>
-  );
   return (
-    <section className={`cve [padding-block:12rem] [background:radial-gradient(120%_80%_at_50%_0%,_#2a1a6e_0%,_#140b30_60%)] [color:#fff] [@media(max-width:_1099px)]:[padding-block:7.2rem] [overflow:hidden]`} id="ehr">
-      <style>{`@keyframes cveL{to{transform:translateX(calc(-50% - 0.8rem))}}@keyframes cveR{from{transform:translateX(calc(-50% - 0.8rem))}to{transform:translateX(0)}}@keyframes cvePulse{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:100%;opacity:0}}@keyframes cvePulseV{0%{top:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}`}</style>
-      <div className="container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [display:flex] [flex-direction:column] [align-items:center] [gap:1.6rem] [text-align:center]">
-        <Eyebrow className="[color:#c4b8ff]!">/ EHR and EMR systems</Eyebrow>
-        <SplitWords className={`${H2} [color:#fff]!`} lines={['Works inside the EHR', 'your cardiologists use.']} stagger={0.04} />
-        <p className={`${LEAD} [max-width:62rem] [color:#cfc8ea]!`}>No new software for your staff. We bill from your EHR and practice management system, including the cardiology modules for echo, cath and device reporting, and map access with you before anything changes.</p>
-      </div>
-      <div className="cve__logos [margin-top:4.8rem] [display:flex] [flex-direction:column] [@media(max-width:_1099px)]:[margin-top:3.2rem]" role="group" aria-label="EHR and practice management systems we work in">
-        {off ? <div className="container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem]"><LogoRow items={EHRS} dir={1} still /></div> : <><LogoRow items={a} dir={1} still={false} /><LogoRow items={b} dir={-1} still={false} /></>}
-      </div>
-      <div className="container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem]">
-        <div className="cve__pipe [display:grid] [grid-template-columns:minmax(0,_1fr)_8rem_minmax(0,_1.1fr)_8rem_minmax(0,_1fr)] [align-items:center] [margin-top:4.8rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)_4rem_minmax(0,_1.1fr)_4rem_minmax(0,_1fr)] [@media(max-width:_767px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[margin-top:3.2rem]">
-          {node('Your system', 'Your EHR and PM', 'Charts, reports and schedules stay where they are.')}
-          {pipe}
-          {node('Affinity Core', 'Cardiology coders and billers', 'Work in your system with role-based access and a signed BAA.', true)}
-          {pipe}
-          {node('Out to payers', 'Clearinghouse and portals', 'Claims, auths and appeals sent and tracked to paid.')}
+    <section className={`cve ${SEC}`} id="ehr">
+      <div className="cve__grid [display:grid] [grid-template-columns:minmax(0,_0.8fr)_minmax(0,_1.2fr)] [gap:7.2rem] [align-items:center] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem]">
+        <div className="[display:flex] [flex-direction:column] [gap:1.6rem]">
+          <Eyebrow>/ EHR and EMR systems</Eyebrow>
+          <SplitWords className={H2} lines={['Works inside the EHR', 'your cardiologists use.']} stagger={0.04} />
+          <p className={`${LEAD} [max-width:50rem]`}>No new software for your staff. We bill from your EHR and practice management system, including the cardiology modules for echo, cath and device reporting.</p>
+          <ol className="[margin-top:1.6rem] [border-top:1px_solid_#ece8fa]">
+            {ACCESS.map(([t, d], i) => (
+              <li key={t} className="[display:grid] [grid-template-columns:4rem_minmax(0,_1fr)] [gap:1.2rem] [padding:2rem_0] [border-bottom:1px_solid_#ece8fa]">
+                <span className="[font-family:var(--f-mono)] [font-size:max(1.4rem,13px)] [color:var(--purple)] [padding-top:0.3rem]">{String(i + 1).padStart(2, '0')}</span>
+                <div><b className="[display:block] [font-weight:500] [font-size:max(1.9rem,17px)] [color:var(--ink-2)]">{t}</b><span className="[display:block] [margin-top:0.4rem] [font-size:max(1.6rem,15px)] [line-height:1.55] [color:#4a4f63]">{d}</span></div>
+              </li>
+            ))}
+          </ol>
         </div>
-        <p className="[margin-top:3.2rem] [text-align:center] [font-size:max(1.6rem,16px)] [color:#cfc8ea]">Don’t see your system? We work in most EHR and PM systems. <Link to="/contact" className="[color:#fff] [font-weight:500] [text-decoration:underline] [text-underline-offset:0.3rem]">Ask about yours</Link></p>
+        <ul className="cve__wall [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1px] [padding:0] [border-radius:2.8rem] [overflow:hidden] [background:#ece8fa] [border:1px_solid_#ece8fa] [box-shadow:0_3rem_8rem_-3.2rem_rgba(57,_28,_160,_0.28)] [@media(max-width:_640px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[border-radius:2rem]" aria-label="EHR and practice management systems we work in">
+          {EHRS.map(([img, name, w], i) => (
+            <motion.li key={name} initial={off ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5, delay: (i % 4) * 0.06 + Math.floor(i / 4) * 0.08 }}
+              className="[display:grid] [place-items:center] [aspect-ratio:16/10] [padding:2rem] [background:#fff] [transition:background_0.3s] [&:hover]:[background:#faf8ff] [@media(max-width:_640px)]:[padding:14px]">
+              <img src={src(img)} alt={name} loading="lazy" decoding="async" style={{ width: `${Math.min(w * 1.05, 15)}rem` }} className="[max-width:84%] [max-height:5.2rem] [object-fit:contain] [@media(max-width:_1099px)]:[max-height:34px]" />
+            </motion.li>
+          ))}
+          <li className="[background:#fff]">
+            <Link to="/contact" className="[display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [gap:0.6rem] [height:100%] [aspect-ratio:16/10] [padding:2rem] [text-align:center] [background:linear-gradient(180deg,_#f7f4ff,_#efe9ff)] [color:var(--purple)] [transition:filter_0.3s] [&:hover]:[filter:brightness(0.97)] [@media(max-width:_640px)]:[padding:14px]">
+              <span className="[display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:50%] [background:#fff] [box-shadow:0_0.6rem_1.6rem_-0.6rem_rgba(106,65,249,0.45)]"><Plus size={18} aria-hidden /></span>
+              <span className="[font-size:max(1.5rem,14px)] [font-weight:500] [line-height:1.3]">Using another system?<br />Ask us</span>
+            </Link>
+          </li>
+        </ul>
       </div>
     </section>
   );
