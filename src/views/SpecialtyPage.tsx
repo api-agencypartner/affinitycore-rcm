@@ -381,7 +381,6 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
         <EhrWall />
         <HomeCopyCtx.Provider value={{ statesLines: [`${s.name} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold pills dark /></HomeCopyCtx.Provider>
         <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
-        <RelatedServices />
       </>) : (<>
       <Handle s={s} lines={c.handleLines} />
       <EhrStrip what={plain} copy={c.platformsCopy} />
@@ -393,6 +392,7 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
       <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
       </>)}
       <FAQ items={faqs} eyebrow={`/ ${s.name} billing FAQs`} lines={s.faqLines} />
+      {c.variant === 'cardiology-b' && <RelatedServices />}
       <CTA eyebrow={s.closing.eyebrow} lines={s.closing.lines} />
     </main>
   );

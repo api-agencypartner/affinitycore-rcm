@@ -72,115 +72,45 @@ const STUDIES: Study[] = [
     lines: [['99213', 'Video visit, POS 10', 'Modifier 95'], ['99454', 'RPM device supply', '16 days logged'], ['99457', 'RPM management, 20 min', 'Time logged']], risk: 'RPM billed in a month without enough device days.', cta: 'Check my telehealth billing' },
 ];
 
-function StudyCard({ x, play }: { x: Study; play: boolean }) {
+function StudyItem({ x, i }: { x: Study; i: number }) {
   const off = useMotionOff();
-  const [step, setStep] = useState(off ? 3 : 0);
-  useEffect(() => {
-    if (off || !play) { setStep(3); return; }
-    setStep(0);
-    const t = [0, 1, 2].map((k) => setTimeout(() => setStep(k + 1), 700 + k * 650));
-    return () => t.forEach(clearTimeout);
-  }, [x, play, off]);
   return (
-    <div className="cvs-card [position:relative] [padding:3.2rem] [border-radius:3.2rem] [background:#fff] [border:1px_solid_#ece8fa] [box-shadow:0_3rem_8rem_-2rem_rgba(57,_28,_160,_0.22)] [@media(max-width:_1099px)]:[padding:2.4rem_2rem] [@media(max-width:_1099px)]:[border-radius:2.4rem]">
-      <div className="[display:flex] [align-items:center] [justify-content:space-between] [gap:1.2rem]">
-        <span className={`${MONO} [color:#646776]`}>Claim · {x.t}</span>
-        <span className={`${MONO} [display:inline-flex] [align-items:center] [gap:0.6rem] [padding:0.5rem_1rem] [border-radius:99rem] [transition:background_0.4s,_color_0.4s] ${step >= 3 ? '[background:#e7f6ee] [color:#13734a]' : '[background:#f3f0ff] [color:var(--purple)]'}`}>
-          {step >= 3 ? <><Check size={13} strokeWidth={3} aria-hidden /> Ready to submit</> : 'Checking'}
-        </span>
+    <motion.li initial={off ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.7, ease: ease.out }}
+      className="cvs__item group [display:flex] [flex-direction:column] [gap:1.2rem] [padding-top:2.4rem] [border-top:1px_solid_#e6e1f7]">
+      <div className="[display:flex] [align-items:center] [justify-content:space-between]">
+        <span aria-hidden className="[display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [transition:background_0.35s,_color_0.35s] group-hover:[background:var(--purple)] group-hover:[color:#fff] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [&_svg]:[stroke-width:1.7]">{x.icon}</span>
+        <span aria-hidden className="[font-family:var(--f-mono)] [font-size:max(1.3rem,12px)] [color:#a3a0b5]">{String(i + 1).padStart(2, '0')}</span>
       </div>
-      <p className={`${MONO} [margin-top:3.2rem] [padding-top:2.4rem] [border-top:1px_dashed_#e6e0fa] [color:#646776]`}>What the payer checks</p>
-      <ul className="[display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1rem] [margin-top:1.2rem] [@media(max-width:_640px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))]">
-        {x.checks.map(([k, v], n) => (
-          <li key={k} className={`[display:flex] [flex-direction:column] [gap:0.6rem] [padding:1.4rem_1.6rem] [border-radius:1.6rem] [transition:background_0.4s] ${step > Math.min(n, 2) ? '[background:#f4f1ff]' : '[background:#faf9ff]'}`}>
-            <span className="[font-size:max(1.3rem,12px)] [color:#646776]">{k}</span>
-            <b className="[display:flex] [align-items:center] [gap:0.6rem] [font-weight:500] [font-size:max(1.7rem,15px)] [color:var(--ink-2)] [line-height:1.25]"><Check size={14} strokeWidth={3} aria-hidden className="[flex:none] [color:var(--purple)]" />{v}</b>
-          </li>
-        ))}
-      </ul>
-      <p className={`${MONO} [margin-top:3.2rem] [margin-bottom:0.4rem] [color:#646776]`}>Claim lines</p>
-      <ul className="[display:flex] [flex-direction:column]">
-        {x.lines.map(([code, label, ok], k) => {
-          const on = step > k;
-          return (
-            <li key={code} className="[display:grid] [grid-template-columns:7.2rem_minmax(0,_1fr)_auto] [gap:1.2rem] [align-items:center] [padding:1.4rem_0] [border-bottom:1px_solid_#f0ecfb] [&:last-child]:[border-bottom:0] [@media(max-width:_640px)]:[grid-template-columns:6.4rem_minmax(0,_1fr)] [@media(max-width:_640px)]:[row-gap:0.6rem]">
-              <code className="[font-family:var(--f-mono)] [font-size:max(1.5rem,14px)] [color:var(--ink-2)] [font-weight:500]">{code}</code>
-              <span className="[font-size:max(1.6rem,15px)] [color:#4a4f63] [min-width:0]">{label}</span>
-              <span className={`${MONO} [justify-self:end] [display:inline-flex] [align-items:center] [gap:0.5rem] [white-space:nowrap] [transition:color_0.35s,_opacity_0.35s] [@media(max-width:_640px)]:[grid-column:2] [@media(max-width:_640px)]:[justify-self:start] ${on ? '[color:#13734a]' : '[color:#a3a0b5]'}`}>
-                {on ? <Check size={13} strokeWidth={3} aria-hidden /> : <span aria-hidden className="[width:0.7rem] [height:0.7rem] [border-radius:50%] [background:currentColor]" />}{on ? ok : 'In review'}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-      <div className="[display:flex] [align-items:flex-start] [gap:1rem] [margin-top:2rem] [padding:1.4rem_1.6rem] [border-radius:1.6rem] [background:#fff6f7] [color:#9b1c33] [font-size:max(1.5rem,14px)] [line-height:1.5]">
-        <X size={16} strokeWidth={2.6} aria-hidden className="[flex:none] [margin-top:0.3rem]" /><span><b className="[font-weight:500]">The denial we prevent: </b>{x.risk}</span>
-      </div>
-    </div>
+      <h3 className="[margin-top:0.8rem] [font-size:max(2.2rem,18px)] [font-weight:500] [letter-spacing:-0.03rem] [color:var(--ink-2)] [line-height:1.25]">{x.t}</h3>
+      <p className="[font-size:max(1.6rem,15px)] [line-height:1.6] [color:#4a4f63]">{x.d}</p>
+    </motion.li>
   );
 }
 
 export function StudySelector() {
-  const off = useMotionOff();
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { amount: 0.35 });
-  const [k, setK] = useState(0);
-  const [hold, setHold] = useState(false);
-  useEffect(() => {
-    if (off || hold || !inView) return;
-    const id = setTimeout(() => setK((v) => (v + 1) % STUDIES.length), 6500);
-    return () => clearTimeout(id);
-  }, [k, off, hold, inView]);
-  const pick = (i: number) => { setK(i); setHold(true); };
-  const onKey = (e: React.KeyboardEvent, i: number) => {
-    const n = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
-    if (!n) return;
-    e.preventDefault();
-    const j = (i + n + STUDIES.length) % STUDIES.length;
-    pick(j);
-    document.getElementById(`cvs-tab-${j}`)?.focus();
-  };
+  const cols = [0, 1, 2].map((c) => STUDIES.map((x, i) => ({ x, i })).filter(({ i }) => i % 3 === c));
   return (
-    <section ref={ref} className={`cvs ${SEC}`} id="cardiology-services" onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)} onFocusCapture={() => setHold(true)}>
-      <div className="[display:flex] [flex-direction:column] [align-items:center] [gap:1.6rem] [text-align:center]">
-        <Eyebrow>/ Specialized cardiology billing services</Eyebrow>
-        <SplitWords className={H2} lines={['Every cardiology study,', 'billed the way it pays.']} stagger={0.04} />
-        <p className={`${LEAD} [max-width:64rem]`}>Cardiology billing is the coding and claim work for every study a heart practice performs. Each study has its own codes, component rules and prior auth needs. Pick one to see what we check before the claim goes out.</p>
+    <section className={`cvs ${SEC}`} id="cardiology-services">
+      <div className="cvs__head [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:4rem] [align-items:end] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:1.6rem]">
+        <div className="[display:flex] [flex-direction:column] [gap:1.6rem]">
+          <Eyebrow>/ Specialized cardiology billing services</Eyebrow>
+          <SplitWords className={H2} lines={['Every cardiology study,', 'billed the way it pays.']} stagger={0.04} />
+        </div>
+        <div className="[justify-self:end] [max-width:52rem] [display:flex] [flex-direction:column] [gap:2.4rem] [align-items:flex-start] [@media(max-width:_1099px)]:[justify-self:start]">
+          <p className={LEAD}>Cardiology billing is the coding and claim work for every study a heart practice performs. Each study has its own codes, component rules and prior auth needs, and we bill all nine.</p>
+          <Button>Get a free claim review</Button>
+        </div>
       </div>
-      <div className="cvs__grid [display:grid] [grid-template-columns:minmax(0,_0.85fr)_minmax(0,_1.15fr)] [gap:4.8rem] [margin-top:5.6rem] [align-items:start] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:2.4rem] [@media(max-width:_1099px)]:[margin-top:3.2rem]">
-        <div role="tablist" aria-label="Cardiology services" aria-orientation="vertical" className="cvs__tabs [display:flex] [flex-direction:column] [@media(max-width:_1099px)]:[flex-direction:row] [@media(max-width:_1099px)]:[overflow-x:auto] [@media(max-width:_1099px)]:[gap:0.8rem] [@media(max-width:_1099px)]:[margin-inline:-2rem] [@media(max-width:_1099px)]:[padding:0.4rem_2rem] [@media(max-width:_1099px)]:[scrollbar-width:none] [@media(max-width:_1099px)]:[&::-webkit-scrollbar]:[display:none]">
-          {STUDIES.map((x, i) => {
-            const on = i === k;
-            return (
-              <button key={x.t} id={`cvs-tab-${i}`} role="tab" type="button" aria-selected={on} aria-controls={`cvs-panel-${i}`} tabIndex={on ? 0 : -1}
-                onClick={() => pick(i)} onKeyDown={(e) => onKey(e, i)}
-                className={`cvs__tab [position:relative] [display:flex] [align-items:center] [gap:1.6rem] [width:100%] [padding:1.6rem_0] [border-bottom:1px_solid_#ece8fa] [text-align:left] [transition:color_0.3s] [&:hover]:[color:var(--ink-2)] [@media(max-width:_1099px)]:[width:auto] [@media(max-width:_1099px)]:[flex:none] [@media(max-width:_1099px)]:[padding:1rem_1.6rem] [@media(max-width:_1099px)]:[border:1px_solid_#e4e0f2] [@media(max-width:_1099px)]:[border-radius:99rem] [@media(max-width:_1099px)]:[gap:0.8rem] ${on ? '[color:var(--ink-2)] [@media(max-width:_1099px)]:[background:var(--purple)] [@media(max-width:_1099px)]:[color:#fff] [@media(max-width:_1099px)]:[border-color:var(--purple)]' : '[color:#646776] [@media(max-width:_1099px)]:[background:#fff] [@media(max-width:_1099px)]:[color:var(--ink-2)]'}`}>
-                <span aria-hidden className={`[flex:none] [display:grid] [place-items:center] [width:4.4rem] [height:4.4rem] [border-radius:1.2rem] [transition:background_0.35s,_color_0.35s] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [&_svg]:[stroke-width:1.8] ${on ? '[background:var(--purple)] [color:#fff]' : '[background:#f3f0ff] [color:var(--purple)]'} [@media(max-width:_1099px)]:[display:none]`}>{x.icon}</span>
-                <span className="[font-size:max(2rem,16px)] [font-weight:500] [@media(max-width:_1099px)]:[font-size:15px] [@media(max-width:_1099px)]:[white-space:nowrap]">{x.t}</span>
-                <span aria-hidden className="[margin-left:auto] [@media(max-width:_1099px)]:[display:none]"><ArrowRight size={18} className={`[transition:transform_0.3s,_opacity_0.3s] ${on ? '[opacity:1] [color:var(--purple)]' : '[opacity:0] [transform:translateX(-0.6rem)]'}`} /></span>
-                {on && !off && !hold && <motion.span key={k} aria-hidden className="[position:absolute] [left:0] [bottom:-1px] [height:2px] [background:var(--purple)] [@media(max-width:_1099px)]:[display:none]" initial={{ width: '0%' }} animate={{ width: '100%' }} transition={{ duration: 6.5, ease: 'linear' }} />}
-              </button>
-            );
-          })}
-        </div>
-        <div className="cvs__stage [position:relative] [@media(min-width:_1100px)]:[position:sticky] [@media(min-width:_1100px)]:[top:12rem]">
-          {STUDIES.map((x, i) => (
-            <div key={x.t} id={`cvs-panel-${i}`} role="tabpanel" aria-labelledby={`cvs-tab-${i}`} hidden={i !== k} tabIndex={0}>
-              {i === k && (
-                <motion.div initial={off ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: ease.out }}>
-                  <h3 className="[font-size:max(2.8rem,22px)] [font-weight:500] [letter-spacing:-0.05rem] [color:var(--ink-2)]">{x.t} billing</h3>
-                  <p className={`${LEAD} [margin-top:0.8rem] [margin-bottom:2.4rem]`}>{x.d}</p>
-                  <StudyCard x={x} play={inView} />
-                  <div className="[display:flex] [align-items:center] [gap:2rem] [flex-wrap:wrap] [margin-top:2.4rem]">
-                    <Button>{x.cta}</Button>
-                    <span className="[font-size:max(1.5rem,14px)] [color:#646776]">Free review of one month of claims.</span>
-                  </div>
-                </motion.div>
-              )}
-              {i !== k && <><h3>{x.t} billing</h3><p>{x.d}</p></>}
-            </div>
-          ))}
-        </div>
+      <div className="cvs__cols [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:4.8rem] [margin-top:7.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_1099px)]:[gap:3.2rem] [@media(max-width:_1099px)]:[margin-top:4.8rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
+        {/* desktop: three stepped columns; tablet and phone: one flowing list */}
+        {cols.map((col, c) => (
+          <ul key={c} className={`[display:flex] [flex-direction:column] [gap:5.6rem] [@media(max-width:_1099px)]:[display:none] ${c === 1 ? '[margin-top:8rem]' : c === 2 ? '[margin-top:16rem]' : ''}`}>
+            {col.map(({ x, i }) => <StudyItem key={x.t} x={x} i={i} />)}
+          </ul>
+        ))}
+        <ul className="[display:contents] [@media(min-width:_1100px)]:[display:none]">
+          {STUDIES.map((x, i) => <StudyItem key={x.t} x={x} i={i} />)}
+        </ul>
       </div>
     </section>
   );

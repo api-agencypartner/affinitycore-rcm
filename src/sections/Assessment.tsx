@@ -229,7 +229,7 @@ export function Assessment({ monthly, specialty, formFirst, source, calc, includ
 
       <div className="assess__side [display:flex] [flex-direction:column] [gap:1.2rem] [min-width:0]">
         <Eyebrow>/ Free revenue assessment</Eyebrow>
-        <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['See exactly where your', 'revenue is leaking.']} stagger={0.04} />
+        <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={['A free look at where your', 'revenue is leaking.']} stagger={0.04} />
         <motion.ul className="assess__incl [display:grid] [grid-template-columns:1fr_1fr] [gap:1rem_2.4rem] [margin-top:1.6rem] [&_li]:[display:flex] [&_li]:[align-items:center] [&_li]:[gap:1rem] [&_li]:[font-size:max(1.6rem,15px)] [&_li]:[color:var(--navy)] [&_li_span]:[width:2.6rem] [&_li_span]:[height:2.6rem] [&_li_span]:[border-radius:50%] [&_li_span]:[background:#dcf5ea] [&_li_span]:[color:#12a150] [&_li_span]:[display:grid] [&_li_span]:[place-items:center] [&_li_span]:[flex-shrink:0] [&_svg]:[width:1.6rem] [&_svg]:[height:1.6rem] [@media(max-width:_1099px)]:[grid-template-columns:1fr]" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.5 }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } } }}>
           {included.map((t) => (
