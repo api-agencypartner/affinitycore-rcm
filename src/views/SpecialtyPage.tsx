@@ -16,7 +16,9 @@ import { Handle, LeakList, AlsoBilled } from '../components/SpecialtySimple';
 import { LeakFall, TwoClaims } from '../components/SpecialtyFolds';
 import { Included, EhrStrip, SpecialtyReads, TrustRow, MidCta, Switching } from '../components/ChildFolds';
 import { Proof } from './ServicesHub';
-import { SpecializedServices, OurSolution, EhrWall, RelatedServices } from '../components/CardiologyV2';
+import { SpecializedServices, OurSolution, EhrWall, RelatedServices, CARDIOLOGY_V2_FAQS } from '../components/CardiologyV2';
+import { CARDIOLOGY_B_META } from '../data/copy-v2/cardiology-b';
+import { getTemplate } from '../data/sp-template';
 import { StatesFold } from '../sections/StatesFold';
 import { HomeCopyCtx } from '../copyContext';
 import { searchFaqs, pageJsonLd, setJsonLd } from '../data/seo';
@@ -347,11 +349,18 @@ export type SpecialtyPageCopy = {
 export function SpecialtyPage({ slug }: { slug: string }) {
   if (!COPY_V2_SPECIALTIES.includes(slug)) return <SpecialtyPageView s={getSpecialty(slug)!} />;
   const { s, copy } = specialtyV2(slug);
+  if (slug === 'cardiology') {
+    const sc = { ...s, seoDescription: CARDIOLOGY_B_META.description, heroTitle: ['Cardiology billing services,', 'coded beat by beat.'] as [string, string], heroAccent: 'beat.' };
+    return <SpecialtyPageView s={sc} copy={{ ...copy, title: CARDIOLOGY_B_META.title, source: undefined, jsonLd: undefined, faqs: CARDIOLOGY_V2_FAQS }} />;
+  }
   return <SpecialtyPageView s={s} copy={{ ...copy, source: undefined, jsonLd: undefined }} />;
 }
 
 export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?: SpecialtyPageCopy }) {
   const plain = s.short && /^[A-Z/]+$/.test(s.short) ? s.short : s.name.toLowerCase();
+  const tpl = getTemplate(s.slug);
+  /** short label for template headings: acronyms (ASC, GI, OB/GYN) where the full name would wrap to extra lines */
+  const label = s.short && /^[A-Z/]+$/.test(s.short) ? s.short : s.name;
   const monthly = s.leak ? Math.min(2000000, Math.max(50000, Math.round((s.leak.perProvider * s.leak.sizes[1]) / 10000) * 10000)) : undefined;
   const faqs = useMemo(() => {
     const base = searchFaqs({ name: s.name, kind: 'specialty', faqs: s.faqs, detail: s.leak?.leaks[0].label.toLowerCase() });
@@ -374,12 +383,12 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
     <main className="page [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem]">
       <Hero s={s} />
       <IntroBlock d={{ ...specialtyIntro(s), ...c.intro }} />
-      {c.variant === 'cardiology-b' ? (<>
-        <SpecializedServices />
-        <OurSolution />
+      {tpl ? (<>
+        <SpecializedServices name={label} t={tpl} />
+        <OurSolution name={label} t={tpl} />
         {s.leak ? <LeakList s={s} /> : <Problem s={s} />}
-        <EhrWall />
-        <HomeCopyCtx.Provider value={{ statesLines: [`${s.name} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold pills dark /></HomeCopyCtx.Provider>
+        <EhrWall t={tpl} />
+        <HomeCopyCtx.Provider value={{ statesLines: [`${label} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold pills dark /></HomeCopyCtx.Provider>
         <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
       </>) : (<>
       <Handle s={s} lines={c.handleLines} />
@@ -392,7 +401,7 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
       <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
       </>)}
       <FAQ items={faqs} eyebrow={`/ ${s.name} billing FAQs`} lines={s.faqLines} />
-      {c.variant === 'cardiology-b' && <RelatedServices />}
+      {tpl && <RelatedServices name={label} t={tpl} related={s.related} />}
       <CTA eyebrow={s.closing.eyebrow} lines={s.closing.lines} />
     </main>
   );

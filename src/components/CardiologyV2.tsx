@@ -1,16 +1,17 @@
 'use client';
 /**
- * Cardiology page, variation B (unlisted): the folds that differ from the standard specialty template.
- *  1. StudySelector    – pick a study, watch its claim get worked line by line (tabs, auto-advance).
- *  2. SolutionJourney  – sticky headline + a scroll-filled rail; each step drops the artifact it produces,
- *                        then problem → fix rows that strike through and resolve as they enter.
+ * Specialty page template folds (used by every specialty page):
+ *  1. StudySelector    – the specialty's services as icon, heading and description in a simple grid.
+ *  2. SolutionJourney  – sticky headline + a scroll-filled rail; each of the six steps drops an illustrative output chip.
  *  3. EhrFlow          – copy and how access works beside a hairline grid of EHR logos.
- *  4. ServiceBuilder   – related specialties as link cards.
- * Every fold has a static end state for reduced motion and the site's Pause animations control.
+ *  4. ServiceBuilder   – three related specialties as link cards.
+ * Content comes from data/sp-template*. Every fold has a static end state for reduced motion and the Pause animations control.
  */
 import { motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
-import { Activity, ArrowRight, Atom, Check, Droplets, Gauge, HeartPulse, MonitorSmartphone, Plus, ScanLine, Stethoscope, Waypoints, X, Zap } from 'lucide-react';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { icons, ArrowRight, Check, Plus, type LucideIcon } from 'lucide-react';
+import { useRef } from 'react';
+import { STEP_TITLES, type SpecialtyTemplate } from '../data/sp-template';
+import { getSpecialtyLite } from '../data/specialties';
 import { Button, Eyebrow, SplitWords } from './ui';
 import { Link } from '../router';
 import { ease } from '../motion';
@@ -40,45 +41,20 @@ const LEAD = '[font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63]';
 const MONO = '[font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.06em] [text-transform:uppercase]';
 
 
-/* 1. Specialized cardiology billing services: study selector ------------------------------ */
-type Study = { icon: ReactNode; t: string; d: string; checks: [string, string][]; lines: [string, string, string][]; risk: string; cta: string };
-const STUDIES: Study[] = [
-  { icon: <Stethoscope />, t: 'Office visits and consults', d: 'E/M levels supported by the note, and modifier 25 only when a visit is truly separate from the test done the same day.',
-    checks: [['Eligibility', 'Active'], ['Visit level', 'Set by MDM'], ['Same-day test', 'Separate'], ['Modifier 25', 'Supported']],
-    lines: [['99214', 'Established visit, moderate MDM', 'MDM supports level'], ['93000', '12-lead ECG, same day', 'Separate service'], ['-25', 'Modifier on the visit', 'Note supports it']], risk: 'Modifier 25 added by habit, then recouped on audit.', cta: 'Check my visit coding' },
-  { icon: <Activity />, t: 'Echocardiography', d: 'Complete, limited and stress echo billed to the study actually performed, with the Doppler and contrast add-ons that apply.',
-    checks: [['Prior auth', 'On file'], ['Study', 'Complete TTE'], ['Component', 'Global'], ['Diagnosis', 'Meets LCD']],
-    lines: [['93306', 'TTE complete with Doppler', 'Auth on file'], ['Q9957', 'Contrast agent, per mL', 'Add-on captured'], ['I50.32', 'Chronic diastolic heart failure', 'Meets LCD']], risk: 'Echo denied for no auth, or billed complete when it was limited.', cta: 'Check my echo claims' },
-  { icon: <Atom />, t: 'Nuclear cardiology', d: 'SPECT and PET perfusion studies billed with the stress test and the radiopharmaceutical, so no part of the study goes unpaid.',
-    checks: [['Prior auth', 'On file'], ['Stress test', 'Billed'], ['Isotope', 'Billed'], ['Component', 'Global']],
-    lines: [['78452', 'SPECT MPI, rest and stress', 'Auth on file'], ['93015', 'Stress test, global', 'Bundled check passed'], ['A9500', 'Tc-99m sestamibi, per dose', 'Add-on captured']], risk: 'The isotope or the stress test left off the claim.', cta: 'Check my nuclear claims' },
-  { icon: <Gauge />, t: 'Stress testing', d: 'Supervision, interpretation and tracing split correctly between the physician and the facility.',
-    checks: [['Site', 'Hospital'], ['Component', '26 only'], ['Global 93015', 'Not billed'], ['Diagnosis', 'Meets LCD']],
-    lines: [['93016', 'Supervision only', 'Hospital site'], ['93018', 'Interpretation and report', 'Physician read'], ['R07.89', 'Other chest pain', 'Meets LCD']], risk: 'Global 93015 billed when the hospital owns the treadmill.', cta: 'Check my stress tests' },
-  { icon: <HeartPulse />, t: 'Cardiac cath and PCI', d: 'Diagnostic caths, stents and same-day diagnostic-to-PCI cases coded against NCCI bundling edits and the cath report.',
-    checks: [['Prior auth', 'On file'], ['NCCI edits', 'Checked'], ['Same-day PCI', 'Billed apart'], ['Vessel', 'LD']],
-    lines: [['93458', 'Left heart cath, angiography', 'Report matched'], ['92928', 'Stent, single major vessel', 'LD applied'], ['-XU', 'Diagnostic cath, separate', 'No prior study']], risk: 'Diagnostic cath bundled into the PCI and lost.', cta: 'Check my cath lab claims' },
-  { icon: <Zap />, t: 'Electrophysiology and devices', d: 'Pacemaker and ICD implants, device checks and remote monitoring periods billed on the right dates.',
-    checks: [['Prior auth', 'On file'], ['Remote period', 'Day 34 of 90'], ['Office check', 'Not billed'], ['Device', 'ICD']],
-    lines: [['33249', 'ICD insertion, transvenous', 'Auth on file'], ['93295', 'ICD remote review, 90 days', 'Period tracked'], ['93296', 'Remote technical service', 'Not duplicated']], risk: 'In-office check billed inside an open remote period.', cta: 'Check my device billing' },
-  { icon: <Activity />, t: 'ECG and rhythm monitoring', d: 'Office ECGs, Holters and extended patch monitors billed for the component you performed: global, read-only or tracing.',
-    checks: [['Equipment', 'Hospital'], ['Component', '26 only'], ['Monitor days', '6 of 7'], ['Diagnosis', 'Meets LCD']],
-    lines: [['93010', 'ECG interpretation only', 'Pro component'], ['93224', 'Holter, up to 48 hours', 'Global'], ['93241', 'Patch monitor, 48h–7d', 'Days matched']], risk: 'Global ECG billed for a hospital tracing you only read.', cta: 'Check my ECG billing' },
-  { icon: <Waypoints />, t: 'Vascular and peripheral', d: 'Carotid and arterial duplex studies and peripheral interventions linked to the diagnosis each payer’s LCD requires.',
-    checks: [['Diagnosis', 'Meets LCD'], ['Frequency', 'Within limit'], ['Prior auth', 'On file'], ['Laterality', 'Bilateral']],
-    lines: [['93880', 'Carotid duplex, bilateral', 'Meets LCD'], ['93922', 'ABI, limited bilateral', 'Frequency OK'], ['37226', 'Fem-pop stent', 'Auth on file']], risk: 'Duplex denied as not medically necessary.', cta: 'Check my vascular claims' },
-  { icon: <MonitorSmartphone />, t: 'Telehealth and remote monitoring', d: 'Video visits with the right place of service, and RPM device and management time tracked month by month.',
-    checks: [['Place of service', 'POS 10'], ['Modifier', '95'], ['Device days', '16 of 30'], ['Mgmt time', '20 min']],
-    lines: [['99213', 'Video visit, POS 10', 'Modifier 95'], ['99454', 'RPM device supply', '16 days logged'], ['99457', 'RPM management, 20 min', 'Time logged']], risk: 'RPM billed in a month without enough device days.', cta: 'Check my telehealth billing' },
-];
+/* 1. Specialized services grid ------------------------------------------------------------- */
 
-function StudyItem({ x, i }: { x: Study; i: number }) {
+const ICON = (name: string): LucideIcon => (icons as Record<string, LucideIcon>)[name] ?? icons.Stethoscope;
+const lower = (name: string) => name.replace(/^[A-Z][a-z]/, (m) => m.toLowerCase()).replace(/ ([A-Z][a-z])/g, (m) => m.toLowerCase());
+type Props = { name: string; t: SpecialtyTemplate };
+
+function StudyItem({ x, i }: { x: { icon: string; t: string; d: string }; i: number }) {
+  const Icon = ICON(x.icon);
   const off = useMotionOff();
   return (
     <motion.li initial={off ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, ease: ease.out, delay: (i % 3) * 0.07 }}
       className="cvs__item group [display:flex] [flex-direction:column] [gap:1.2rem] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [transition:border-color_0.35s,_box-shadow_0.35s,_transform_0.35s] [&:hover]:[border-color:#cbbdfd] [&:hover]:[transform:translateY(-0.4rem)] [&:hover]:[box-shadow:0_2.4rem_5rem_-2.8rem_rgba(106,65,249,0.45)] [@media(max-width:_1099px)]:[padding:2.2rem]">
       <div className="[display:flex] [align-items:center] [justify-content:space-between]">
-        <span aria-hidden className="[display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [transition:background_0.35s,_color_0.35s] group-hover:[background:var(--purple)] group-hover:[color:#fff] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [&_svg]:[stroke-width:1.7]">{x.icon}</span>
+        <span aria-hidden className="[display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [transition:background_0.35s,_color_0.35s] group-hover:[background:var(--purple)] group-hover:[color:#fff] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [&_svg]:[stroke-width:1.7]"><Icon /></span>
         <span aria-hidden className="[font-family:var(--f-mono)] [font-size:max(1.3rem,12px)] [color:#a3a0b5]">{String(i + 1).padStart(2, '0')}</span>
       </div>
       <h3 className="[margin-top:0.8rem] [font-size:max(2.2rem,18px)] [font-weight:500] [letter-spacing:-0.03rem] [color:var(--ink-2)] [line-height:1.25]">{x.t}</h3>
@@ -87,16 +63,16 @@ function StudyItem({ x, i }: { x: Study; i: number }) {
   );
 }
 
-export function StudySelector() {
+export function StudySelector({ name, t }: Props) {
   return (
-    <section className={`cvs ${SEC}`} id="cardiology-services">
+    <section className={`cvs ${SEC}`} id="services">
       <div className="cvs__head [display:flex] [flex-direction:column] [gap:1.6rem] [max-width:72rem]">
-        <Eyebrow>/ Specialized cardiology billing services</Eyebrow>
-        <SplitWords className={H2} lines={['Every cardiology study,', 'billed the way it pays.']} stagger={0.04} />
-        <p className={`${LEAD} [max-width:60rem]`}>Cardiology billing is the coding and claim work for every study a heart practice performs. Each study has its own codes, component rules and prior auth needs, and we bill all nine.</p>
+        <Eyebrow>{`/ Specialized ${lower(name)} billing services`}</Eyebrow>
+        <SplitWords className={H2} lines={t.lines} stagger={0.04} />
+        <p className={`${LEAD} [max-width:60rem]`}>{t.intro}</p>
       </div>
       <ul className="cvs__grid [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [margin-top:4.8rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_1099px)]:[margin-top:3.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-        {STUDIES.map((x, i) => <StudyItem key={x.t} x={x} i={i} />)}
+        {t.services.map(([icon, title, d], i) => <StudyItem key={title} x={{ icon, t: title, d }} i={i} />)}
       </ul>
       <div className="[display:flex] [align-items:center] [gap:2rem] [flex-wrap:wrap] [margin-top:4rem]">
         <Button>Get a free claim review</Button>
@@ -106,17 +82,9 @@ export function StudySelector() {
   );
 }
 
-/* 2. Our solution: scroll-filled journey + problem → fix ------------------------------------ */
-const STEPS: { t: string; d: string; art: string[] }[] = [
-  { t: 'Verify and authorize', d: 'Eligibility checked before every visit. Prior auths for echo, nuclear, cath and device work requested when the study is scheduled and tracked to the payer’s deadline.', art: ['Eligibility · active', 'Auth A-55821 · approved'] },
-  { t: 'Capture every charge', d: 'Charges built from the cath, echo and device reports, so add-ons, contrast and radiopharmaceuticals are never left off.', art: ['+ Q9957 contrast', '+ A9500 isotope'] },
-  { t: 'Code to the component', d: 'Certified cardiology coders set modifier 26 or TC by site of service, check NCCI edits and link each code to an LCD-approved diagnosis.', art: ['93306-26', 'NCCI · passed', 'I50.32 · meets LCD'] },
-  { t: 'Scrub and submit same day', d: 'Every claim is checked against the payer’s rules and sent the day it is ready.', art: ['0 scrubber errors', 'Sent 4:12 PM'] },
-  { t: 'Work denials and A/R', d: 'Imaging and device denials appealed with the records the payer asks for; aged claims chased until they pay or close.', art: ['CO-197 · appealed', 'Paid in 21 days'] },
-  { t: 'Report every month', d: 'Denial rate, days in A/R and collections by study type, reviewed with you on a call.', art: ['Denials 4.1%', 'A/R 32 days'] },
-];
+/* 2. Our process: scroll-filled journey ------------------------------------------------------ */
 
-function Step({ s, i }: { s: (typeof STEPS)[number]; i: number }) {
+function Step({ s, i }: { s: { t: string; d: string; art: string[] }; i: number }) {
   const ref = useRef<HTMLLIElement>(null);
   const on = useInView(ref, { margin: '0px 0px -45% 0px' });
   const off = useMotionOff();
@@ -141,7 +109,8 @@ function Step({ s, i }: { s: (typeof STEPS)[number]; i: number }) {
 }
 
 
-export function SolutionJourney() {
+export function SolutionJourney({ name, t }: Props) {
+  const steps = t.steps.map(([d, art, title], i) => ({ t: title ?? STEP_TITLES[i], d, art }));
   const ref = useRef<HTMLOListElement>(null);
   const off = useMotionOff();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 60%', 'end 55%'] });
@@ -149,12 +118,12 @@ export function SolutionJourney() {
   const h = useTransform(fill, (v) => `${Math.round(v * 1000) / 10}%`);
   return (
     <div className="cvj-band [margin-top:14rem] [padding-bottom:14rem] [background:linear-gradient(180deg,_#f6f3ff_0%,_#fbfaff_100%)] [border-block:1px_solid_#eee9ff] [@media(max-width:_1099px)]:[margin-top:8rem] [@media(max-width:_1099px)]:[padding-bottom:8rem]">
-    <section className={`cvj ${SEC} [padding-top:12rem]! [@media(max-width:_1099px)]:[padding-top:7.2rem]!`} id="our-solution">
+    <section className={`cvj ${SEC} [padding-top:12rem]! [@media(max-width:_1099px)]:[padding-top:7.2rem]!`} id="our-process">
       <div className="cvj__grid [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [gap:8rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem]">
         <div className="cvj__side [align-self:start] [@media(min-width:_1100px)]:[position:sticky] [@media(min-width:_1100px)]:[top:14rem] [display:flex] [flex-direction:column] [gap:2rem]">
           <Eyebrow>/ Our process</Eyebrow>
-          <SplitWords className={H2} lines={['Our cardiology billing', 'and coding process.']} stagger={0.04} />
-          <p className={`${LEAD} [max-width:46rem]`}>One US-based team runs the whole cycle inside your EHR. Scroll the path one cardiology claim takes, from the eligibility check to the monthly report.</p>
+          <SplitWords className={H2} lines={[`Our ${lower(name)} billing`, 'and coding process.']} stagger={0.04} />
+          <p className={`${LEAD} [max-width:46rem]`}>One US-based team runs the whole cycle inside your EHR. Scroll the path one {lower(name)} claim takes, from the eligibility check to the monthly report.</p>
           <p className={`${MONO} [color:#8b88a0]`}>Chips show an illustrative claim</p>
           <dl className="[display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:1.6rem] [padding-top:2.4rem] [border-top:1px_solid_#ebe6fb] [&_dt]:[font-size:max(1.4rem,14px)] [&_dt]:[color:#646776] [&_dt]:[line-height:1.4] [&_dd]:[font-size:3.6rem] [&_dd]:[font-weight:500] [&_dd]:[letter-spacing:-0.08rem] [&_dd]:[color:var(--ink-2)] [&_dd]:[line-height:1.1] [&_dd]:[margin-bottom:0.6rem] [@media(max-width:_640px)]:[&_dd]:[font-size:2.8rem] [&_div]:[display:flex] [&_div]:[flex-direction:column-reverse]">
             <div><dt>Claims sent the day they’re ready</dt><dd>Same day</dd></div>
@@ -167,7 +136,7 @@ export function SolutionJourney() {
           <span aria-hidden className="[position:absolute] [left:2.8rem] [top:2.8rem] [bottom:2.8rem] [width:2px] [translate:-50%_0] [background:#ece8fa] [@media(max-width:_640px)]:[left:2.2rem]">
             <motion.span className="[position:absolute] [inset:0_0_auto_0] [background:linear-gradient(180deg,_#8060ff,_#6a41f9)] [border-radius:2px]" style={{ height: off ? '100%' : h }} />
           </span>
-          {STEPS.map((s, i) => <Step key={s.t} s={s} i={i} />)}
+          {steps.map((s, i) => <Step key={s.t} s={s} i={i} />)}
         </ol>
       </div>
     </section>
@@ -187,15 +156,15 @@ const ACCESS: [string, string][] = [
   ['Out through your clearinghouse', 'Claims, auths and appeals go out on the rails you already pay for.'],
 ];
 
-export function EhrFlow() {
+export function EhrFlow({ t }: { t: SpecialtyTemplate }) {
   const off = useMotionOff();
   return (
     <section className={`cve ${SEC}`} id="ehr">
       <div className="cve__grid [display:grid] [grid-template-columns:minmax(0,_0.8fr)_minmax(0,_1.2fr)] [gap:7.2rem] [align-items:center] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem]">
         <div className="[display:flex] [flex-direction:column] [gap:1.6rem]">
           <Eyebrow>/ EHR and EMR systems</Eyebrow>
-          <SplitWords className={H2} lines={['Works inside the EHR', 'your cardiologists use.']} stagger={0.04} />
-          <p className={`${LEAD} [max-width:50rem]`}>No new software for your staff. We bill from your EHR and practice management system, including the cardiology modules for echo, cath and device reporting.</p>
+          <SplitWords className={H2} lines={['Works inside the EHR', 'your team already uses.']} stagger={0.04} />
+          <p className={`${LEAD} [max-width:50rem]`}>No new software for your staff. We bill from your EHR and practice management system, {t.ehr}.</p>
           <ol className="[margin-top:1.6rem] [border-top:1px_solid_#ece8fa]">
             {ACCESS.map(([t, d], i) => (
               <li key={t} className="[display:grid] [grid-template-columns:4rem_minmax(0,_1fr)] [gap:1.2rem] [padding:2rem_0] [border-bottom:1px_solid_#ece8fa]">
@@ -224,28 +193,27 @@ export function EhrFlow() {
   );
 }
 
-/* 4. Related specialties: build-your-group ---------------------------------------------------------- */
-const RELATED: { name: string; to: string; icon: ReactNode; d: string }[] = [
-  { name: 'Internal Medicine', to: '/specialties/internal-medicine', icon: <Stethoscope />, d: 'The primary care side of a heart group: chronic care, annual wellness and the referrals that feed the cath lab.' },
-  { name: 'Radiology', to: '/specialties/radiology', icon: <ScanLine />, d: 'Cardiac CT, CTA and MRI read in-house, with the professional and technical split set by site.' },
-  { name: 'Nephrology', to: '/specialties/nephrology', icon: <Droplets />, d: 'Shared heart and kidney patients, ESRD monthly capitation and vascular access work.' },
-];
+/* 4. Related specialties ----------------------------------------------------------------------- */
 
-export function ServiceBuilder() {
+export function ServiceBuilder({ name, t, related }: Props & { related: string[] }) {
+  const list = (t.related ?? related.map((slug) => [slug, ''] as [string, string])).slice(0, 3).map(([slug, d]) => {
+    const r = getSpecialtyLite(slug);
+    return r ? { name: r.name, to: `/specialties/${r.slug}`, Icon: r.icon, d: d || r.watch } : null;
+  }).filter((x) => !!x);
   return (
     <section className={`cvb ${SEC}`} id="related-specialties">
       <div className="cvb__head [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:4rem] [align-items:end] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:1.6rem]">
         <div className="[display:flex] [flex-direction:column] [gap:1.6rem]">
           <Eyebrow>/ Related specialties</Eyebrow>
-          <SplitWords className={H2} lines={['Related specialties we bill', 'alongside cardiology.']} stagger={0.04} />
+          <SplitWords className={H2} lines={['Related specialties we bill', `alongside ${lower(name)}.`]} stagger={0.04} />
         </div>
-        <p className={`${LEAD} [max-width:52rem] [justify-self:end] [@media(max-width:_1099px)]:[justify-self:start]`}>Most heart groups bill more than cardiology. One team can bill every specialty your group runs, with one report across all of them.</p>
+        <p className={`${LEAD} [max-width:52rem] [justify-self:end] [@media(max-width:_1099px)]:[justify-self:start]`}>Many groups bill more than one specialty. One team can bill every specialty your group runs, with one report across all of them.</p>
       </div>
       <ul className="cvb__list [margin-top:4rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_1099px)]:[margin-top:3.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-        {RELATED.map((r) => (
+        {list.map((r) => (
           <li key={r.name}>
             <Link to={r.to} className="group [position:relative] [display:flex] [flex-direction:column] [gap:1.2rem] [height:100%] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [transition:border-color_0.3s,_box-shadow_0.3s,_transform_0.3s] [&:hover]:[border-color:var(--purple)] [&:hover]:[transform:translateY(-0.4rem)] [&:hover]:[box-shadow:0_2rem_5rem_-2.4rem_rgba(106,65,249,0.45)] [@media(max-width:_1099px)]:[padding:2.2rem]">
-              <span aria-hidden className="[display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [transition:background_0.3s,_color_0.3s] group-hover:[background:var(--purple)] group-hover:[color:#fff] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [&_svg]:[stroke-width:1.7]">{r.icon}</span>
+              <span aria-hidden className="[display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [transition:background_0.3s,_color_0.3s] group-hover:[background:var(--purple)] group-hover:[color:#fff] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [&_svg]:[stroke-width:1.7]"><r.Icon /></span>
               <h3 className="[margin-top:0.4rem] [font-size:max(2.2rem,18px)] [font-weight:500] [color:var(--ink-2)] [line-height:1.25]">{r.name}</h3>
               <p className="[font-size:max(1.6rem,15px)] [line-height:1.55] [color:#4a4f63]">{r.d}</p>
               <span className="[margin-top:auto] [padding-top:0.8rem] [display:inline-flex] [align-items:center] [gap:0.6rem] [font-size:max(1.5rem,14px)] [font-weight:500] [color:var(--purple)]">{r.name} billing <ArrowRight size={16} aria-hidden className="[transition:transform_0.3s] group-hover:[transform:translateX(0.4rem)]" /></span>
