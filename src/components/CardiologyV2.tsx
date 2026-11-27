@@ -5,14 +5,14 @@
  *  2. SolutionJourney  – sticky headline + a scroll-filled rail; each step drops the artifact it produces,
  *                        then problem → fix rows that strike through and resolve as they enter.
  *  3. EhrFlow          – two drifting logo rows and a live EHR → coders → payer pipe.
- *  4. ServiceBuilder   – toggle the services you need, a receipt builds itself, one CTA to price it.
+ *  4. ServiceBuilder   – related specialties as link cards.
  * Every fold has a static end state for reduced motion and the site's Pause animations control.
  */
-import { AnimatePresence, motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
-import { Activity, ArrowRight, Atom, Bandage, Building2, Check, Droplets, Gauge, HeartPulse, MonitorSmartphone, Plus, ScanLine, Stethoscope, Syringe, Waypoints, X, Zap } from 'lucide-react';
+import { motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
+import { Activity, ArrowRight, Atom, Bandage, Building2, Check, Droplets, Gauge, HeartPulse, MonitorSmartphone, ScanLine, Stethoscope, Syringe, Waypoints, X, Zap } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button, Eyebrow, SplitWords } from './ui';
-import { Link, goAnchor } from '../router';
+import { Link } from '../router';
 import { ease } from '../motion';
 import { useMotionOff } from '../motionPref';
 import epic from '../assets/ehr-epic.svg';
@@ -256,7 +256,8 @@ export function SolutionJourney() {
   const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
   const h = useTransform(fill, (v) => `${Math.round(v * 1000) / 10}%`);
   return (
-    <section className={`cvj ${SEC}`} id="our-solution">
+    <div className="cvj-band [margin-top:14rem] [padding-bottom:14rem] [background:linear-gradient(180deg,_#f6f3ff_0%,_#fbfaff_100%)] [border-block:1px_solid_#eee9ff] [@media(max-width:_1099px)]:[margin-top:8rem] [@media(max-width:_1099px)]:[padding-bottom:8rem]">
+    <section className={`cvj ${SEC} [padding-top:12rem]! [@media(max-width:_1099px)]:[padding-top:7.2rem]!`} id="our-solution">
       <div className="cvj__grid [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [gap:8rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem]">
         <div className="cvj__side [align-self:start] [@media(min-width:_1100px)]:[position:sticky] [@media(min-width:_1100px)]:[top:14rem] [display:flex] [flex-direction:column] [gap:2rem]">
           <Eyebrow>/ Our solution</Eyebrow>
@@ -285,6 +286,7 @@ export function SolutionJourney() {
         <ul>{FIXES.map(([p, f], i) => <FixRow key={p} p={p} f={f} i={i} />)}</ul>
       </div>
     </section>
+    </div>
   );
 }
 
@@ -297,7 +299,7 @@ const EHRS: [Img, string, number][] = [
 
 function LogoRow({ items, dir, still }: { items: typeof EHRS; dir: 1 | -1; still: boolean }) {
   const pill = (img: Img, name: string, w: number, hide?: boolean) => (
-    <li key={name + (hide ? '-b' : '')} aria-hidden={hide || undefined} className="[flex:none] [display:grid] [place-items:center] [height:8.8rem] [padding:0_3.2rem] [border-radius:99rem] [background:#fff] [border:1px_solid_#ece8fa] [box-shadow:0_1.2rem_3rem_-1.6rem_rgba(57,_28,_160,_0.25)] [@media(max-width:_1099px)]:[height:68px] [@media(max-width:_1099px)]:[padding:0_22px]">
+    <li key={name + (hide ? '-b' : '')} aria-hidden={hide || undefined} className="[flex:none] [display:grid] [place-items:center] [height:8.8rem] [padding:0_3.2rem] [border-radius:99rem] [background:#fff] [border:1px_solid_#ece8fa] [@media(max-width:_1099px)]:[height:68px] [@media(max-width:_1099px)]:[padding:0_22px]">
       <img src={src(img)} alt={hide ? '' : name} loading="lazy" decoding="async" style={{ width: `${w}rem` }} className="[max-height:4rem] [object-fit:contain] [@media(max-width:_1099px)]:[max-height:30px]" />
     </li>
   );
@@ -328,12 +330,12 @@ export function EhrFlow() {
     </div>
   );
   return (
-    <section className={`cve [padding-top:14rem] [@media(max-width:_1099px)]:[padding-top:8rem] [overflow:hidden]`} id="ehr">
+    <section className={`cve [padding-block:12rem] [background:radial-gradient(120%_80%_at_50%_0%,_#2a1a6e_0%,_#140b30_60%)] [color:#fff] [@media(max-width:_1099px)]:[padding-block:7.2rem] [overflow:hidden]`} id="ehr">
       <style>{`@keyframes cveL{to{transform:translateX(calc(-50% - 0.8rem))}}@keyframes cveR{from{transform:translateX(calc(-50% - 0.8rem))}to{transform:translateX(0)}}@keyframes cvePulse{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:100%;opacity:0}}@keyframes cvePulseV{0%{top:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}`}</style>
       <div className="container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem] [display:flex] [flex-direction:column] [align-items:center] [gap:1.6rem] [text-align:center]">
-        <Eyebrow>/ EHR and EMR systems</Eyebrow>
-        <SplitWords className={H2} lines={['Works inside the EHR', 'your cardiologists use.']} stagger={0.04} />
-        <p className={`${LEAD} [max-width:62rem]`}>No new software for your staff. We bill from your EHR and practice management system, including the cardiology modules for echo, cath and device reporting, and map access with you before anything changes.</p>
+        <Eyebrow className="[color:#c4b8ff]!">/ EHR and EMR systems</Eyebrow>
+        <SplitWords className={`${H2} [color:#fff]!`} lines={['Works inside the EHR', 'your cardiologists use.']} stagger={0.04} />
+        <p className={`${LEAD} [max-width:62rem] [color:#cfc8ea]!`}>No new software for your staff. We bill from your EHR and practice management system, including the cardiology modules for echo, cath and device reporting, and map access with you before anything changes.</p>
       </div>
       <div className="cve__logos [margin-top:4.8rem] [display:flex] [flex-direction:column] [@media(max-width:_1099px)]:[margin-top:3.2rem]" role="group" aria-label="EHR and practice management systems we work in">
         {off ? <div className="container [padding-inline:var(--gutter)] [@media(max-width:_1099px)]:[padding-inline:2rem]"><LogoRow items={EHRS} dir={1} still /></div> : <><LogoRow items={a} dir={1} still={false} /><LogoRow items={b} dir={-1} still={false} /></>}
@@ -346,95 +348,42 @@ export function EhrFlow() {
           {pipe}
           {node('Out to payers', 'Clearinghouse and portals', 'Claims, auths and appeals sent and tracked to paid.')}
         </div>
-        <p className="[margin-top:3.2rem] [text-align:center] [font-size:max(1.6rem,16px)] [color:#4a4f63]">Don’t see your system? We work in most EHR and PM systems. <Link to="/contact" className="[color:var(--purple)] [font-weight:500] [text-decoration:underline] [text-underline-offset:0.3rem]">Ask about yours</Link></p>
+        <p className="[margin-top:3.2rem] [text-align:center] [font-size:max(1.6rem,16px)] [color:#cfc8ea]">Don’t see your system? We work in most EHR and PM systems. <Link to="/contact" className="[color:#fff] [font-weight:500] [text-decoration:underline] [text-underline-offset:0.3rem]">Ask about yours</Link></p>
       </div>
     </section>
   );
 }
 
 /* 4. Related specialties: build-your-group ---------------------------------------------------------- */
-const RELATED: { name: string; to: string; icon: ReactNode; d: string; adds: string }[] = [
-  { name: 'Internal Medicine', to: '/specialties/internal-medicine', icon: <Stethoscope />, d: 'The primary care side of a heart group: chronic care, annual wellness and the referrals that feed the cath lab.', adds: 'E/M, CCM and annual wellness visits' },
-  { name: 'Radiology', to: '/specialties/radiology', icon: <ScanLine />, d: 'Cardiac CT, CTA and MRI read in-house, with the professional and technical split set by site.', adds: 'Cardiac CT and MRI, 26/TC by site' },
-  { name: 'Nephrology', to: '/specialties/nephrology', icon: <Droplets />, d: 'Shared heart and kidney patients, ESRD monthly capitation and vascular access work.', adds: 'ESRD monthly codes, dialysis access' },
-  { name: 'Ambulatory Surgery Centers', to: '/specialties/ambulatory-surgery-centers', icon: <Building2 />, d: 'Office-based labs and ASCs doing caths, peripheral work and device implants.', adds: 'Facility claims, device and implant costs' },
-  { name: 'Anesthesia', to: '/specialties/anesthesia', icon: <Syringe />, d: 'Sedation for EP studies, TEEs and cath lab cases, billed on time units and modifiers.', adds: 'Time units, base units, medical direction' },
-  { name: 'Wound Care', to: '/specialties/wound-care', icon: <Bandage />, d: 'Arterial and venous ulcers that follow peripheral vascular disease.', adds: 'Debridement, skin substitutes, frequency limits' },
+const RELATED: { name: string; to: string; icon: ReactNode; d: string }[] = [
+  { name: 'Internal Medicine', to: '/specialties/internal-medicine', icon: <Stethoscope />, d: 'The primary care side of a heart group: chronic care, annual wellness and the referrals that feed the cath lab.' },
+  { name: 'Radiology', to: '/specialties/radiology', icon: <ScanLine />, d: 'Cardiac CT, CTA and MRI read in-house, with the professional and technical split set by site.' },
+  { name: 'Nephrology', to: '/specialties/nephrology', icon: <Droplets />, d: 'Shared heart and kidney patients, ESRD monthly capitation and vascular access work.' },
+  { name: 'Ambulatory Surgery Centers', to: '/specialties/ambulatory-surgery-centers', icon: <Building2 />, d: 'Office-based labs and ASCs doing caths, peripheral work and device implants.' },
+  { name: 'Anesthesia', to: '/specialties/anesthesia', icon: <Syringe />, d: 'Sedation for EP studies, TEEs and cath lab cases, billed on time units and modifiers.' },
+  { name: 'Wound Care', to: '/specialties/wound-care', icon: <Bandage />, d: 'Arterial and venous ulcers that follow peripheral vascular disease.' },
 ];
 
 export function ServiceBuilder() {
-  const off = useMotionOff();
-  const [sel, setSel] = useState<string[]>(['Internal Medicine']);
-  const toggle = (n: string) => setSel((v) => (v.includes(n) ? v.filter((x) => x !== n) : [...v, n]));
-  const go = () => {
-    try { sessionStorage.setItem('ac_specialties', JSON.stringify(['Cardiology', ...sel])); } catch { /* storage may be off */ }
-    goAnchor('assessment');
-  };
-  const picked = RELATED.filter((r) => sel.includes(r.name));
   return (
     <section className={`cvb ${SEC}`} id="related-specialties">
       <div className="cvb__head [max-width:72rem]">
-          <Eyebrow>/ Related specialties</Eyebrow>
-          <SplitWords className={`${H2} [margin-top:1.6rem]`} lines={['Related specialties we bill', 'alongside cardiology.']} stagger={0.04} />
-          <p className={`${LEAD} [margin-top:1.6rem] [max-width:56rem]`}>Most heart groups bill more than cardiology. Add the specialties your group runs and we’ll price one team for all of them.</p>
+        <Eyebrow>/ Related specialties</Eyebrow>
+        <SplitWords className={`${H2} [margin-top:1.6rem]`} lines={['Related specialties we bill', 'alongside cardiology.']} stagger={0.04} />
+        <p className={`${LEAD} [margin-top:1.6rem] [max-width:56rem]`}>Most heart groups bill more than cardiology. One team can bill every specialty your group runs, with one report across all of them.</p>
       </div>
-      <div className="cvb__grid [display:grid] [grid-template-columns:minmax(0,_1.15fr)_minmax(0,_0.85fr)] [gap:4.8rem] [align-items:start] [margin-top:3.2rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:3.2rem]">
-        <div>
-          <ul className="cvb__list [display:grid] [grid-template-columns:repeat(2,_minmax(0,_1fr))] [gap:1.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-            {RELATED.map((r) => {
-              const on = sel.includes(r.name);
-              return (
-                <li key={r.name} className={`[position:relative] [display:flex] [flex-direction:column] [gap:1rem] [padding:2.4rem] [border-radius:2.4rem] [transition:border-color_0.3s,_background_0.3s,_box-shadow_0.3s] ${on ? '[border:1.5px_solid_var(--purple)] [background:#faf8ff] [box-shadow:0_1.6rem_4rem_-2rem_rgba(106,65,249,0.45)]' : '[border:1.5px_solid_#ece8fa] [background:#fff] [&:hover]:[border-color:#d9d0fb]'} [@media(max-width:_1099px)]:[padding:2rem]`}>
-                  <div className="[display:flex] [align-items:center] [gap:1.2rem]">
-                    <span aria-hidden className="[flex:none] [display:grid] [place-items:center] [width:4.4rem] [height:4.4rem] [border-radius:1.2rem] [background:#f1edff] [color:var(--purple)] [&_svg]:[width:2.2rem] [&_svg]:[height:2.2rem] [&_svg]:[stroke-width:1.7]">{r.icon}</span>
-                    <h3 className="[font-size:max(1.9rem,17px)] [font-weight:500] [color:var(--ink-2)] [line-height:1.25]">{r.name}</h3>
-                  </div>
-                  <p className="[font-size:max(1.6rem,15px)] [line-height:1.55] [color:#4a4f63]">{r.d}</p>
-                  <div className="[display:flex] [align-items:center] [justify-content:space-between] [gap:1.2rem] [margin-top:auto] [padding-top:0.4rem]">
-                    <Link to={r.to} className="[font-size:max(1.5rem,14px)] [font-weight:500] [color:var(--purple)] [text-decoration:underline] [text-underline-offset:0.3rem] [min-height:24px] [display:inline-flex] [align-items:center]">Learn more<span className="sr-only"> about {r.name} billing</span></Link>
-                    <button type="button" aria-pressed={on} onClick={() => toggle(r.name)} className={`[display:inline-flex] [align-items:center] [gap:0.6rem] [min-height:40px] [padding:0_1.6rem] [border-radius:99rem] [font-size:max(1.5rem,14px)] [font-weight:500] [transition:background_0.3s,_color_0.3s] ${on ? '[background:var(--purple)] [color:#fff]' : '[background:#f3f0ff] [color:var(--purple)] [&:hover]:[background:#e9e3ff]'}`}>
-                      {on ? <><Check size={15} strokeWidth={3} aria-hidden /> Added</> : <><Plus size={15} strokeWidth={2.6} aria-hidden /> Add</>}<span className="sr-only"> {r.name}</span>
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <aside className="cvb__receipt [@media(min-width:_1100px)]:[position:sticky] [@media(min-width:_1100px)]:[top:12rem] [padding:3.2rem] [border-radius:3.2rem] [background:linear-gradient(180deg,_#ffffff,_#faf8ff)] [border:1px_solid_#ece8fa] [box-shadow:0_3rem_8rem_-2.4rem_rgba(57,_28,_160,_0.28)] [@media(max-width:_1099px)]:[padding:2.4rem_2rem] [@media(max-width:_1099px)]:[border-radius:2.4rem]" aria-labelledby="cvb-plan">
-          <div className="[display:flex] [justify-content:space-between] [align-items:baseline] [gap:1.2rem] [padding-bottom:1.6rem] [border-bottom:1px_dashed_#ddd5f8]">
-            <h3 id="cvb-plan" className="[font-size:max(2.2rem,18px)] [font-weight:500] [color:var(--ink-2)]">Your group’s billing</h3>
-            <span className={`${MONO} [color:var(--purple)]`} aria-live="polite">{sel.length + 1} specialties</span>
-          </div>
-          <ul className="[display:flex] [flex-direction:column] [min-height:12rem] [padding-block:0.8rem]">
-            <li className="[display:flex] [gap:1.2rem] [padding:1.2rem_0] [border-bottom:1px_solid_#f0ecfb]">
-              <HeartPulse size={16} strokeWidth={2.4} aria-hidden className="[flex:none] [margin-top:0.3rem] [color:var(--purple)]" />
-              <div className="[flex:1]"><b className="[display:block] [font-weight:500] [font-size:max(1.7rem,16px)] [color:var(--ink-2)]">Cardiology</b><span className="[font-size:max(1.4rem,14px)] [color:#646776]">Echo, nuclear, cath, EP and devices</span></div>
-              <span className={`${MONO} [color:#646776] [align-self:center]`}>Included</span>
-            </li>
-            <AnimatePresence initial={false}>
-              {picked.map((r) => (
-                <motion.li key={r.name} layout={!off} initial={off ? false : { opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={off ? undefined : { opacity: 0, height: 0 }} transition={{ duration: 0.35, ease: ease.out }} className="[overflow:hidden]">
-                  <div className="[display:flex] [gap:1.2rem] [padding:1.2rem_0] [border-bottom:1px_solid_#f0ecfb]">
-                    <Check size={16} strokeWidth={3} aria-hidden className="[flex:none] [margin-top:0.3rem] [color:#13a35f]" />
-                    <div><b className="[display:block] [font-weight:500] [font-size:max(1.7rem,16px)] [color:var(--ink-2)]">{r.name}</b><span className="[font-size:max(1.4rem,14px)] [color:#646776]">{r.adds}</span></div>
-                  </div>
-                </motion.li>
-              ))}
-            </AnimatePresence>
-            {picked.length === 0 && <li className="[padding:2.4rem_0] [font-size:max(1.6rem,15px)] [color:#646776]">Add a specialty if your group bills more than cardiology.</li>}
-          </ul>
-          <ul className="[display:flex] [flex-direction:column] [gap:0.6rem] [margin-top:1.6rem] [font-size:max(1.5rem,14px)] [color:#4a4f63] [&_li]:[display:flex] [&_li]:[gap:0.8rem] [&_li]:[align-items:center]">
-            <li><Check size={14} strokeWidth={3} aria-hidden className="[color:var(--purple)]" />One team and one report across specialties</li>
-            <li><Check size={14} strokeWidth={3} aria-hidden className="[color:var(--purple)]" />BAA signed, works inside your EHR</li>
-            <li><Check size={14} strokeWidth={3} aria-hidden className="[color:var(--purple)]" />No setup fees, priced on what we collect</li>
-          </ul>
-          <button type="button" onClick={go} className="[margin-top:2.4rem] [width:100%] [min-height:5.6rem] [display:inline-flex] [align-items:center] [justify-content:center] [gap:1rem] [border-radius:99rem] [background:linear-gradient(180deg,_#8060ff,_#6a41f9)] [color:#fff] [font-weight:500] [font-size:max(1.7rem,16px)] [transition:filter_0.3s,_opacity_0.3s] [&:hover]:[filter:brightness(1.08)] [&:disabled]:[opacity:0.5] [&:disabled]:[cursor:not-allowed] [&:hover_svg]:[transform:translateX(0.4rem)] [&_svg]:[transition:transform_0.3s]">
-            Get pricing for my group <ArrowRight size={18} aria-hidden />
-          </button>
-          <p className="[margin-top:1.2rem] [text-align:center] [font-size:max(1.4rem,14px)] [color:#646776]">Free, takes 20 seconds. HIPAA-compliant.</p>
-        </aside>
-      </div>
+      <ul className="cvb__list [margin-top:4rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_1099px)]:[margin-top:3.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
+        {RELATED.map((r) => (
+          <li key={r.name}>
+            <Link to={r.to} className="group [position:relative] [display:flex] [flex-direction:column] [gap:1.2rem] [height:100%] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [transition:border-color_0.3s,_box-shadow_0.3s,_transform_0.3s] [&:hover]:[border-color:var(--purple)] [&:hover]:[transform:translateY(-0.4rem)] [&:hover]:[box-shadow:0_2rem_5rem_-2.4rem_rgba(106,65,249,0.45)] [@media(max-width:_1099px)]:[padding:2.2rem]">
+              <span aria-hidden className="[display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [transition:background_0.3s,_color_0.3s] group-hover:[background:var(--purple)] group-hover:[color:#fff] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [&_svg]:[stroke-width:1.7]">{r.icon}</span>
+              <h3 className="[margin-top:0.4rem] [font-size:max(2.2rem,18px)] [font-weight:500] [color:var(--ink-2)] [line-height:1.25]">{r.name}</h3>
+              <p className="[font-size:max(1.6rem,15px)] [line-height:1.55] [color:#4a4f63]">{r.d}</p>
+              <span className="[margin-top:auto] [padding-top:0.8rem] [display:inline-flex] [align-items:center] [gap:0.6rem] [font-size:max(1.5rem,14px)] [font-weight:500] [color:var(--purple)]">{r.name} billing <ArrowRight size={16} aria-hidden className="[transition:transform_0.3s] group-hover:[transform:translateX(0.4rem)]" /></span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
