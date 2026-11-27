@@ -14,7 +14,7 @@ import { ease, vp } from '../motion';
 import { useTouch } from '../components/useNarrow';
 import { StateFlag } from '../components/StateFlag';
 
-/** pills: five states as flag + name pills (used by the cardiology variation) instead of three detail rows. */
+/** pills: fourteen states as flag + name pills (used by the cardiology variation) instead of three detail rows. */
 export function StatesFold({ pills = false }: { pills?: boolean } = {}) {
   const hc = useHomeCopy();
   const touch = useTouch();
@@ -29,12 +29,12 @@ export function StatesFold({ pills = false }: { pills?: boolean } = {}) {
             Every state has its own Medicare contractor, Medicaid plans and prompt-pay deadline. We bill practices across the US from our Plano, Texas office, in your time zone, with each state’s rules built into the work.
           </Reveal>
           {pills ? (
-            <ul className="stf__pills [display:flex] [flex-wrap:wrap] [gap:1rem] [margin-top:1.2rem]" aria-label="Featured states">
-              {FEATURED.slice(0, 5).map((slug) => STATES.find((x) => x.slug === slug)!).map((s, i) => (
-                <motion.li key={s.slug} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, ease: ease.out, delay: 0.1 + i * 0.06 }}>
+            <ul className="stf__pills [display:flex] [flex-wrap:wrap] [gap:1rem] [@media(max-width:_640px)]:[gap:8px] [margin-top:1.2rem]" aria-label="Featured states">
+              {[...FEATURED, 'ohio', 'michigan', 'new-jersey', 'virginia', 'arizona', 'washington'].map((slug) => STATES.find((x) => x.slug === slug)).filter((x) => !!x).map((s, i) => (
+                <motion.li key={s.slug} className={i >= 8 ? '[@media(max-width:_640px)]:[display:none]' : ''} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, ease: ease.out, delay: 0.1 + i * 0.04 }}>
                   <Link to={`/states/${s.slug}`} onMouseEnter={() => setActive(s.id)} onMouseLeave={() => setActive(null)} onFocus={() => setActive(s.id)} onBlur={() => setActive(null)}
-                    className={`[display:inline-flex] [align-items:center] [gap:1rem] [min-height:48px] [padding:0.8rem_1.6rem_0.8rem_0.8rem] [border-radius:99rem] [background:#fff] [font-size:max(1.7rem,15px)] [font-weight:500] [color:var(--ink-2)] [transition:border-color_0.3s,_box-shadow_0.3s,_transform_0.3s] [&:hover]:[border-color:var(--purple)] [&:hover]:[transform:translateY(-0.2rem)] [&:hover]:[box-shadow:0_1.2rem_3rem_rgba(106,_65,_249,_0.14)] [&_svg]:[transition:transform_0.3s] [&:hover_svg]:[transform:translateX(0.3rem)] ${active === s.id ? '[border:1px_solid_var(--purple)] [box-shadow:0_1.2rem_3rem_rgba(106,_65,_249,_0.14)]' : '[border:1px_solid_#e6e1f7]'}`}>
-                    <StateFlag abbr={s.abbr} className="[width:4rem] [border-radius:99rem]! [aspect-ratio:1]!" />
+                    className={`[display:inline-flex] [align-items:center] [gap:1rem] [min-height:48px] [padding:0.8rem_1.6rem_0.8rem_0.8rem] [@media(max-width:_640px)]:[min-height:44px] [@media(max-width:_640px)]:[gap:8px] [@media(max-width:_640px)]:[padding:6px_12px_6px_7px] [@media(max-width:_640px)]:[font-size:14px] [border-radius:99rem] [background:#fff] [font-size:max(1.7rem,15px)] [font-weight:500] [color:var(--ink-2)] [transition:border-color_0.3s,_box-shadow_0.3s,_transform_0.3s] [&:hover]:[border-color:var(--purple)] [&:hover]:[transform:translateY(-0.2rem)] [&:hover]:[box-shadow:0_1.2rem_3rem_rgba(106,_65,_249,_0.14)] [&_svg]:[transition:transform_0.3s] [&:hover_svg]:[transform:translateX(0.3rem)] ${active === s.id ? '[border:1px_solid_var(--purple)] [box-shadow:0_1.2rem_3rem_rgba(106,_65,_249,_0.14)]' : '[border:1px_solid_#e6e1f7]'}`}>
+                    <StateFlag abbr={s.abbr} className="[width:4rem] [border-radius:99rem]! [aspect-ratio:1]! [@media(max-width:_640px)]:[width:26px]" />
                     {s.name}
                     <ArrowRight size={16} aria-hidden className="[color:var(--purple)]" />
                   </Link>
