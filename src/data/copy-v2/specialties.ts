@@ -25,3 +25,4 @@ export function specialtyV2(slug: string): { s: SpecialtyFull; copy: SpecialtyPa
     },
   };
 }
+

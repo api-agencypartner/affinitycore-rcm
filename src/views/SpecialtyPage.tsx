@@ -16,6 +16,9 @@ import { Handle, LeakList, AlsoBilled } from '../components/SpecialtySimple';
 import { LeakFall, TwoClaims } from '../components/SpecialtyFolds';
 import { Included, EhrStrip, SpecialtyReads, TrustRow, MidCta, Switching } from '../components/ChildFolds';
 import { Proof } from './ServicesHub';
+import { SpecializedServices, OurSolution, EhrWall, RelatedServices } from '../components/CardiologyV2';
+import { StatesFold } from '../sections/StatesFold';
+import { HomeCopyCtx } from '../copyContext';
 import { searchFaqs, pageJsonLd, setJsonLd } from '../data/seo';
 import { Link } from '../router';
 import { getSpecialty, getSpecialtyLite, type SpecialtyFull, type AuthReq, type Wave, type SpPhoto } from '../data/specialties';
@@ -336,6 +339,9 @@ export type SpecialtyPageCopy = {
   platformsCopy?: string; midBody?: string; guide?: SpecialtyGuideCopy;
   /** [current text, replacement] pairs, matched against each FAQ question and answer. */ faqSwap?: string[][];
   source?: string; jsonLd?: boolean;
+  /** Layout variation: 'cardiology-b' swaps the middle folds (see components/CardiologyV2). */ variant?: 'cardiology-b';
+  /** Replaces the whole FAQ list (and its FAQPage JSON-LD). */ faqs?: string[][];
+  /** Path used in JSON-LD, when the page lives somewhere other than /specialties/[slug]. */ path?: string;
 };
 
 export function SpecialtyPage({ slug }: { slug: string }) {
@@ -349,24 +355,35 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
   const monthly = s.leak ? Math.min(2000000, Math.max(50000, Math.round((s.leak.perProvider * s.leak.sizes[1]) / 10000) * 10000)) : undefined;
   const faqs = useMemo(() => {
     const base = searchFaqs({ name: s.name, kind: 'specialty', faqs: s.faqs, detail: s.leak?.leaks[0].label.toLowerCase() });
+    if (c.faqs) return c.faqs;
     if (!c.faqSwap) return base;
     const norm = (t: string) => t.replace(/\s+/g, ' ').trim();
     const swap = (t: string) => c.faqSwap!.find(([from]) => norm(from) === norm(t))?.[1] ?? t;
     return base.map(([q, a]) => [swap(q), swap(a)]);
-  }, [s, c.faqSwap]);
+  }, [s, c.faqSwap, c.faqs]);
   useEffect(() => {
     document.title = c.title ?? `${s.seoTitle} · Affinity Core`;
     let m = document.querySelector('meta[name="description"]');
     if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); }
     m.setAttribute('content', s.seoDescription);
     if (c.jsonLd === false) return;
-    setJsonLd(pageJsonLd({ name: `${s.name} Billing Services`, description: s.seoDescription, path: `/specialties/${s.slug}`, crumb: ['Specialties', '/specialties'], faqs }));
+    setJsonLd(pageJsonLd({ name: `${s.name} Billing Services`, description: s.seoDescription, path: c.path ?? `/specialties/${s.slug}`, crumb: ['Specialties', '/specialties'], faqs }));
     return () => setJsonLd(null);
-  }, [s, faqs, c.title, c.jsonLd]);
+  }, [s, faqs, c.title, c.jsonLd, c.path]);
   return (
     <main className="page [overflow-x:clip] [@media(max-width:_640px)]:[&:has(.mbar)]:[padding-bottom:7.2rem]">
       <Hero s={s} />
       <IntroBlock d={{ ...specialtyIntro(s), ...c.intro }} />
+      {c.variant === 'cardiology-b' ? (<>
+        <SpecializedServices />
+        <OurSolution />
+        <EhrWall />
+        {s.leak ? <LeakList s={s} /> : <Problem s={s} />}
+        <HomeCopyCtx.Provider value={{ statesLines: [`${s.name} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold /></HomeCopyCtx.Provider>
+        <MidCta title="Want this on your own claims?" body={c.midBody ?? `Send us a month of ${plain} claims. We’ll show you every line we’d change.`} />
+        <PageGuide g={specialtyGuide(s, c.guide)} />
+        <RelatedServices />
+      </>) : (<>
       <Handle s={s} lines={c.handleLines} />
       <EhrStrip what={plain} copy={c.platformsCopy} />
       {s.leak ? <LeakList s={s} /> : <Problem s={s} />}
@@ -374,6 +391,7 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
       <MidCta title="Want this on your own claims?" body={c.midBody ?? `Send us a month of ${plain} claims. We’ll show you every line we’d change and what it’s worth, free. Switching takes about 30 days, with no gap in billing.`} />
       <PageGuide g={specialtyGuide(s, c.guide)} />
       <AlsoBilled s={s} />
+      </>)}
       <Assessment monthly={monthly} specialty={s.name} source={c.source ?? `specialty:${s.slug}`} />
       <FAQ items={faqs} eyebrow={`/ ${s.name} billing FAQs`} lines={s.faqLines} />
       <CTA eyebrow={s.closing.eyebrow} lines={s.closing.lines} />
