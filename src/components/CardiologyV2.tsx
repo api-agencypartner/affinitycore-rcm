@@ -374,12 +374,14 @@ export function ServiceBuilder() {
   const picked = RELATED.filter((r) => sel.includes(r.name));
   return (
     <section className={`cvb ${SEC}`} id="related-services">
-      <div className="cvb__grid [display:grid] [grid-template-columns:minmax(0,_1.15fr)_minmax(0,_0.85fr)] [gap:4.8rem] [align-items:start] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:3.2rem]">
-        <div>
+      <div className="cvb__head [max-width:72rem]">
           <Eyebrow>/ Related medical billing services</Eyebrow>
           <SplitWords className={`${H2} [margin-top:1.6rem]`} lines={['Related medical billing', 'services for cardiology.']} stagger={0.04} />
           <p className={`${LEAD} [margin-top:1.6rem] [max-width:56rem]`}>Use the full cycle or only the part you need. Pick the services your practice wants help with and we’ll price exactly that.</p>
-          <ul className="cvb__list [margin-top:3.2rem] [display:grid] [grid-template-columns:repeat(2,_minmax(0,_1fr))] [gap:1.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
+      </div>
+      <div className="cvb__grid [display:grid] [grid-template-columns:minmax(0,_1.15fr)_minmax(0,_0.85fr)] [gap:4.8rem] [align-items:start] [margin-top:3.2rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:3.2rem]">
+        <div>
+          <ul className="cvb__list [display:grid] [grid-template-columns:repeat(2,_minmax(0,_1fr))] [gap:1.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
             {RELATED.map((r) => {
               const on = sel.includes(r.name);
               return (
@@ -429,6 +431,7 @@ export function ServiceBuilder() {
           <p className="[margin-top:1.2rem] [text-align:center] [font-size:max(1.4rem,14px)] [color:#646776]">Free, takes 20 seconds. HIPAA-compliant.</p>
         </aside>
       </div>
+      <p className="[margin-top:3.2rem] [font-size:max(1.6rem,15px)] [line-height:1.6] [color:#4a4f63]">Cardiology groups often bill <Link to="/specialties/radiology" className="[color:var(--purple)] [text-decoration:underline] [text-underline-offset:0.3rem]">radiology</Link>, <Link to="/specialties/nephrology" className="[color:var(--purple)] [text-decoration:underline] [text-underline-offset:0.3rem]">nephrology</Link> and <Link to="/specialties/internal-medicine" className="[color:var(--purple)] [text-decoration:underline] [text-underline-offset:0.3rem]">internal medicine</Link> too. We bill all three.</p>
     </section>
   );
 }
@@ -446,4 +449,5 @@ export const CARDIOLOGY_V2_FAQS: [string, string][] = [
   ['Can you bill an office visit on the same day as an echo or stress test?', 'Yes, when the visit addresses something beyond the decision to order the test, such as a medication change or a new problem. We add modifier 25 to the visit only when the note supports a separate service, which is one of the most audited cardiology billing patterns.'],
   ['How much do cardiology billing services cost?', 'Most practices pay a percentage of what we collect, so our fee depends on your volume and payer mix. Send us a month of claims and we’ll give you an exact quote with no setup fees.'],
   ['How long does it take to switch to Affinity Core?', 'Usually 30 to 45 days. We sign a BAA, get access to your EHR, review your cardiology payer rules and open A/R, then take over new claims while your current biller finishes the old ones, so cash flow doesn’t pause.'],
+  ['What should you ask a cardiology billing company before you switch?', 'Ask how many cardiology practices they bill for and who codes them, the top cardiology denial reasons they see and what they change to stop them, how echo, nuclear and cath lab claims are reviewed before they go out, and whether they report denial rate and days in A/R against cardiology benchmarks every month.'],
 ];

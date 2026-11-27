@@ -379,9 +379,8 @@ export function SpecialtyPageView({ s, copy: c = {} }: { s: SpecialtyFull; copy?
         <OurSolution />
         <EhrWall />
         {s.leak ? <LeakList s={s} /> : <Problem s={s} />}
-        <HomeCopyCtx.Provider value={{ statesLines: [`${s.name} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold /></HomeCopyCtx.Provider>
+        <HomeCopyCtx.Provider value={{ statesLines: [`${s.name} billing in all 50 states,`, 'under every Medicare contractor.'] }}><StatesFold pills /></HomeCopyCtx.Provider>
         <MidCta title="Want this on your own claims?" body={c.midBody ?? `Send us a month of ${plain} claims. We’ll show you every line we’d change.`} />
-        <PageGuide g={specialtyGuide(s, c.guide)} />
         <RelatedServices />
       </>) : (<>
       <Handle s={s} lines={c.handleLines} />
