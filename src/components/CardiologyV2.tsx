@@ -40,43 +40,41 @@ const H2 = 'h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.06] [letter
 const LEAD = '[font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63]';
 const MONO = '[font-family:var(--f-mono)] [font-size:max(1.2rem,12px)] [letter-spacing:0.06em] [text-transform:uppercase]';
 
-/* small ECG-like trace, different rhythm per study */
-function tracePath(seed: number, n = 6) {
-  let d = 'M0 40', x = 0;
-  for (let i = 0; i < n; i++) {
-    const a = 14 + ((seed * 7 + i * 13) % 18), w = 60;
-    d += ` L${x + 18} 40 L${x + 24} ${40 - a * 0.35} L${x + 28} 40 L${x + 32} ${40 + a * 0.5} L${x + 36} ${40 - a} L${x + 40} ${40 + a * 0.6} L${x + 44} 40 L${x + w} 40`;
-    x += w;
-  }
-  return { d, w: x };
-}
 
 /* 1. Specialized cardiology billing services: study selector ------------------------------ */
-type Study = { icon: ReactNode; t: string; d: string; lines: [string, string, string][]; risk: string; cta: string };
+type Study = { icon: ReactNode; t: string; d: string; checks: [string, string][]; lines: [string, string, string][]; risk: string; cta: string };
 const STUDIES: Study[] = [
   { icon: <Stethoscope />, t: 'Office visits and consults', d: 'E/M levels supported by the note, and modifier 25 only when a visit is truly separate from the test done the same day.',
+    checks: [['Eligibility', 'Active'], ['Visit level', 'Set by MDM'], ['Same-day test', 'Separate'], ['Modifier 25', 'Supported']],
     lines: [['99214', 'Established visit, moderate MDM', 'MDM supports level'], ['93000', '12-lead ECG, same day', 'Separate service'], ['-25', 'Modifier on the visit', 'Note supports it']], risk: 'Modifier 25 added by habit, then recouped on audit.', cta: 'Check my visit coding' },
   { icon: <Activity />, t: 'Echocardiography', d: 'Complete, limited and stress echo billed to the study actually performed, with the Doppler and contrast add-ons that apply.',
+    checks: [['Prior auth', 'On file'], ['Study', 'Complete TTE'], ['Component', 'Global'], ['Diagnosis', 'Meets LCD']],
     lines: [['93306', 'TTE complete with Doppler', 'Auth on file'], ['Q9957', 'Contrast agent, per mL', 'Add-on captured'], ['I50.32', 'Chronic diastolic heart failure', 'Meets LCD']], risk: 'Echo denied for no auth, or billed complete when it was limited.', cta: 'Check my echo claims' },
   { icon: <Atom />, t: 'Nuclear cardiology', d: 'SPECT and PET perfusion studies billed with the stress test and the radiopharmaceutical, so no part of the study goes unpaid.',
+    checks: [['Prior auth', 'On file'], ['Stress test', 'Billed'], ['Isotope', 'Billed'], ['Component', 'Global']],
     lines: [['78452', 'SPECT MPI, rest and stress', 'Auth on file'], ['93015', 'Stress test, global', 'Bundled check passed'], ['A9500', 'Tc-99m sestamibi, per dose', 'Add-on captured']], risk: 'The isotope or the stress test left off the claim.', cta: 'Check my nuclear claims' },
   { icon: <Gauge />, t: 'Stress testing', d: 'Supervision, interpretation and tracing split correctly between the physician and the facility.',
+    checks: [['Site', 'Hospital'], ['Component', '26 only'], ['Global 93015', 'Not billed'], ['Diagnosis', 'Meets LCD']],
     lines: [['93016', 'Supervision only', 'Hospital site'], ['93018', 'Interpretation and report', 'Physician read'], ['R07.89', 'Other chest pain', 'Meets LCD']], risk: 'Global 93015 billed when the hospital owns the treadmill.', cta: 'Check my stress tests' },
   { icon: <HeartPulse />, t: 'Cardiac cath and PCI', d: 'Diagnostic caths, stents and same-day diagnostic-to-PCI cases coded against NCCI bundling edits and the cath report.',
+    checks: [['Prior auth', 'On file'], ['NCCI edits', 'Checked'], ['Same-day PCI', 'Billed apart'], ['Vessel', 'LD']],
     lines: [['93458', 'Left heart cath, angiography', 'Report matched'], ['92928', 'Stent, single major vessel', 'LD applied'], ['-XU', 'Diagnostic cath, separate', 'No prior study']], risk: 'Diagnostic cath bundled into the PCI and lost.', cta: 'Check my cath lab claims' },
   { icon: <Zap />, t: 'Electrophysiology and devices', d: 'Pacemaker and ICD implants, device checks and remote monitoring periods billed on the right dates.',
+    checks: [['Prior auth', 'On file'], ['Remote period', 'Day 34 of 90'], ['Office check', 'Not billed'], ['Device', 'ICD']],
     lines: [['33249', 'ICD insertion, transvenous', 'Auth on file'], ['93295', 'ICD remote review, 90 days', 'Period tracked'], ['93296', 'Remote technical service', 'Not duplicated']], risk: 'In-office check billed inside an open remote period.', cta: 'Check my device billing' },
   { icon: <Activity />, t: 'ECG and rhythm monitoring', d: 'Office ECGs, Holters and extended patch monitors billed for the component you performed: global, read-only or tracing.',
+    checks: [['Equipment', 'Hospital'], ['Component', '26 only'], ['Monitor days', '6 of 7'], ['Diagnosis', 'Meets LCD']],
     lines: [['93010', 'ECG interpretation only', 'Pro component'], ['93224', 'Holter, up to 48 hours', 'Global'], ['93241', 'Patch monitor, 48h–7d', 'Days matched']], risk: 'Global ECG billed for a hospital tracing you only read.', cta: 'Check my ECG billing' },
   { icon: <Waypoints />, t: 'Vascular and peripheral', d: 'Carotid and arterial duplex studies and peripheral interventions linked to the diagnosis each payer’s LCD requires.',
+    checks: [['Diagnosis', 'Meets LCD'], ['Frequency', 'Within limit'], ['Prior auth', 'On file'], ['Laterality', 'Bilateral']],
     lines: [['93880', 'Carotid duplex, bilateral', 'Meets LCD'], ['93922', 'ABI, limited bilateral', 'Frequency OK'], ['37226', 'Fem-pop stent', 'Auth on file']], risk: 'Duplex denied as not medically necessary.', cta: 'Check my vascular claims' },
   { icon: <MonitorSmartphone />, t: 'Telehealth and remote monitoring', d: 'Video visits with the right place of service, and RPM device and management time tracked month by month.',
+    checks: [['Place of service', 'POS 10'], ['Modifier', '95'], ['Device days', '16 of 30'], ['Mgmt time', '20 min']],
     lines: [['99213', 'Video visit, POS 10', 'Modifier 95'], ['99454', 'RPM device supply', '16 days logged'], ['99457', 'RPM management, 20 min', 'Time logged']], risk: 'RPM billed in a month without enough device days.', cta: 'Check my telehealth billing' },
 ];
 
-function StudyCard({ x, i, play }: { x: Study; i: number; play: boolean }) {
+function StudyCard({ x, play }: { x: Study; play: boolean }) {
   const off = useMotionOff();
-  const { d, w } = tracePath(i + 3);
   const [step, setStep] = useState(off ? 3 : 0);
   useEffect(() => {
     if (off || !play) { setStep(3); return; }
@@ -92,15 +90,16 @@ function StudyCard({ x, i, play }: { x: Study; i: number; play: boolean }) {
           {step >= 3 ? <><Check size={13} strokeWidth={3} aria-hidden /> Ready to submit</> : 'Checking'}
         </span>
       </div>
-      <div className="[position:relative] [height:8rem] [margin:2rem_-0.4rem_1.2rem] [border-radius:1.6rem] [background-color:#faf9ff] [background-image:linear-gradient(#efebfd_1px,_transparent_1px),linear-gradient(90deg,_#efebfd_1px,_transparent_1px)] [background-size:2rem_2rem] [overflow:hidden]" aria-hidden>
-        <svg viewBox={`0 0 ${w} 80`} preserveAspectRatio="none" className="[position:absolute] [inset:0] [width:100%] [height:100%]">
-          <path d={d} fill="none" stroke="#e3dcff" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        </svg>
-        <motion.svg key={x.t + String(play)} viewBox={`0 0 ${w} 80`} preserveAspectRatio="none" className="[position:absolute] [inset:0] [width:100%] [height:100%]"
-          initial={{ clipPath: off ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }} animate={{ clipPath: 'inset(0 0% 0 0)' }} transition={{ duration: off ? 0 : 2.2, ease: 'linear' }}>
-          <path d={d} fill="none" stroke="#6a41f9" strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-        </motion.svg>
-      </div>
+      <p className={`${MONO} [margin-top:3.2rem] [padding-top:2.4rem] [border-top:1px_dashed_#e6e0fa] [color:#646776]`}>What the payer checks</p>
+      <ul className="[display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1rem] [margin-top:1.2rem] [@media(max-width:_640px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))]">
+        {x.checks.map(([k, v], n) => (
+          <li key={k} className={`[display:flex] [flex-direction:column] [gap:0.6rem] [padding:1.4rem_1.6rem] [border-radius:1.6rem] [transition:background_0.4s] ${step > Math.min(n, 2) ? '[background:#f4f1ff]' : '[background:#faf9ff]'}`}>
+            <span className="[font-size:max(1.3rem,12px)] [color:#646776]">{k}</span>
+            <b className="[display:flex] [align-items:center] [gap:0.6rem] [font-weight:500] [font-size:max(1.7rem,15px)] [color:var(--ink-2)] [line-height:1.25]"><Check size={14} strokeWidth={3} aria-hidden className="[flex:none] [color:var(--purple)]" />{v}</b>
+          </li>
+        ))}
+      </ul>
+      <p className={`${MONO} [margin-top:3.2rem] [margin-bottom:0.4rem] [color:#646776]`}>Claim lines</p>
       <ul className="[display:flex] [flex-direction:column]">
         {x.lines.map(([code, label, ok], k) => {
           const on = step > k;
@@ -109,7 +108,7 @@ function StudyCard({ x, i, play }: { x: Study; i: number; play: boolean }) {
               <code className="[font-family:var(--f-mono)] [font-size:max(1.5rem,14px)] [color:var(--ink-2)] [font-weight:500]">{code}</code>
               <span className="[font-size:max(1.6rem,15px)] [color:#4a4f63] [min-width:0]">{label}</span>
               <span className={`${MONO} [justify-self:end] [display:inline-flex] [align-items:center] [gap:0.5rem] [white-space:nowrap] [transition:color_0.35s,_opacity_0.35s] [@media(max-width:_640px)]:[grid-column:2] [@media(max-width:_640px)]:[justify-self:start] ${on ? '[color:#13734a]' : '[color:#a3a0b5]'}`}>
-                {on ? <Check size={13} strokeWidth={3} aria-hidden /> : <span aria-hidden className="[width:0.7rem] [height:0.7rem] [border-radius:50%] [background:currentColor] animate-pulse" />}{on ? ok : 'In review'}
+                {on ? <Check size={13} strokeWidth={3} aria-hidden /> : <span aria-hidden className="[width:0.7rem] [height:0.7rem] [border-radius:50%] [background:currentColor]" />}{on ? ok : 'In review'}
               </span>
             </li>
           );
@@ -147,7 +146,7 @@ export function StudySelector() {
       <div className="[display:flex] [flex-direction:column] [align-items:center] [gap:1.6rem] [text-align:center]">
         <Eyebrow>/ Specialized cardiology billing services</Eyebrow>
         <SplitWords className={H2} lines={['Every cardiology study,', 'billed the way it pays.']} stagger={0.04} />
-        <p className={`${LEAD} [max-width:64rem]`}>Cardiology billing is the coding and claim work for every study a heart practice performs. Each study has its own codes, component rules and prior auth needs. Pick one and watch how we work the claim.</p>
+        <p className={`${LEAD} [max-width:64rem]`}>Cardiology billing is the coding and claim work for every study a heart practice performs. Each study has its own codes, component rules and prior auth needs. Pick one to see what we check before the claim goes out.</p>
       </div>
       <div className="cvs__grid [display:grid] [grid-template-columns:minmax(0,_0.85fr)_minmax(0,_1.15fr)] [gap:4.8rem] [margin-top:5.6rem] [align-items:start] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:2.4rem] [@media(max-width:_1099px)]:[margin-top:3.2rem]">
         <div role="tablist" aria-label="Cardiology services" aria-orientation="vertical" className="cvs__tabs [display:flex] [flex-direction:column] [@media(max-width:_1099px)]:[flex-direction:row] [@media(max-width:_1099px)]:[overflow-x:auto] [@media(max-width:_1099px)]:[gap:0.8rem] [@media(max-width:_1099px)]:[margin-inline:-2rem] [@media(max-width:_1099px)]:[padding:0.4rem_2rem] [@media(max-width:_1099px)]:[scrollbar-width:none] [@media(max-width:_1099px)]:[&::-webkit-scrollbar]:[display:none]">
@@ -172,7 +171,7 @@ export function StudySelector() {
                 <motion.div initial={off ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: ease.out }}>
                   <h3 className="[font-size:max(2.8rem,22px)] [font-weight:500] [letter-spacing:-0.05rem] [color:var(--ink-2)]">{x.t} billing</h3>
                   <p className={`${LEAD} [margin-top:0.8rem] [margin-bottom:2.4rem]`}>{x.d}</p>
-                  <StudyCard x={x} i={i} play={inView} />
+                  <StudyCard x={x} play={inView} />
                   <div className="[display:flex] [align-items:center] [gap:2rem] [flex-wrap:wrap] [margin-top:2.4rem]">
                     <Button>{x.cta}</Button>
                     <span className="[font-size:max(1.5rem,14px)] [color:#646776]">Free review of one month of claims.</span>
