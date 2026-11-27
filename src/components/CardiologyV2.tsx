@@ -9,7 +9,7 @@
  * Every fold has a static end state for reduced motion and the site's Pause animations control.
  */
 import { motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
-import { Activity, ArrowRight, Atom, Bandage, Building2, Check, Droplets, Gauge, HeartPulse, MonitorSmartphone, Plus, ScanLine, Stethoscope, Syringe, Waypoints, X, Zap } from 'lucide-react';
+import { Activity, ArrowRight, Atom, Check, Droplets, Gauge, HeartPulse, MonitorSmartphone, Plus, ScanLine, Stethoscope, Waypoints, X, Zap } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button, Eyebrow, SplitWords } from './ui';
 import { Link } from '../router';
@@ -348,18 +348,17 @@ const RELATED: { name: string; to: string; icon: ReactNode; d: string }[] = [
   { name: 'Internal Medicine', to: '/specialties/internal-medicine', icon: <Stethoscope />, d: 'The primary care side of a heart group: chronic care, annual wellness and the referrals that feed the cath lab.' },
   { name: 'Radiology', to: '/specialties/radiology', icon: <ScanLine />, d: 'Cardiac CT, CTA and MRI read in-house, with the professional and technical split set by site.' },
   { name: 'Nephrology', to: '/specialties/nephrology', icon: <Droplets />, d: 'Shared heart and kidney patients, ESRD monthly capitation and vascular access work.' },
-  { name: 'Ambulatory Surgery Centers', to: '/specialties/ambulatory-surgery-centers', icon: <Building2 />, d: 'Office-based labs and ASCs doing caths, peripheral work and device implants.' },
-  { name: 'Anesthesia', to: '/specialties/anesthesia', icon: <Syringe />, d: 'Sedation for EP studies, TEEs and cath lab cases, billed on time units and modifiers.' },
-  { name: 'Wound Care', to: '/specialties/wound-care', icon: <Bandage />, d: 'Arterial and venous ulcers that follow peripheral vascular disease.' },
 ];
 
 export function ServiceBuilder() {
   return (
     <section className={`cvb ${SEC}`} id="related-specialties">
-      <div className="cvb__head [max-width:72rem]">
-        <Eyebrow>/ Related specialties</Eyebrow>
-        <SplitWords className={`${H2} [margin-top:1.6rem]`} lines={['Related specialties we bill', 'alongside cardiology.']} stagger={0.04} />
-        <p className={`${LEAD} [margin-top:1.6rem] [max-width:56rem]`}>Most heart groups bill more than cardiology. One team can bill every specialty your group runs, with one report across all of them.</p>
+      <div className="cvb__head [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:4rem] [align-items:end] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:1.6rem]">
+        <div className="[display:flex] [flex-direction:column] [gap:1.6rem]">
+          <Eyebrow>/ Related specialties</Eyebrow>
+          <SplitWords className={H2} lines={['Related specialties we bill', 'alongside cardiology.']} stagger={0.04} />
+        </div>
+        <p className={`${LEAD} [max-width:52rem] [justify-self:end] [@media(max-width:_1099px)]:[justify-self:start]`}>Most heart groups bill more than cardiology. One team can bill every specialty your group runs, with one report across all of them.</p>
       </div>
       <ul className="cvb__list [margin-top:4rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_1099px)]:[margin-top:3.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
         {RELATED.map((r) => (
