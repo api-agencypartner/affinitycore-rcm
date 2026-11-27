@@ -280,7 +280,7 @@ export function SolutionJourney() {
         </ol>
       </div>
       <ul className="cvf [margin-top:12rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [@media(max-width:_1099px)]:[margin-top:7.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-        <li className="[display:flex] [flex-direction:column] [justify-content:space-between] [gap:2.4rem] [padding:0.8rem_2.4rem_2.4rem_0] [@media(max-width:_640px)]:[padding:0]">
+        <li className="[display:flex] [flex-direction:column] [gap:12px] [padding:0.8rem_2.4rem_2.4rem_0] [@media(max-width:_640px)]:[padding:0]">
           <div>
             <p className={`${MONO} [color:#646776]`}>Problem <span aria-hidden>→</span> Fix</p>
             <h3 className="[margin-top:1.6rem] [font-size:max(3.4rem,26px)] [font-weight:500] [line-height:1.15] [letter-spacing:-0.06rem] [color:var(--ink-2)] [text-wrap:balance]">Common cardiology billing problems, and how we fix each one.</h3>
