@@ -75,8 +75,8 @@ const STUDIES: Study[] = [
 function StudyItem({ x, i }: { x: Study; i: number }) {
   const off = useMotionOff();
   return (
-    <motion.li initial={off ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.7, ease: ease.out }}
-      className="cvs__item group [display:flex] [flex-direction:column] [gap:1.2rem] [padding-top:2.4rem] [border-top:1px_solid_#e6e1f7]">
+    <motion.li initial={off ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.6, ease: ease.out, delay: (i % 3) * 0.07 }}
+      className="cvs__item group [display:flex] [flex-direction:column] [gap:1.2rem] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [transition:border-color_0.35s,_box-shadow_0.35s,_transform_0.35s] [&:hover]:[border-color:#cbbdfd] [&:hover]:[transform:translateY(-0.4rem)] [&:hover]:[box-shadow:0_2.4rem_5rem_-2.8rem_rgba(106,65,249,0.45)] [@media(max-width:_1099px)]:[padding:2.2rem]">
       <div className="[display:flex] [align-items:center] [justify-content:space-between]">
         <span aria-hidden className="[display:grid] [place-items:center] [width:4.8rem] [height:4.8rem] [border-radius:1.4rem] [background:#f1edff] [color:var(--purple)] [transition:background_0.35s,_color_0.35s] group-hover:[background:var(--purple)] group-hover:[color:#fff] [&_svg]:[width:2.4rem] [&_svg]:[height:2.4rem] [&_svg]:[stroke-width:1.7]">{x.icon}</span>
         <span aria-hidden className="[font-family:var(--f-mono)] [font-size:max(1.3rem,12px)] [color:#a3a0b5]">{String(i + 1).padStart(2, '0')}</span>
@@ -88,29 +88,19 @@ function StudyItem({ x, i }: { x: Study; i: number }) {
 }
 
 export function StudySelector() {
-  const cols = [0, 1, 2].map((c) => STUDIES.map((x, i) => ({ x, i })).filter(({ i }) => i % 3 === c));
   return (
     <section className={`cvs ${SEC}`} id="cardiology-services">
-      <div className="cvs__head [display:grid] [grid-template-columns:minmax(0,_1fr)_minmax(0,_1fr)] [gap:4rem] [align-items:end] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:1.6rem]">
-        <div className="[display:flex] [flex-direction:column] [gap:1.6rem]">
-          <Eyebrow>/ Specialized cardiology billing services</Eyebrow>
-          <SplitWords className={H2} lines={['Every cardiology study,', 'billed the way it pays.']} stagger={0.04} />
-        </div>
-        <div className="[justify-self:end] [max-width:52rem] [display:flex] [flex-direction:column] [gap:2.4rem] [align-items:flex-start] [@media(max-width:_1099px)]:[justify-self:start]">
-          <p className={LEAD}>Cardiology billing is the coding and claim work for every study a heart practice performs. Each study has its own codes, component rules and prior auth needs, and we bill all nine.</p>
-          <Button>Get a free claim review</Button>
-        </div>
+      <div className="cvs__head [display:flex] [flex-direction:column] [gap:1.6rem] [max-width:72rem]">
+        <Eyebrow>/ Specialized cardiology billing services</Eyebrow>
+        <SplitWords className={H2} lines={['Every cardiology study,', 'billed the way it pays.']} stagger={0.04} />
+        <p className={`${LEAD} [max-width:60rem]`}>Cardiology billing is the coding and claim work for every study a heart practice performs. Each study has its own codes, component rules and prior auth needs, and we bill all nine.</p>
       </div>
-      <div className="cvs__cols [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:4.8rem] [margin-top:7.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_1099px)]:[gap:3.2rem] [@media(max-width:_1099px)]:[margin-top:4.8rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
-        {/* desktop: three stepped columns; tablet and phone: one flowing list */}
-        {cols.map((col, c) => (
-          <ul key={c} className={`[display:flex] [flex-direction:column] [gap:5.6rem] [@media(max-width:_1099px)]:[display:none] ${c === 1 ? '[margin-top:8rem]' : c === 2 ? '[margin-top:16rem]' : ''}`}>
-            {col.map(({ x, i }) => <StudyItem key={x.t} x={x} i={i} />)}
-          </ul>
-        ))}
-        <ul className="[display:contents] [@media(min-width:_1100px)]:[display:none]">
-          {STUDIES.map((x, i) => <StudyItem key={x.t} x={x} i={i} />)}
-        </ul>
+      <ul className="cvs__grid [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [margin-top:4.8rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_1099px)]:[margin-top:3.2rem] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
+        {STUDIES.map((x, i) => <StudyItem key={x.t} x={x} i={i} />)}
+      </ul>
+      <div className="[display:flex] [align-items:center] [gap:2rem] [flex-wrap:wrap] [margin-top:4rem]">
+        <Button>Get a free claim review</Button>
+        <span className="[font-size:max(1.5rem,14px)] [color:#646776]">Free review of one month of claims.</span>
       </div>
     </section>
   );
@@ -162,8 +152,8 @@ export function SolutionJourney() {
     <section className={`cvj ${SEC} [padding-top:12rem]! [@media(max-width:_1099px)]:[padding-top:7.2rem]!`} id="our-solution">
       <div className="cvj__grid [display:grid] [grid-template-columns:minmax(0,_0.9fr)_minmax(0,_1.1fr)] [gap:8rem] [@media(max-width:_1099px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_1099px)]:[gap:4rem]">
         <div className="cvj__side [align-self:start] [@media(min-width:_1100px)]:[position:sticky] [@media(min-width:_1100px)]:[top:14rem] [display:flex] [flex-direction:column] [gap:2rem]">
-          <Eyebrow>/ Our solution</Eyebrow>
-          <SplitWords className={H2} lines={['Our cardiology billing', 'and coding solution.']} stagger={0.04} />
+          <Eyebrow>/ Our process</Eyebrow>
+          <SplitWords className={H2} lines={['Our cardiology billing', 'and coding process.']} stagger={0.04} />
           <p className={`${LEAD} [max-width:46rem]`}>One US-based team runs the whole cycle inside your EHR. Scroll the path one cardiology claim takes, from the eligibility check to the monthly report.</p>
           <p className={`${MONO} [color:#8b88a0]`}>Chips show an illustrative claim</p>
           <dl className="[display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:2.4rem] [margin-top:1.6rem] [padding-top:2.4rem] [border-top:1px_solid_#ebe6fb] [&_dt]:[font-size:max(1.4rem,14px)] [&_dt]:[color:#646776] [&_dt]:[line-height:1.4] [&_dd]:[font-size:3.6rem] [&_dd]:[font-weight:500] [&_dd]:[letter-spacing:-0.08rem] [&_dd]:[color:var(--ink-2)] [&_dd]:[line-height:1.1] [&_dd]:[margin-bottom:0.6rem] [@media(max-width:_640px)]:[&_dd]:[font-size:2.8rem] [&_div]:[display:flex] [&_div]:[flex-direction:column-reverse]">
