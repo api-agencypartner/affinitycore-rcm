@@ -195,12 +195,12 @@ const STEPS: { t: string; d: string; art: string[] }[] = [
   { t: 'Work denials and A/R', d: 'Imaging and device denials appealed with the records the payer asks for; aged claims chased until they pay or close.', art: ['CO-197 · appealed', 'Paid in 21 days'] },
   { t: 'Report every month', d: 'Denial rate, days in A/R and collections by study type, reviewed with you on a call.', art: ['Denials 4.1%', 'A/R 32 days'] },
 ];
-const FIXES: [string, string][] = [
-  ['Global billed when only the read was done', 'Modifier 26 or TC set by place of service before the claim goes out.'],
-  ['Nuclear and echo denied for no prior auth', 'Auth requested at scheduling and the number checked on the claim.'],
-  ['Diagnostic cath lost inside a same-day PCI', 'Billed separately when the note shows no prior study or a changed condition.'],
-  ['Device checks billed in an open remote period', 'Each patient’s 90-day period tracked so checks aren’t denied as duplicates.'],
-  ['Imaging denied as not medically necessary', 'ICD-10 codes matched to the payer’s LCD before submission.'],
+const FIXES: [string, string, string][] = [
+  ['26 / TC', 'Global billed when only the read was done', 'Modifier 26 or TC set by place of service before the claim goes out.'],
+  ['Prior auth', 'Nuclear and echo denied for no prior auth', 'Auth requested at scheduling and the number checked on the claim.'],
+  ['NCCI', 'Diagnostic cath lost inside a same-day PCI', 'Billed separately when the note shows no prior study or a changed condition.'],
+  ['Remote period', 'Device checks billed in an open remote period', 'Each patient’s 90-day period tracked so checks aren’t denied as duplicates.'],
+  ['LCD', 'Imaging denied as not medically necessary', 'ICD-10 codes matched to the payer’s LCD before submission.'],
 ];
 
 function Step({ s, i }: { s: (typeof STEPS)[number]; i: number }) {
@@ -227,25 +227,26 @@ function Step({ s, i }: { s: (typeof STEPS)[number]; i: number }) {
   );
 }
 
-function FixRow({ p, f, i }: { p: string; f: string; i: number }) {
-  const ref = useRef<HTMLLIElement>(null);
-  const seen = useInView(ref, { once: true, amount: 0.8 });
+function FixCard({ tag, p, f, i }: { tag: string; p: string; f: string; i: number }) {
   const off = useMotionOff();
-  const done = seen || off;
   return (
-    <li ref={ref} className="cvf__row [display:grid] [grid-template-columns:minmax(0,_1fr)_6.4rem_minmax(0,_1fr)] [align-items:center] [gap:1.6rem] [padding:2.4rem_0] [border-top:1px_solid_#ebe6fb] [@media(max-width:_767px)]:[grid-template-columns:minmax(0,_1fr)] [@media(max-width:_767px)]:[gap:1rem] [@media(max-width:_767px)]:[padding:2rem_0]">
-      <p className="[display:flex] [gap:1.2rem] [align-items:flex-start] [font-size:max(1.8rem,16px)] [line-height:1.5] [color:#9b1c33]">
-        <X size={18} strokeWidth={2.6} aria-hidden className="[flex:none] [margin-top:0.3rem]" />
-        <span><motion.span className="[background-image:linear-gradient(#e8a3ae,#e8a3ae)] [box-decoration-break:slice] [background-repeat:no-repeat] [background-position:0_58%]" initial={off ? false : { backgroundSize: '0% 2px' }} animate={{ backgroundSize: done ? '100% 2px' : '0% 2px' }} transition={{ duration: 0.7, ease: ease.out, delay: 0.1 + i * 0.05 }}><span className="sr-only">Problem: </span>{p}</motion.span></span>
+    <motion.li initial={off ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6, ease: ease.out, delay: (i % 3) * 0.08 }}
+      className="cvf__card [display:flex] [flex-direction:column] [padding:2.8rem] [border-radius:2.4rem] [background:#fff] [border:1px_solid_#ece8fa] [box-shadow:0_2rem_5rem_-3.2rem_rgba(57,_28,_160,_0.3)] [@media(max-width:_1099px)]:[padding:2.2rem]">
+      <div className="[display:flex] [justify-content:space-between] [align-items:center] [gap:1.2rem]">
+        <span className={`${MONO} [padding:0.6rem_1.1rem] [border-radius:99rem] [background:#f1edff] [color:var(--purple)]`}>{tag}</span>
+        <span className={`${MONO} [color:#a3a0b5]`} aria-hidden>{String(i + 1).padStart(2, '0')}</span>
+      </div>
+      <p className="[margin-top:2.4rem] [display:flex] [gap:1rem] [align-items:flex-start] [font-size:max(1.6rem,15px)] [line-height:1.5] [color:#9b1c33]">
+        <X size={16} strokeWidth={2.6} aria-hidden className="[flex:none] [margin-top:0.3rem]" /><span><span className="sr-only">Problem: </span>{p}</span>
       </p>
-      <svg viewBox="0 0 64 12" aria-hidden className="[width:6.4rem] [height:1.2rem] [@media(max-width:_767px)]:[display:none]">
-        <motion.path d="M2 6 H58 M52 1 L58 6 L52 11" fill="none" stroke="#6a41f9" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" initial={off ? false : { pathLength: 0 }} animate={{ pathLength: done ? 1 : 0 }} transition={{ duration: 0.5, delay: 0.5 }} />
-      </svg>
-      <motion.p className="[display:flex] [gap:1.2rem] [align-items:flex-start] [font-size:max(1.8rem,16px)] [line-height:1.5] [color:var(--ink-2)]" initial={off ? false : { opacity: 0, x: -12 }} animate={done ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }} transition={{ duration: 0.55, ease: ease.out, delay: 0.75 }}>
+      <div aria-hidden className="[position:relative] [margin:2.6rem_0_2.4rem] [border-top:1px_dashed_#e3dcf8]">
+        <span className="[position:absolute] [left:0] [top:-1.3rem] [display:grid] [place-items:center] [width:2.6rem] [height:2.6rem] [border-radius:50%] [background:#fff] [border:1px_solid_#e3dcf8] [color:var(--purple)]"><ArrowRight size={13} className="[rotate:90deg]" /></span>
+      </div>
+      <p className="[display:flex] [gap:1rem] [align-items:flex-start] [font-size:max(1.9rem,17px)] [line-height:1.45] [font-weight:500] [color:var(--ink-2)]">
         <span aria-hidden className="[flex:none] [display:grid] [place-items:center] [width:2.4rem] [height:2.4rem] [margin-top:0.1rem] [border-radius:50%] [background:#13a35f] [color:#fff]"><Check size={13} strokeWidth={3} /></span>
         <span><span className="sr-only">How we fix it: </span>{f}</span>
-      </motion.p>
-    </li>
+      </p>
+    </motion.li>
   );
 }
 
@@ -278,13 +279,16 @@ export function SolutionJourney() {
           {STEPS.map((s, i) => <Step key={s.t} s={s} i={i} />)}
         </ol>
       </div>
-      <div className="cvf [margin-top:12rem] [@media(max-width:_1099px)]:[margin-top:7.2rem]">
-        <div className="[display:flex] [justify-content:space-between] [align-items:end] [gap:2.4rem] [flex-wrap:wrap] [margin-bottom:2.4rem]">
-          <h3 className="[font-size:max(3.2rem,24px)] [font-weight:500] [letter-spacing:-0.06rem] [color:var(--ink-2)] [max-width:60rem] [text-wrap:balance]">Common cardiology billing problems, and how we fix each one.</h3>
-          <p className={`${MONO} [color:#646776]`}>Problem <span aria-hidden>→</span> Fix</p>
-        </div>
-        <ul>{FIXES.map(([p, f], i) => <FixRow key={p} p={p} f={f} i={i} />)}</ul>
-      </div>
+      <ul className="cvf [margin-top:12rem] [display:grid] [grid-template-columns:repeat(3,_minmax(0,_1fr))] [gap:1.6rem] [@media(max-width:_1099px)]:[margin-top:7.2rem] [@media(max-width:_1099px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[grid-template-columns:minmax(0,_1fr)]">
+        <li className="[display:flex] [flex-direction:column] [justify-content:space-between] [gap:2.4rem] [padding:0.8rem_2.4rem_2.4rem_0] [@media(max-width:_640px)]:[padding:0]">
+          <div>
+            <p className={`${MONO} [color:#646776]`}>Problem <span aria-hidden>→</span> Fix</p>
+            <h3 className="[margin-top:1.6rem] [font-size:max(3.4rem,26px)] [font-weight:500] [line-height:1.15] [letter-spacing:-0.06rem] [color:var(--ink-2)] [text-wrap:balance]">Common cardiology billing problems, and how we fix each one.</h3>
+          </div>
+          <p className="[font-size:max(1.6rem,15px)] [line-height:1.6] [color:#4a4f63]">Five places cardiology claims go wrong most often. Each one is checked before the claim leaves.</p>
+        </li>
+        {FIXES.map(([tag, p, f], i) => <FixCard key={p} tag={tag} p={p} f={f} i={i} />)}
+      </ul>
     </section>
     </div>
   );
@@ -320,16 +324,16 @@ export function EhrFlow() {
             ))}
           </ol>
         </div>
-        <ul className="cve__wall [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [gap:1px] [padding:0] [border-radius:2.8rem] [overflow:hidden] [background:#ece8fa] [border:1px_solid_#ece8fa] [box-shadow:0_3rem_8rem_-3.2rem_rgba(57,_28,_160,_0.28)] [@media(max-width:_640px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[border-radius:2rem]" aria-label="EHR and practice management systems we work in">
+        <ul className="cve__wall [display:grid] [grid-template-columns:repeat(4,_minmax(0,_1fr))] [&>li]:[border-right:1px_solid_#e6e1f7] [&>li]:[border-bottom:1px_solid_#e6e1f7] [&>li:nth-child(4n)]:[border-right:0] [&>li:nth-last-child(-n+4)]:[border-bottom:0] [@media(max-width:_640px)]:[grid-template-columns:repeat(2,_minmax(0,_1fr))] [@media(max-width:_640px)]:[&>li:nth-child(odd)]:[border-right:1px_solid_#e6e1f7]! [@media(max-width:_640px)]:[&>li:nth-child(even)]:[border-right:0]! [@media(max-width:_640px)]:[&>li]:[border-bottom:1px_solid_#e6e1f7]! [@media(max-width:_640px)]:[&>li:nth-last-child(-n+2)]:[border-bottom:0]!" aria-label="EHR and practice management systems we work in">
           {EHRS.map(([img, name, w], i) => (
             <motion.li key={name} initial={off ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5, delay: (i % 4) * 0.06 + Math.floor(i / 4) * 0.08 }}
-              className="[display:grid] [place-items:center] [aspect-ratio:16/10] [padding:2rem] [background:#fff] [transition:background_0.3s] [&:hover]:[background:#faf8ff] [@media(max-width:_640px)]:[padding:14px]">
+              className="[display:grid] [place-items:center] [aspect-ratio:16/10] [padding:2rem] [@media(max-width:_640px)]:[padding:14px]">
               <img src={src(img)} alt={name} loading="lazy" decoding="async" style={{ width: `${Math.min(w * 1.05, 15)}rem` }} className="[max-width:84%] [max-height:5.2rem] [object-fit:contain] [@media(max-width:_1099px)]:[max-height:34px]" />
             </motion.li>
           ))}
-          <li className="[background:#fff]">
-            <Link to="/contact" className="[display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [gap:0.6rem] [height:100%] [aspect-ratio:16/10] [padding:2rem] [text-align:center] [background:linear-gradient(180deg,_#f7f4ff,_#efe9ff)] [color:var(--purple)] [transition:filter_0.3s] [&:hover]:[filter:brightness(0.97)] [@media(max-width:_640px)]:[padding:14px]">
-              <span className="[display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:50%] [background:#fff] [box-shadow:0_0.6rem_1.6rem_-0.6rem_rgba(106,65,249,0.45)]"><Plus size={18} aria-hidden /></span>
+          <li>
+            <Link to="/contact" className="[display:flex] [flex-direction:column] [align-items:center] [justify-content:center] [gap:0.6rem] [height:100%] [aspect-ratio:16/10] [padding:2rem] [text-align:center] [color:var(--purple)] [&:hover_.cve-plus]:[background:var(--purple)] [&:hover_.cve-plus]:[color:#fff] [@media(max-width:_640px)]:[padding:14px]">
+              <span className="cve-plus [display:grid] [place-items:center] [width:3.6rem] [height:3.6rem] [border-radius:50%] [border:1px_solid_#d9d0fb] [transition:background_0.3s,_color_0.3s]"><Plus size={18} aria-hidden /></span>
               <span className="[font-size:max(1.5rem,14px)] [font-weight:500] [line-height:1.3]">Using another system?<br />Ask us</span>
             </Link>
           </li>

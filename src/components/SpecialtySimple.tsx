@@ -73,7 +73,7 @@ export function LeakList({ s }: { s: SpecialtyFull }) {
           <Eyebrow>{L.eyebrow}</Eyebrow>
           <SplitWords className="h-56 [font-weight:500] [font-size:5.6rem] [line-height:1.08] [letter-spacing:-0.12rem] [color:var(--ink-2)] [text-wrap:balance] [@media(max-width:_1099px)]:[font-size:3.8rem] [@media(max-width:_640px)]:[font-size:3.4rem]" lines={L.lines} stagger={0.04} />
         </div>
-        <Reveal as="p" className="ll__intro [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:60rem]">{L.intro}</Reveal>
+        <Reveal as="p" className="ll__intro [font-size:max(1.8rem,16px)] [line-height:1.6] [color:#4a4f63] [max-width:60rem] [justify-self:end] [@media(max-width:_1099px)]:[justify-self:start]">{L.intro}</Reveal>
       </div>
 
       <motion.div className="ll__card [margin-top:4rem] [padding:3.6rem] [border-radius:3.2rem] [background:#fff] [border:1px_solid_#ece8fa] [box-shadow:0_3rem_8rem_rgba(40,_20,_120,_0.08)] [@media(max-width:_1099px)]:[padding:2.4rem_2rem] [@media(max-width:_1099px)]:[border-radius:2.4rem]" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 1, ease: ease.out }}>
